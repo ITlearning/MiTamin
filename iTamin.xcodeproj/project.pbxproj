@@ -24,6 +24,13 @@
 		F5A2EB3C28D4BB0300536E9B /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = F5A2EB3B28D4BB0300536E9B /* CombineCocoa */; };
 		F5A2EB3F28DB231600536E9B /* CustomTabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB3E28DB231600536E9B /* CustomTabItem.swift */; };
 		F5A2EB4228DB2B9200536E9B /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB4128DB2B9200536E9B /* Color.swift */; };
+		F5A2EB4A28DB5FC300536E9B /* notoBlack.otf in Resources */ = {isa = PBXBuildFile; fileRef = F5A2EB4428DB5FC300536E9B /* notoBlack.otf */; };
+		F5A2EB4B28DB5FC300536E9B /* notoMedium.otf in Resources */ = {isa = PBXBuildFile; fileRef = F5A2EB4528DB5FC300536E9B /* notoMedium.otf */; };
+		F5A2EB4C28DB5FC300536E9B /* notoRegular.otf in Resources */ = {isa = PBXBuildFile; fileRef = F5A2EB4628DB5FC300536E9B /* notoRegular.otf */; };
+		F5A2EB4D28DB5FC300536E9B /* notoBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = F5A2EB4728DB5FC300536E9B /* notoBold.otf */; };
+		F5A2EB4E28DB5FC300536E9B /* notoLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = F5A2EB4828DB5FC300536E9B /* notoLight.otf */; };
+		F5A2EB4F28DB5FC300536E9B /* notoThin.otf in Resources */ = {isa = PBXBuildFile; fileRef = F5A2EB4928DB5FC300536E9B /* notoThin.otf */; };
+		F5A2EB5128DB614C00536E9B /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB5028DB614C00536E9B /* Font.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +70,13 @@
 		F5A2EB3528D4B22A00536E9B /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		F5A2EB3E28DB231600536E9B /* CustomTabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabItem.swift; sourceTree = "<group>"; };
 		F5A2EB4128DB2B9200536E9B /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		F5A2EB4428DB5FC300536E9B /* notoBlack.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = notoBlack.otf; sourceTree = "<group>"; };
+		F5A2EB4528DB5FC300536E9B /* notoMedium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = notoMedium.otf; sourceTree = "<group>"; };
+		F5A2EB4628DB5FC300536E9B /* notoRegular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = notoRegular.otf; sourceTree = "<group>"; };
+		F5A2EB4728DB5FC300536E9B /* notoBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = notoBold.otf; sourceTree = "<group>"; };
+		F5A2EB4828DB5FC300536E9B /* notoLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = notoLight.otf; sourceTree = "<group>"; };
+		F5A2EB4928DB5FC300536E9B /* notoThin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = notoThin.otf; sourceTree = "<group>"; };
+		F5A2EB5028DB614C00536E9B /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +189,7 @@
 		F5A2EB2828D4B03300536E9B /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				F5A2EB4328DB5F9F00536E9B /* Font */,
 				F5A2EAFE28D3644A00536E9B /* Assets.xcassets */,
 			);
 			path = Resource;
@@ -241,8 +256,22 @@
 			isa = PBXGroup;
 			children = (
 				F5A2EB4128DB2B9200536E9B /* Color.swift */,
+				F5A2EB5028DB614C00536E9B /* Font.swift */,
 			);
 			path = Design;
+			sourceTree = "<group>";
+		};
+		F5A2EB4328DB5F9F00536E9B /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				F5A2EB4428DB5FC300536E9B /* notoBlack.otf */,
+				F5A2EB4728DB5FC300536E9B /* notoBold.otf */,
+				F5A2EB4828DB5FC300536E9B /* notoLight.otf */,
+				F5A2EB4528DB5FC300536E9B /* notoMedium.otf */,
+				F5A2EB4628DB5FC300536E9B /* notoRegular.otf */,
+				F5A2EB4928DB5FC300536E9B /* notoThin.otf */,
+			);
+			path = Font;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -357,8 +386,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5A2EB4B28DB5FC300536E9B /* notoMedium.otf in Resources */,
+				F5A2EB4A28DB5FC300536E9B /* notoBlack.otf in Resources */,
+				F5A2EB4E28DB5FC300536E9B /* notoLight.otf in Resources */,
 				F5A2EB0228D3644A00536E9B /* LaunchScreen.storyboard in Resources */,
+				F5A2EB4F28DB5FC300536E9B /* notoThin.otf in Resources */,
 				F5A2EAFF28D3644A00536E9B /* Assets.xcassets in Resources */,
+				F5A2EB4D28DB5FC300536E9B /* notoBold.otf in Resources */,
+				F5A2EB4C28DB5FC300536E9B /* notoRegular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -384,6 +419,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5A2EAF728D3644800536E9B /* HomeViewController.swift in Sources */,
+				F5A2EB5128DB614C00536E9B /* Font.swift in Sources */,
 				F5A2EAFD28D3644800536E9B /* iTamin.xcdatamodeld in Sources */,
 				F5A2EB2C28D4B09800536E9B /* RootTabBarViewController.swift in Sources */,
 				F5A2EB4228DB2B9200536E9B /* Color.swift in Sources */,
