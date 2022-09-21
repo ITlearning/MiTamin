@@ -1,0 +1,774 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F5A2EAF328D3644800536E9B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EAF228D3644800536E9B /* AppDelegate.swift */; };
+		F5A2EAF528D3644800536E9B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EAF428D3644800536E9B /* SceneDelegate.swift */; };
+		F5A2EAF728D3644800536E9B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EAF628D3644800536E9B /* HomeViewController.swift */; };
+		F5A2EAFD28D3644800536E9B /* iTamin.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EAFB28D3644800536E9B /* iTamin.xcdatamodeld */; };
+		F5A2EAFF28D3644A00536E9B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F5A2EAFE28D3644A00536E9B /* Assets.xcassets */; };
+		F5A2EB0228D3644A00536E9B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5A2EB0028D3644A00536E9B /* LaunchScreen.storyboard */; };
+		F5A2EB0D28D3644A00536E9B /* iTaminTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB0C28D3644A00536E9B /* iTaminTests.swift */; };
+		F5A2EB1728D3644A00536E9B /* iTaminUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB1628D3644A00536E9B /* iTaminUITests.swift */; };
+		F5A2EB1928D3644A00536E9B /* iTaminUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB1828D3644A00536E9B /* iTaminUITestsLaunchTests.swift */; };
+		F5A2EB2C28D4B09800536E9B /* RootTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB2B28D4B09800536E9B /* RootTabBarViewController.swift */; };
+		F5A2EB2E28D4B1BC00536E9B /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB2D28D4B1BC00536E9B /* HistoryViewController.swift */; };
+		F5A2EB3428D4B22000536E9B /* MindConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB3328D4B22000536E9B /* MindConfigViewController.swift */; };
+		F5A2EB3628D4B22A00536E9B /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB3528D4B22A00536E9B /* MyPageViewController.swift */; };
+		F5A2EB3928D4B95F00536E9B /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F5A2EB3828D4B95F00536E9B /* SnapKit */; };
+		F5A2EB3C28D4BB0300536E9B /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = F5A2EB3B28D4BB0300536E9B /* CombineCocoa */; };
+		F5A2EB3F28DB231600536E9B /* CustomTabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB3E28DB231600536E9B /* CustomTabItem.swift */; };
+		F5A2EB4228DB2B9200536E9B /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB4128DB2B9200536E9B /* Color.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F5A2EB0928D3644A00536E9B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F5A2EAE728D3644800536E9B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F5A2EAEE28D3644800536E9B;
+			remoteInfo = iTamin;
+		};
+		F5A2EB1328D3644A00536E9B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F5A2EAE728D3644800536E9B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F5A2EAEE28D3644800536E9B;
+			remoteInfo = iTamin;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		F5A2EAEF28D3644800536E9B /* iTamin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTamin.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F5A2EAF228D3644800536E9B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F5A2EAF428D3644800536E9B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		F5A2EAF628D3644800536E9B /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		F5A2EAFC28D3644800536E9B /* iTamin.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iTamin.xcdatamodel; sourceTree = "<group>"; };
+		F5A2EAFE28D3644A00536E9B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F5A2EB0128D3644A00536E9B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F5A2EB0328D3644A00536E9B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F5A2EB0828D3644A00536E9B /* iTaminTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iTaminTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F5A2EB0C28D3644A00536E9B /* iTaminTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iTaminTests.swift; sourceTree = "<group>"; };
+		F5A2EB1228D3644A00536E9B /* iTaminUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iTaminUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F5A2EB1628D3644A00536E9B /* iTaminUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iTaminUITests.swift; sourceTree = "<group>"; };
+		F5A2EB1828D3644A00536E9B /* iTaminUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iTaminUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		F5A2EB2B28D4B09800536E9B /* RootTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabBarViewController.swift; sourceTree = "<group>"; };
+		F5A2EB2D28D4B1BC00536E9B /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		F5A2EB3328D4B22000536E9B /* MindConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MindConfigViewController.swift; sourceTree = "<group>"; };
+		F5A2EB3528D4B22A00536E9B /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
+		F5A2EB3E28DB231600536E9B /* CustomTabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabItem.swift; sourceTree = "<group>"; };
+		F5A2EB4128DB2B9200536E9B /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F5A2EAEC28D3644800536E9B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F5A2EB3C28D4BB0300536E9B /* CombineCocoa in Frameworks */,
+				F5A2EB3928D4B95F00536E9B /* SnapKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5A2EB0528D3644A00536E9B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5A2EB0F28D3644A00536E9B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F5A2EAE628D3644800536E9B = {
+			isa = PBXGroup;
+			children = (
+				F5A2EAF128D3644800536E9B /* iTamin */,
+				F5A2EB0B28D3644A00536E9B /* iTaminTests */,
+				F5A2EB1528D3644A00536E9B /* iTaminUITests */,
+				F5A2EAF028D3644800536E9B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F5A2EAF028D3644800536E9B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F5A2EAEF28D3644800536E9B /* iTamin.app */,
+				F5A2EB0828D3644A00536E9B /* iTaminTests.xctest */,
+				F5A2EB1228D3644A00536E9B /* iTaminUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F5A2EAF128D3644800536E9B /* iTamin */ = {
+			isa = PBXGroup;
+			children = (
+				F5A2EB4028DB2B8A00536E9B /* Design */,
+				F5A2EB2A28D4B05600536E9B /* System */,
+				F5A2EB2928D4B04600536E9B /* CoreData */,
+				F5A2EB2828D4B03300536E9B /* Resource */,
+				F5A2EB2528D368E600536E9B /* Model */,
+				F5A2EB2728D368F500536E9B /* ViewModel */,
+				F5A2EB2628D368F000536E9B /* UI */,
+				F5A2EB0028D3644A00536E9B /* LaunchScreen.storyboard */,
+				F5A2EB0328D3644A00536E9B /* Info.plist */,
+			);
+			path = iTamin;
+			sourceTree = "<group>";
+		};
+		F5A2EB0B28D3644A00536E9B /* iTaminTests */ = {
+			isa = PBXGroup;
+			children = (
+				F5A2EB0C28D3644A00536E9B /* iTaminTests.swift */,
+			);
+			path = iTaminTests;
+			sourceTree = "<group>";
+		};
+		F5A2EB1528D3644A00536E9B /* iTaminUITests */ = {
+			isa = PBXGroup;
+			children = (
+				F5A2EB1628D3644A00536E9B /* iTaminUITests.swift */,
+				F5A2EB1828D3644A00536E9B /* iTaminUITestsLaunchTests.swift */,
+			);
+			path = iTaminUITests;
+			sourceTree = "<group>";
+		};
+		F5A2EB2528D368E600536E9B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F5A2EB2628D368F000536E9B /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				F5A2EB3D28DB22F800536E9B /* TabbarUI */,
+				F5A2EB2F28D4B1C300536E9B /* Home */,
+				F5A2EB3028D4B1CD00536E9B /* History */,
+				F5A2EB3128D4B1DB00536E9B /* MindConfig */,
+				F5A2EB3228D4B20D00536E9B /* MyPage */,
+				F5A2EB2B28D4B09800536E9B /* RootTabBarViewController.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		F5A2EB2728D368F500536E9B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F5A2EB2828D4B03300536E9B /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				F5A2EAFE28D3644A00536E9B /* Assets.xcassets */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		F5A2EB2928D4B04600536E9B /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				F5A2EAFB28D3644800536E9B /* iTamin.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		F5A2EB2A28D4B05600536E9B /* System */ = {
+			isa = PBXGroup;
+			children = (
+				F5A2EAF428D3644800536E9B /* SceneDelegate.swift */,
+				F5A2EAF228D3644800536E9B /* AppDelegate.swift */,
+			);
+			path = System;
+			sourceTree = "<group>";
+		};
+		F5A2EB2F28D4B1C300536E9B /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				F5A2EAF628D3644800536E9B /* HomeViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		F5A2EB3028D4B1CD00536E9B /* History */ = {
+			isa = PBXGroup;
+			children = (
+				F5A2EB2D28D4B1BC00536E9B /* HistoryViewController.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		F5A2EB3128D4B1DB00536E9B /* MindConfig */ = {
+			isa = PBXGroup;
+			children = (
+				F5A2EB3328D4B22000536E9B /* MindConfigViewController.swift */,
+			);
+			path = MindConfig;
+			sourceTree = "<group>";
+		};
+		F5A2EB3228D4B20D00536E9B /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				F5A2EB3528D4B22A00536E9B /* MyPageViewController.swift */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
+		F5A2EB3D28DB22F800536E9B /* TabbarUI */ = {
+			isa = PBXGroup;
+			children = (
+				F5A2EB3E28DB231600536E9B /* CustomTabItem.swift */,
+			);
+			path = TabbarUI;
+			sourceTree = "<group>";
+		};
+		F5A2EB4028DB2B8A00536E9B /* Design */ = {
+			isa = PBXGroup;
+			children = (
+				F5A2EB4128DB2B9200536E9B /* Color.swift */,
+			);
+			path = Design;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F5A2EAEE28D3644800536E9B /* iTamin */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F5A2EB1C28D3644A00536E9B /* Build configuration list for PBXNativeTarget "iTamin" */;
+			buildPhases = (
+				F5A2EAEB28D3644800536E9B /* Sources */,
+				F5A2EAEC28D3644800536E9B /* Frameworks */,
+				F5A2EAED28D3644800536E9B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iTamin;
+			packageProductDependencies = (
+				F5A2EB3828D4B95F00536E9B /* SnapKit */,
+				F5A2EB3B28D4BB0300536E9B /* CombineCocoa */,
+			);
+			productName = iTamin;
+			productReference = F5A2EAEF28D3644800536E9B /* iTamin.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F5A2EB0728D3644A00536E9B /* iTaminTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F5A2EB1F28D3644A00536E9B /* Build configuration list for PBXNativeTarget "iTaminTests" */;
+			buildPhases = (
+				F5A2EB0428D3644A00536E9B /* Sources */,
+				F5A2EB0528D3644A00536E9B /* Frameworks */,
+				F5A2EB0628D3644A00536E9B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F5A2EB0A28D3644A00536E9B /* PBXTargetDependency */,
+			);
+			name = iTaminTests;
+			productName = iTaminTests;
+			productReference = F5A2EB0828D3644A00536E9B /* iTaminTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		F5A2EB1128D3644A00536E9B /* iTaminUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F5A2EB2228D3644A00536E9B /* Build configuration list for PBXNativeTarget "iTaminUITests" */;
+			buildPhases = (
+				F5A2EB0E28D3644A00536E9B /* Sources */,
+				F5A2EB0F28D3644A00536E9B /* Frameworks */,
+				F5A2EB1028D3644A00536E9B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F5A2EB1428D3644A00536E9B /* PBXTargetDependency */,
+			);
+			name = iTaminUITests;
+			productName = iTaminUITests;
+			productReference = F5A2EB1228D3644A00536E9B /* iTaminUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F5A2EAE728D3644800536E9B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1340;
+				LastUpgradeCheck = 1340;
+				TargetAttributes = {
+					F5A2EAEE28D3644800536E9B = {
+						CreatedOnToolsVersion = 13.4.1;
+					};
+					F5A2EB0728D3644A00536E9B = {
+						CreatedOnToolsVersion = 13.4.1;
+						TestTargetID = F5A2EAEE28D3644800536E9B;
+					};
+					F5A2EB1128D3644A00536E9B = {
+						CreatedOnToolsVersion = 13.4.1;
+						TestTargetID = F5A2EAEE28D3644800536E9B;
+					};
+				};
+			};
+			buildConfigurationList = F5A2EAEA28D3644800536E9B /* Build configuration list for PBXProject "iTamin" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F5A2EAE628D3644800536E9B;
+			packageReferences = (
+				F5A2EB3728D4B95F00536E9B /* XCRemoteSwiftPackageReference "SnapKit" */,
+				F5A2EB3A28D4BB0300536E9B /* XCRemoteSwiftPackageReference "CombineCocoa" */,
+			);
+			productRefGroup = F5A2EAF028D3644800536E9B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F5A2EAEE28D3644800536E9B /* iTamin */,
+				F5A2EB0728D3644A00536E9B /* iTaminTests */,
+				F5A2EB1128D3644A00536E9B /* iTaminUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F5A2EAED28D3644800536E9B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F5A2EB0228D3644A00536E9B /* LaunchScreen.storyboard in Resources */,
+				F5A2EAFF28D3644A00536E9B /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5A2EB0628D3644A00536E9B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5A2EB1028D3644A00536E9B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F5A2EAEB28D3644800536E9B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F5A2EAF728D3644800536E9B /* HomeViewController.swift in Sources */,
+				F5A2EAFD28D3644800536E9B /* iTamin.xcdatamodeld in Sources */,
+				F5A2EB2C28D4B09800536E9B /* RootTabBarViewController.swift in Sources */,
+				F5A2EB4228DB2B9200536E9B /* Color.swift in Sources */,
+				F5A2EB2E28D4B1BC00536E9B /* HistoryViewController.swift in Sources */,
+				F5A2EB3F28DB231600536E9B /* CustomTabItem.swift in Sources */,
+				F5A2EAF328D3644800536E9B /* AppDelegate.swift in Sources */,
+				F5A2EAF528D3644800536E9B /* SceneDelegate.swift in Sources */,
+				F5A2EB3428D4B22000536E9B /* MindConfigViewController.swift in Sources */,
+				F5A2EB3628D4B22A00536E9B /* MyPageViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5A2EB0428D3644A00536E9B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F5A2EB0D28D3644A00536E9B /* iTaminTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5A2EB0E28D3644A00536E9B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F5A2EB1928D3644A00536E9B /* iTaminUITestsLaunchTests.swift in Sources */,
+				F5A2EB1728D3644A00536E9B /* iTaminUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F5A2EB0A28D3644A00536E9B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F5A2EAEE28D3644800536E9B /* iTamin */;
+			targetProxy = F5A2EB0928D3644A00536E9B /* PBXContainerItemProxy */;
+		};
+		F5A2EB1428D3644A00536E9B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F5A2EAEE28D3644800536E9B /* iTamin */;
+			targetProxy = F5A2EB1328D3644A00536E9B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F5A2EB0028D3644A00536E9B /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F5A2EB0128D3644A00536E9B /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F5A2EB1A28D3644A00536E9B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F5A2EB1B28D3644A00536E9B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F5A2EB1D28D3644A00536E9B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZMXTCSPNUZ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = iTamin/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.goodJob.iTamin;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F5A2EB1E28D3644A00536E9B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZMXTCSPNUZ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = iTamin/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.goodJob.iTamin;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		F5A2EB2028D3644A00536E9B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZMXTCSPNUZ;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.goodJob.iTaminTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iTamin.app/iTamin";
+			};
+			name = Debug;
+		};
+		F5A2EB2128D3644A00536E9B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZMXTCSPNUZ;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.goodJob.iTaminTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iTamin.app/iTamin";
+			};
+			name = Release;
+		};
+		F5A2EB2328D3644A00536E9B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZMXTCSPNUZ;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.goodJob.iTaminUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = iTamin;
+			};
+			name = Debug;
+		};
+		F5A2EB2428D3644A00536E9B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZMXTCSPNUZ;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.goodJob.iTaminUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = iTamin;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F5A2EAEA28D3644800536E9B /* Build configuration list for PBXProject "iTamin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F5A2EB1A28D3644A00536E9B /* Debug */,
+				F5A2EB1B28D3644A00536E9B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F5A2EB1C28D3644A00536E9B /* Build configuration list for PBXNativeTarget "iTamin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F5A2EB1D28D3644A00536E9B /* Debug */,
+				F5A2EB1E28D3644A00536E9B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F5A2EB1F28D3644A00536E9B /* Build configuration list for PBXNativeTarget "iTaminTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F5A2EB2028D3644A00536E9B /* Debug */,
+				F5A2EB2128D3644A00536E9B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F5A2EB2228D3644A00536E9B /* Build configuration list for PBXNativeTarget "iTaminUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F5A2EB2328D3644A00536E9B /* Debug */,
+				F5A2EB2428D3644A00536E9B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F5A2EB3728D4B95F00536E9B /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		F5A2EB3A28D4BB0300536E9B /* XCRemoteSwiftPackageReference "CombineCocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CombineCommunity/CombineCocoa.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.4.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F5A2EB3828D4B95F00536E9B /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F5A2EB3728D4B95F00536E9B /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		F5A2EB3B28D4BB0300536E9B /* CombineCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F5A2EB3A28D4BB0300536E9B /* XCRemoteSwiftPackageReference "CombineCocoa" */;
+			productName = CombineCocoa;
+		};
+/* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		F5A2EAFB28D3644800536E9B /* iTamin.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F5A2EAFC28D3644800536E9B /* iTamin.xcdatamodel */,
+			);
+			currentVersion = F5A2EAFC28D3644800536E9B /* iTamin.xcdatamodel */;
+			path = iTamin.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = F5A2EAE728D3644800536E9B /* Project object */;
+}
