@@ -35,7 +35,7 @@
 		F5A2EB5728DCBAA900536E9B /* CancelBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB5628DCBAA900536E9B /* CancelBag.swift */; };
 		F5A2EB5C28DCBFC700536E9B /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB5B28DCBFC700536E9B /* SignInViewController.swift */; };
 		F5A2EB5E28DCC07800536E9B /* ViewControllerPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB5D28DCC07800536E9B /* ViewControllerPreview.swift */; };
-		F5A2EB6028DCC17600536E9B /* CutsomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB5F28DCC17600536E9B /* CutsomTextField.swift */; };
+		F5A2EB6028DCC17600536E9B /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB5F28DCC17600536E9B /* CustomTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,7 +86,7 @@
 		F5A2EB5628DCBAA900536E9B /* CancelBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelBag.swift; sourceTree = "<group>"; };
 		F5A2EB5B28DCBFC700536E9B /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		F5A2EB5D28DCC07800536E9B /* ViewControllerPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerPreview.swift; sourceTree = "<group>"; };
-		F5A2EB5F28DCC17600536E9B /* CutsomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutsomTextField.swift; sourceTree = "<group>"; };
+		F5A2EB5F28DCC17600536E9B /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -294,7 +294,7 @@
 			children = (
 				F5A2EB5628DCBAA900536E9B /* CancelBag.swift */,
 				F5A2EB5D28DCC07800536E9B /* ViewControllerPreview.swift */,
-				F5A2EB5F28DCC17600536E9B /* CutsomTextField.swift */,
+				F5A2EB5F28DCC17600536E9B /* CustomTextField.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -461,7 +461,7 @@
 				F5A2EB5E28DCC07800536E9B /* ViewControllerPreview.swift in Sources */,
 				F5A2EAF728D3644800536E9B /* HomeViewController.swift in Sources */,
 				F5A2EB5428DCB73800536E9B /* LoginMainViewController.swift in Sources */,
-				F5A2EB6028DCC17600536E9B /* CutsomTextField.swift in Sources */,
+				F5A2EB6028DCC17600536E9B /* CustomTextField.swift in Sources */,
 				F5A2EB5128DB614C00536E9B /* Font.swift in Sources */,
 				F5A2EAFD28D3644800536E9B /* iTamin.xcdatamodeld in Sources */,
 				F5A2EB2C28D4B09800536E9B /* RootTabBarViewController.swift in Sources */,
