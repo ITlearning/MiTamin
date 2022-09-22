@@ -31,6 +31,8 @@
 		F5A2EB4E28DB5FC300536E9B /* notoLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = F5A2EB4828DB5FC300536E9B /* notoLight.otf */; };
 		F5A2EB4F28DB5FC300536E9B /* notoThin.otf in Resources */ = {isa = PBXBuildFile; fileRef = F5A2EB4928DB5FC300536E9B /* notoThin.otf */; };
 		F5A2EB5128DB614C00536E9B /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB5028DB614C00536E9B /* Font.swift */; };
+		F5A2EB5428DCB73800536E9B /* LoginMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB5328DCB73800536E9B /* LoginMainViewController.swift */; };
+		F5A2EB5728DCBAA900536E9B /* CancelBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB5628DCBAA900536E9B /* CancelBag.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +79,8 @@
 		F5A2EB4828DB5FC300536E9B /* notoLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = notoLight.otf; sourceTree = "<group>"; };
 		F5A2EB4928DB5FC300536E9B /* notoThin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = notoThin.otf; sourceTree = "<group>"; };
 		F5A2EB5028DB614C00536E9B /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		F5A2EB5328DCB73800536E9B /* LoginMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginMainViewController.swift; sourceTree = "<group>"; };
+		F5A2EB5628DCBAA900536E9B /* CancelBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelBag.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,13 +133,8 @@
 		F5A2EAF128D3644800536E9B /* iTamin */ = {
 			isa = PBXGroup;
 			children = (
-				F5A2EB4028DB2B8A00536E9B /* Design */,
-				F5A2EB2A28D4B05600536E9B /* System */,
-				F5A2EB2928D4B04600536E9B /* CoreData */,
+				F5A2EB5828DCBD3A00536E9B /* Source */,
 				F5A2EB2828D4B03300536E9B /* Resource */,
-				F5A2EB2528D368E600536E9B /* Model */,
-				F5A2EB2728D368F500536E9B /* ViewModel */,
-				F5A2EB2628D368F000536E9B /* UI */,
 				F5A2EB0028D3644A00536E9B /* LaunchScreen.storyboard */,
 				F5A2EB0328D3644A00536E9B /* Info.plist */,
 			);
@@ -169,6 +168,7 @@
 		F5A2EB2628D368F000536E9B /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				F5A2EB5228DCB3DC00536E9B /* Login */,
 				F5A2EB3D28DB22F800536E9B /* TabbarUI */,
 				F5A2EB2F28D4B1C300536E9B /* Home */,
 				F5A2EB3028D4B1CD00536E9B /* History */,
@@ -272,6 +272,36 @@
 				F5A2EB4928DB5FC300536E9B /* notoThin.otf */,
 			);
 			path = Font;
+			sourceTree = "<group>";
+		};
+		F5A2EB5228DCB3DC00536E9B /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				F5A2EB5328DCB73800536E9B /* LoginMainViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		F5A2EB5528DCBA9E00536E9B /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				F5A2EB5628DCBAA900536E9B /* CancelBag.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		F5A2EB5828DCBD3A00536E9B /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				F5A2EB5528DCBA9E00536E9B /* Extension */,
+				F5A2EB4028DB2B8A00536E9B /* Design */,
+				F5A2EB2A28D4B05600536E9B /* System */,
+				F5A2EB2928D4B04600536E9B /* CoreData */,
+				F5A2EB2528D368E600536E9B /* Model */,
+				F5A2EB2728D368F500536E9B /* ViewModel */,
+				F5A2EB2628D368F000536E9B /* UI */,
+			);
+			path = Source;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -419,11 +449,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5A2EAF728D3644800536E9B /* HomeViewController.swift in Sources */,
+				F5A2EB5428DCB73800536E9B /* LoginMainViewController.swift in Sources */,
 				F5A2EB5128DB614C00536E9B /* Font.swift in Sources */,
 				F5A2EAFD28D3644800536E9B /* iTamin.xcdatamodeld in Sources */,
 				F5A2EB2C28D4B09800536E9B /* RootTabBarViewController.swift in Sources */,
 				F5A2EB4228DB2B9200536E9B /* Color.swift in Sources */,
 				F5A2EB2E28D4B1BC00536E9B /* HistoryViewController.swift in Sources */,
+				F5A2EB5728DCBAA900536E9B /* CancelBag.swift in Sources */,
 				F5A2EB3F28DB231600536E9B /* CustomTabItem.swift in Sources */,
 				F5A2EAF328D3644800536E9B /* AppDelegate.swift in Sources */,
 				F5A2EAF528D3644800536E9B /* SceneDelegate.swift in Sources */,
