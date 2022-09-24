@@ -41,15 +41,15 @@
 		F5A2EB6828DEF80E00536E9B /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB6728DEF80E00536E9B /* CustomButton.swift */; };
 		F5A2EB6C28DEF93800536E9B /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB6B28DEF93800536E9B /* ProgressBar.swift */; };
 		F5A2EB6F28DF009500536E9B /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB6E28DF009500536E9B /* TermsViewController.swift */; };
-		F5A2EB7128DF093D00536E9B /* TermsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB7028DF093D00536E9B /* TermsViewModel.swift */; };
 		F5A2EB7428DF0F1000536E9B /* NickNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB7328DF0F1000536E9B /* NickNameViewController.swift */; };
 		F5A2EB7628DF0F2F00536E9B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB7528DF0F2F00536E9B /* ViewController.swift */; };
-		F5A2EB7828DF155900536E9B /* NickNameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB7728DF155900536E9B /* NickNameViewModel.swift */; };
 		F5A2EB7A28DF1A2100536E9B /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB7928DF1A2100536E9B /* SignUpViewModel.swift */; };
 		F5A2EB7D28DF1B3600536E9B /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB7C28DF1B3600536E9B /* OnBoardingViewController.swift */; };
 		F5A2EB7F28DF1C5500536E9B /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB7E28DF1C5500536E9B /* OnboardingCollectionViewCell.swift */; };
 		F5A2EB8128DF1E5E00536E9B /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB8028DF1E5D00536E9B /* CustomDatePicker.swift */; };
-		F5A2EB8328DF2CF700536E9B /* OnBoardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB8228DF2CF700536E9B /* OnBoardingViewModel.swift */; };
+		F5A2EB8628DF388300536E9B /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F5A2EB8528DF388300536E9B /* Alamofire */; };
+		F5A2EB8928DF38A400536E9B /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB8828DF38A400536E9B /* NetworkManager.swift */; };
+		F5A2EB8B28DF38C700536E9B /* ServerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB8A28DF38C700536E9B /* ServerModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,15 +106,14 @@
 		F5A2EB6728DEF80E00536E9B /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		F5A2EB6B28DEF93800536E9B /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		F5A2EB6E28DF009500536E9B /* TermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewController.swift; sourceTree = "<group>"; };
-		F5A2EB7028DF093D00536E9B /* TermsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewModel.swift; sourceTree = "<group>"; };
 		F5A2EB7328DF0F1000536E9B /* NickNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameViewController.swift; sourceTree = "<group>"; };
 		F5A2EB7528DF0F2F00536E9B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		F5A2EB7728DF155900536E9B /* NickNameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameViewModel.swift; sourceTree = "<group>"; };
 		F5A2EB7928DF1A2100536E9B /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		F5A2EB7C28DF1B3600536E9B /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
 		F5A2EB7E28DF1C5500536E9B /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
 		F5A2EB8028DF1E5D00536E9B /* CustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePicker.swift; sourceTree = "<group>"; };
-		F5A2EB8228DF2CF700536E9B /* OnBoardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewModel.swift; sourceTree = "<group>"; };
+		F5A2EB8828DF38A400536E9B /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		F5A2EB8A28DF38C700536E9B /* ServerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +121,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5A2EB8628DF388300536E9B /* Alamofire in Frameworks */,
 				F5A2EB3C28D4BB0300536E9B /* CombineCocoa in Frameworks */,
 				F5A2EB3928D4B95F00536E9B /* SnapKit in Frameworks */,
 			);
@@ -195,6 +195,7 @@
 		F5A2EB2528D368E600536E9B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				F5A2EB8A28DF38C700536E9B /* ServerModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -338,6 +339,7 @@
 		F5A2EB5828DCBD3A00536E9B /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				F5A2EB8728DF389700536E9B /* NetworkManager */,
 				F5A2EB5528DCBA9E00536E9B /* Extension */,
 				F5A2EB4028DB2B8A00536E9B /* Design */,
 				F5A2EB2A28D4B05600536E9B /* System */,
@@ -371,7 +373,6 @@
 			isa = PBXGroup;
 			children = (
 				F5A2EB6E28DF009500536E9B /* TermsViewController.swift */,
-				F5A2EB7028DF093D00536E9B /* TermsViewModel.swift */,
 			);
 			path = Terms;
 			sourceTree = "<group>";
@@ -380,7 +381,6 @@
 			isa = PBXGroup;
 			children = (
 				F5A2EB7328DF0F1000536E9B /* NickNameViewController.swift */,
-				F5A2EB7728DF155900536E9B /* NickNameViewModel.swift */,
 			);
 			path = NickName;
 			sourceTree = "<group>";
@@ -390,9 +390,16 @@
 			children = (
 				F5A2EB7C28DF1B3600536E9B /* OnBoardingViewController.swift */,
 				F5A2EB7E28DF1C5500536E9B /* OnboardingCollectionViewCell.swift */,
-				F5A2EB8228DF2CF700536E9B /* OnBoardingViewModel.swift */,
 			);
 			path = OnBoarding;
+			sourceTree = "<group>";
+		};
+		F5A2EB8728DF389700536E9B /* NetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				F5A2EB8828DF38A400536E9B /* NetworkManager.swift */,
+			);
+			path = NetworkManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -414,6 +421,7 @@
 			packageProductDependencies = (
 				F5A2EB3828D4B95F00536E9B /* SnapKit */,
 				F5A2EB3B28D4BB0300536E9B /* CombineCocoa */,
+				F5A2EB8528DF388300536E9B /* Alamofire */,
 			);
 			productName = iTamin;
 			productReference = F5A2EAEF28D3644800536E9B /* iTamin.app */;
@@ -490,6 +498,7 @@
 			packageReferences = (
 				F5A2EB3728D4B95F00536E9B /* XCRemoteSwiftPackageReference "SnapKit" */,
 				F5A2EB3A28D4BB0300536E9B /* XCRemoteSwiftPackageReference "CombineCocoa" */,
+				F5A2EB8428DF388300536E9B /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = F5A2EAF028D3644800536E9B /* Products */;
 			projectDirPath = "";
@@ -544,6 +553,7 @@
 				F5A2EB6828DEF80E00536E9B /* CustomButton.swift in Sources */,
 				F5A2EB5E28DCC07800536E9B /* ViewControllerPreview.swift in Sources */,
 				F5A2EAF728D3644800536E9B /* HomeViewController.swift in Sources */,
+				F5A2EB8B28DF38C700536E9B /* ServerModel.swift in Sources */,
 				F5A2EB5428DCB73800536E9B /* LoginMainViewController.swift in Sources */,
 				F5A2EB7628DF0F2F00536E9B /* ViewController.swift in Sources */,
 				F5A2EB6028DCC17600536E9B /* CustomTextField.swift in Sources */,
@@ -556,17 +566,15 @@
 				F5A2EB7A28DF1A2100536E9B /* SignUpViewModel.swift in Sources */,
 				F5A2EB2E28D4B1BC00536E9B /* HistoryViewController.swift in Sources */,
 				F5A2EB6F28DF009500536E9B /* TermsViewController.swift in Sources */,
-				F5A2EB7128DF093D00536E9B /* TermsViewModel.swift in Sources */,
+				F5A2EB8928DF38A400536E9B /* NetworkManager.swift in Sources */,
 				F5A2EB5728DCBAA900536E9B /* CancelBag.swift in Sources */,
 				F5A2EB8128DF1E5E00536E9B /* CustomDatePicker.swift in Sources */,
 				F5A2EB7F28DF1C5500536E9B /* OnboardingCollectionViewCell.swift in Sources */,
 				F5A2EB3F28DB231600536E9B /* CustomTabItem.swift in Sources */,
 				F5A2EAF328D3644800536E9B /* AppDelegate.swift in Sources */,
 				F5A2EAF528D3644800536E9B /* SceneDelegate.swift in Sources */,
-				F5A2EB7828DF155900536E9B /* NickNameViewModel.swift in Sources */,
 				F5A2EB3428D4B22000536E9B /* MindConfigViewController.swift in Sources */,
 				F5A2EB7D28DF1B3600536E9B /* OnBoardingViewController.swift in Sources */,
-				F5A2EB8328DF2CF700536E9B /* OnBoardingViewModel.swift in Sources */,
 				F5A2EB6C28DEF93800536E9B /* ProgressBar.swift in Sources */,
 				F5A2EB3628D4B22A00536E9B /* MyPageViewController.swift in Sources */,
 			);
@@ -918,6 +926,14 @@
 				minimumVersion = 0.4.0;
 			};
 		};
+		F5A2EB8428DF388300536E9B /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -930,6 +946,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F5A2EB3A28D4BB0300536E9B /* XCRemoteSwiftPackageReference "CombineCocoa" */;
 			productName = CombineCocoa;
+		};
+		F5A2EB8528DF388300536E9B /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F5A2EB8428DF388300536E9B /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
 

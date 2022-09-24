@@ -15,7 +15,7 @@ import SnapKit
 class OnBoardingViewController: UIViewController {
     private var cancelBag = CancelBag()
     
-    private var viewModel: ViewModel = ViewModel()
+    private var viewModel: SignUpViewModel
     
     private let collectionView: UICollectionView = {
         let collectionViewLayout = UICollectionViewFlowLayout()
@@ -36,9 +36,9 @@ class OnBoardingViewController: UIViewController {
         return button
     }()
     
-    init(userName: String) {
+    init(viewModel: SignUpViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        viewModel.userName = userName
     }
     
     required init?(coder: NSCoder) {
@@ -117,7 +117,7 @@ extension OnBoardingViewController: UICollectionViewDelegate, UICollectionViewDa
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OnboardingCollectionViewCell.cellId, for: indexPath) as? OnboardingCollectionViewCell else { return UICollectionViewCell() }
         let text = viewModel.descriptionArray[indexPath.row]
         if indexPath.row == 0 {
-            let replace = text.replacingOccurrences(of: "|", with: viewModel.userName)
+            let replace = text.replacingOccurrences(of: "|", with: viewModel.showUserName())
             viewModel.descriptionArray[indexPath.row] = replace
             cell.setCell(mainTitle: replace, image: "Mainillustration")
         }
@@ -141,14 +141,5 @@ extension OnBoardingViewController: UICollectionViewDelegate, UICollectionViewDa
         guard let indexPath = collectionView.indexPathForItem(at: visiblePoint) else { return }
         
         viewModel.currentInex = indexPath.row
-    }
-}
-
-struct OnBoardingViewController_Preview: PreviewProvider {
-    static var previews: some View {
-        ViewControllerPreview {
-            OnBoardingViewController(userName: "OO")
-        }
-        .previewDevice("iPhone 13")
     }
 }

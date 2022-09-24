@@ -15,7 +15,7 @@ class TermsViewController: UIViewController {
 
     private var cancelBag = CancelBag()
     private var cancellable: AnyCancellable?
-    let viewModel = ViewModel()
+    private var viewModel: SignUpViewModel
     
     let termsMainTitle: UILabel = {
         let label = UILabel()
@@ -94,6 +94,15 @@ class TermsViewController: UIViewController {
         return button
     }()
     
+    init(viewModel: SignUpViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.navigationConfigure(title: "약관 동의")
@@ -137,8 +146,9 @@ class TermsViewController: UIViewController {
         
         nextButton.tapPublisher
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { _ in
-                let nickVC = NickNameViewController()
+            .sink(receiveValue: { [weak self] _ in
+                guard let self = self else { return }
+                let nickVC = NickNameViewController(viewModel: self.viewModel)
                 self.navigationController?.pushViewController(nickVC, animated: false)
             })
             .cancel(with: cancelBag)
@@ -244,13 +254,4 @@ class TermsViewController: UIViewController {
         }
     }
     
-}
-
-struct TermsViewController_Preview: PreviewProvider {
-    static var previews: some View {
-        ViewControllerPreview {
-            TermsViewController()
-        }
-        .previewDevice("iPhone 13")
-    }
 }

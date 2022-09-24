@@ -14,7 +14,7 @@ import SwiftUI
 class NickNameViewController: UIViewController {
 
     private var cancelBag = CancelBag()
-    private var viewModel = ViewModel()
+    private var viewModel: SignUpViewModel
     let nickNameMainTitle: UILabel = {
         let label = UILabel()
         label.text = "마이타민에서 사용할\n닉네임을 입력해주세요."
@@ -70,6 +70,15 @@ class NickNameViewController: UIViewController {
         return label
     }()
     
+    init(viewModel: SignUpViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -114,7 +123,7 @@ class NickNameViewController: UIViewController {
         nextButton.tapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { _ in
-                let onboardingVC = OnBoardingViewController(userName: self.viewModel.showUserName())
+                let onboardingVC = OnBoardingViewController(viewModel: self.viewModel)
                 onboardingVC.modalPresentationStyle = .fullScreen
                 self.present(onboardingVC, animated: true)
             })
@@ -178,13 +187,4 @@ class NickNameViewController: UIViewController {
         }
     }
     
-}
-
-struct NickNameViewController_Preview: PreviewProvider {
-    static var previews: some View {
-        ViewControllerPreview {
-            NickNameViewController()
-        }
-        .previewDevice("iPhone 13")
-    }
 }
