@@ -18,6 +18,7 @@ extension UIColor {
     static let buttonDone = UIColor(red: 0.40, green: 0.40, blue: 0.40, alpha: 1.00)
     static let goodNickGray = UIColor(red: 0.73, green: 0.73, blue: 0.73, alpha: 1.00)
     static let onboadingSubTitleGray = UIColor(red: 0.50, green: 0.50, blue: 0.50, alpha: 1.00)
+    static let nextTimeGray = UIColor(red: 0.82, green: 0.82, blue: 0.82, alpha: 1.00)
     // MARK: - Home
     static let tabBarUnSelectColor = UIColor(red: 0.80, green: 0.80, blue: 0.80, alpha: 1.00)
     static let tabBarSelectColor = UIColor(red: 0.40, green: 0.40, blue: 0.40, alpha: 1.00)

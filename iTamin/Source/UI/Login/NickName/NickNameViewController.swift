@@ -126,6 +126,7 @@ class NickNameViewController: UIViewController {
                 let onboardingVC = OnBoardingViewController(viewModel: self.viewModel)
                 onboardingVC.modalPresentationStyle = .fullScreen
                 self.present(onboardingVC, animated: true)
+                
             })
             .cancel(with: cancelBag)
     }

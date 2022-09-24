@@ -13,9 +13,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        
         let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = UINavigationController(rootViewController: LoginMainViewController())
+        
+        if UserDefaults.standard.bool(forKey: "isLogined") {
+            window.rootViewController = RootTabBarViewController()
+        } else {
+            window.rootViewController = UINavigationController(rootViewController: LoginMainViewController())
+        }
+        
         window.makeKeyAndVisible()
         self.window = window
         
@@ -42,6 +47,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
 
-
+    func changeRootViewController (_ vc: UIViewController, animated: Bool) {
+        // guard let으로 윈도우를 옵셔널 바인딩한 상황
+        guard let window = self.window else { return }
+        
+        // 아까 위에서 설정한 window를 기준으로 RootViewController를 재설정하는 코드
+        window.rootViewController = vc
+        
+        // 뷰가 변경될 때 이동하는 애니메이션과 시간등을 정의
+        UIView.transition(with: window, duration: 0.4, options: [.transitionCrossDissolve], animations: nil, completion: nil)
+    }
 }
 

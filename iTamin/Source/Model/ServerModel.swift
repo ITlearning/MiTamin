@@ -40,7 +40,6 @@ struct SignUpModel: Codable {
 
 struct SignUpReciveModel: Codable {
     let email: String
-    let password: String
     let profileImgUrl: String
     let beMyMessage: String
     let nickname: String

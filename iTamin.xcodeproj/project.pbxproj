@@ -50,6 +50,7 @@
 		F5A2EB8628DF388300536E9B /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F5A2EB8528DF388300536E9B /* Alamofire */; };
 		F5A2EB8928DF38A400536E9B /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB8828DF38A400536E9B /* NetworkManager.swift */; };
 		F5A2EB8B28DF38C700536E9B /* ServerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB8A28DF38C700536E9B /* ServerModel.swift */; };
+		F5A2EB8D28DF6BA600536E9B /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB8C28DF6BA600536E9B /* UIWindow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +115,7 @@
 		F5A2EB8028DF1E5D00536E9B /* CustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePicker.swift; sourceTree = "<group>"; };
 		F5A2EB8828DF38A400536E9B /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		F5A2EB8A28DF38C700536E9B /* ServerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerModel.swift; sourceTree = "<group>"; };
+		F5A2EB8C28DF6BA600536E9B /* UIWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIWindow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -332,6 +334,7 @@
 				F5A2EB6B28DEF93800536E9B /* ProgressBar.swift */,
 				F5A2EB7528DF0F2F00536E9B /* ViewController.swift */,
 				F5A2EB8028DF1E5D00536E9B /* CustomDatePicker.swift */,
+				F5A2EB8C28DF6BA600536E9B /* UIWindow.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -575,6 +578,7 @@
 				F5A2EAF528D3644800536E9B /* SceneDelegate.swift in Sources */,
 				F5A2EB3428D4B22000536E9B /* MindConfigViewController.swift in Sources */,
 				F5A2EB7D28DF1B3600536E9B /* OnBoardingViewController.swift in Sources */,
+				F5A2EB8D28DF6BA600536E9B /* UIWindow.swift in Sources */,
 				F5A2EB6C28DEF93800536E9B /* ProgressBar.swift in Sources */,
 				F5A2EB3628D4B22A00536E9B /* MyPageViewController.swift in Sources */,
 			);

@@ -36,6 +36,14 @@ class OnBoardingViewController: UIViewController {
         return button
     }()
     
+    let nextTimeButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("나중에 할게요.", for: .normal)
+        button.setTitleColor(UIColor.nextTimeGray, for: .normal)
+        button.titleLabel?.font = UIFont.notoRegular(size: 16)
+        return button
+    }()
+    
     init(viewModel: SignUpViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -68,6 +76,26 @@ class OnBoardingViewController: UIViewController {
                 self.collectionView.scrollToItem(at: IndexPath(item: self.viewModel.currentInex, section: 0), at: .centeredVertically, animated: true)
             })
             .cancel(with: cancelBag)
+        
+        nextTimeButton.tapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { _ in
+                self.viewModel.signUpToServer()
+            })
+            .cancel(with: cancelBag)
+        
+        viewModel.signUpSuccess
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { value in
+                UserDefaults.standard.set(true, forKey: "isLogined")
+                
+                let rootTabBarViewController = RootTabBarViewController()
+                
+                (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(rootTabBarViewController, animated: true)
+            })
+            .cancel(with: cancelBag)
+        
+        
     }
     
     
@@ -89,6 +117,7 @@ class OnBoardingViewController: UIViewController {
         view.backgroundColor = .white
         view.addSubview(collectionView)
         view.addSubview(nextButton)
+        view.addSubview(nextTimeButton)
         
         collectionView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(155)
@@ -102,6 +131,11 @@ class OnBoardingViewController: UIViewController {
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(24)
             $0.height.equalTo(56)
+        }
+        
+        nextTimeButton.snp.makeConstraints {
+            $0.bottom.equalTo(nextButton.snp.top).inset(26)
+            $0.centerX.equalToSuperview()
         }
     }
     

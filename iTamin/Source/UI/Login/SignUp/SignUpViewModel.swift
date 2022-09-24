@@ -22,6 +22,8 @@ class SignUpViewModel: ObservableObject {
     @Published var passwordCheckText: String = ""
     
     var emailCheck = PassthroughSubject<Bool, Never>()
+    var signUpSuccess = PassthroughSubject<Bool, Never>()
+    var userData: SignUpReciveModel?
     
     var networkManager = NetworkManager()
     var cancelBag = CancelBag()
@@ -58,6 +60,26 @@ class SignUpViewModel: ObservableObject {
         return nickNameText
     }
 
+    func signUpToServer() {
+        let model = SignUpModel(email: emailText,
+                                password: passwordText,
+                                nickname: nickNameText,
+                                mytaminHour: "",
+                                mytaminMin: "")
+        
+        networkManager.signUpToServer(model: model, skip: true)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }, receiveValue: { value in
+                self.userData = value.data
+                if value.statusCode == 200 {
+                    self.signUpSuccess.send(true)
+                } else {
+                    self.signUpSuccess.send(false)
+                }
+            })
+            .cancel(with: cancelBag)
+    }
+    
     var isAllSelect: AnyPublisher<Bool, Never> {
         return Publishers.CombineLatest($oneButtonSelect, $twoButtonSelect)
             .map { one, two in
