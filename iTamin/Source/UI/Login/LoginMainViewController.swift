@@ -73,9 +73,13 @@ class LoginMainViewController: UIViewController {
         return button
     }()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         configureLayout()
         buttonSetting()
         bindButtons()
@@ -95,7 +99,9 @@ class LoginMainViewController: UIViewController {
         signInButton.tapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: {
-                print("로그인 버튼 클릭")
+                print("왜 안됨")
+                let loginVC = SignInViewController()
+                self.navigationController?.pushViewController(loginVC, animated: true)
             })
             .cancel(with: cancelBag)
     }
