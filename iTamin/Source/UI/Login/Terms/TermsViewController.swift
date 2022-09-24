@@ -94,11 +94,17 @@ class TermsViewController: UIViewController {
         return button
     }()
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.navigationConfigure(title: "약관 동의")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         navigationConfigure()
         configureLayout()
+        
         bindCombine()
     }
     
@@ -129,6 +135,14 @@ class TermsViewController: UIViewController {
             })
             .cancel(with: cancelBag)
         
+        nextButton.tapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { _ in
+                let nickVC = NickNameViewController()
+                self.navigationController?.pushViewController(nickVC, animated: false)
+            })
+            .cancel(with: cancelBag)
+        
         viewModel.isAllSelect
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] value in
@@ -144,6 +158,8 @@ class TermsViewController: UIViewController {
                 self.setButtonAble()
             })
             .cancel(with: cancelBag)
+        
+        
         
     }
 
@@ -171,17 +187,6 @@ class TermsViewController: UIViewController {
             nextButton.backgroundColor = UIColor.loginButtonGray
         }
     }
-    
-    func navigationConfigure() {
-        let backButton = UIImage(named: "icon-arrow-left-small-mono")
-        self.navigationController?.isNavigationBarHidden = false
-        self.navigationController?.navigationBar.backIndicatorImage = backButton
-        self.navigationController?.navigationBar.backItem?.title = ""
-        self.navigationController?.navigationBar.topItem?.title = "약관동의"
-        navigationController?.navigationBar.backIndicatorTransitionMaskImage = backButton
-        self.navigationController?.navigationBar.tintColor = UIColor.backButtonBlack
-    }
-
     
     func configureLayout() {
         view.backgroundColor = .white

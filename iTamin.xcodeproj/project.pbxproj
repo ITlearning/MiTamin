@@ -42,6 +42,14 @@
 		F5A2EB6C28DEF93800536E9B /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB6B28DEF93800536E9B /* ProgressBar.swift */; };
 		F5A2EB6F28DF009500536E9B /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB6E28DF009500536E9B /* TermsViewController.swift */; };
 		F5A2EB7128DF093D00536E9B /* TermsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB7028DF093D00536E9B /* TermsViewModel.swift */; };
+		F5A2EB7428DF0F1000536E9B /* NickNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB7328DF0F1000536E9B /* NickNameViewController.swift */; };
+		F5A2EB7628DF0F2F00536E9B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB7528DF0F2F00536E9B /* ViewController.swift */; };
+		F5A2EB7828DF155900536E9B /* NickNameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB7728DF155900536E9B /* NickNameViewModel.swift */; };
+		F5A2EB7A28DF1A2100536E9B /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB7928DF1A2100536E9B /* SignUpViewModel.swift */; };
+		F5A2EB7D28DF1B3600536E9B /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB7C28DF1B3600536E9B /* OnBoardingViewController.swift */; };
+		F5A2EB7F28DF1C5500536E9B /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB7E28DF1C5500536E9B /* OnboardingCollectionViewCell.swift */; };
+		F5A2EB8128DF1E5E00536E9B /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB8028DF1E5D00536E9B /* CustomDatePicker.swift */; };
+		F5A2EB8328DF2CF700536E9B /* OnBoardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB8228DF2CF700536E9B /* OnBoardingViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +107,14 @@
 		F5A2EB6B28DEF93800536E9B /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		F5A2EB6E28DF009500536E9B /* TermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewController.swift; sourceTree = "<group>"; };
 		F5A2EB7028DF093D00536E9B /* TermsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewModel.swift; sourceTree = "<group>"; };
+		F5A2EB7328DF0F1000536E9B /* NickNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameViewController.swift; sourceTree = "<group>"; };
+		F5A2EB7528DF0F2F00536E9B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F5A2EB7728DF155900536E9B /* NickNameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameViewModel.swift; sourceTree = "<group>"; };
+		F5A2EB7928DF1A2100536E9B /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		F5A2EB7C28DF1B3600536E9B /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
+		F5A2EB7E28DF1C5500536E9B /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
+		F5A2EB8028DF1E5D00536E9B /* CustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePicker.swift; sourceTree = "<group>"; };
+		F5A2EB8228DF2CF700536E9B /* OnBoardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +202,7 @@
 		F5A2EB2628D368F000536E9B /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				F5A2EB7B28DF1B2500536E9B /* OnBoarding */,
 				F5A2EB5228DCB3DC00536E9B /* Login */,
 				F5A2EB3D28DB22F800536E9B /* TabbarUI */,
 				F5A2EB2F28D4B1C300536E9B /* Home */,
@@ -296,10 +313,11 @@
 		F5A2EB5228DCB3DC00536E9B /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				F5A2EB6D28DF008400536E9B /* Terms */,
-				F5A2EB6128DEE94100536E9B /* SignIn */,
-				F5A2EB6428DEF4B300536E9B /* SignUp */,
 				F5A2EB5328DCB73800536E9B /* LoginMainViewController.swift */,
+				F5A2EB7228DF0F0400536E9B /* NickName */,
+				F5A2EB6D28DF008400536E9B /* Terms */,
+				F5A2EB6428DEF4B300536E9B /* SignUp */,
+				F5A2EB6128DEE94100536E9B /* SignIn */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -311,6 +329,8 @@
 				F5A2EB5D28DCC07800536E9B /* ViewControllerPreview.swift */,
 				F5A2EB5F28DCC17600536E9B /* CustomTextField.swift */,
 				F5A2EB6B28DEF93800536E9B /* ProgressBar.swift */,
+				F5A2EB7528DF0F2F00536E9B /* ViewController.swift */,
+				F5A2EB8028DF1E5D00536E9B /* CustomDatePicker.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -342,6 +362,7 @@
 			isa = PBXGroup;
 			children = (
 				F5A2EB6528DEF58200536E9B /* SignUpViewController.swift */,
+				F5A2EB7928DF1A2100536E9B /* SignUpViewModel.swift */,
 			);
 			path = SignUp;
 			sourceTree = "<group>";
@@ -353,6 +374,25 @@
 				F5A2EB7028DF093D00536E9B /* TermsViewModel.swift */,
 			);
 			path = Terms;
+			sourceTree = "<group>";
+		};
+		F5A2EB7228DF0F0400536E9B /* NickName */ = {
+			isa = PBXGroup;
+			children = (
+				F5A2EB7328DF0F1000536E9B /* NickNameViewController.swift */,
+				F5A2EB7728DF155900536E9B /* NickNameViewModel.swift */,
+			);
+			path = NickName;
+			sourceTree = "<group>";
+		};
+		F5A2EB7B28DF1B2500536E9B /* OnBoarding */ = {
+			isa = PBXGroup;
+			children = (
+				F5A2EB7C28DF1B3600536E9B /* OnBoardingViewController.swift */,
+				F5A2EB7E28DF1C5500536E9B /* OnboardingCollectionViewCell.swift */,
+				F5A2EB8228DF2CF700536E9B /* OnBoardingViewModel.swift */,
+			);
+			path = OnBoarding;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -499,11 +539,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5A2EB7428DF0F1000536E9B /* NickNameViewController.swift in Sources */,
 				F5A2EB5C28DCBFC700536E9B /* SignInViewController.swift in Sources */,
 				F5A2EB6828DEF80E00536E9B /* CustomButton.swift in Sources */,
 				F5A2EB5E28DCC07800536E9B /* ViewControllerPreview.swift in Sources */,
 				F5A2EAF728D3644800536E9B /* HomeViewController.swift in Sources */,
 				F5A2EB5428DCB73800536E9B /* LoginMainViewController.swift in Sources */,
+				F5A2EB7628DF0F2F00536E9B /* ViewController.swift in Sources */,
 				F5A2EB6028DCC17600536E9B /* CustomTextField.swift in Sources */,
 				F5A2EB5128DB614C00536E9B /* Font.swift in Sources */,
 				F5A2EB6628DEF58200536E9B /* SignUpViewController.swift in Sources */,
@@ -511,14 +553,20 @@
 				F5A2EB2C28D4B09800536E9B /* RootTabBarViewController.swift in Sources */,
 				F5A2EB4228DB2B9200536E9B /* Color.swift in Sources */,
 				F5A2EB6328DEE95600536E9B /* SignInViewModel.swift in Sources */,
+				F5A2EB7A28DF1A2100536E9B /* SignUpViewModel.swift in Sources */,
 				F5A2EB2E28D4B1BC00536E9B /* HistoryViewController.swift in Sources */,
 				F5A2EB6F28DF009500536E9B /* TermsViewController.swift in Sources */,
 				F5A2EB7128DF093D00536E9B /* TermsViewModel.swift in Sources */,
 				F5A2EB5728DCBAA900536E9B /* CancelBag.swift in Sources */,
+				F5A2EB8128DF1E5E00536E9B /* CustomDatePicker.swift in Sources */,
+				F5A2EB7F28DF1C5500536E9B /* OnboardingCollectionViewCell.swift in Sources */,
 				F5A2EB3F28DB231600536E9B /* CustomTabItem.swift in Sources */,
 				F5A2EAF328D3644800536E9B /* AppDelegate.swift in Sources */,
 				F5A2EAF528D3644800536E9B /* SceneDelegate.swift in Sources */,
+				F5A2EB7828DF155900536E9B /* NickNameViewModel.swift in Sources */,
 				F5A2EB3428D4B22000536E9B /* MindConfigViewController.swift in Sources */,
+				F5A2EB7D28DF1B3600536E9B /* OnBoardingViewController.swift in Sources */,
+				F5A2EB8328DF2CF700536E9B /* OnBoardingViewModel.swift in Sources */,
 				F5A2EB6C28DEF93800536E9B /* ProgressBar.swift in Sources */,
 				F5A2EB3628D4B22A00536E9B /* MyPageViewController.swift in Sources */,
 			);

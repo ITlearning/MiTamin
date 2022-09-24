@@ -92,10 +92,15 @@ class SignUpViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = false
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.navigationConfigure(title: "회원 가입")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationConfigure()
         
+        //navigationConfigure()
         configureLayout()
         bindCombine()
     }
@@ -109,16 +114,6 @@ class SignUpViewController: UIViewController {
                 self.navigationController?.pushViewController(termsVC, animated: false)
             })
             .cancel(with: cancelBag)
-    }
-    
-    func navigationConfigure() {
-        let backButton = UIImage(named: "icon-arrow-left-small-mono")
-        self.navigationController?.isNavigationBarHidden = false
-        self.navigationController?.navigationBar.backIndicatorImage = backButton
-        self.navigationController?.navigationBar.backItem?.title = ""
-        self.navigationController?.navigationBar.topItem?.title = "회원가입"
-        navigationController?.navigationBar.backIndicatorTransitionMaskImage = backButton
-        self.navigationController?.navigationBar.tintColor = UIColor.backButtonBlack
     }
     
     func configureLayout() {
