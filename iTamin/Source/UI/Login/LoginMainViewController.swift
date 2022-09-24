@@ -92,7 +92,8 @@ class LoginMainViewController: UIViewController {
         signUpButton.tapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: {
-                print("회원가입 버튼 클릭")
+                let signUpVC = SignUpViewController()
+                self.navigationController?.pushViewController(signUpVC, animated: true)
             })
             .cancel(with: cancelBag)
         

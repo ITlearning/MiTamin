@@ -1,0 +1,251 @@
+//
+//  TermsViewController.swift
+//  iTamin
+//
+//  Created by Tabber on 2022/09/24.
+//
+
+import UIKit
+import SwiftUI
+import Combine
+import CombineCocoa
+import SnapKit
+
+class TermsViewController: UIViewController {
+
+    private var cancelBag = CancelBag()
+    private var cancellable: AnyCancellable?
+    let viewModel = ViewModel()
+    
+    let termsMainTitle: UILabel = {
+        let label = UILabel()
+        label.text = "마이타민 서비스 이용약관에\n동의해 주세요."
+        label.font = UIFont.notoRegular(size: 18)
+        label.textColor = UIColor.black
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    let allSelectButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("전체 동의하기", for: .normal)
+        button.setTitle("전체 동의하기", for: .selected)
+        button.setTitleColor(UIColor.black, for: .normal)
+        button.setTitleColor(UIColor.black, for: .selected)
+        button.setImage(UIImage(named: "UnSelectButton"), for: .normal)
+        button.setImage(UIImage(named: "check-circle"), for: .selected)
+        
+        return button
+    }()
+    
+    let separateLine: UIView = {
+        let customView = UIView()
+        customView.backgroundColor = UIColor.underLineGray
+        return customView
+    }()
+    
+    let termsOneButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("(필수) 이용약관에 동의합니다.", for: .normal)
+        button.setTitle("(필수) 이용약관에 동의합니다.", for: .selected)
+        button.setTitleColor(UIColor.black, for: .normal)
+        button.setTitleColor(UIColor.black, for: .selected)
+        button.setImage(UIImage(named: "UnSelectButton"), for: .normal)
+        button.setImage(UIImage(named: "check-circle"), for: .selected)
+        
+        return button
+    }()
+    
+    let termsTwoButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("(필수) 개인정보 처리방침에 동의합니다.", for: .normal)
+        button.setTitle("(필수) 개인정보 처리방침에 동의합니다.", for: .selected)
+        button.setTitleColor(UIColor.black, for: .normal)
+        button.setTitleColor(UIColor.black, for: .selected)
+        button.setImage(UIImage(named: "UnSelectButton"), for: .normal)
+        button.setImage(UIImage(named: "check-circle"), for: .selected)
+        
+        return button
+    }()
+    
+    let termsViewOneButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("보기", for: .normal)
+        button.setTitleColor(UIColor.black, for: .normal)
+        return button
+    }()
+    
+    let termsViewTwoButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("보기", for: .normal)
+        button.setTitleColor(UIColor.black, for: .normal)
+        return button
+    }()
+    
+    let nextButton: UIButton = {
+        let button = CustomButton()
+        button.backgroundColor = UIColor.loginButtonGray
+        button.setTitle("다음", for: .normal)
+        button.layer.cornerRadius = 8
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.titleLabel?.font = UIFont.notoMedium(size: 18)
+        button.clipsToBounds = true
+        
+        return button
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        navigationConfigure()
+        configureLayout()
+        bindCombine()
+    }
+    
+    func bindCombine() {
+        allSelectButton.tapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] _ in
+                guard let self = self else { return }
+                self.selectAll()
+            })
+            .cancel(with: cancelBag)
+        
+        termsOneButton.tapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] _ in
+                guard let self = self else { return }
+                self.termsOneButton.isSelected = !self.termsOneButton.isSelected
+                self.viewModel.oneButtonSelect = self.termsOneButton.isSelected
+            })
+            .cancel(with: cancelBag)
+        
+        termsTwoButton.tapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] _ in
+                guard let self = self else { return }
+                self.termsTwoButton.isSelected = !self.termsTwoButton.isSelected
+                self.viewModel.twoButtonSelect = self.termsTwoButton.isSelected
+            })
+            .cancel(with: cancelBag)
+        
+        viewModel.isAllSelect
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] value in
+                guard let self = self else { return }
+                if value {
+                    self.nextButton.isEnabled = true
+                    self.allSelectButton.isSelected = true
+                } else {
+                    self.nextButton.isEnabled = false
+                    self.allSelectButton.isSelected = false
+                }
+                
+                self.setButtonAble()
+            })
+            .cancel(with: cancelBag)
+        
+    }
+
+    
+    func selectAll() {
+        if termsOneButton.isSelected && termsTwoButton.isSelected {
+            allSelectButton.isSelected = false
+            termsOneButton.isSelected = false
+            termsTwoButton.isSelected = false
+            viewModel.oneButtonSelect = false
+            viewModel.twoButtonSelect = false
+        } else {
+            allSelectButton.isSelected = true
+            termsOneButton.isSelected = true
+            termsTwoButton.isSelected = true
+            viewModel.oneButtonSelect = true
+            viewModel.twoButtonSelect = true
+        }
+    }
+    
+    func setButtonAble() {
+        if nextButton.isEnabled {
+            nextButton.backgroundColor = UIColor.buttonDone
+        } else {
+            nextButton.backgroundColor = UIColor.loginButtonGray
+        }
+    }
+    
+    func navigationConfigure() {
+        let backButton = UIImage(named: "icon-arrow-left-small-mono")
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.navigationBar.backIndicatorImage = backButton
+        self.navigationController?.navigationBar.backItem?.title = ""
+        self.navigationController?.navigationBar.topItem?.title = "약관동의"
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = backButton
+        self.navigationController?.navigationBar.tintColor = UIColor.backButtonBlack
+    }
+
+    
+    func configureLayout() {
+        view.backgroundColor = .white
+        view.addSubview(termsMainTitle)
+        view.addSubview(allSelectButton)
+        view.addSubview(separateLine)
+        view.addSubview(termsOneButton)
+        view.addSubview(termsViewOneButton)
+        view.addSubview(termsTwoButton)
+        view.addSubview(termsViewTwoButton)
+        view.addSubview(nextButton)
+        
+        termsMainTitle.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(25)
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
+        }
+        
+        allSelectButton.snp.makeConstraints {
+            $0.top.equalTo(termsMainTitle.snp.bottom).offset(70)
+            $0.leading.equalTo(termsMainTitle.snp.leading)
+        }
+        
+        separateLine.snp.makeConstraints {
+            $0.top.equalTo(allSelectButton.snp.bottom).offset(10)
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
+            $0.height.equalTo(1)
+        }
+        
+        termsOneButton.snp.makeConstraints {
+            $0.top.equalTo(separateLine.snp.bottom).offset(21)
+            $0.leading.equalTo(separateLine.snp.leading)
+        }
+        
+        termsViewOneButton.snp.makeConstraints {
+            $0.centerY.equalTo(termsOneButton)
+            $0.trailing.equalTo(separateLine.snp.trailing)
+        }
+        
+        termsTwoButton.snp.makeConstraints {
+            $0.top.equalTo(termsOneButton.snp.bottom).offset(20)
+            $0.leading.equalTo(termsOneButton.snp.leading)
+        }
+        
+        termsViewTwoButton.snp.makeConstraints {
+            $0.centerY.equalTo(termsTwoButton)
+            $0.trailing.equalTo(separateLine.snp.trailing)
+        }
+        
+        nextButton.snp.makeConstraints {
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(20)
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(24)
+            $0.height.equalTo(56)
+        }
+    }
+    
+}
+
+struct TermsViewController_Preview: PreviewProvider {
+    static var previews: some View {
+        ViewControllerPreview {
+            TermsViewController()
+        }
+        .previewDevice("iPhone 13")
+    }
+}

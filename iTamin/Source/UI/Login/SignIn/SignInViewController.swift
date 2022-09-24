@@ -111,8 +111,20 @@ class SignInViewController: UIViewController {
         loginButton.backgroundColor = UIColor.buttonDone
     }
     
-    func configureLayout() {
+    func navigationConfigure() {
+        let backButton = UIImage(named: "icon-arrow-left-small-mono")
         self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.navigationBar.backIndicatorImage = backButton
+        self.navigationController?.navigationBar.backItem?.title = ""
+        self.navigationController?.navigationBar.topItem?.title = "이메일로 로그인"
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = backButton
+    }
+    
+    func configureLayout() {
+        
+        navigationConfigure()
+        
+        navigationController?.navigationBar.tintColor = UIColor.backButtonBlack
         view.backgroundColor = .white
         view.addSubview(emailTextField)
         view.addSubview(passwordTextField)
