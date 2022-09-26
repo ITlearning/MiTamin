@@ -88,9 +88,13 @@ class OnBoardingViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] value in
                 guard let self = self else { return }
-                UserDefaults.standard.set(true, forKey: "isLogined")
-                self.moveToMain()
+                //UserDefaults.standard.set(true, forKey: "isLogined")
+                //self.moveToMain()
+                self.dismiss(animated: true)
                 
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                    self.navigationController?.popToRootViewController(animated: true)
+                })
             })
             .cancel(with: cancelBag)
         

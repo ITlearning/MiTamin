@@ -12,22 +12,22 @@ import SwiftKeychainWrapper
 
 extension SignInViewController {
     class ViewModel: ObservableObject {
-        var emailPublisher = CurrentValueSubject<String, Never>("")
-        var passwordPublisher = CurrentValueSubject<String, Never>("")
+        @Published var emailPublisher: String = ""
+        @Published var passwordPublisher: String = ""
         private var networkManager = NetworkManager()
         private var cancelBag = CancelBag()
         
         var isValid: AnyPublisher<Bool, Never> {
             Publishers
-                .CombineLatest(emailPublisher, passwordPublisher)
-                .allSatisfy({ email, password in
+                .CombineLatest($emailPublisher, $passwordPublisher)
+                .map({ email, password in
                     email.contains("@") &&
                     password.count > 7
                 }).eraseToAnyPublisher()
         }
         
         func tryToLogin() {
-            networkManager.loginToServer(email: emailPublisher.value, password: passwordPublisher.value)
+            networkManager.loginToServer(email: emailPublisher, password: passwordPublisher)
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] result in
                     guard let self = self else { return }

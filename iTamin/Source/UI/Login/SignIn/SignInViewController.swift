@@ -78,34 +78,26 @@ class SignInViewController: UIViewController {
     func bindCombine() {
         emailTextField.textPublisher
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { [weak self] text in
-                guard let text = text else { return }
-                guard let self = self else { return }
-                
-                self.viewModel.emailPublisher.send(text)
-            })
+            .map({ $0 ?? "" })
+            .assign(to: \.emailPublisher, on: viewModel)
             .cancel(with: cancelBag)
         
         passwordTextField.textPublisher
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { [weak self] text in
-                guard let text = text else { return }
-                guard let self = self else { return }
-                self.viewModel.passwordPublisher.send(text)
-            })
+            .map({ $0 ?? "" })
+            .assign(to: \.passwordPublisher, on: viewModel)
             .cancel(with: cancelBag)
 
-        
         viewModel.isValid
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] valid in
                 guard let self = self else { return }
                 print(valid)
                 if valid {
-                    self.loginButton.isUserInteractionEnabled = true
+                    self.loginButton.isEnabled = true
                     self.buttonDone()
                 } else {
-                    self.loginButton.isUserInteractionEnabled = false
+                    self.loginButton.isEnabled = false
                     self.buttonNotDone()
                 }
             })
