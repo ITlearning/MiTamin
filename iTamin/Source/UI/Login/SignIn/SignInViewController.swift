@@ -55,6 +55,15 @@ class SignInViewController: UIViewController {
         return button
     }()
     
+    let resetAccountButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("아이디/비밀번호 찾기", for: .normal)
+        button.setTitleColor(UIColor.nextTimeGray, for: .normal)
+        button.titleLabel?.font = UIFont.notoRegular(size: 15)
+        
+        return button
+    }()
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationConfigure(title: "이메일로 로그인")
@@ -101,6 +110,22 @@ class SignInViewController: UIViewController {
                 }
             })
             .cancel(with: cancelBag)
+        
+        loginButton.tapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] _ in
+                guard let self = self else { return }
+                self.viewModel.tryToLogin()
+            })
+            .cancel(with: cancelBag)
+        
+        resetAccountButton
+            .tapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { _ in
+                print("찾기 버튼")
+            })
+            .cancel(with: cancelBag)
     }
     
     func buttonNotDone() {
@@ -120,6 +145,7 @@ class SignInViewController: UIViewController {
         view.addSubview(passwordTextField)
         view.addSubview(autoLoginButton)
         view.addSubview(loginButton)
+        view.addSubview(resetAccountButton)
         
         emailTextField.snp.makeConstraints {
             $0.centerX.equalToSuperview()
@@ -145,6 +171,11 @@ class SignInViewController: UIViewController {
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
             $0.height.equalTo(56)
+        }
+        
+        resetAccountButton.snp.makeConstraints {
+            $0.top.equalTo(loginButton.snp.bottom).offset(15)
+            $0.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
         }
     }
 

@@ -86,12 +86,11 @@ class OnBoardingViewController: UIViewController {
         
         viewModel.signUpSuccess
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { value in
+            .sink(receiveValue: { [weak self] value in
+                guard let self = self else { return }
                 UserDefaults.standard.set(true, forKey: "isLogined")
+                self.moveToMain()
                 
-                let rootTabBarViewController = RootTabBarViewController()
-                
-                (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(rootTabBarViewController, animated: true)
             })
             .cancel(with: cancelBag)
         

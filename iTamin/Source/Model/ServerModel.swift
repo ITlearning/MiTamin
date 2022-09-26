@@ -50,3 +50,9 @@ struct SignUpReciveModel: Codable {
 struct EmailCheckModel: Codable {
     let data: Bool
 }
+
+
+struct LoginModel: Codable {
+    let accessToken: String
+    let refreshToken: String
+}

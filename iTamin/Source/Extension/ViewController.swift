@@ -17,4 +17,14 @@ extension UIViewController {
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = backButton
         self.navigationController?.navigationBar.tintColor = UIColor.backButtonBlack
     }
+    
+    func moveToMain() {
+        let rootTabBarViewController = RootTabBarViewController()
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(rootTabBarViewController, animated: true)
+    }
+    
+    func moveToLogin() {
+        let loginVC = UINavigationController(rootViewController: LoginMainViewController())
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(loginVC, animated: true)
+    }
 }

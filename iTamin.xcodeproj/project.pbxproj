@@ -51,6 +51,7 @@
 		F5A2EB8928DF38A400536E9B /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB8828DF38A400536E9B /* NetworkManager.swift */; };
 		F5A2EB8B28DF38C700536E9B /* ServerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB8A28DF38C700536E9B /* ServerModel.swift */; };
 		F5A2EB8D28DF6BA600536E9B /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB8C28DF6BA600536E9B /* UIWindow.swift */; };
+		F5A2EB9028E1F1DD00536E9B /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = F5A2EB8F28E1F1DD00536E9B /* SwiftKeychainWrapper */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,6 +126,7 @@
 			files = (
 				F5A2EB8628DF388300536E9B /* Alamofire in Frameworks */,
 				F5A2EB3C28D4BB0300536E9B /* CombineCocoa in Frameworks */,
+				F5A2EB9028E1F1DD00536E9B /* SwiftKeychainWrapper in Frameworks */,
 				F5A2EB3928D4B95F00536E9B /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -215,13 +217,6 @@
 				F5A2EB2B28D4B09800536E9B /* RootTabBarViewController.swift */,
 			);
 			path = UI;
-			sourceTree = "<group>";
-		};
-		F5A2EB2728D368F500536E9B /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		F5A2EB2828D4B03300536E9B /* Resource */ = {
@@ -348,7 +343,6 @@
 				F5A2EB2A28D4B05600536E9B /* System */,
 				F5A2EB2928D4B04600536E9B /* CoreData */,
 				F5A2EB2528D368E600536E9B /* Model */,
-				F5A2EB2728D368F500536E9B /* ViewModel */,
 				F5A2EB2628D368F000536E9B /* UI */,
 			);
 			path = Source;
@@ -425,6 +419,7 @@
 				F5A2EB3828D4B95F00536E9B /* SnapKit */,
 				F5A2EB3B28D4BB0300536E9B /* CombineCocoa */,
 				F5A2EB8528DF388300536E9B /* Alamofire */,
+				F5A2EB8F28E1F1DD00536E9B /* SwiftKeychainWrapper */,
 			);
 			productName = iTamin;
 			productReference = F5A2EAEF28D3644800536E9B /* iTamin.app */;
@@ -502,6 +497,7 @@
 				F5A2EB3728D4B95F00536E9B /* XCRemoteSwiftPackageReference "SnapKit" */,
 				F5A2EB3A28D4BB0300536E9B /* XCRemoteSwiftPackageReference "CombineCocoa" */,
 				F5A2EB8428DF388300536E9B /* XCRemoteSwiftPackageReference "Alamofire" */,
+				F5A2EB8E28E1F1DD00536E9B /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
 			);
 			productRefGroup = F5A2EAF028D3644800536E9B /* Products */;
 			projectDirPath = "";
@@ -938,6 +934,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		F5A2EB8E28E1F1DD00536E9B /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jrendel/SwiftKeychainWrapper.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -955,6 +959,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F5A2EB8428DF388300536E9B /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		F5A2EB8F28E1F1DD00536E9B /* SwiftKeychainWrapper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F5A2EB8E28E1F1DD00536E9B /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */;
+			productName = SwiftKeychainWrapper;
 		};
 /* End XCSwiftPackageProductDependency section */
 
