@@ -52,6 +52,7 @@
 		F5A2EB8B28DF38C700536E9B /* ServerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB8A28DF38C700536E9B /* ServerModel.swift */; };
 		F5A2EB8D28DF6BA600536E9B /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB8C28DF6BA600536E9B /* UIWindow.swift */; };
 		F5A2EB9028E1F1DD00536E9B /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = F5A2EB8F28E1F1DD00536E9B /* SwiftKeychainWrapper */; };
+		F5A2EB9228E1FDBF00536E9B /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB9128E1FDBF00536E9B /* HomeViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,6 +118,7 @@
 		F5A2EB8828DF38A400536E9B /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		F5A2EB8A28DF38C700536E9B /* ServerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerModel.swift; sourceTree = "<group>"; };
 		F5A2EB8C28DF6BA600536E9B /* UIWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIWindow.swift; sourceTree = "<group>"; };
+		F5A2EB9128E1FDBF00536E9B /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -249,6 +251,7 @@
 			isa = PBXGroup;
 			children = (
 				F5A2EAF628D3644800536E9B /* HomeViewController.swift */,
+				F5A2EB9128E1FDBF00536E9B /* HomeViewModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -555,6 +558,7 @@
 				F5A2EB8B28DF38C700536E9B /* ServerModel.swift in Sources */,
 				F5A2EB5428DCB73800536E9B /* LoginMainViewController.swift in Sources */,
 				F5A2EB7628DF0F2F00536E9B /* ViewController.swift in Sources */,
+				F5A2EB9228E1FDBF00536E9B /* HomeViewModel.swift in Sources */,
 				F5A2EB6028DCC17600536E9B /* CustomTextField.swift in Sources */,
 				F5A2EB5128DB614C00536E9B /* Font.swift in Sources */,
 				F5A2EB6628DEF58200536E9B /* SignUpViewController.swift in Sources */,

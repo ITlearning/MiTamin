@@ -56,3 +56,8 @@ struct LoginModel: Codable {
     let accessToken: String
     let refreshToken: String
 }
+
+struct WelComeModel: Codable {
+    let nickname: String
+    let comment: String
+}

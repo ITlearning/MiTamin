@@ -29,6 +29,9 @@ extension HomeViewController {
 
 class HomeViewController: UIViewController {
 
+    var viewModel = ViewModel()
+    var cancelBag = CancelBag()
+    
     let mainLogoImageView: UIImageView = {
         let imageView = UIImageView()
         
@@ -62,8 +65,22 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         setTabBar()
         configureLayout()
+        bindCombine()
     }
 
+    
+    private func bindCombine() {
+        
+        viewModel.$userData
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] result in
+                guard let self = self else { return }
+                let text = "\(result?.nickname ?? "")님, \(result?.comment ?? "")"
+                print()
+                self.mainTitleLabel.text = text
+            })
+            .cancel(with: cancelBag)
+    }
     
     private func configureLayout() {
         view.addSubview(mainLogoImageView)
@@ -77,6 +94,7 @@ class HomeViewController: UIViewController {
         mainTitleLabel.snp.makeConstraints {
             $0.top.equalTo(mainLogoImageView.snp.bottom).offset(29)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(36)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(70)
         }
     }
 
