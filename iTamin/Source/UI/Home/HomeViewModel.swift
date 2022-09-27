@@ -25,7 +25,8 @@ extension HomeViewController {
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] result in
                     guard let self = self else {return}
-                    self.userData = result.data ?? WelComeModel(nickname: "", comment: "")
+                    print(result.statusCode)
+                    self.userData = result.data
                 })
                 .cancel(with: cancelBag)
         }

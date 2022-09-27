@@ -11,7 +11,7 @@ class HistoryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tabBarItem = UITabBarItem(title: "처방기록", image: UIImage(systemName: "archivebox"), selectedImage: UIImage(systemName: "archivebox.fill"))
+        tabBarItem = UITabBarItem(title: "처방기록", image: UIImage(named: "icon-card-mono"), selectedImage: UIImage(named: "icon-card-mono"))
     }
     
 

@@ -11,13 +11,6 @@ import Combine
 import CombineCocoa
 
 class RootTabBarViewController: UITabBarController {
-
-    private let homeVCButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "house"), for: .normal)
-        button.setTitle("홈", for: .normal)
-        return button
-    }()
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -43,7 +36,7 @@ class RootTabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tabBar.unselectedItemTintColor = UIColor.tabBarUnSelectColor
-        tabBar.tintColor = UIColor.tabBarSelectColor
+        tabBar.tintColor = UIColor.selectTabBarColor
         tabBar.backgroundColor = .white
         tabBar.layer.cornerRadius = 12
         tabBar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]

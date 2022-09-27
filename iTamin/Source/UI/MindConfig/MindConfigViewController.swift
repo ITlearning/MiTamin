@@ -11,7 +11,8 @@ class MindConfigViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tabBarItem = UITabBarItem(title: "감정관리", image: UIImage(systemName: "headphones.circle"), selectedImage: UIImage(systemName: "headphones.circle.fill"))
+        tabBarItem = UITabBarItem(title: "감정관리", image: UIImage(named: "icon-headphone-mono"), selectedImage: UIImage(named: "icon-headphone-mono"))
+        
     }
     
 
