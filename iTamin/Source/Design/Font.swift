@@ -26,4 +26,10 @@ extension UIFont {
     static func notoThin(size: CGFloat = 14) -> UIFont {
         return UIFont(name: "NotoSansKR-Thin", size: size)!
     }
+    static func SDGothicBold(size: CGFloat = 14) -> UIFont {
+        return UIFont(name: "AppleSDGothicNeo-Bold", size: size)!
+    }
+    static func SDGothicMedium(size: CGFloat = 14) -> UIFont {
+        return UIFont(name: "AppleSDGothicNeo-Medium", size: size)!
+    }
 }

@@ -53,6 +53,11 @@
 		F5A2EB8D28DF6BA600536E9B /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB8C28DF6BA600536E9B /* UIWindow.swift */; };
 		F5A2EB9028E1F1DD00536E9B /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = F5A2EB8F28E1F1DD00536E9B /* SwiftKeychainWrapper */; };
 		F5A2EB9228E1FDBF00536E9B /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB9128E1FDBF00536E9B /* HomeViewModel.swift */; };
+		F5A2EB9828E3519E00536E9B /* AppleSDGothicNeoL.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F5A2EB9328E3519D00536E9B /* AppleSDGothicNeoL.ttf */; };
+		F5A2EB9928E3519E00536E9B /* AppleSDGothicNeoEB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F5A2EB9428E3519D00536E9B /* AppleSDGothicNeoEB.ttf */; };
+		F5A2EB9A28E3519E00536E9B /* AppleSDGothicNeoH.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F5A2EB9528E3519E00536E9B /* AppleSDGothicNeoH.ttf */; };
+		F5A2EB9B28E3519E00536E9B /* AppleSDGothicNeoB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F5A2EB9628E3519E00536E9B /* AppleSDGothicNeoB.ttf */; };
+		F5A2EB9C28E3519E00536E9B /* AppleSDGothicNeoM.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F5A2EB9728E3519E00536E9B /* AppleSDGothicNeoM.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,6 +124,11 @@
 		F5A2EB8A28DF38C700536E9B /* ServerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerModel.swift; sourceTree = "<group>"; };
 		F5A2EB8C28DF6BA600536E9B /* UIWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIWindow.swift; sourceTree = "<group>"; };
 		F5A2EB9128E1FDBF00536E9B /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		F5A2EB9328E3519D00536E9B /* AppleSDGothicNeoL.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleSDGothicNeoL.ttf; sourceTree = "<group>"; };
+		F5A2EB9428E3519D00536E9B /* AppleSDGothicNeoEB.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleSDGothicNeoEB.ttf; sourceTree = "<group>"; };
+		F5A2EB9528E3519E00536E9B /* AppleSDGothicNeoH.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleSDGothicNeoH.ttf; sourceTree = "<group>"; };
+		F5A2EB9628E3519E00536E9B /* AppleSDGothicNeoB.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleSDGothicNeoB.ttf; sourceTree = "<group>"; };
+		F5A2EB9728E3519E00536E9B /* AppleSDGothicNeoM.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleSDGothicNeoM.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -301,6 +311,11 @@
 		F5A2EB4328DB5F9F00536E9B /* Font */ = {
 			isa = PBXGroup;
 			children = (
+				F5A2EB9628E3519E00536E9B /* AppleSDGothicNeoB.ttf */,
+				F5A2EB9428E3519D00536E9B /* AppleSDGothicNeoEB.ttf */,
+				F5A2EB9528E3519E00536E9B /* AppleSDGothicNeoH.ttf */,
+				F5A2EB9328E3519D00536E9B /* AppleSDGothicNeoL.ttf */,
+				F5A2EB9728E3519E00536E9B /* AppleSDGothicNeoM.ttf */,
 				F5A2EB4428DB5FC300536E9B /* notoBlack.otf */,
 				F5A2EB4728DB5FC300536E9B /* notoBold.otf */,
 				F5A2EB4828DB5FC300536E9B /* notoLight.otf */,
@@ -523,8 +538,13 @@
 				F5A2EB4E28DB5FC300536E9B /* notoLight.otf in Resources */,
 				F5A2EB0228D3644A00536E9B /* LaunchScreen.storyboard in Resources */,
 				F5A2EB4F28DB5FC300536E9B /* notoThin.otf in Resources */,
+				F5A2EB9828E3519E00536E9B /* AppleSDGothicNeoL.ttf in Resources */,
 				F5A2EAFF28D3644A00536E9B /* Assets.xcassets in Resources */,
 				F5A2EB4D28DB5FC300536E9B /* notoBold.otf in Resources */,
+				F5A2EB9C28E3519E00536E9B /* AppleSDGothicNeoM.ttf in Resources */,
+				F5A2EB9B28E3519E00536E9B /* AppleSDGothicNeoB.ttf in Resources */,
+				F5A2EB9928E3519E00536E9B /* AppleSDGothicNeoEB.ttf in Resources */,
+				F5A2EB9A28E3519E00536E9B /* AppleSDGothicNeoH.ttf in Resources */,
 				F5A2EB4C28DB5FC300536E9B /* notoRegular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

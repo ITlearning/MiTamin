@@ -21,7 +21,7 @@ class RootTabBarViewController: UITabBarController {
         let myPageVC = MyPageViewController()
         
         let viewControllers = [homeVC, historyVC, mindConfigVC, myPageVC]
-        viewControllers.forEach({ $0.view.backgroundColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00) })
+        viewControllers.forEach({ $0.view.backgroundColor = UIColor.white })
         self.setViewControllers(viewControllers, animated: false)
     }
     

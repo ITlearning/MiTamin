@@ -23,9 +23,38 @@ extension UIColor {
     static let tabBarUnSelectColor = UIColor(red: 0.80, green: 0.80, blue: 0.80, alpha: 1.00)
     static let tabBarSelectColor = UIColor(red: 0.40, green: 0.40, blue: 0.40, alpha: 1.00)
     static let mainTitleColor = UIColor(red: 0.07, green: 0.07, blue: 0.07, alpha: 1.00)
+    static let primaryColor = UIColor(rgb: 0xFF7F57)
+    static let mainTopYellowColor = UIColor(rgb: 0xFFF3AB)
+    static let backGroundWhiteColor = UIColor(rgb: 0xF2F4F6)
     
     // MARK: - TabBar
     static let selectTabBarColor = UIColor(rgb: 0xFF7F57)
+    
+    // MARK: - Sub Color
+    /// 0xFFEB85
+    static let subYellowColor = UIColor(rgb: 0xFFEB85)
+    /// 0x1BD689
+    static let subGreenColor = UIColor(rgb: 0x1BD689)
+    /// 0x3FA3FF
+    static let subBlueColor = UIColor(rgb: 0x3FA3FF)
+    /// 0x7082FF
+    static let subPurpleColor = UIColor(rgb: 0x7082FF)
+    
+    // MARK: - Background Color
+    /// 0xF2F4F6
+    static let backgroundColor2 = UIColor(rgb: 0xF2F4F6)
+    /// 0xFFF3AB
+    static let backgroundColor3 = UIColor(rgb: 0xFFF3AB)
+    
+    // MARK: - Gray Color
+    /// 0xDDDDDD
+    static let grayColor1 = UIColor(rgb: 0xDDDDDD)
+    /// 0x999999
+    static let grayColor2 = UIColor(rgb: 0x999999)
+    /// 0x666666
+    static let grayColor3 = UIColor(rgb: 0x666666)
+    /// 0x121212
+    static let grayColor4 = UIColor(rgb: 0x121212)
     
 }
 

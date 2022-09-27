@@ -5,6 +5,11 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>notoBlack.otf</string>
+		<string>AppleSDGothicNeoB.ttf</string>
+		<string>AppleSDGothicNeoEB.ttf</string>
+		<string>AppleSDGothicNeoH.ttf</string>
+		<string>AppleSDGothicNeoL.ttf</string>
+		<string>AppleSDGothicNeoM.ttf</string>
 		<string>notoBold.otf</string>
 		<string>notoMedium.otf</string>
 		<string>notoRegular.otf</string>
