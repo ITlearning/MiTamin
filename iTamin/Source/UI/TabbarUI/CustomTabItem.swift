@@ -5,55 +5,30 @@
 ////  Created by Tabber on 2022/09/21.
 ////
 //
-//import UIKit
-//
-//enum CustomTabItem: String, CaseIterable {
-//    case home
-//    case history
-//    case mindConfig
-//    case myPage
-//}
-// 
-//extension CustomTabItem {
-//    var viewController: UIViewController {
-//        switch self {
-//        case .home:
-//            return HomeViewController()
-//        case .history:
-//            return HistoryViewController()
-//        case .mindConfig:
-//            return MindConfigViewController()
-//        case .myPage:
-//            return MyPageViewController()
-//        }
-//    }
-//    
-//    var icon: UIImage? {
-//        switch self {
-//        case .history:
-//            return UIImage(systemName: "magnifyingglass.circle")?.withTintColor(.white.withAlphaComponent(0.4), renderingMode: .alwaysOriginal)
-//        case .mindConfig:
-//            return UIImage(systemName: "heart.circle")?.withTintColor(.white.withAlphaComponent(0.4), renderingMode: .alwaysOriginal)
-//        case .home:
-//            return UIImage(systemName: "person.crop.circle")?.withTintColor(.white.withAlphaComponent(0.4), renderingMode: .alwaysOriginal)
-//        case .myPage:
-//            
-//        }
-//    }
-//    
-//    var selectedIcon: UIImage? {
-//        switch self {
-//        case .history:
-//            return UIImage(systemName: "magnifyingglass.circle.fill")?.withTintColor(.white, renderingMode: .alwaysOriginal)
-//        case .mindConfig:
-//            return UIImage(systemName: "heart.circle.fill")?.withTintColor(.white, renderingMode: .alwaysOriginal)
-//        case .home:
-//            return UIImage(systemName: "person.crop.circle.fill")?.withTintColor(.white, renderingMode: .alwaysOriginal)
-//        }
-//    }
-//    
-//    var name: String {
-//        return self.rawValue.capitalized
-//    }
-//}
-//
+import Foundation
+import UIKit
+
+extension CALayer {
+    // Sketch 스타일의 그림자를 생성하는 유틸리티 함수
+    func applyShadow(
+        color: UIColor = .black,
+        alpha: Float = 0.5,
+        x: CGFloat = 0,
+        y: CGFloat = 2,
+        blur: CGFloat = 4
+    ) {
+        shadowColor = color.cgColor
+        shadowOpacity = alpha
+        shadowOffset = CGSize(width: x, height: y)
+        shadowRadius = blur / 2.0
+    }
+}
+
+extension UITabBar {
+    // 기본 그림자 스타일을 초기화해야 커스텀 스타일을 적용할 수 있다.
+    static func clearShadow() {
+        UITabBar.appearance().shadowImage = UIImage()
+        UITabBar.appearance().backgroundImage = UIImage()
+        UITabBar.appearance().backgroundColor = UIColor.white
+    }
+}

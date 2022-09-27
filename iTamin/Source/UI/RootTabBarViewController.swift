@@ -35,12 +35,14 @@ class RootTabBarViewController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        UITabBar.clearShadow()
+        tabBar.layer.applyShadow(color: .gray, alpha: 0.5, x: 0, y: 0, blur: 3)
         tabBar.unselectedItemTintColor = UIColor.tabBarUnSelectColor
         tabBar.tintColor = UIColor.selectTabBarColor
         tabBar.backgroundColor = .white
         tabBar.layer.cornerRadius = 12
         tabBar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        tabBar.clipsToBounds = true
+        //tabBar.clipsToBounds = true
         tabBarItem.imageInsets = UIEdgeInsets(top: 8, left: 52, bottom: 0, right: 0)
         //view.bringSubviewToFront(tabBar)
         
