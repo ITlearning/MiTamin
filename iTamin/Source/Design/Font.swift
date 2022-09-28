@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 extension UIFont {
     static func notoBlack(size: CGFloat = 14) -> UIFont {
@@ -30,6 +31,15 @@ extension UIFont {
         return UIFont(name: "AppleSDGothicNeo-Bold", size: size)!
     }
     static func SDGothicMedium(size: CGFloat = 14) -> UIFont {
-        return UIFont(name: "AppleSDGothicNeo-Medium", size: size)!
+        return UIFont(name: "AppleSDGothicNeo-SDGothicMedium", size: size)!
+    }
+}
+
+extension Font {
+    static func SDGothicBold(size: CGFloat = 14) -> Font {
+        return Font.custom("AppleSDGothicNeo-Bold", size: size)
+    }
+    static func SDGothicMedium(size: CGFloat = 14) -> Font {
+        return Font.custom("AppleSDGothicNeo-SDGothicMedium", size: size)
     }
 }

@@ -58,6 +58,8 @@
 		F5A2EB9A28E3519E00536E9B /* AppleSDGothicNeoH.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F5A2EB9528E3519E00536E9B /* AppleSDGothicNeoH.ttf */; };
 		F5A2EB9B28E3519E00536E9B /* AppleSDGothicNeoB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F5A2EB9628E3519E00536E9B /* AppleSDGothicNeoB.ttf */; };
 		F5A2EB9C28E3519E00536E9B /* AppleSDGothicNeoM.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F5A2EB9728E3519E00536E9B /* AppleSDGothicNeoM.ttf */; };
+		F5A2EB9E28E46F8100536E9B /* MainCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB9D28E46F8100536E9B /* MainCollectionView.swift */; };
+		F5A2EBA028E4975100536E9B /* MainCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB9F28E4975100536E9B /* MainCollectionModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,6 +131,8 @@
 		F5A2EB9528E3519E00536E9B /* AppleSDGothicNeoH.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleSDGothicNeoH.ttf; sourceTree = "<group>"; };
 		F5A2EB9628E3519E00536E9B /* AppleSDGothicNeoB.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleSDGothicNeoB.ttf; sourceTree = "<group>"; };
 		F5A2EB9728E3519E00536E9B /* AppleSDGothicNeoM.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleSDGothicNeoM.ttf; sourceTree = "<group>"; };
+		F5A2EB9D28E46F8100536E9B /* MainCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionView.swift; sourceTree = "<group>"; };
+		F5A2EB9F28E4975100536E9B /* MainCollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				F5A2EB8A28DF38C700536E9B /* ServerModel.swift */,
+				F5A2EB9F28E4975100536E9B /* MainCollectionModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -262,6 +267,7 @@
 			children = (
 				F5A2EAF628D3644800536E9B /* HomeViewController.swift */,
 				F5A2EB9128E1FDBF00536E9B /* HomeViewModel.swift */,
+				F5A2EB9D28E46F8100536E9B /* MainCollectionView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -574,6 +580,7 @@
 				F5A2EB5C28DCBFC700536E9B /* SignInViewController.swift in Sources */,
 				F5A2EB6828DEF80E00536E9B /* CustomButton.swift in Sources */,
 				F5A2EB5E28DCC07800536E9B /* ViewControllerPreview.swift in Sources */,
+				F5A2EBA028E4975100536E9B /* MainCollectionModel.swift in Sources */,
 				F5A2EAF728D3644800536E9B /* HomeViewController.swift in Sources */,
 				F5A2EB8B28DF38C700536E9B /* ServerModel.swift in Sources */,
 				F5A2EB5428DCB73800536E9B /* LoginMainViewController.swift in Sources */,
@@ -601,6 +608,7 @@
 				F5A2EB8D28DF6BA600536E9B /* UIWindow.swift in Sources */,
 				F5A2EB6C28DEF93800536E9B /* ProgressBar.swift in Sources */,
 				F5A2EB3628D4B22A00536E9B /* MyPageViewController.swift in Sources */,
+				F5A2EB9E28E46F8100536E9B /* MainCollectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

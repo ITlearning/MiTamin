@@ -7,23 +7,25 @@
 
 import UIKit
 import SnapKit
+import SwiftUI
 
 extension HomeViewController {
     private func setAnimate() {
-        view.bounds.origin.x = UIScreen.main.bounds.width - (UIScreen.main.bounds.width/1.5)
+        view.bounds.origin.x = UIScreen.main.bounds.width - (UIScreen.main.bounds.width-5)
         self.mainTitleLabel.alpha = 0.0
         self.mainLogoImageView.alpha = 0.0
+        mainTopYellowColorView.alpha = 0.0
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
             self.view.bounds.origin.x = 0
             self.mainTitleLabel.alpha = 1
             self.mainLogoImageView.alpha = 1
+            self.mainTopYellowColorView.alpha = 1
         })
     }
     
     private func setTabBar() {
         tabBarItem = UITabBarItem(title: "홈", image: UIImage(named: "icon-home-mono"), selectedImage: UIImage(named: "icon-home-mono"))
         
-        //tabBarItem.imageInsets = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
     }
 }
 
@@ -37,6 +39,15 @@ class HomeViewController: UIViewController {
         mainView.backgroundColor = UIColor.mainTopYellowColor
         
         return mainView
+    }()
+    
+    let mainCircleImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "Frame")
+        imageView.contentMode = .scaleAspectFit
+        imageView.alpha = 1.0
+        
+        return imageView
     }()
     
     let mainLogoImageView: UIImageView = {
@@ -56,6 +67,8 @@ class HomeViewController: UIViewController {
         label.numberOfLines = 0
         return label
     }()
+    
+    //var mainScrollView: UIHostingController<MainCollectionView>?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -101,13 +114,24 @@ class HomeViewController: UIViewController {
     }
     
     private func configureLayout() {
+        let mainScrollView = UIHostingController(rootView: MainCollectionView(viewModel: self.viewModel))
+        
         view.addSubview(mainTopYellowColorView)
+        view.addSubview(mainCircleImageView)
         view.addSubview(mainLogoImageView)
         view.addSubview(mainTitleLabel)
+        view.addSubview(mainScrollView.view)
+        mainScrollView.view.backgroundColor = .clear
+        
         mainTitleLabel.alpha = 0.0
         mainTopYellowColorView.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view)
-            $0.height.equalTo(300)
+            $0.height.equalTo(330)
+        }
+        
+        mainCircleImageView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(50)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
         }
         
         mainLogoImageView.snp.makeConstraints {
@@ -121,6 +145,13 @@ class HomeViewController: UIViewController {
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(36)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(70)
         }
+        
+        mainScrollView.view.snp.makeConstraints {
+            $0.top.equalTo(mainTitleLabel.snp.bottom).offset(45)
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+        }
+        
     }
 
 }

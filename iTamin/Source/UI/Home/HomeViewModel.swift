@@ -16,6 +16,13 @@ extension HomeViewController {
         var networkManager = NetworkManager()
         var cancelBag = CancelBag()
         
+        @Published var mainCellItems: [MainCollectionModel] = [
+            MainCollectionModel(isDone: false, cellDescription: "숨 고르기"),
+            MainCollectionModel(isDone: false, cellDescription: "감각 깨우기"),
+            MainCollectionModel(isDone: false, cellDescription: "하루 진단하기"),
+            MainCollectionModel(isDone: false, cellDescription: "칭찬 처방하기")
+        ]
+        
         init() {
             loadWelComeComment()
         }
