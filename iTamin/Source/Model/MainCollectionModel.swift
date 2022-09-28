@@ -10,4 +10,5 @@ import Foundation
 struct MainCollectionModel {
     let isDone: Bool
     let cellDescription: String
+    let image: String
 }

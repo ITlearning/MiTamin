@@ -12,7 +12,7 @@ struct MainCollectionView: View {
     @StateObject var viewModel: HomeViewController.ViewModel
     
     func mainCellView(idx: Int, item: MainCollectionModel) -> some View {
-        ZStack(alignment: .trailing) {
+        ZStack(alignment: .topLeading) {
             RoundedRectangle(cornerRadius: 12)
                 .frame(width: 196, height: 150)
                 .foregroundColor(Color.white)
@@ -21,25 +21,41 @@ struct MainCollectionView: View {
                     .blur(radius: 10)
                 )
             
-            Image("MyTamin01")
-                .resizable()
+//            Image(item.image)
+//                .resizable()
+//                .frame(width: 184, height: 118)
+//                .offset(x: 11.5, y: 18)
             
-            VStack {
-                HStack(alignment: .center,spacing: 8) {
-                    Text("\(idx+1)")
-                        .font(Font.SDGothicBold(size: 18))
-                        .foregroundColor(Color(uiColor: UIColor.primaryColor))
-                        .multilineTextAlignment(.center)
-                    Text("\(item.cellDescription)")
-                        .font(Font.SDGothicMedium(size: 18))
-                        .foregroundColor(Color(uiColor: UIColor.grayColor4))
-                        .multilineTextAlignment(.center)
-                }
-                .padding(.leading, 12)
-                .padding(.top, 16)
-                Spacer()
+            HStack(alignment: .center,spacing: 8) {
+                Text("\(idx+1)")
+                    .font(Font.SDGothicBold(size: 18))
+                    .foregroundColor(Color(uiColor: UIColor.primaryColor))
+                    .multilineTextAlignment(.center)
+                Text("\(item.cellDescription)")
+                    .font(Font.SDGothicMedium(size: 18))
+                    .foregroundColor(Color(uiColor: UIColor.grayColor4))
+                    .multilineTextAlignment(.center)
             }
+            .padding(.leading, 12)
+            .padding(.top, 16)
             
+            VStack(alignment: .center) {
+                Spacer()
+                
+                Button(action: {
+                    
+                }, label: {
+                    RoundedRectangle(cornerRadius: 8)
+                        .foregroundColor(Color(uiColor: item.isDone ? UIColor.grayColor1 : UIColor.primaryColor))
+                        .frame(width: 172, height: 40)
+                        .overlay(
+                            Text(item.isDone ? "완료" : "시작하기")
+                                .font(Font.SDGothicBold(size: 16))
+                                .foregroundColor(Color.white)
+                        )
+                })
+                .offset(x: 12, y: -16)
+            }
             
         }
         .frame(width: 250, height: 150)
