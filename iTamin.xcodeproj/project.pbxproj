@@ -60,6 +60,11 @@
 		F5A2EB9C28E3519E00536E9B /* AppleSDGothicNeoM.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F5A2EB9728E3519E00536E9B /* AppleSDGothicNeoM.ttf */; };
 		F5A2EB9E28E46F8100536E9B /* MainCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB9D28E46F8100536E9B /* MainCollectionView.swift */; };
 		F5A2EBA028E4975100536E9B /* MainCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB9F28E4975100536E9B /* MainCollectionModel.swift */; };
+		F5A2EBA228E5A34800536E9B /* MyTaminViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EBA128E5A34800536E9B /* MyTaminViewController.swift */; };
+		F5A2EBA528E5A3B000536E9B /* MyTaminCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EBA428E5A3B000536E9B /* MyTaminCollectionViewCell.swift */; };
+		F5A2EBA728E5A6F200536E9B /* RoundedCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EBA628E5A6F200536E9B /* RoundedCircleView.swift */; };
+		F5A2EBAA28E5AEA900536E9B /* IndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EBA928E5AEA900536E9B /* IndicatorView.swift */; };
+		F5A2EBAC28E5B26300536E9B /* MyTaminViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EBAB28E5B26300536E9B /* MyTaminViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,6 +138,11 @@
 		F5A2EB9728E3519E00536E9B /* AppleSDGothicNeoM.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleSDGothicNeoM.ttf; sourceTree = "<group>"; };
 		F5A2EB9D28E46F8100536E9B /* MainCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionView.swift; sourceTree = "<group>"; };
 		F5A2EB9F28E4975100536E9B /* MainCollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionModel.swift; sourceTree = "<group>"; };
+		F5A2EBA128E5A34800536E9B /* MyTaminViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTaminViewController.swift; sourceTree = "<group>"; };
+		F5A2EBA428E5A3B000536E9B /* MyTaminCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTaminCollectionViewCell.swift; sourceTree = "<group>"; };
+		F5A2EBA628E5A6F200536E9B /* RoundedCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCircleView.swift; sourceTree = "<group>"; };
+		F5A2EBA928E5AEA900536E9B /* IndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorView.swift; sourceTree = "<group>"; };
+		F5A2EBAB28E5B26300536E9B /* MyTaminViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTaminViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,9 +275,12 @@
 		F5A2EB2F28D4B1C300536E9B /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				F5A2EBA828E5AE8F00536E9B /* SwiftUIView */,
+				F5A2EBA328E5A3A100536E9B /* Cell */,
 				F5A2EAF628D3644800536E9B /* HomeViewController.swift */,
 				F5A2EB9128E1FDBF00536E9B /* HomeViewModel.swift */,
-				F5A2EB9D28E46F8100536E9B /* MainCollectionView.swift */,
+				F5A2EBA128E5A34800536E9B /* MyTaminViewController.swift */,
+				F5A2EBAB28E5B26300536E9B /* MyTaminViewModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -421,6 +434,24 @@
 				F5A2EB8828DF38A400536E9B /* NetworkManager.swift */,
 			);
 			path = NetworkManager;
+			sourceTree = "<group>";
+		};
+		F5A2EBA328E5A3A100536E9B /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F5A2EBA428E5A3B000536E9B /* MyTaminCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		F5A2EBA828E5AE8F00536E9B /* SwiftUIView */ = {
+			isa = PBXGroup;
+			children = (
+				F5A2EB9D28E46F8100536E9B /* MainCollectionView.swift */,
+				F5A2EBA628E5A6F200536E9B /* RoundedCircleView.swift */,
+				F5A2EBA928E5AEA900536E9B /* IndicatorView.swift */,
+			);
+			path = SwiftUIView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -587,6 +618,8 @@
 				F5A2EB7628DF0F2F00536E9B /* ViewController.swift in Sources */,
 				F5A2EB9228E1FDBF00536E9B /* HomeViewModel.swift in Sources */,
 				F5A2EB6028DCC17600536E9B /* CustomTextField.swift in Sources */,
+				F5A2EBAA28E5AEA900536E9B /* IndicatorView.swift in Sources */,
+				F5A2EBAC28E5B26300536E9B /* MyTaminViewModel.swift in Sources */,
 				F5A2EB5128DB614C00536E9B /* Font.swift in Sources */,
 				F5A2EB6628DEF58200536E9B /* SignUpViewController.swift in Sources */,
 				F5A2EAFD28D3644800536E9B /* iTamin.xcdatamodeld in Sources */,
@@ -594,6 +627,7 @@
 				F5A2EB4228DB2B9200536E9B /* Color.swift in Sources */,
 				F5A2EB6328DEE95600536E9B /* SignInViewModel.swift in Sources */,
 				F5A2EB7A28DF1A2100536E9B /* SignUpViewModel.swift in Sources */,
+				F5A2EBA228E5A34800536E9B /* MyTaminViewController.swift in Sources */,
 				F5A2EB2E28D4B1BC00536E9B /* HistoryViewController.swift in Sources */,
 				F5A2EB6F28DF009500536E9B /* TermsViewController.swift in Sources */,
 				F5A2EB8928DF38A400536E9B /* NetworkManager.swift in Sources */,
@@ -605,7 +639,9 @@
 				F5A2EAF528D3644800536E9B /* SceneDelegate.swift in Sources */,
 				F5A2EB3428D4B22000536E9B /* MindConfigViewController.swift in Sources */,
 				F5A2EB7D28DF1B3600536E9B /* OnBoardingViewController.swift in Sources */,
+				F5A2EBA528E5A3B000536E9B /* MyTaminCollectionViewCell.swift in Sources */,
 				F5A2EB8D28DF6BA600536E9B /* UIWindow.swift in Sources */,
+				F5A2EBA728E5A6F200536E9B /* RoundedCircleView.swift in Sources */,
 				F5A2EB6C28DEF93800536E9B /* ProgressBar.swift in Sources */,
 				F5A2EB3628D4B22A00536E9B /* MyPageViewController.swift in Sources */,
 				F5A2EB9E28E46F8100536E9B /* MainCollectionView.swift in Sources */,

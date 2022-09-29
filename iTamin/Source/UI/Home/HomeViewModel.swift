@@ -13,6 +13,9 @@ import Combine
 extension HomeViewController {
     class ViewModel: ObservableObject {
         @Published var userData: WelComeModel?
+        
+        var buttonClick = CurrentValueSubject<Int, Never>(0)
+        
         var networkManager = NetworkManager()
         var cancelBag = CancelBag()
         

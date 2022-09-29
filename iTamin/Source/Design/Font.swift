@@ -31,7 +31,7 @@ extension UIFont {
         return UIFont(name: "AppleSDGothicNeo-Bold", size: size)!
     }
     static func SDGothicMedium(size: CGFloat = 14) -> UIFont {
-        return UIFont(name: "AppleSDGothicNeo-SDGothicMedium", size: size)!
+        return UIFont(name: "AppleSDGothicNeo-Medium", size: size)!
     }
 }
 
@@ -40,6 +40,6 @@ extension Font {
         return Font.custom("AppleSDGothicNeo-Bold", size: size)
     }
     static func SDGothicMedium(size: CGFloat = 14) -> Font {
-        return Font.custom("AppleSDGothicNeo-SDGothicMedium", size: size)
+        return Font.custom("AppleSDGothicNeo-Medium", size: size)
     }
 }

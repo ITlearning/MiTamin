@@ -89,6 +89,16 @@ class HomeViewController: UIViewController {
 
     private func bindCombine() {
         
+        viewModel.buttonClick
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] idx in
+                guard let self = self else { return }
+                let myTaminVC = MyTaminViewController()
+                myTaminVC.modalPresentationStyle = .fullScreen
+                self.present(myTaminVC, animated: true)
+            })
+            .cancel(with: cancelBag)
+        
         viewModel.$userData
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] result in

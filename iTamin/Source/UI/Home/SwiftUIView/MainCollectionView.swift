@@ -43,7 +43,7 @@ struct MainCollectionView: View {
                 Spacer()
                 
                 Button(action: {
-                    
+                    viewModel.buttonClick.send(idx)
                 }, label: {
                     RoundedRectangle(cornerRadius: 8)
                         .foregroundColor(Color(uiColor: item.isDone ? UIColor.grayColor1 : UIColor.primaryColor))
