@@ -11,8 +11,8 @@ import Combine
 
 extension MyTaminViewController {
     class ViewModel: ObservableObject {
-        var myTaminStatus = CurrentValueSubject<[Bool], Never>([false, false, false, false])
-        
+        var myTaminStatus = CurrentValueSubject<Int, Never>(1)
+ 
         
         
     }

@@ -71,7 +71,8 @@ class MyTaminViewController: UIViewController {
         
         backButton.tapPublisher
             .sink(receiveValue: { _ in
-                self.viewModel.myTaminStatus.send([true, false, false, false])
+                let currentIndex = self.viewModel.myTaminStatus.value
+                self.viewModel.myTaminStatus.send(currentIndex+1)
             })
             .cancel(with: cancelBag)
         
