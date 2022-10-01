@@ -57,11 +57,21 @@ class MyTaminViewController: UIViewController {
         return toggle
     }()
     
-    var myTaminCollectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    private let collectionView: UICollectionView = {
+        let collectionViewLayout = UICollectionViewFlowLayout()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
         
         return collectionView
     }()
+    
+    let backgroundImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "myTaminTimerBG")
+        imageView.contentMode = .scaleAspectFit
+        
+        return imageView
+    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,7 +98,7 @@ class MyTaminViewController: UIViewController {
     
     
     func configureLayout() {
-        
+        view.addSubview(backgroundImage)
         view.addSubview(backButton)
         view.addSubview(midNavTitle)
         view.addSubview(cancelButton)
@@ -96,7 +106,14 @@ class MyTaminViewController: UIViewController {
         view.addSubview(indicatorView.view)
         view.addSubview(autoTextLabel)
         view.addSubview(toggleSwitch)
-        view.addSubview(myTaminCollectionView)
+        view.addSubview(collectionView)
+        
+        backgroundImage.snp.makeConstraints {
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(15)
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(77)
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(160)
+            $0.height.equalTo(432)
+        }
         
         backButton.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
@@ -134,36 +151,46 @@ class MyTaminViewController: UIViewController {
             $0.height.equalTo(28)
         }
         
-        myTaminCollectionView.snp.makeConstraints {
-            $0.top.equalTo(toggleSwitch.snp.bottom)
+        collectionView.snp.makeConstraints {
+            $0.top.equalTo(toggleSwitch.snp.bottom).offset(20)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(142)
         }
         
+        
+        
     }
 
     func configureColletionView() {
         let flow = UICollectionViewFlowLayout()
-        myTaminCollectionView = UICollectionView(frame: .zero, collectionViewLayout: flow)
-        myTaminCollectionView.register(MyTaminCollectionViewCell.self, forCellWithReuseIdentifier: MyTaminCollectionViewCell.cellId)
-        myTaminCollectionView.delegate = self
-        myTaminCollectionView.dataSource = self
-        myTaminCollectionView.isScrollEnabled = false
+        
+        collectionView.register(MyTaminCollectionViewCell.self, forCellWithReuseIdentifier: MyTaminCollectionViewCell.cellId)
+        collectionView.backgroundColor = .clear
+        collectionView.collectionViewLayout = flow
+        collectionView.setCollectionViewLayout(flow, animated: true)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.isScrollEnabled = false
     }
 
 }
 
 extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyTaminCollectionViewCell.cellId, for: indexPath) as? MyTaminCollectionViewCell else { return UICollectionViewCell() }
+        let model = viewModel.myTaminModel[indexPath.row]
+        
+        cell.configureCell(index: indexPath.row, image: model.image, mainTitle: model.mainTitle, subTitle: model.subTitle)
         
         return cell
     }

@@ -15,7 +15,7 @@ extension HomeViewController {
         @Published var userData: WelComeModel?
         
         var buttonClick = CurrentValueSubject<Int, Never>(0)
-        
+        var subTextPublisher = CurrentValueSubject<String, Never>("")
         var networkManager = NetworkManager()
         var cancelBag = CancelBag()
         

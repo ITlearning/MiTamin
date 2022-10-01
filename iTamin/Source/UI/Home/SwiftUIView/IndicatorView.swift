@@ -34,7 +34,6 @@ struct IndicatorView: View {
             Circle()
                 .foregroundColor(indicators >= idx ? Color(uiColor: UIColor.primaryColor) : Color.clear)
                 .frame(width: 12, height: 12)
-            
         }
         
         
