@@ -36,8 +36,11 @@ class SignInViewController: UIViewController {
     private let autoLoginButton: UIButton = {
         let button = UIButton()
         button.setTitle("자동 로그인", for: .normal)
-        button.setImage(UIImage(named: "check-circle"), for: .normal)
+        button.setTitle("자동 로그인", for: .selected)
+        button.setImage(UIImage(named: "check-circle"), for: .selected)
+        button.setImage(UIImage(named: "UnSelectButton"), for: .normal)
         button.setTitleColor(UIColor.black, for: .normal)
+        button.setTitleColor(UIColor.black, for: .selected)
         button.titleLabel?.font = UIFont.notoRegular(size: 15)
         button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
         button.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -62,6 +65,14 @@ class SignInViewController: UIViewController {
         button.titleLabel?.font = UIFont.notoRegular(size: 15)
         
         return button
+    }()
+    
+    var errorDescriptionLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.systemRed
+        label.font = UIFont.SDGothicMedium(size: 13)
+        
+        return label
     }()
     
     override func viewWillAppear(_ animated: Bool) {
@@ -93,6 +104,11 @@ class SignInViewController: UIViewController {
             .sink(receiveValue: { [weak self] valid in
                 guard let self = self else { return }
                 print(valid)
+                
+                if self.viewModel.loginErrorText.value != "" {
+                    self.viewModel.loginErrorText.send("")
+                }
+                
                 if valid {
                     self.loginButton.isEnabled = true
                     self.buttonDone()
@@ -103,11 +119,26 @@ class SignInViewController: UIViewController {
             })
             .cancel(with: cancelBag)
         
+        viewModel.loginErrorText
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { text in
+                if text != "" {
+                    self.emailTextField.underLine.backgroundColor = UIColor.systemRed
+                    self.passwordTextField.underLine.backgroundColor = UIColor.systemRed
+                    self.errorDescriptionLabel.text = text
+                } else {
+                    self.emailTextField.underLine.backgroundColor = UIColor.underLineGray
+                    self.passwordTextField.underLine.backgroundColor = UIColor.underLineGray
+                    self.errorDescriptionLabel.text = text
+                }
+            })
+            .cancel(with: cancelBag)
+        
         loginButton.tapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] _ in
                 guard let self = self else { return }
-                self.viewModel.tryToLogin()
+                self.viewModel.tryToLogin(isAuto: self.autoLoginButton.isSelected)
             })
             .cancel(with: cancelBag)
         
@@ -116,6 +147,13 @@ class SignInViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { _ in
                 print("찾기 버튼")
+            })
+            .cancel(with: cancelBag)
+        
+        autoLoginButton.tapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { _ in
+                self.autoLoginButton.isSelected.toggle()
             })
             .cancel(with: cancelBag)
     }
@@ -138,6 +176,7 @@ class SignInViewController: UIViewController {
         view.addSubview(autoLoginButton)
         view.addSubview(loginButton)
         view.addSubview(resetAccountButton)
+        view.addSubview(errorDescriptionLabel)
         
         emailTextField.snp.makeConstraints {
             $0.centerX.equalToSuperview()
@@ -168,6 +207,11 @@ class SignInViewController: UIViewController {
         resetAccountButton.snp.makeConstraints {
             $0.top.equalTo(loginButton.snp.bottom).offset(15)
             $0.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
+        }
+        
+        errorDescriptionLabel.snp.makeConstraints {
+            $0.top.equalTo(autoLoginButton.snp.bottom).offset(20)
+            $0.leading.equalTo(autoLoginButton.snp.leading)
         }
     }
 

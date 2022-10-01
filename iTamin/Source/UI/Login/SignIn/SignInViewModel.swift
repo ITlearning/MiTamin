@@ -14,8 +14,10 @@ extension SignInViewController {
     class ViewModel: ObservableObject {
         @Published var emailPublisher: String = ""
         @Published var passwordPublisher: String = ""
+        
         private var networkManager = NetworkManager()
         private var cancelBag = CancelBag()
+        var loginErrorText = CurrentValueSubject<String, Never>("")
         
         var isValid: AnyPublisher<Bool, Never> {
             Publishers
@@ -26,16 +28,27 @@ extension SignInViewController {
                 }).eraseToAnyPublisher()
         }
         
-        func tryToLogin() {
+        func tryToLogin(isAuto: Bool) {
             networkManager.loginToServer(email: emailPublisher, password: passwordPublisher)
                 .receive(on: DispatchQueue.main)
-                .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] result in
+                .sink(receiveCompletion: { error in
+                    switch error {
+                    case .finished: break
+                    case .failure(let error):
+                        switch error {
+                        case .http(let data):
+                            self.loginErrorText.send(data.message ?? "")
+                        case .unknown:
+                            self.loginErrorText.send("로그인이 완료되지 않았습니다.")
+                        }
+                    }
+                }, receiveValue: { [weak self] result in
                     guard let self = self else { return }
                     
-                    UserDefaults.standard.set(true, forKey: "isLogined")
-                    
-                    self.saveToken(accessToken: result.data.accessToken, refreshToken: result.data.refreshToken)
-                    
+                    if isAuto {
+                        UserDefaults.standard.set(true, forKey: "isLogined")
+                        self.saveToken(accessToken: result.data.accessToken, refreshToken: result.data.refreshToken)
+                    }
                     let rootTabBarViewController = RootTabBarViewController()
                     (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(rootTabBarViewController, animated: true)
                 })
