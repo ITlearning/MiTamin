@@ -11,6 +11,11 @@ import SnapKit
 import Combine
 import CombineCocoa
 
+enum TimerStatus {
+    case start
+    case pause
+    case end
+}
 
 class MyTaminCollectionViewCell: UICollectionViewCell {
     static let cellId = "MyTaminCollectionViewCell"
@@ -32,7 +37,14 @@ class MyTaminCollectionViewCell: UICollectionViewCell {
     }()
     
     
-    let timer = Timer()
+    //var timer: Timer?
+    var timer: DispatchSourceTimer?
+    
+    var totalTime: Int = 0
+    var currentTime: Int = 0
+    var cancelBag = CancelBag()
+    var timerStatus: TimerStatus = .start
+    var nextOn: (() -> ())?
     
     var timerLabel: UILabel = {
         let label = UILabel()
@@ -46,7 +58,7 @@ class MyTaminCollectionViewCell: UICollectionViewCell {
     let playButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "PlayButton"), for: .normal)
-        
+        button.setImage(UIImage(named: "Stopbutton"), for: .selected)
         return button
     }()
     
@@ -74,6 +86,8 @@ class MyTaminCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
+    var isDone: Bool = false
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         
@@ -82,10 +96,20 @@ class MyTaminCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureCellLayout()
+        bindCombine()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func bindCombine() {
+        playButton.tapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { _ in
+                self.startOtpTimer()
+            })
+            .cancel(with: cancelBag)
     }
     
     private func configureCellLayout() {
@@ -133,10 +157,74 @@ class MyTaminCollectionViewCell: UICollectionViewCell {
         
     }
     
-    func configureCell(index: Int, image: String, mainTitle: String, subTitle: String) {
-        timerImageView.image = UIImage(named: image)
+    func configureCell(index: Int, model: MyTaminModel) {
+        timerImageView.image = UIImage(named: model.image)
         
-        self.mainTitle.text = "\(index+1). "+mainTitle
-        self.subTitle.text = subTitle
+        self.mainTitle.text = "\(index+1). "+model.mainTitle
+        self.subTitle.text = model.subTitle
+        self.totalTime = model.TotalTime
+        self.timerLabel.text = self.timeFormatted(self.totalTime)
+        self.currentTime = model.TotalTime
+        self.isDone = model.isDone
+        
+        if model.isDone {
+            self.nextOn?()
+        }
+        
+    }
+
+    private func startOtpTimer() {
+        if timer == nil {
+            // 1
+            self.currentTime = totalTime
+            timer = DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.main)
+            // 2
+            timer?.schedule(deadline: .now(), repeating: 1)
+            
+            timer?.setEventHandler(handler: {
+                self.timerLabel.text = self.timeFormatted(self.currentTime)
+                
+                if self.currentTime != 0 {
+                    self.currentTime -= 1 // decrease counter timer
+                }
+                else {
+                    if let timer = self.timer {
+                        self.timerStatus = .end
+                        timer.cancel()
+                        self.restartButton(reset: true)
+                        self.timer = nil
+                        self.nextOn?()
+                    }
+                }
+            })
+            self.timerStatus = .start
+            timer?.resume()
+            self.restartButton()
+        } else {
+            if timerStatus == .start {
+                timerStatus = .pause
+                timer?.suspend()
+            } else if timerStatus == .pause {
+                timerStatus = .start
+                timer?.resume()
+            }
+            
+            self.restartButton()
+        }
+    }
+
+    func restartButton(reset: Bool = false) {
+        if reset {
+            playButton.setImage(UIImage(named: "Restartbutton"), for: .normal)
+        } else {
+            playButton.setImage(UIImage(named: timerStatus == .pause ? "PlayButton" : "Stopbutton"), for: .normal)
+        }
+        
+    }
+
+    func timeFormatted(_ totalSeconds: Int) -> String {
+        let seconds: Int = totalSeconds % 60
+        let minutes: Int = (totalSeconds / 60) % 60
+        return String(format: "%02d:%02d", minutes, seconds)
     }
 }

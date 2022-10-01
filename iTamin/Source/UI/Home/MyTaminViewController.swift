@@ -96,6 +96,7 @@ class MyTaminViewController: UIViewController {
         
         button.layer.cornerRadius = 8
         button.backgroundColor = UIColor.grayColor1
+        button.isEnabled = false
         
         return button
     }()
@@ -116,13 +117,35 @@ class MyTaminViewController: UIViewController {
         backButton.tapPublisher
             .sink(receiveValue: { _ in
                 let currentIndex = self.viewModel.myTaminStatus.value
-                self.viewModel.myTaminStatus.send(currentIndex+1)
+                self.viewModel.myTaminStatus.send(currentIndex-1)
+                self.scrollToIndex(index: self.viewModel.myTaminStatus.value-1)
+                self.nextButtonAction(index: self.viewModel.myTaminStatus.value-1)
             })
             .cancel(with: cancelBag)
         
         cancelButton.tapPublisher
             .sink(receiveValue: { _ in
                 self.dismiss(animated: true)
+            })
+            .cancel(with: cancelBag)
+        
+        passButton.tapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { _ in
+                
+            })
+            .cancel(with: cancelBag)
+        
+        
+        nextButton.tapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { _ in
+                if self.viewModel.myTaminStatus.value <= self.viewModel.myTaminModel.count {
+                    let currentIndex = self.viewModel.myTaminStatus.value
+                    self.viewModel.myTaminStatus.send(currentIndex+1)
+                    self.scrollToIndex(index: self.viewModel.myTaminStatus.value-1)
+                    self.nextButtonAction(index: self.viewModel.myTaminStatus.value-1)
+                }
             })
             .cancel(with: cancelBag)
         
@@ -231,6 +254,26 @@ class MyTaminViewController: UIViewController {
         
     }
 
+    
+    func nextButtonAction(index: Int) {
+        
+        let isDone = viewModel.myTaminModel[index].isDone
+        
+        if isDone {
+            self.nextButton.isEnabled = true
+            self.nextButton.backgroundColor = UIColor.primaryColor
+        } else {
+            self.nextButton.isEnabled = false
+            self.nextButton.backgroundColor = UIColor.grayColor1
+        }
+        
+    }
+    
+    func scrollToIndex(index:Int) {
+      let rect = self.collectionView.layoutAttributesForItem(at: IndexPath(row: index, section: 0))?.frame
+      self.collectionView.scrollRectToVisible(rect!, animated: true)
+    }
+    
 }
 
 extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -254,7 +297,12 @@ extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataS
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyTaminCollectionViewCell.cellId, for: indexPath) as? MyTaminCollectionViewCell else { return UICollectionViewCell() }
         let model = viewModel.myTaminModel[indexPath.row]
         
-        cell.configureCell(index: indexPath.row, image: model.image, mainTitle: model.mainTitle, subTitle: model.subTitle)
+        cell.configureCell(index: indexPath.row, model: model)
+        
+        cell.nextOn = {
+            self.viewModel.myTaminModel[indexPath.row].isDone = true
+            self.nextButtonAction(index: indexPath.row)
+        }
         
         return cell
     }
