@@ -93,6 +93,7 @@ class MyTaminViewController: UIViewController {
         
         button.setTitleColor(UIColor.white, for: .normal)
         button.setTitleColor(UIColor.white, for: .disabled)
+        button.titleLabel?.font = UIFont.SDGothicBold(size: 16)
         
         button.layer.cornerRadius = 8
         button.backgroundColor = UIColor.grayColor1
@@ -117,6 +118,7 @@ class MyTaminViewController: UIViewController {
         backButton.tapPublisher
             .sink(receiveValue: { _ in
                 let currentIndex = self.viewModel.myTaminStatus.value
+                guard currentIndex - 1 > 0 else { return }
                 self.viewModel.myTaminStatus.send(currentIndex-1)
                 self.scrollToIndex(index: self.viewModel.myTaminStatus.value-1)
                 self.nextButtonAction(index: self.viewModel.myTaminStatus.value-1)
@@ -132,7 +134,13 @@ class MyTaminViewController: UIViewController {
         passButton.tapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { _ in
-                
+                if self.viewModel.myTaminStatus.value < self.viewModel.myTaminModel.count {
+                    let currentIndex = self.viewModel.myTaminStatus.value
+                    self.viewModel.myTaminStatus.send(currentIndex+1)
+                    self.scrollToIndex(index: self.viewModel.myTaminStatus.value-1)
+                    self.nextButtonAction(index: self.viewModel.myTaminStatus.value-1)
+                    self.resetCell(idx: currentIndex-1)
+                }
             })
             .cancel(with: cancelBag)
         
@@ -140,7 +148,7 @@ class MyTaminViewController: UIViewController {
         nextButton.tapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { _ in
-                if self.viewModel.myTaminStatus.value <= self.viewModel.myTaminModel.count {
+                if self.viewModel.myTaminStatus.value < self.viewModel.myTaminModel.count {
                     let currentIndex = self.viewModel.myTaminStatus.value
                     self.viewModel.myTaminStatus.send(currentIndex+1)
                     self.scrollToIndex(index: self.viewModel.myTaminStatus.value-1)
@@ -254,6 +262,16 @@ class MyTaminViewController: UIViewController {
         
     }
 
+    func resetCell(idx: Int) {
+        guard let cell = self.collectionView.cellForItem(at: IndexPath(row: idx, section: 0)) else {
+            return
+        }
+        guard let cell = cell as? MyTaminCollectionViewCell else { return }
+        cell.startOtpTimer()
+        cell.timerStatus = .pause
+        cell.restartButton()
+    }
+    
     
     func nextButtonAction(index: Int) {
         

@@ -173,7 +173,7 @@ class MyTaminCollectionViewCell: UICollectionViewCell {
         
     }
 
-    private func startOtpTimer() {
+    func startOtpTimer() {
         if timer == nil {
             // 1
             self.currentTime = totalTime
