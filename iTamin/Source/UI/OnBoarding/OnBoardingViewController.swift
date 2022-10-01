@@ -70,35 +70,34 @@ class OnBoardingViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] _ in
                 guard let self = self else { return }
-                if self.viewModel.currentInex + 1 < 4 {
-                    self.viewModel.currentInex += 1
+                if self.viewModel.currentIndex + 1 < 4 {
+                    self.viewModel.currentIndex += 1
+                    
+                    self.collectionView.scrollToItem(at: IndexPath(item: self.viewModel.currentIndex, section: 0), at: .centeredVertically, animated: true)
+                    self.setButtonText(index: self.viewModel.currentIndex)
+                } else {
+                    self.viewModel.signUpToServer(skip: false)
                 }
-                self.collectionView.scrollToItem(at: IndexPath(item: self.viewModel.currentInex, section: 0), at: .centeredVertically, animated: true)
             })
             .cancel(with: cancelBag)
         
         nextTimeButton.tapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { _ in
-                self.viewModel.signUpToServer()
+                if !self.viewModel.myTaminHour.isEmpty {
+                    self.viewModel.myTaminHour = ""
+                    self.viewModel.myTaminMin = ""
+                }
+                self.viewModel.signUpToServer(skip: true)
             })
             .cancel(with: cancelBag)
-        
         viewModel.signUpSuccess
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] value in
                 guard let self = self else { return }
-                //UserDefaults.standard.set(true, forKey: "isLogined")
-                //self.moveToMain()
                 self.dismiss(animated: true)
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                    self.navigationController?.popToRootViewController(animated: true)
-                })
             })
             .cancel(with: cancelBag)
-        
-        
     }
     
     
@@ -137,8 +136,16 @@ class OnBoardingViewController: UIViewController {
         }
         
         nextTimeButton.snp.makeConstraints {
-            $0.bottom.equalTo(nextButton.snp.top).inset(26)
+            $0.top.equalTo(collectionView.snp.bottom).offset(30)
             $0.centerX.equalToSuperview()
+        }
+    }
+    
+    func setButtonText(index: Int) {
+        if index == 3 {
+            nextButton.setTitle("시작하기", for: .normal)
+        } else {
+            nextButton.setTitle("다음", for: .normal)
         }
     }
     
@@ -159,7 +166,20 @@ extension OnBoardingViewController: UICollectionViewDelegate, UICollectionViewDa
             cell.setCell(mainTitle: replace, image: "Mainillustration")
         }
         
+        if indexPath.row == 3 {
+            cell.setHidden(hidden: false)
+        } else {
+            cell.setHidden(hidden: true)
+        }
+        
         cell.setCell(mainTitle: text, image: "Mainillustration")
+        
+        cell.pickDate = { result in
+            if self.viewModel.currentIndex == 3 {
+                self.viewModel.myTaminHour = result.first ?? ""
+                self.viewModel.myTaminMin = result.last ?? ""
+            }
+        }
         
         return cell
     }
@@ -177,6 +197,7 @@ extension OnBoardingViewController: UICollectionViewDelegate, UICollectionViewDa
         
         guard let indexPath = collectionView.indexPathForItem(at: visiblePoint) else { return }
         
-        viewModel.currentInex = indexPath.row
+        viewModel.currentIndex = indexPath.row
+        setButtonText(index: indexPath.row)
     }
 }

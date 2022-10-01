@@ -10,18 +10,21 @@ import Combine
 import CombineCocoa
 
 class SignUpViewModel: ObservableObject {
-    @Published private var nickNameText: String = ""
+    @Published var nickNameText: String = ""
     @Published var allSelect: Bool = false
     @Published var oneButtonSelect: Bool = false
     @Published var twoButtonSelect: Bool = false
+    @Published var myTaminHour: String = ""
+    @Published var myTaminMin: String = ""
     var descriptionArray: [String] = []
-    @Published var currentInex: Int = 0
+    @Published var currentIndex: Int = 0
     
     @Published var emailText: String = ""
     @Published var passwordText: String = ""
     @Published var passwordCheckText: String = ""
     
     var emailCheck = PassthroughSubject<Bool, Never>()
+    var nickNameCheck = PassthroughSubject<Bool, Never>()
     var signUpSuccess = PassthroughSubject<Bool, Never>()
     var userData: SignUpReciveModel?
     
@@ -52,6 +55,14 @@ class SignUpViewModel: ObservableObject {
             .eraseToAnyPublisher()
     }
     
+    func checkNickName(text: String) {
+        networkManager.nickNameCheckToServer(string: text)
+            .sink(receiveCompletion: { _ in }, receiveValue: { data in
+                self.nickNameCheck.send(data.data)
+            })
+            .cancel(with: cancelBag)
+    }
+    
     func typingText(_ text: String) {
         nickNameText = text
     }
@@ -60,14 +71,13 @@ class SignUpViewModel: ObservableObject {
         return nickNameText
     }
 
-    func signUpToServer() {
+    func signUpToServer(skip: Bool) {
         let model = SignUpModel(email: emailText,
                                 password: passwordText,
                                 nickname: nickNameText,
-                                mytaminHour: "",
-                                mytaminMin: "")
-        
-        networkManager.signUpToServer(model: model, skip: true)
+                                mytaminHour: myTaminHour,
+                                mytaminMin: myTaminMin)
+        networkManager.signUpToServer(model: model, skip: skip)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in }, receiveValue: { value in
                 self.userData = value.data
@@ -114,7 +124,7 @@ class SignUpViewModel: ObservableObject {
         descriptionArray = ["안녕하세요, \(nickNameText)님!\n매일 챙겨먹는 마음 비타민\n마이타민입니다!",
                             "하루의 끝에서\n오늘의 나를 진단해보고\n칭찬 처방을 내려보세요",
                             "적어도 한달에 한번은\n오로지 자신의 행복을 위한\n하루가 되도록 도울게요.",
-                            "하루를 마무리하는 시간은\n 언제쯤 인가요?"]
+                            "하루를 마무리하는 시간은\n언제쯤 인가요?"]
     }
     
     func isValidEmail(testStr:String) -> Bool {

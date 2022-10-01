@@ -102,7 +102,6 @@ class LoginMainViewController: UIViewController {
         signInButton.tapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: {
-                print("왜 안됨")
                 let loginVC = SignInViewController()
                 self.navigationController?.pushViewController(loginVC, animated: true)
             })

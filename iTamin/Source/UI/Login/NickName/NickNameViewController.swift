@@ -105,20 +105,16 @@ class NickNameViewController: UIViewController {
             })
             .cancel(with: cancelBag)
         
-        
-        viewModel.isValid
+        viewModel.$nickNameText
+            .throttle(for: 1, scheduler: RunLoop.main, latest: true)
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { [weak self] value in
-                guard let self = self else { return }
-                if value {
-                    self.nextButton.isEnabled = true
-                } else {
-                    self.nextButton.isEnabled = false
+            .sink(receiveValue: { text in
+                if text != "" {
+                    self.viewModel.checkNickName(text: text)
                 }
-                
-                self.nextButtonConfigure()
             })
             .cancel(with: cancelBag)
+        
         
         nextButton.tapPublisher
             .receive(on: DispatchQueue.main)
@@ -129,6 +125,42 @@ class NickNameViewController: UIViewController {
                 
             })
             .cancel(with: cancelBag)
+        
+        viewModel.nickNameCheck
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { value in
+                self.checkNickNameDescription(isCheck: value)
+                
+                if !value {
+                    self.nextButton.isEnabled = true
+                } else {
+                    self.nextButton.isEnabled = false
+                }
+                self.nextButtonConfigure()
+            })
+            .cancel(with: cancelBag)
+        
+        
+        viewModel.signUpSuccess
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] value in
+                guard let self = self else { return }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                    self.navigationController?.popToRootViewController(animated: true)
+                })
+            })
+            .cancel(with: cancelBag)
+    }
+    
+    func checkNickNameDescription(isCheck: Bool) {
+        if !isCheck {
+            goodNickNameDescription.text = "멋진 닉네임이네요 :)"
+            checkImageView.isHidden = false
+        } else {
+            goodNickNameDescription.text = "이미 사용중인 닉네임입니다."
+            checkImageView.isHidden = true
+        }
+        
     }
     
     func nextButtonConfigure() {

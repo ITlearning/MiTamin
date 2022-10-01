@@ -15,7 +15,10 @@ class CustomDatePicker: UIDatePicker {
     }
     
     func setConfigure() {
+        preferredDatePickerStyle = .wheels
         datePickerMode = .time
+        locale = Locale(identifier: "ko-KR")
+        minuteInterval = 5
     }
 
 }
