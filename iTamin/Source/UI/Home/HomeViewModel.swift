@@ -19,15 +19,29 @@ extension HomeViewController {
         var networkManager = NetworkManager()
         var cancelBag = CancelBag()
         
-        @Published var mainCellItems: [MainCollectionModel] = [
-            MainCollectionModel(isDone: false, cellDescription: "숨 고르기", image: "MyTamin01"),
+        var mainCellItems = CurrentValueSubject<[MainCollectionModel], Never>(
+            [MainCollectionModel(isDone: false, cellDescription: "숨 고르기", image: "MyTamin01"),
             MainCollectionModel(isDone: false, cellDescription: "감각 깨우기", image: "MyTamin02"),
             MainCollectionModel(isDone: false, cellDescription: "하루 진단하기", image: "MyTamin03"),
-            MainCollectionModel(isDone: false, cellDescription: "칭찬 처방하기", image: "MyTamin04")
-        ]
+            MainCollectionModel(isDone: false, cellDescription: "칭찬 처방하기", image: "MyTamin04")]
+        )
         
         init() {
             loadWelComeComment()
+        }
+        
+        func checkStatus() {
+            networkManager.checkMyTaminStatus()
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: { _ in }, receiveValue: { result in
+                    self.mainCellItems.send([
+                        MainCollectionModel(isDone: result.data.breathIsDone, cellDescription: "숨 고르기", image: "MyTamin01"),
+                        MainCollectionModel(isDone: result.data.senseIsDone, cellDescription: "감각 깨우기", image: "MyTamin02"),
+                        MainCollectionModel(isDone: result.data.careIsDone, cellDescription: "하루 진단하기", image: "MyTamin03"),
+                        MainCollectionModel(isDone: result.data.reportIsDone, cellDescription: "칭찬 처방하기", image: "MyTamin04")
+                    ])
+                })
+                .cancel(with: cancelBag)
         }
         
         func loadWelComeComment() {

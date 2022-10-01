@@ -10,7 +10,7 @@ import SwiftUI
 struct MainCollectionView: View {
     
     @StateObject var viewModel: HomeViewController.ViewModel
-    
+    @State var items:[MainCollectionModel] = []
     func mainCellView(idx: Int, item: MainCollectionModel) -> some View {
         ZStack(alignment: .topLeading) {
             RoundedRectangle(cornerRadius: 12)
@@ -20,11 +20,6 @@ struct MainCollectionView: View {
                     .shadow(color: Color.black.opacity(0.1), radius: 0, x: 0, y: 8)
                     .blur(radius: 10)
                 )
-            
-//            Image(item.image)
-//                .resizable()
-//                .frame(width: 184, height: 118)
-//                .offset(x: 11.5, y: 18)
             
             HStack(alignment: .center,spacing: 8) {
                 Text("\(idx+1)")
@@ -43,7 +38,9 @@ struct MainCollectionView: View {
                 Spacer()
                 
                 Button(action: {
-                    viewModel.buttonClick.send(idx)
+                    if !item.isDone {
+                        viewModel.buttonClick.send(idx)
+                    }
                 }, label: {
                     RoundedRectangle(cornerRadius: 8)
                         .foregroundColor(Color(uiColor: item.isDone ? UIColor.grayColor1 : UIColor.primaryColor))
@@ -66,10 +63,16 @@ struct MainCollectionView: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: -30) {
-                ForEach(viewModel.mainCellItems.indices, id:\.self) { idx in
-                    mainCellView(idx: idx, item: viewModel.mainCellItems[idx])
+                ForEach(items.indices, id:\.self) { idx in
+                    mainCellView(idx: idx, item: items[idx])
                 }
             }
+            .onAppear(perform: {
+                items = viewModel.mainCellItems.value
+            })
+            .onReceive(viewModel.mainCellItems, perform: { value in
+                items = value
+            })
             .frame(height: 200)
             .background(Color.clear)
         }

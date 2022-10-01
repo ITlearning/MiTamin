@@ -78,6 +78,7 @@ class HomeViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         setAnimate()
+        viewModel.checkStatus()
     }
     
     override func viewDidLoad() {

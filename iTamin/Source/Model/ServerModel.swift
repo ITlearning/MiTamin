@@ -61,3 +61,14 @@ struct WelComeModel: Codable {
     let nickname: String
     let comment: String
 }
+
+struct MyTaminSuccessModel: Codable {
+    let updatedTime: String
+}
+
+struct MyTaminProgressModel: Codable {
+    var breathIsDone: Bool
+    var senseIsDone: Bool
+    var reportIsDone: Bool
+    var careIsDone: Bool
+}

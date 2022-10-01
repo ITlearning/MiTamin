@@ -302,6 +302,18 @@ class MyTaminViewController: UIViewController {
         }
     }
     
+    
+    func checkToServer(idx: Int) {
+        switch idx {
+        case 0:
+            viewModel.breathSuccess()
+        case 1:
+            viewModel.senseSuccess()
+        default:
+            break
+        }
+    }
+    
 }
 
 extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -329,6 +341,7 @@ extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataS
         
         cell.nextOn = {
             self.viewModel.myTaminModel[indexPath.row].isDone = true
+            self.checkToServer(idx: indexPath.row)
             if self.toggleSwitch.isOn {
                 if indexPath.row < self.viewModel.myTaminModel.count {
                     self.scrollToIndex(index: indexPath.row+1)
