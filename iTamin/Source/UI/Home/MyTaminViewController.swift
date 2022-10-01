@@ -72,6 +72,40 @@ class MyTaminViewController: UIViewController {
         return imageView
     }()
     
+    let passButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("패스하기", for: .normal)
+        button.layer.borderColor = UIColor.primaryColor.cgColor
+        button.layer.borderWidth = 1
+        button.layer.cornerRadius = 8
+        button.layer.masksToBounds = true
+        button.backgroundColor = UIColor.white
+        button.titleLabel?.font = UIFont.SDGothicBold(size: 16)
+        button.setTitleColor(UIColor.primaryColor, for: .normal)
+        
+        return button
+    }()
+    
+    let nextButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("다음으로", for: .normal)
+        button.setTitle("다음으로", for: .disabled)
+        
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.setTitleColor(UIColor.white, for: .disabled)
+        
+        button.layer.cornerRadius = 8
+        button.backgroundColor = UIColor.grayColor1
+        
+        return button
+    }()
+    
+    let bottomBarImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "bottomBar")
+        imageView.backgroundColor = .clear
+        return imageView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,6 +141,9 @@ class MyTaminViewController: UIViewController {
         view.addSubview(autoTextLabel)
         view.addSubview(toggleSwitch)
         view.addSubview(collectionView)
+        view.addSubview(bottomBarImage)
+        view.addSubview(nextButton)
+        view.addSubview(passButton)
         
         backgroundImage.snp.makeConstraints {
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(15)
@@ -158,32 +195,59 @@ class MyTaminViewController: UIViewController {
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(142)
         }
         
+        bottomBarImage.snp.makeConstraints {
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(68)
+        }
         
-        
+        passButton.snp.makeConstraints {
+            $0.top.equalTo(bottomBarImage.snp.top).offset(12)
+            $0.leading.equalTo(bottomBarImage.snp.leading).offset(25)
+            $0.width.equalTo(162)
+            $0.height.equalTo(56)
+        }
+        nextButton.snp.makeConstraints {
+            $0.top.equalTo(bottomBarImage.snp.top).offset(12)
+            $0.trailing.equalTo(bottomBarImage.snp.trailing).inset(25)
+            $0.width.equalTo(162)
+            $0.height.equalTo(56)
+        }
     }
 
     func configureColletionView() {
         let flow = UICollectionViewFlowLayout()
-        
+        flow.scrollDirection = .horizontal
         collectionView.register(MyTaminCollectionViewCell.self, forCellWithReuseIdentifier: MyTaminCollectionViewCell.cellId)
         collectionView.backgroundColor = .clear
         collectionView.collectionViewLayout = flow
+        
         collectionView.setCollectionViewLayout(flow, animated: true)
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.isPagingEnabled = true
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.isScrollEnabled = false
+        
     }
 
 }
 
 extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        for cell in collectionView.visibleCells {
+            let indexPath = collectionView.indexPath(for: cell)
+            viewModel.myTaminStatus.send((indexPath?.row ?? 0)+1)
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return viewModel.myTaminModel.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

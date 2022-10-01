@@ -67,7 +67,12 @@ class MyTaminCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    let roundedView = UIHostingController(rootView: RoundedCircleView(radius: 60, width: 218, height: 218))
+    let timerImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "myTaminTimerImage")
+        
+        return imageView
+    }()
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -86,48 +91,31 @@ class MyTaminCollectionViewCell: UICollectionViewCell {
     private func configureCellLayout() {
         addSubview(containerView)
         
-        containerView.addSubview(roundedView.view)
-        roundedView.view.addSubview(mainImageView)
+        containerView.addSubview(timerImageView)
         containerView.addSubview(timerLabel)
         containerView.addSubview(playButton)
         containerView.addSubview(mainTitle)
         containerView.addSubview(subTitle)
-        roundedView.view.layer.cornerRadius = 60
-        roundedView.view.clipsToBounds = true
-        
-        let shadowView = UIView()
-        shadowView.backgroundColor = .clear
-        roundedView.view.addSubview(shadowView)
-        
         
         containerView.snp.makeConstraints {
             $0.top.leading.trailing.bottom.equalToSuperview()
         }
         
-        roundedView.view.snp.makeConstraints {
+        timerImageView.snp.makeConstraints {
             $0.top.equalTo(containerView.snp.top).offset(30)
             $0.centerX.equalTo(containerView.snp.centerX)
-        }
-        
-        shadowView.snp.makeConstraints {
-            $0.top.leading.trailing.bottom.equalTo(roundedView.view)
-        }
-    
-        mainImageView.snp.makeConstraints {
-            $0.bottom.equalTo(roundedView.view.snp.bottom).offset(53)
-            $0.trailing.equalTo(roundedView.view.snp.trailing).inset(10)
-            $0.width.equalTo(241)
-            $0.height.equalTo(203)
+            $0.width.equalTo(218)
+            $0.height.equalTo(218)
         }
      
         timerLabel.snp.makeConstraints {
-            $0.top.equalTo(roundedView.view.snp.top).offset(40)
+            $0.top.equalTo(timerImageView.snp.top).offset(40)
             $0.centerX.equalTo(containerView.snp.centerX)
         }
         
         playButton.snp.makeConstraints {
-            $0.top.equalTo(roundedView.view.snp.bottom).offset(24)
-            $0.centerX.equalTo(roundedView.view.snp.centerX)
+            $0.top.equalTo(timerImageView.snp.bottom).offset(24)
+            $0.centerX.equalTo(timerImageView.snp.centerX)
             $0.width.equalTo(56)
             $0.height.equalTo(56)
         }
@@ -146,26 +134,9 @@ class MyTaminCollectionViewCell: UICollectionViewCell {
     }
     
     func configureCell(index: Int, image: String, mainTitle: String, subTitle: String) {
-        mainImageView.image = UIImage(named: image)
+        timerImageView.image = UIImage(named: image)
         
-        if index != 0 {
-            mainImageView.snp.remakeConstraints {
-                $0.bottom.equalTo(roundedView.view.snp.bottom).offset(80)
-                $0.trailing.equalTo(roundedView.view.snp.trailing).inset(2.5)
-                $0.leading.equalTo(roundedView.view.snp.leading).offset(3.5)
-                $0.width.equalTo(212)
-                $0.height.equalTo(212)
-            }
-        } else {
-            mainImageView.snp.remakeConstraints {
-                $0.bottom.equalTo(roundedView.view.snp.bottom).offset(53)
-                $0.trailing.equalTo(roundedView.view.snp.trailing).inset(10)
-                $0.width.equalTo(241)
-                $0.height.equalTo(203)
-            }
-        }
-        
-        self.mainTitle.text = mainTitle
+        self.mainTitle.text = "\(index+1). "+mainTitle
         self.subTitle.text = subTitle
     }
 }
