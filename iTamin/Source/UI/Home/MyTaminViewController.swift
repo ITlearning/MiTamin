@@ -288,8 +288,18 @@ class MyTaminViewController: UIViewController {
     }
     
     func scrollToIndex(index:Int) {
-      let rect = self.collectionView.layoutAttributesForItem(at: IndexPath(row: index, section: 0))?.frame
-      self.collectionView.scrollRectToVisible(rect!, animated: true)
+        let rect = self.collectionView.layoutAttributesForItem(at: IndexPath(row: index, section: 0))?.frame
+        self.collectionView.scrollRectToVisible(rect!, animated: true)
+        
+        if toggleSwitch.isOn {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                guard let cell = self.collectionView.cellForItem(at: IndexPath(row: index, section: 0)) else {
+                    return
+                }
+                guard let cell = cell as? MyTaminCollectionViewCell else { return }
+                cell.startOtpTimer()
+            })
+        }
     }
     
 }
@@ -319,7 +329,14 @@ extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataS
         
         cell.nextOn = {
             self.viewModel.myTaminModel[indexPath.row].isDone = true
-            self.nextButtonAction(index: indexPath.row)
+            if self.toggleSwitch.isOn {
+                if indexPath.row < self.viewModel.myTaminModel.count {
+                    self.scrollToIndex(index: indexPath.row+1)
+                }
+            } else {
+                self.nextButtonAction(index: indexPath.row)
+            }
+            
         }
         
         return cell
