@@ -17,6 +17,17 @@ class MyTaminViewController: UIViewController {
     
     var cancelBag = CancelBag()
     
+    var index: Int = 0
+    
+    init(index: Int) {
+        self.index = index
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     let autoTextLabel: UILabel = {
         let label = UILabel()
         label.text = "자동 진행"
@@ -259,7 +270,6 @@ class MyTaminViewController: UIViewController {
         collectionView.isPagingEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.isScrollEnabled = false
-        
     }
 
     func resetCell(idx: Int) {

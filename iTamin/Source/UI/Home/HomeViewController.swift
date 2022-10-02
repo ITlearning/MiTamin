@@ -68,7 +68,40 @@ class HomeViewController: UIViewController {
         return label
     }()
     
-    //var mainScrollView: UIHostingController<MainCollectionView>?
+    let currentDateLabel: UILabel = {
+        let label = UILabel()
+        label.text = "10.02 Sun"
+        label.font = UIFont.SDGothicRegular(size: 12)
+        label.textColor = UIColor.grayColor2
+        
+        return label
+    }()
+    
+    let toDayMyTaminLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.grayColor4
+        label.font = UIFont.SDGothicBold(size: 18)
+        label.text = "오늘의 마이타민"
+        
+        return label
+    }()
+    
+    let notYetMyTaminImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "NotYetImage")
+        
+        return imageView
+    }()
+    
+    let notYetMyTaminLabel: UILabel = {
+        let label = UILabel()
+        label.text = "아직 섭취한\n마이타민이 없어요"
+        label.font = UIFont.SDGothicMedium(size: 18)
+        label.textColor = UIColor.grayColor4
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        return label
+    }()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -86,6 +119,7 @@ class HomeViewController: UIViewController {
         setTabBar()
         configureLayout()
         bindCombine()
+        setCurrentDay()
     }
 
     private func bindCombine() {
@@ -94,7 +128,7 @@ class HomeViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] idx in
                 guard let self = self else { return }
-                let myTaminVC = MyTaminViewController()
+                let myTaminVC = MyTaminViewController(index: idx)
                 myTaminVC.modalPresentationStyle = .fullScreen
                 self.present(myTaminVC, animated: true)
             })
@@ -124,6 +158,16 @@ class HomeViewController: UIViewController {
             .cancel(with: cancelBag)
     }
     
+    private func setCurrentDay() {
+        
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US")
+        dateFormatter.dateFormat = "MM.dd EEE"
+        let result = dateFormatter.string(from: date)
+        currentDateLabel.text = result
+    }
+    
     private func configureLayout() {
         let mainScrollView = UIHostingController(rootView: MainCollectionView(viewModel: self.viewModel))
         
@@ -132,6 +176,11 @@ class HomeViewController: UIViewController {
         view.addSubview(mainLogoImageView)
         view.addSubview(mainTitleLabel)
         view.addSubview(mainScrollView.view)
+        view.addSubview(notYetMyTaminImage)
+        view.addSubview(currentDateLabel)
+        view.addSubview(toDayMyTaminLabel)
+        view.addSubview(notYetMyTaminLabel)
+        
         mainScrollView.view.backgroundColor = .clear
         
         mainTitleLabel.alpha = 0.0
@@ -163,6 +212,27 @@ class HomeViewController: UIViewController {
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
         }
         
+        currentDateLabel.snp.makeConstraints {
+            $0.top.equalTo(mainScrollView.view.snp.bottom).offset(20)
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
+        }
+        
+        toDayMyTaminLabel.snp.makeConstraints {
+            $0.top.equalTo(currentDateLabel.snp.bottom).offset(8)
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
+        }
+        
+        notYetMyTaminImage.snp.makeConstraints {
+            $0.top.equalTo(toDayMyTaminLabel.snp.bottom).offset(40)
+            $0.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
+            $0.width.equalTo(120)
+            $0.height.equalTo(120)
+        }
+        
+        notYetMyTaminLabel.snp.makeConstraints {
+            $0.top.equalTo(notYetMyTaminImage.snp.bottom).offset(20)
+            $0.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
+        }
     }
 
 }
