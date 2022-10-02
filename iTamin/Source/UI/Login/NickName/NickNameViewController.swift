@@ -183,7 +183,12 @@ class NickNameViewController: UIViewController {
         view.addSubview(checkImageView)
         view.addSubview(goodNickNameDescription)
         view.addSubview(nextButton)
-        
+        let lineProgressView = UIHostingController(rootView: LineProgressBar(progress: 0.6, nextProgress: 1.1))
+        view.addSubview(lineProgressView.view)
+        lineProgressView.view.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+        }
         nickNameMainTitle.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(25)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)

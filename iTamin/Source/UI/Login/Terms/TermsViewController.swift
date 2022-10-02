@@ -208,6 +208,12 @@ class TermsViewController: UIViewController {
         view.addSubview(termsTwoButton)
         view.addSubview(termsViewTwoButton)
         view.addSubview(nextButton)
+        let lineProgressView = UIHostingController(rootView: LineProgressBar(progress: 0.3, nextProgress: 0.6))
+        view.addSubview(lineProgressView.view)
+        lineProgressView.view.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+        }
         
         termsMainTitle.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(25)

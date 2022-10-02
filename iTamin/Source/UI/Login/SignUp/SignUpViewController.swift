@@ -307,7 +307,8 @@ class SignUpViewController: UIViewController {
         view.addSubview(checkImageView)
         view.addSubview(passwordHiddenButton)
         view.addSubview(passwordCheckHiddenButton)
-        
+        let lineProgressView = UIHostingController(rootView: LineProgressBar(progress: 0.3))
+        view.addSubview(lineProgressView.view)
         mainTitleLabel.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(25)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
@@ -385,6 +386,11 @@ class SignUpViewController: UIViewController {
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(24)
             $0.height.equalTo(56)
+        }
+        
+        lineProgressView.view.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }
