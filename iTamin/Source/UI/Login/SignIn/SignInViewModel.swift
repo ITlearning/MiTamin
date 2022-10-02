@@ -47,8 +47,11 @@ extension SignInViewController {
                     
                     if isAuto {
                         UserDefaults.standard.set(true, forKey: "isLogined")
-                        self.saveToken(accessToken: result.data.accessToken, refreshToken: result.data.refreshToken)
+                        
                     }
+                    
+                    self.saveToken(accessToken: result.data.accessToken, refreshToken: result.data.refreshToken)
+                    
                     let rootTabBarViewController = RootTabBarViewController()
                     (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(rootTabBarViewController, animated: true)
                 })
