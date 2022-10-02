@@ -170,7 +170,6 @@ class NickNameViewController: UIViewController {
             checkImageView.isHidden = false
         } else {
             nextButton.backgroundColor = UIColor.loginButtonGray
-            goodNickNameDescription.isHidden = true
             checkImageView.isHidden = true
         }
     }
