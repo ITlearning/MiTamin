@@ -30,7 +30,7 @@ class MindCollectionViewCell: UICollectionViewCell {
         let mindView = UIHostingController(rootView: MindSelectView())
         
         mindView.rootView.buttonClickIndex = { idx in
-            print(idx)
+            print("dsdsa",idx)
             self.buttonClick?(idx)
         }
         

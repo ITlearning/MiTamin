@@ -1,0 +1,120 @@
+//
+//  MindTextCollectionViewCell.swift
+//  iTamin
+//
+//  Created by Tabber on 2022/10/08.
+//
+
+import UIKit
+import SnapKit
+
+class MindTextCollectionViewCell: UICollectionViewCell {
+    
+    static let cellId = "MindTextCollectionViewCell"
+    
+    private let collectionView: UICollectionView = {
+        let collectionViewLayout = CustomViewFlowLayout()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
+        
+        return collectionView
+    }()
+    
+    var addAction: (([String]) -> ())?
+    var selectCell: ((Int) -> ())?
+    
+    var cellData: [String] = [] {
+        didSet {
+            addAction?(cellData)
+            collectionView.reloadData()
+        }
+    }
+    
+    var selectCellIdx: Int = 0 {
+        didSet {
+            selectCell?(selectCellIdx)
+        }
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        configureCell()
+        configureCollectionView()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func configureCell() {
+        addSubview(collectionView)
+        collectionView.snp.makeConstraints {
+            $0.top.leading.trailing.bottom.equalToSuperview()
+        }
+    }
+    
+    private func configureCollectionView() {
+        collectionView.register(TagCollectionViewCell.self, forCellWithReuseIdentifier: TagCollectionViewCell.cellId)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        let flowLayout = CustomViewFlowLayout()
+        collectionView.collectionViewLayout = flowLayout
+    }
+    
+    
+    func calculateCellWidth(index: Int) -> CGFloat {
+        if cellData.count > index {
+            let label = UILabel()
+            
+            label.text = cellData[index]
+            label.font = .systemFont(ofSize: 14)
+            label.sizeToFit()
+            
+            return label.frame.width + 45
+        } else {
+            return 100
+        }
+    }
+}
+
+extension MindTextCollectionViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return cellData.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        return CGSize(width: calculateCellWidth(index: indexPath.row), height: 34)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCollectionViewCell.cellId, for: indexPath) as? TagCollectionViewCell else { return UICollectionViewCell() }
+        
+        let text = cellData[indexPath.row]
+        
+        cell.setCellText(text: text)
+        
+        if indexPath.row == selectCellIdx {
+            cell.selectAction()
+        } else {
+            cell.deselectAction()
+        }
+        
+        return cell
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCollectionViewCell.cellId, for: indexPath) as? TagCollectionViewCell else { return }
+        
+        selectCellIdx = indexPath.row
+        
+        if indexPath.row == selectCellIdx {
+            cell.selectAction()
+        } else {
+            cell.deselectAction()
+        }
+        
+        collectionView.reloadData()
+    }
+    
+}

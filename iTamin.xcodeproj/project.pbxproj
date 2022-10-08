@@ -69,6 +69,9 @@
 		F5A2EBB428E9BF1000536E9B /* LineProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EBB328E9BF1000536E9B /* LineProgressBar.swift */; };
 		F5A2EBB628F1600A00536E9B /* MindCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EBB528F1600A00536E9B /* MindCollectionViewCell.swift */; };
 		F5A2EBB828F1615300536E9B /* MindSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EBB728F1615300536E9B /* MindSelectView.swift */; };
+		F5A2EBBC28F1758800536E9B /* MindTextCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EBBB28F1758800536E9B /* MindTextCollectionViewCell.swift */; };
+		F5A2EBBE28F1760800536E9B /* LeftCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EBBD28F1760800536E9B /* LeftCell.swift */; };
+		F5A2EBC228F176FE00536E9B /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EBC128F176FE00536E9B /* TagCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -151,6 +154,9 @@
 		F5A2EBB328E9BF1000536E9B /* LineProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineProgressBar.swift; sourceTree = "<group>"; };
 		F5A2EBB528F1600A00536E9B /* MindCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MindCollectionViewCell.swift; sourceTree = "<group>"; };
 		F5A2EBB728F1615300536E9B /* MindSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MindSelectView.swift; sourceTree = "<group>"; };
+		F5A2EBBB28F1758800536E9B /* MindTextCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MindTextCollectionViewCell.swift; sourceTree = "<group>"; };
+		F5A2EBBD28F1760800536E9B /* LeftCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftCell.swift; sourceTree = "<group>"; };
+		F5A2EBC128F176FE00536E9B /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -376,6 +382,7 @@
 				F5A2EB8028DF1E5D00536E9B /* CustomDatePicker.swift */,
 				F5A2EB8C28DF6BA600536E9B /* UIWindow.swift */,
 				F5A2EBB328E9BF1000536E9B /* LineProgressBar.swift */,
+				F5A2EBBD28F1760800536E9B /* LeftCell.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -450,6 +457,8 @@
 			children = (
 				F5A2EBA428E5A3B000536E9B /* MyTaminCollectionViewCell.swift */,
 				F5A2EBB528F1600A00536E9B /* MindCollectionViewCell.swift */,
+				F5A2EBBB28F1758800536E9B /* MindTextCollectionViewCell.swift */,
+				F5A2EBC128F176FE00536E9B /* TagCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -631,6 +640,7 @@
 				F5A2EBB028E80B3F00536E9B /* TextView.swift in Sources */,
 				F5A2EB9228E1FDBF00536E9B /* HomeViewModel.swift in Sources */,
 				F5A2EB6028DCC17600536E9B /* CustomTextField.swift in Sources */,
+				F5A2EBC228F176FE00536E9B /* TagCollectionViewCell.swift in Sources */,
 				F5A2EBAA28E5AEA900536E9B /* IndicatorView.swift in Sources */,
 				F5A2EBAC28E5B26300536E9B /* MyTaminViewModel.swift in Sources */,
 				F5A2EB5128DB614C00536E9B /* Font.swift in Sources */,
@@ -643,6 +653,7 @@
 				F5A2EBA228E5A34800536E9B /* MyTaminViewController.swift in Sources */,
 				F5A2EBB828F1615300536E9B /* MindSelectView.swift in Sources */,
 				F5A2EB2E28D4B1BC00536E9B /* HistoryViewController.swift in Sources */,
+				F5A2EBBE28F1760800536E9B /* LeftCell.swift in Sources */,
 				F5A2EB6F28DF009500536E9B /* TermsViewController.swift in Sources */,
 				F5A2EB8928DF38A400536E9B /* NetworkManager.swift in Sources */,
 				F5A2EBB428E9BF1000536E9B /* LineProgressBar.swift in Sources */,
@@ -660,6 +671,7 @@
 				F5A2EBB628F1600A00536E9B /* MindCollectionViewCell.swift in Sources */,
 				F5A2EB6C28DEF93800536E9B /* ProgressBar.swift in Sources */,
 				F5A2EB3628D4B22A00536E9B /* MyPageViewController.swift in Sources */,
+				F5A2EBBC28F1758800536E9B /* MindTextCollectionViewCell.swift in Sources */,
 				F5A2EB9E28E46F8100536E9B /* MainCollectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

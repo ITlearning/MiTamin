@@ -321,6 +321,7 @@ class MyTaminViewController: UIViewController {
         flow.scrollDirection = .horizontal
         collectionView.register(MyTaminCollectionViewCell.self, forCellWithReuseIdentifier: MyTaminCollectionViewCell.cellId)
         collectionView.register(MindCollectionViewCell.self, forCellWithReuseIdentifier: MindCollectionViewCell.cellId)
+        collectionView.register(MindTextCollectionViewCell.self, forCellWithReuseIdentifier: MindTextCollectionViewCell.cellId)
         collectionView.backgroundColor = .clear
         collectionView.collectionViewLayout = flow
         
@@ -342,6 +343,15 @@ class MyTaminViewController: UIViewController {
         cell.restartButton()
     }
     
+    func setMindTextData(idx: Int) {
+        guard let cell = self.collectionView.cellForItem(at: IndexPath(row: 3, section: 0)) else {
+            return
+        }
+        guard let cell = cell as? MindTextCollectionViewCell else { return }
+        
+        cell.cellData = viewModel.showMindSet(idx: viewModel.selectMindIndex.value)
+        
+    }
     
     func nextButtonAction(index: Int) {
         
@@ -434,11 +444,27 @@ extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataS
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MindCollectionViewCell.cellId, for: indexPath) as? MindCollectionViewCell else { return UICollectionViewCell() }
             
             cell.buttonClick = { idx in
-                print("마이타민 뷰 컨 전송",idx)
+                print("넘어옴..?", idx)
+                self.viewModel.selectMindIndex.send(idx)
+                self.setMindTextData(idx: idx)
             }
             
             return cell
-//        case .myTaminThreeTwo:
+        case .myTaminThreeTwo:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MindTextCollectionViewCell.cellId, for: indexPath) as? MindTextCollectionViewCell else { return UICollectionViewCell() }
+            
+            cell.cellData = viewModel.showMindSet(idx: viewModel.selectMindIndex.value)
+            cell.selectCellIdx = viewModel.selectMindTextIndex.value
+            
+            cell.addAction = { value in
+                self.viewModel.appendMindSet(idx: self.viewModel.selectMindIndex.value, value: value)
+            }
+            
+            cell.selectCell = { idx in
+                self.viewModel.selectMindTextIndex.send(idx)
+            }
+            
+            return cell
 //        case .myTaminThreeThree:
 //            <#code#>
 //        case .myTaminFour:
