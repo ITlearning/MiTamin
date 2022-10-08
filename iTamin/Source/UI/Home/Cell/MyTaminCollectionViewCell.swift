@@ -162,9 +162,9 @@ class MyTaminCollectionViewCell: UICollectionViewCell {
         
         self.mainTitle.text = "\(index+1). "+model.mainTitle
         self.subTitle.text = model.subTitle
-        self.totalTime = model.TotalTime
+        self.totalTime = model.TotalTime ?? 0
         self.timerLabel.text = self.timeFormatted(self.totalTime)
-        self.currentTime = model.TotalTime
+        self.currentTime = model.TotalTime ?? 0
         self.isDone = model.isDone
         
         if model.isDone {

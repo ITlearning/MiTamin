@@ -11,6 +11,19 @@ import SnapKit
 import Combine
 import CombineCocoa
 
+enum CellType: CaseIterable {
+    case myTaminOne
+    case myTaminTwo
+    case myTaminThreeOne
+    case myTaminThreeTwo
+    case myTaminThreeThree
+    case myTaminFour
+    
+    init(_ idx: Int) {
+        self = CellType.allCases[idx]
+    }
+}
+
 class MyTaminViewController: UIViewController {
     
     var viewModel: ViewModel = ViewModel()
@@ -133,6 +146,7 @@ class MyTaminViewController: UIViewController {
                 self.viewModel.myTaminStatus.send(currentIndex-1)
                 self.scrollToIndex(index: self.viewModel.myTaminStatus.value-1)
                 self.nextButtonAction(index: self.viewModel.myTaminStatus.value-1)
+                self.resetView(index: self.viewModel.myTaminStatus.value-1)
             })
             .cancel(with: cancelBag)
         
@@ -150,7 +164,8 @@ class MyTaminViewController: UIViewController {
                     self.viewModel.myTaminStatus.send(currentIndex+1)
                     self.scrollToIndex(index: self.viewModel.myTaminStatus.value-1)
                     self.nextButtonAction(index: self.viewModel.myTaminStatus.value-1)
-                    self.resetCell(idx: currentIndex-1)
+                    self.resetCell(idx: currentIndex)
+                    self.resetView(index: currentIndex)
                 }
             })
             .cancel(with: cancelBag)
@@ -170,6 +185,50 @@ class MyTaminViewController: UIViewController {
         
         configureLayout()
         configureColletionView()
+    }
+    
+    
+    func resetView(index: Int) {
+        let type = CellType(index)
+        print(type)
+        switch type {
+        case .myTaminOne,.myTaminTwo:
+            
+            UIView.animate(withDuration: 0.2, animations: {
+                self.autoTextLabel.alpha = 1.0
+                self.toggleSwitch.alpha = 1.0
+                self.backgroundImage.alpha = 1.0
+            }, completion: { _ in
+                self.autoTextLabel.isHidden = false
+                self.toggleSwitch.isHidden = false
+            })
+            
+            
+            collectionView.snp.makeConstraints {
+                $0.top.equalTo(toggleSwitch.snp.bottom).offset(20)
+                $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
+                $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
+                $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(142)
+            }
+            
+        case .myTaminThreeOne,.myTaminThreeTwo,.myTaminThreeThree,.myTaminFour:
+            
+            UIView.animate(withDuration: 0.2, animations: {
+                self.autoTextLabel.alpha = 0.0
+                self.toggleSwitch.alpha = 0.0
+                self.backgroundImage.alpha = 0.0
+            }, completion: { _ in
+                self.autoTextLabel.isHidden = true
+                self.toggleSwitch.isHidden = true
+            })
+            
+            collectionView.snp.remakeConstraints {
+                $0.top.equalTo(toggleSwitch.snp.bottom).offset(-28)
+                $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
+                $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
+                $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(142)
+            }
+        }
     }
     
     
@@ -261,6 +320,7 @@ class MyTaminViewController: UIViewController {
         let flow = UICollectionViewFlowLayout()
         flow.scrollDirection = .horizontal
         collectionView.register(MyTaminCollectionViewCell.self, forCellWithReuseIdentifier: MyTaminCollectionViewCell.cellId)
+        collectionView.register(MindCollectionViewCell.self, forCellWithReuseIdentifier: MindCollectionViewCell.cellId)
         collectionView.backgroundColor = .clear
         collectionView.collectionViewLayout = flow
         
@@ -277,7 +337,7 @@ class MyTaminViewController: UIViewController {
             return
         }
         guard let cell = cell as? MyTaminCollectionViewCell else { return }
-        cell.startOtpTimer()
+        //cell.startOtpTimer()
         cell.timerStatus = .pause
         cell.restartButton()
     }
@@ -344,25 +404,51 @@ extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyTaminCollectionViewCell.cellId, for: indexPath) as? MyTaminCollectionViewCell else { return UICollectionViewCell() }
+        
         let model = viewModel.myTaminModel[indexPath.row]
         
-        cell.configureCell(index: indexPath.row, model: model)
+        let type = CellType(indexPath.row)
         
-        cell.nextOn = {
-            self.viewModel.myTaminModel[indexPath.row].isDone = true
-            self.checkToServer(idx: indexPath.row)
-            if self.toggleSwitch.isOn {
-                if indexPath.row < self.viewModel.myTaminModel.count {
-                    self.scrollToIndex(index: indexPath.row+1)
+        
+        switch type {
+        case .myTaminOne, .myTaminTwo:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyTaminCollectionViewCell.cellId, for: indexPath) as? MyTaminCollectionViewCell else { return UICollectionViewCell() }
+            
+            cell.configureCell(index: indexPath.row, model: model)
+            
+            cell.nextOn = {
+                self.viewModel.myTaminModel[indexPath.row].isDone = true
+                self.checkToServer(idx: indexPath.row)
+                if self.toggleSwitch.isOn {
+                    if indexPath.row < self.viewModel.myTaminModel.count {
+                        self.scrollToIndex(index: indexPath.row+1)
+                    }
+                } else {
+                    self.nextButtonAction(index: indexPath.row)
                 }
-            } else {
-                self.nextButtonAction(index: indexPath.row)
+                
             }
             
+            return cell
+        case .myTaminThreeOne:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MindCollectionViewCell.cellId, for: indexPath) as? MindCollectionViewCell else { return UICollectionViewCell() }
+            
+            cell.buttonClick = { idx in
+                print("마이타민 뷰 컨 전송",idx)
+            }
+            
+            return cell
+//        case .myTaminThreeTwo:
+//        case .myTaminThreeThree:
+//            <#code#>
+//        case .myTaminFour:
+//            <#code#>
+        default:
+            break
         }
         
-        return cell
+        
+        return UICollectionViewCell()
     }
     
     

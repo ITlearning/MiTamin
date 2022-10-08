@@ -65,9 +65,10 @@
 		F5A2EBA728E5A6F200536E9B /* RoundedCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EBA628E5A6F200536E9B /* RoundedCircleView.swift */; };
 		F5A2EBAA28E5AEA900536E9B /* IndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EBA928E5AEA900536E9B /* IndicatorView.swift */; };
 		F5A2EBAC28E5B26300536E9B /* MyTaminViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EBAB28E5B26300536E9B /* MyTaminViewModel.swift */; };
-		F5A2EBAE28E6FA5D00536E9B /* TestCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EBAD28E6FA5D00536E9B /* TestCollectionViewCell.swift */; };
 		F5A2EBB028E80B3F00536E9B /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EBAF28E80B3F00536E9B /* TextView.swift */; };
 		F5A2EBB428E9BF1000536E9B /* LineProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EBB328E9BF1000536E9B /* LineProgressBar.swift */; };
+		F5A2EBB628F1600A00536E9B /* MindCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EBB528F1600A00536E9B /* MindCollectionViewCell.swift */; };
+		F5A2EBB828F1615300536E9B /* MindSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EBB728F1615300536E9B /* MindSelectView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -146,9 +147,10 @@
 		F5A2EBA628E5A6F200536E9B /* RoundedCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCircleView.swift; sourceTree = "<group>"; };
 		F5A2EBA928E5AEA900536E9B /* IndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorView.swift; sourceTree = "<group>"; };
 		F5A2EBAB28E5B26300536E9B /* MyTaminViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTaminViewModel.swift; sourceTree = "<group>"; };
-		F5A2EBAD28E6FA5D00536E9B /* TestCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCollectionViewCell.swift; sourceTree = "<group>"; };
 		F5A2EBAF28E80B3F00536E9B /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		F5A2EBB328E9BF1000536E9B /* LineProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineProgressBar.swift; sourceTree = "<group>"; };
+		F5A2EBB528F1600A00536E9B /* MindCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MindCollectionViewCell.swift; sourceTree = "<group>"; };
+		F5A2EBB728F1615300536E9B /* MindSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MindSelectView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -447,7 +449,7 @@
 			isa = PBXGroup;
 			children = (
 				F5A2EBA428E5A3B000536E9B /* MyTaminCollectionViewCell.swift */,
-				F5A2EBAD28E6FA5D00536E9B /* TestCollectionViewCell.swift */,
+				F5A2EBB528F1600A00536E9B /* MindCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -459,6 +461,7 @@
 				F5A2EBA628E5A6F200536E9B /* RoundedCircleView.swift */,
 				F5A2EBA928E5AEA900536E9B /* IndicatorView.swift */,
 				F5A2EBAF28E80B3F00536E9B /* TextView.swift */,
+				F5A2EBB728F1615300536E9B /* MindSelectView.swift */,
 			);
 			path = SwiftUIView;
 			sourceTree = "<group>";
@@ -638,11 +641,11 @@
 				F5A2EB6328DEE95600536E9B /* SignInViewModel.swift in Sources */,
 				F5A2EB7A28DF1A2100536E9B /* SignUpViewModel.swift in Sources */,
 				F5A2EBA228E5A34800536E9B /* MyTaminViewController.swift in Sources */,
+				F5A2EBB828F1615300536E9B /* MindSelectView.swift in Sources */,
 				F5A2EB2E28D4B1BC00536E9B /* HistoryViewController.swift in Sources */,
 				F5A2EB6F28DF009500536E9B /* TermsViewController.swift in Sources */,
 				F5A2EB8928DF38A400536E9B /* NetworkManager.swift in Sources */,
 				F5A2EBB428E9BF1000536E9B /* LineProgressBar.swift in Sources */,
-				F5A2EBAE28E6FA5D00536E9B /* TestCollectionViewCell.swift in Sources */,
 				F5A2EB5728DCBAA900536E9B /* CancelBag.swift in Sources */,
 				F5A2EB8128DF1E5E00536E9B /* CustomDatePicker.swift in Sources */,
 				F5A2EB7F28DF1C5500536E9B /* OnboardingCollectionViewCell.swift in Sources */,
@@ -654,6 +657,7 @@
 				F5A2EBA528E5A3B000536E9B /* MyTaminCollectionViewCell.swift in Sources */,
 				F5A2EB8D28DF6BA600536E9B /* UIWindow.swift in Sources */,
 				F5A2EBA728E5A6F200536E9B /* RoundedCircleView.swift in Sources */,
+				F5A2EBB628F1600A00536E9B /* MindCollectionViewCell.swift in Sources */,
 				F5A2EB6C28DEF93800536E9B /* ProgressBar.swift in Sources */,
 				F5A2EB3628D4B22A00536E9B /* MyPageViewController.swift in Sources */,
 				F5A2EB9E28E46F8100536E9B /* MainCollectionView.swift in Sources */,
