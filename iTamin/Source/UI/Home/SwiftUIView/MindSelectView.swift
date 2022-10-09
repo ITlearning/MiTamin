@@ -25,24 +25,6 @@ struct MindSelectView: View {
         
         VStack {
             
-            HStack {
-                Text("3. 하루 진단하기")
-                    .font(.SDGothicBold(size: 24))
-                Spacer()
-            }
-            
-            Spacer()
-                .frame(height: 40)
-            
-            HStack {
-                Text("오늘의 마음 컨디션은 어떤가요?")
-                    .font(.SDGothicMedium(size: 18))
-                    .foregroundColor(Color(uiColor: UIColor.grayColor3))
-                Spacer()
-            }
-            
-            
-            
             Image("B\(mindButtonImage[selectMindImage])")
                 .resizable()
                 .frame(width: 180, height: 180)

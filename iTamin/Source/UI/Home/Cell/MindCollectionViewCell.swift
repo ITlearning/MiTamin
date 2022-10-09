@@ -28,17 +28,27 @@ class MindCollectionViewCell: UICollectionViewCell {
     
     private func configureCell() {
         let mindView = UIHostingController(rootView: MindSelectView())
+        let mainSubTitleView = UIHostingController(rootView: MainSubTitleView(mainTitle: "3. 하루 진단하기",
+                                                                              subTitle: "오늘의 마음 컨디션은 어떤가요?"))
         
         mindView.rootView.buttonClickIndex = { idx in
             print("dsdsa",idx)
             self.buttonClick?(idx)
         }
         
+        addSubview(mainSubTitleView.view)
         addSubview(mindView.view)
         
-        mindView.view.snp.makeConstraints {
-            $0.top.leading.trailing.bottom.equalToSuperview()
+        mainSubTitleView.view.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
         }
+        
+        mindView.view.snp.makeConstraints {
+            $0.top.equalTo(mainSubTitleView.view.snp.bottom)
+            $0.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        
         
     }
     

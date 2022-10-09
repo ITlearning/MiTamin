@@ -8,11 +8,11 @@
 import UIKit
 
 class CustomViewFlowLayout: UICollectionViewFlowLayout {
-    let cellSpacing: CGFloat = 10
+    let cellSpacing: CGFloat = 8
 
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        self.minimumLineSpacing = 10.0
-        self.sectionInset = UIEdgeInsets(top: 12.0, left: 16.0, bottom: 0.0, right: 16.0)
+        self.minimumLineSpacing = 8
+        self.sectionInset = UIEdgeInsets(top: 12.0, left: 0, bottom: 0.0, right: 12.0)
         let attributes = super.layoutAttributesForElements(in: rect)
 
         var leftMargin = sectionInset.left

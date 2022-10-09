@@ -10,7 +10,7 @@ import SwiftUI
 struct IndicatorView: View {
     
     @StateObject var viewModel: MyTaminViewController.ViewModel
-    @State var indicators: Int = 2
+    @State var indicators: Int = 1
     
     
     var body: some View {

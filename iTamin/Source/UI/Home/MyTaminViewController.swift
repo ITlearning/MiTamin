@@ -141,12 +141,12 @@ class MyTaminViewController: UIViewController {
         
         backButton.tapPublisher
             .sink(receiveValue: { _ in
-                let currentIndex = self.viewModel.myTaminStatus.value
-                guard currentIndex - 1 > 0 else { return }
-                self.viewModel.myTaminStatus.send(currentIndex-1)
-                self.scrollToIndex(index: self.viewModel.myTaminStatus.value-1)
-                self.nextButtonAction(index: self.viewModel.myTaminStatus.value-1)
-                self.resetView(index: self.viewModel.myTaminStatus.value-1)
+                if self.viewModel.currentIndex - 1 > -1 {
+                    self.controlIndex(back: true)
+                    self.scrollToIndex(index: self.viewModel.currentIndex)
+                    self.nextButtonAction(index: self.viewModel.currentIndex)
+                    self.resetView(index: self.viewModel.currentIndex)
+                }
             })
             .cancel(with: cancelBag)
         
@@ -159,13 +159,14 @@ class MyTaminViewController: UIViewController {
         passButton.tapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { _ in
-                if self.viewModel.myTaminStatus.value < self.viewModel.myTaminModel.count {
-                    let currentIndex = self.viewModel.myTaminStatus.value
-                    self.viewModel.myTaminStatus.send(currentIndex+1)
-                    self.scrollToIndex(index: self.viewModel.myTaminStatus.value-1)
-                    self.nextButtonAction(index: self.viewModel.myTaminStatus.value-1)
-                    self.resetCell(idx: currentIndex)
-                    self.resetView(index: currentIndex)
+                if self.viewModel.currentIndex+1 < self.viewModel.myTaminModel.count {
+                    
+                    //controlIndex(index: self.viewModel.myTaminStatus.value)
+                    self.controlIndex()
+                    self.scrollToIndex(index: self.viewModel.currentIndex)
+                    self.nextButtonAction(index: self.viewModel.currentIndex)
+                    self.resetCell(idx: self.viewModel.currentIndex)
+                    self.resetView(index: self.viewModel.currentIndex)
                 }
             })
             .cancel(with: cancelBag)
@@ -174,11 +175,10 @@ class MyTaminViewController: UIViewController {
         nextButton.tapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { _ in
-                if self.viewModel.myTaminStatus.value < self.viewModel.myTaminModel.count {
-                    let currentIndex = self.viewModel.myTaminStatus.value
-                    self.viewModel.myTaminStatus.send(currentIndex+1)
-                    self.scrollToIndex(index: self.viewModel.myTaminStatus.value-1)
-                    self.nextButtonAction(index: self.viewModel.myTaminStatus.value-1)
+                if self.viewModel.currentIndex < self.viewModel.myTaminModel.count {
+                    self.controlIndex()
+                    self.scrollToIndex(index: self.viewModel.currentIndex)
+                    self.nextButtonAction(index: self.viewModel.currentIndex)
                 }
             })
             .cancel(with: cancelBag)
@@ -231,6 +231,25 @@ class MyTaminViewController: UIViewController {
         }
     }
     
+    func controlIndex(back: Bool = false) {
+        for cell in collectionView.visibleCells {
+            let indexPath = collectionView.indexPath(for: cell)
+            viewModel.currentIndex = back ? (indexPath?.row ?? 0) - 1 : (indexPath?.row ?? 0) + 1
+            let type = CellType(back ? (indexPath?.row ?? 0) - 1 : (indexPath?.row ?? 0) + 1)
+            
+            switch type {
+            case .myTaminOne:
+                viewModel.myTaminStatus.send(1)
+            case .myTaminTwo:
+                viewModel.myTaminStatus.send(2)
+            case .myTaminThreeOne, .myTaminThreeTwo, .myTaminThreeThree:
+                viewModel.myTaminStatus.send(3)
+            case .myTaminFour:
+                viewModel.myTaminStatus.send(4)
+            }
+               
+        }
+    }
     
     func configureLayout() {
         view.addSubview(backgroundImage)
@@ -405,7 +424,19 @@ extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataS
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         for cell in collectionView.visibleCells {
             let indexPath = collectionView.indexPath(for: cell)
-            viewModel.myTaminStatus.send((indexPath?.row ?? 0)+1)
+            let type = CellType((indexPath?.row ?? 0))
+            
+            switch type {
+            case .myTaminOne:
+                viewModel.myTaminStatus.send(1)
+            case .myTaminTwo:
+                viewModel.myTaminStatus.send(2)
+            case .myTaminThreeOne, .myTaminThreeTwo, .myTaminThreeThree:
+                viewModel.myTaminStatus.send(3)
+            case .myTaminFour:
+                viewModel.myTaminStatus.send(4)
+            }
+               
         }
     }
     

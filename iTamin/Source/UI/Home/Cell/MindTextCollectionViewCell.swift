@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import SwiftUI
 
 class MindTextCollectionViewCell: UICollectionViewCell {
     
@@ -46,10 +47,24 @@ class MindTextCollectionViewCell: UICollectionViewCell {
     }
     
     private func configureCell() {
+        
+        let mainSubTitleView = UIHostingController(rootView: MainSubTitleView(mainTitle: "3. 하루 진단하기",
+                                                                              subTitle: "감정을 진찰해볼까요?"))
+        
+        addSubview(mainSubTitleView.view)
         addSubview(collectionView)
-        collectionView.snp.makeConstraints {
-            $0.top.leading.trailing.bottom.equalToSuperview()
+        
+        mainSubTitleView.view.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(10)
+            $0.leading.trailing.equalToSuperview()
         }
+        
+        collectionView.snp.makeConstraints {
+            $0.top.equalTo(mainSubTitleView.view.snp.bottom)
+            $0.leading.equalToSuperview()
+            $0.trailing.bottom.equalToSuperview()
+        }
+
     }
     
     private func configureCollectionView() {
@@ -80,6 +95,8 @@ extension MindTextCollectionViewCell: UICollectionViewDelegate, UICollectionView
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return cellData.count
     }
+    
+    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 

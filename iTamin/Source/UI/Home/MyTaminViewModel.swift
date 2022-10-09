@@ -21,6 +21,7 @@ struct MyTaminModel {
 extension MyTaminViewController {
     class ViewModel: ObservableObject {
         var myTaminStatus = CurrentValueSubject<Int, Never>(1)
+        var currentIndex: Int = 0
         var selectMindIndex = CurrentValueSubject<Int, Never>(5)
         var selectMindTexts = CurrentValueSubject<[String], Never>([])
         var networkManager = NetworkManager()

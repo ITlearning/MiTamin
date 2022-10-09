@@ -72,6 +72,7 @@
 		F5A2EBBC28F1758800536E9B /* MindTextCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EBBB28F1758800536E9B /* MindTextCollectionViewCell.swift */; };
 		F5A2EBBE28F1760800536E9B /* LeftCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EBBD28F1760800536E9B /* LeftCell.swift */; };
 		F5A2EBC228F176FE00536E9B /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EBC128F176FE00536E9B /* TagCollectionViewCell.swift */; };
+		F5A2EBC428F2AE0200536E9B /* MainSubTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EBC328F2AE0100536E9B /* MainSubTitleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -157,6 +158,7 @@
 		F5A2EBBB28F1758800536E9B /* MindTextCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MindTextCollectionViewCell.swift; sourceTree = "<group>"; };
 		F5A2EBBD28F1760800536E9B /* LeftCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftCell.swift; sourceTree = "<group>"; };
 		F5A2EBC128F176FE00536E9B /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
+		F5A2EBC328F2AE0100536E9B /* MainSubTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSubTitleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -471,6 +473,7 @@
 				F5A2EBA928E5AEA900536E9B /* IndicatorView.swift */,
 				F5A2EBAF28E80B3F00536E9B /* TextView.swift */,
 				F5A2EBB728F1615300536E9B /* MindSelectView.swift */,
+				F5A2EBC328F2AE0100536E9B /* MainSubTitleView.swift */,
 			);
 			path = SwiftUIView;
 			sourceTree = "<group>";
@@ -633,6 +636,7 @@
 				F5A2EB6828DEF80E00536E9B /* CustomButton.swift in Sources */,
 				F5A2EB5E28DCC07800536E9B /* ViewControllerPreview.swift in Sources */,
 				F5A2EBA028E4975100536E9B /* MainCollectionModel.swift in Sources */,
+				F5A2EBC428F2AE0200536E9B /* MainSubTitleView.swift in Sources */,
 				F5A2EAF728D3644800536E9B /* HomeViewController.swift in Sources */,
 				F5A2EB8B28DF38C700536E9B /* ServerModel.swift in Sources */,
 				F5A2EB5428DCB73800536E9B /* LoginMainViewController.swift in Sources */,
