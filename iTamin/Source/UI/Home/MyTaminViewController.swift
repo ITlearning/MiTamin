@@ -161,7 +161,6 @@ class MyTaminViewController: UIViewController {
             .sink(receiveValue: { _ in
                 if self.viewModel.currentIndex+1 < self.viewModel.myTaminModel.count {
                     
-                    //controlIndex(index: self.viewModel.myTaminStatus.value)
                     self.controlIndex()
                     self.scrollToIndex(index: self.viewModel.currentIndex)
                     self.nextButtonAction(index: self.viewModel.currentIndex)
@@ -341,6 +340,7 @@ class MyTaminViewController: UIViewController {
         collectionView.register(MyTaminCollectionViewCell.self, forCellWithReuseIdentifier: MyTaminCollectionViewCell.cellId)
         collectionView.register(MindCollectionViewCell.self, forCellWithReuseIdentifier: MindCollectionViewCell.cellId)
         collectionView.register(MindTextCollectionViewCell.self, forCellWithReuseIdentifier: MindTextCollectionViewCell.cellId)
+        collectionView.register(TextViewCollectionViewCell.self, forCellWithReuseIdentifier: TextViewCollectionViewCell.cellId)
         collectionView.backgroundColor = .clear
         collectionView.collectionViewLayout = flow
         
@@ -507,17 +507,45 @@ extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataS
             }
             
             return cell
-//        case .myTaminThreeThree:
-//            <#code#>
-//        case .myTaminFour:
-//            <#code#>
+        case .myTaminThreeThree:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TextViewCollectionViewCell.cellId, for: indexPath) as? TextViewCollectionViewCell else { return UICollectionViewCell() }
+            
+            cell.textView.delegate = self
+            
+            return cell
+        case .myTaminFour:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TextViewCollectionViewCell.cellId, for: indexPath) as? TextViewCollectionViewCell else { return UICollectionViewCell() }
+            
+            cell.textView.delegate = self
+            
+            return cell
         default:
             break
         }
-        
         
         return UICollectionViewCell()
     }
     
     
+}
+
+extension MyTaminViewController: UITextViewDelegate {
+    
+    func textViewDidChange(_ textView: UITextView) {
+        print(textView.text!)
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.text == viewModel.placeHolder {
+            textView.text = nil
+            textView.textColor = .black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            textView.text = viewModel.placeHolder
+            textView.textColor = UIColor.grayColor2
+        }
+    }
 }

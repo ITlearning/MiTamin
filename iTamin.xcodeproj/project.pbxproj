@@ -73,6 +73,7 @@
 		F5A2EBBE28F1760800536E9B /* LeftCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EBBD28F1760800536E9B /* LeftCell.swift */; };
 		F5A2EBC228F176FE00536E9B /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EBC128F176FE00536E9B /* TagCollectionViewCell.swift */; };
 		F5A2EBC428F2AE0200536E9B /* MainSubTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EBC328F2AE0100536E9B /* MainSubTitleView.swift */; };
+		F5A2EBC628F2BA2200536E9B /* TextViewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EBC528F2BA2200536E9B /* TextViewCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -159,6 +160,7 @@
 		F5A2EBBD28F1760800536E9B /* LeftCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftCell.swift; sourceTree = "<group>"; };
 		F5A2EBC128F176FE00536E9B /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
 		F5A2EBC328F2AE0100536E9B /* MainSubTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSubTitleView.swift; sourceTree = "<group>"; };
+		F5A2EBC528F2BA2200536E9B /* TextViewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -461,6 +463,7 @@
 				F5A2EBB528F1600A00536E9B /* MindCollectionViewCell.swift */,
 				F5A2EBBB28F1758800536E9B /* MindTextCollectionViewCell.swift */,
 				F5A2EBC128F176FE00536E9B /* TagCollectionViewCell.swift */,
+				F5A2EBC528F2BA2200536E9B /* TextViewCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -656,6 +659,7 @@
 				F5A2EB7A28DF1A2100536E9B /* SignUpViewModel.swift in Sources */,
 				F5A2EBA228E5A34800536E9B /* MyTaminViewController.swift in Sources */,
 				F5A2EBB828F1615300536E9B /* MindSelectView.swift in Sources */,
+				F5A2EBC628F2BA2200536E9B /* TextViewCollectionViewCell.swift in Sources */,
 				F5A2EB2E28D4B1BC00536E9B /* HistoryViewController.swift in Sources */,
 				F5A2EBBE28F1760800536E9B /* LeftCell.swift in Sources */,
 				F5A2EB6F28DF009500536E9B /* TermsViewController.swift in Sources */,

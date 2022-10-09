@@ -56,6 +56,8 @@ extension UIColor {
     static let grayColor3 = UIColor(rgb: 0x666666)
     /// 0x121212
     static let grayColor4 = UIColor(rgb: 0x121212)
+    /// 0xDBDBDB
+    static let grayColor5 = UIColor(rgb: 0xDBDBDB)
     
 }
 
