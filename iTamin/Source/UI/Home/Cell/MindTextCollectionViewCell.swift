@@ -20,7 +20,7 @@ class MindTextCollectionViewCell: UICollectionViewCell {
     }()
     
     var addAction: (([String]) -> ())?
-    var selectCell: ((Int) -> ())?
+    var selectCell: (([String]) -> ())?
     
     var cellData: [String] = [] {
         didSet {
@@ -29,9 +29,9 @@ class MindTextCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    var selectCellIdx: Int = 0 {
+    var selectCellTexts: [String] = [] {
         didSet {
-            selectCell?(selectCellIdx)
+            selectCell?(selectCellTexts)
         }
     }
     
@@ -93,7 +93,7 @@ extension MindTextCollectionViewCell: UICollectionViewDelegate, UICollectionView
         
         cell.setCellText(text: text)
         
-        if indexPath.row == selectCellIdx {
+        if selectCellTexts.contains(where: { $0 == cellData[indexPath.row] }) {
             cell.selectAction()
         } else {
             cell.deselectAction()
@@ -106,14 +106,31 @@ extension MindTextCollectionViewCell: UICollectionViewDelegate, UICollectionView
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCollectionViewCell.cellId, for: indexPath) as? TagCollectionViewCell else { return }
         
-        selectCellIdx = indexPath.row
+        print()
         
-        if indexPath.row == selectCellIdx {
+        if selectCellTexts.count < 3 {
+            if selectCellTexts.contains(where: { $0 == cellData[indexPath.row]}) {
+                if let index = selectCellTexts.firstIndex(of: cellData[indexPath.row]) {
+                    selectCellTexts.remove(at: index)
+                }
+            } else {
+                selectCellTexts.append(cellData[indexPath.row])
+            }
+            
+        } else {
+            if let index = selectCellTexts.firstIndex(of: cellData[indexPath.row]) {
+                selectCellTexts.remove(at: index)
+            }
+        }
+        
+        if selectCellTexts.contains(where: { $0 == cellData[indexPath.row] }) {
             cell.selectAction()
         } else {
             cell.deselectAction()
         }
         
+        print(cellData[indexPath.row])
+        print(selectCellTexts)
         collectionView.reloadData()
     }
     

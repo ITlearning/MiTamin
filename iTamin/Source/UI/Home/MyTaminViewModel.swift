@@ -22,7 +22,7 @@ extension MyTaminViewController {
     class ViewModel: ObservableObject {
         var myTaminStatus = CurrentValueSubject<Int, Never>(1)
         var selectMindIndex = CurrentValueSubject<Int, Never>(5)
-        var selectMindTextIndex = CurrentValueSubject<Int, Never>(0)
+        var selectMindTexts = CurrentValueSubject<[String], Never>([])
         var networkManager = NetworkManager()
         var cancelBag = CancelBag()
         
@@ -39,7 +39,7 @@ extension MyTaminViewController {
         private var mindSet: [Int: [String]] = [
             0: ["지치는", "실망한", "절망적인", "무서운",
                 "혼란스러운", "화나는", "자책하는", "상처받은",
-                "실망한", "역겨운", "끔찍한", "수치스러운",
+                "역겨운", "끔찍한", "수치스러운",
                 "미어지는", "우울한", "서러운", "죄스러운"],
             1: [
                 "피곤한", "기운없는", "실망한", "걱정되는",

@@ -382,6 +382,10 @@ class MyTaminViewController: UIViewController {
         }
     }
     
+    func checkIsDone(bool: Bool) {
+        viewModel.myTaminModel[viewModel.selectMindIndex.value].isDone = bool
+    }
+    
     
     func checkToServer(idx: Int) {
         switch idx {
@@ -444,7 +448,6 @@ extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataS
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MindCollectionViewCell.cellId, for: indexPath) as? MindCollectionViewCell else { return UICollectionViewCell() }
             
             cell.buttonClick = { idx in
-                print("넘어옴..?", idx)
                 self.viewModel.selectMindIndex.send(idx)
                 self.setMindTextData(idx: idx)
             }
@@ -454,14 +457,22 @@ extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataS
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MindTextCollectionViewCell.cellId, for: indexPath) as? MindTextCollectionViewCell else { return UICollectionViewCell() }
             
             cell.cellData = viewModel.showMindSet(idx: viewModel.selectMindIndex.value)
-            cell.selectCellIdx = viewModel.selectMindTextIndex.value
+            cell.selectCellTexts = viewModel.selectMindTexts.value
             
             cell.addAction = { value in
                 self.viewModel.appendMindSet(idx: self.viewModel.selectMindIndex.value, value: value)
             }
             
-            cell.selectCell = { idx in
-                self.viewModel.selectMindTextIndex.send(idx)
+            cell.selectCell = { texts in
+                self.viewModel.selectMindTexts.send(texts)
+                
+                if texts.count == 3 {
+                    self.checkIsDone(bool: true)
+                } else {
+                    self.checkIsDone(bool: false)
+                }
+                
+                self.nextButtonAction(index: self.viewModel.selectMindIndex.value)
             }
             
             return cell
