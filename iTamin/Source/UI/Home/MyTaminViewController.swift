@@ -632,6 +632,20 @@ extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataS
             cell.textView.delegate = self
             cell.subTextView.delegate = self
             
+            cell.textView.textPublisher
+                .receive(on: DispatchQueue.main)
+                .sink(receiveValue: { text in
+                     
+                })
+                .cancel(with: cancelBag)
+            
+            cell.subTextView.textPublisher
+                .receive(on: DispatchQueue.main)
+                .sink(receiveValue: { text in
+                    
+                })
+                .cancel(with: cancelBag)
+            
             return cell
         }
         

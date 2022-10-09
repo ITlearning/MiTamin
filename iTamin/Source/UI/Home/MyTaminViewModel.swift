@@ -15,7 +15,6 @@ struct MyTaminModel {
     var subTitle: String
     var TotalTime: Int?
     var isDone: Bool
-    
 }
 
 extension MyTaminViewController {
@@ -26,6 +25,8 @@ extension MyTaminViewController {
         var selectMindIndex = CurrentValueSubject<Int, Never>(5)
         var selectMindTexts = CurrentValueSubject<[String], Never>([])
         var selectCategoryText = CurrentValueSubject<String, Never>("")
+        var mainTextViewData = CurrentValueSubject<String, Never>("")
+        var subTextViewData = CurrentValueSubject<String, Never>("")
         var networkManager = NetworkManager()
         var cancelBag = CancelBag()
         
