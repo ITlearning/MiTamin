@@ -181,10 +181,12 @@ class MyTaminViewController: UIViewController {
         nextButton.tapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { _ in
-                if self.viewModel.currentIndex < self.viewModel.myTaminModel.count {
+                if self.viewModel.currentIndex < self.viewModel.myTaminModel.count - 1 {
                     self.controlIndex()
                     self.scrollToIndex(index: self.viewModel.currentIndex)
                     self.nextButtonAction(index: self.viewModel.currentIndex)
+                } else {
+                    self.dismiss(animated: true)
                 }
             })
             .cancel(with: cancelBag)
@@ -299,7 +301,15 @@ class MyTaminViewController: UIViewController {
             case .myTaminFour:
                 viewModel.myTaminStatus.send(4)
             }
-               
+            
+            switch type {
+            case .myTaminOne,.myTaminTwo,.myTaminThreeOne,.myTaminThreeTwo,.myTaminThreeThree:
+                nextButton.setTitle("다음으로", for: .normal)
+                nextButton.setTitle("다음으로", for: .disabled)
+            case .myTaminFour:
+                nextButton.setTitle("섭취완료!", for: .normal)
+                nextButton.setTitle("섭취완료!", for: .disabled)
+            }
         }
     }
     
@@ -498,6 +508,8 @@ class MyTaminViewController: UIViewController {
         categoryBottomSheetView.rootView.buttonTouch = { text in
             self.categoryViewModel.text = text
             self.viewModel.selectCategoryText.send(text)
+            self.checkIsDone(bool: true)
+            self.nextButtonAction(index: self.viewModel.currentIndex)
             nav.dismiss(animated: true)
         }
         
@@ -635,7 +647,12 @@ extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataS
             cell.textView.textPublisher
                 .receive(on: DispatchQueue.main)
                 .sink(receiveValue: { text in
-                     
+                    
+                    if self.viewModel.placeHolder.contains(where: { $0 != text ?? "" }) {
+                        self.checkIsDone(bool: true)
+                        self.viewModel.mainTextViewData.send(text ?? "")
+                        self.nextButtonAction(index: indexPath.row)
+                    }
                 })
                 .cancel(with: cancelBag)
             
@@ -643,13 +660,16 @@ extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataS
                 .receive(on: DispatchQueue.main)
                 .sink(receiveValue: { text in
                     
+                    if self.viewModel.placeHolder.contains(where: { $0 != text ?? "" }) {
+                        self.checkIsDone(bool: true)
+                        self.viewModel.subTextViewData.send(text ?? "")
+                        self.nextButtonAction(index: indexPath.row)
+                    }
                 })
                 .cancel(with: cancelBag)
             
             return cell
         }
-        
-        return UICollectionViewCell()
     }
     
     
