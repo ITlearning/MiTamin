@@ -139,6 +139,14 @@ class MyTaminViewController: UIViewController {
         //navigationConfigure(title: "오늘의 마이타민")
         view.backgroundColor = .white
         
+        
+        bindCombine()
+        configureLayout()
+        configureColletionView()
+        self.hideKeyboardWhenTappedAround()
+    }
+    
+    func bindCombine() {
         backButton.tapPublisher
             .sink(receiveValue: { _ in
                 if self.viewModel.currentIndex - 1 > -1 {
@@ -181,15 +189,10 @@ class MyTaminViewController: UIViewController {
                 }
             })
             .cancel(with: cancelBag)
-        
-        configureLayout()
-        configureColletionView()
     }
-    
     
     func resetView(index: Int) {
         let type = CellType(index)
-        print(type)
         switch type {
         case .myTaminOne,.myTaminTwo:
             
@@ -197,18 +200,38 @@ class MyTaminViewController: UIViewController {
                 self.autoTextLabel.alpha = 1.0
                 self.toggleSwitch.alpha = 1.0
                 self.backgroundImage.alpha = 1.0
+                self.passButton.alpha = 1.0
+                
+                self.collectionView.snp.makeConstraints {
+                    $0.top.equalTo(self.toggleSwitch.snp.bottom).offset(20)
+                    $0.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(20)
+                    $0.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing).inset(20)
+                    $0.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).inset(142)
+                }
+                self.collectionView.superview?.layoutIfNeeded()
+                
+                self.passButton.snp.remakeConstraints {
+                    $0.top.equalTo(self.bottomBarImage.snp.top).offset(12)
+                    $0.leading.equalTo(self.bottomBarImage.snp.leading).offset(25)
+                    $0.width.equalTo(162)
+                    $0.height.equalTo(56)
+                }
+                
+                self.passButton.superview?.layoutIfNeeded()
+                
+                self.nextButton.snp.remakeConstraints {
+                    $0.top.equalTo(self.bottomBarImage.snp.top).offset(12)
+                    $0.trailing.equalTo(self.bottomBarImage.snp.trailing).inset(25)
+                    $0.width.equalTo(162)
+                    $0.height.equalTo(56)
+                }
+                
+                self.nextButton.superview?.layoutIfNeeded()
+                
             }, completion: { _ in
                 self.autoTextLabel.isHidden = false
                 self.toggleSwitch.isHidden = false
             })
-            
-            
-            collectionView.snp.makeConstraints {
-                $0.top.equalTo(toggleSwitch.snp.bottom).offset(20)
-                $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
-                $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
-                $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(142)
-            }
             
         case .myTaminThreeOne,.myTaminThreeTwo,.myTaminThreeThree,.myTaminFour:
             
@@ -216,17 +239,41 @@ class MyTaminViewController: UIViewController {
                 self.autoTextLabel.alpha = 0.0
                 self.toggleSwitch.alpha = 0.0
                 self.backgroundImage.alpha = 0.0
+                self.passButton.alpha = 0.0
+                
+                self.collectionView.snp.remakeConstraints {
+                    $0.top.equalTo(self.toggleSwitch.snp.bottom).offset(-28)
+                    $0.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(20)
+                    $0.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing).inset(20)
+                    $0.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).inset(142)
+                }
+                
+                self.collectionView.superview?.layoutIfNeeded()
+                
+                self.passButton.snp.remakeConstraints {
+                    $0.top.equalTo(self.bottomBarImage.snp.top).offset(12)
+                    $0.leading.equalTo(self.bottomBarImage.snp.leading).offset(25)
+                    $0.width.equalTo(0)
+                    $0.height.equalTo(56)
+                }
+                
+                self.passButton.superview?.layoutIfNeeded()
+                
+                self.nextButton.snp.remakeConstraints {
+                    $0.top.equalTo(self.bottomBarImage.snp.top).offset(12)
+                    $0.trailing.equalTo(self.bottomBarImage.snp.trailing).inset(25)
+                    $0.width.equalTo(162 + 162 + 20)
+                    $0.height.equalTo(56)
+                }
+                
+                self.nextButton.superview?.layoutIfNeeded()
+                
             }, completion: { _ in
                 self.autoTextLabel.isHidden = true
                 self.toggleSwitch.isHidden = true
             })
             
-            collectionView.snp.remakeConstraints {
-                $0.top.equalTo(toggleSwitch.snp.bottom).offset(-28)
-                $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
-                $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
-                $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(142)
-            }
+            
         }
     }
     
@@ -402,7 +449,7 @@ class MyTaminViewController: UIViewController {
     }
     
     func checkIsDone(bool: Bool) {
-        viewModel.myTaminModel[viewModel.selectMindIndex.value].isDone = bool
+        viewModel.myTaminModel[viewModel.currentIndex].isDone = bool
     }
     
     
@@ -416,7 +463,6 @@ class MyTaminViewController: UIViewController {
             break
         }
     }
-    
 }
 
 extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -479,6 +525,8 @@ extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataS
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MindCollectionViewCell.cellId, for: indexPath) as? MindCollectionViewCell else { return UICollectionViewCell() }
             
             cell.buttonClick = { idx in
+                self.checkIsDone(bool: true)
+                self.nextButtonAction(index: self.viewModel.currentIndex)
                 self.viewModel.selectMindIndex.send(idx)
                 self.setMindTextData(idx: idx)
             }
@@ -503,7 +551,7 @@ extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataS
                     self.checkIsDone(bool: false)
                 }
                 
-                self.nextButtonAction(index: self.viewModel.selectMindIndex.value)
+                self.nextButtonAction(index: self.viewModel.currentIndex)
             }
             
             return cell
@@ -512,6 +560,24 @@ extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataS
             
             cell.textView.delegate = self
             
+            cell.textView.textPublisher
+                .receive(on: RunLoop.main)
+                .sink(receiveValue: { text in
+                    
+                    if text?.isEmpty ?? true {
+                        self.checkIsDone(bool: false)
+                    } else {
+                        if (text ?? "") == self.viewModel.placeHolder {
+                            self.checkIsDone(bool: false)
+                        } else {
+                            self.checkIsDone(bool: true)
+                        }
+                    }
+                    
+                    self.nextButtonAction(index: self.viewModel.currentIndex)
+                })
+                .cancel(with: cancelBag)
+            
             return cell
         case .myTaminFour:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TextViewCollectionViewCell.cellId, for: indexPath) as? TextViewCollectionViewCell else { return UICollectionViewCell() }
@@ -519,8 +585,6 @@ extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataS
             cell.textView.delegate = self
             
             return cell
-        default:
-            break
         }
         
         return UICollectionViewCell()
@@ -530,10 +594,6 @@ extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataS
 }
 
 extension MyTaminViewController: UITextViewDelegate {
-    
-    func textViewDidChange(_ textView: UITextView) {
-        print(textView.text!)
-    }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.text == viewModel.placeHolder {
