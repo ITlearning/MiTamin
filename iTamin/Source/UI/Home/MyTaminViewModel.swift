@@ -22,9 +22,10 @@ extension MyTaminViewController {
     class ViewModel: ObservableObject {
         var myTaminStatus = CurrentValueSubject<Int, Never>(1)
         var currentIndex: Int = 0
-        var placeHolder: String = "오늘 아침의 나에게 하루를 진단해준다면?"
+        var placeHolder: [String] = ["오늘 아침의 나에게 하루를 진단해준다면?", "스스로를 칭찬해주세요!", "대단해, 발전하고 있어, 역시 나야 등"]
         var selectMindIndex = CurrentValueSubject<Int, Never>(5)
         var selectMindTexts = CurrentValueSubject<[String], Never>([])
+        var selectCategoryText = CurrentValueSubject<String, Never>("")
         var networkManager = NetworkManager()
         var cancelBag = CancelBag()
         

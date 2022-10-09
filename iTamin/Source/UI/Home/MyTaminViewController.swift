@@ -25,9 +25,8 @@ enum CellType: CaseIterable {
 }
 
 class MyTaminViewController: UIViewController {
-    
+    var categoryViewModel = CategoryCollectionViewModel()
     var viewModel: ViewModel = ViewModel()
-    
     var cancelBag = CancelBag()
     
     var index: Int = 0
@@ -189,13 +188,20 @@ class MyTaminViewController: UIViewController {
                 }
             })
             .cancel(with: cancelBag)
+        
+        viewModel.selectMindTexts.receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] value in
+                guard let self = self else { return }
+                self.nextButtonAction(index: self.viewModel.currentIndex)
+            })
+            .cancel(with: cancelBag)
     }
+    
     
     func resetView(index: Int) {
         let type = CellType(index)
         switch type {
         case .myTaminOne,.myTaminTwo:
-            
             UIView.animate(withDuration: 0.2, animations: {
                 self.autoTextLabel.alpha = 1.0
                 self.toggleSwitch.alpha = 1.0
@@ -388,6 +394,7 @@ class MyTaminViewController: UIViewController {
         collectionView.register(MindCollectionViewCell.self, forCellWithReuseIdentifier: MindCollectionViewCell.cellId)
         collectionView.register(MindTextCollectionViewCell.self, forCellWithReuseIdentifier: MindTextCollectionViewCell.cellId)
         collectionView.register(TextViewCollectionViewCell.self, forCellWithReuseIdentifier: TextViewCollectionViewCell.cellId)
+        collectionView.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: CategoryCollectionViewCell.cellId)
         collectionView.backgroundColor = .clear
         collectionView.collectionViewLayout = flow
         
@@ -419,18 +426,31 @@ class MyTaminViewController: UIViewController {
         
     }
     
+    func setMindTextSelectData() {
+        guard let cell = self.collectionView.cellForItem(at: IndexPath(row: 3, section: 0)) else {
+            return
+        }
+        guard let cell = cell as? MindTextCollectionViewCell else { return }
+        
+        cell.selectCellTexts.removeAll()
+    }
+    
     func nextButtonAction(index: Int) {
         
-        let isDone = viewModel.myTaminModel[index].isDone
+        print("들어온 인덱스", index)
+        print("현재 인덱스", viewModel.currentIndex)
         
-        if isDone {
-            self.nextButton.isEnabled = true
-            self.nextButton.backgroundColor = UIColor.primaryColor
-        } else {
-            self.nextButton.isEnabled = false
-            self.nextButton.backgroundColor = UIColor.grayColor1
+        if index == viewModel.currentIndex {
+            let isDone = viewModel.myTaminModel[index].isDone
+            
+            if isDone {
+                self.nextButton.isEnabled = true
+                self.nextButton.backgroundColor = UIColor.primaryColor
+            } else {
+                self.nextButton.isEnabled = false
+                self.nextButton.backgroundColor = UIColor.grayColor1
+            }
         }
-        
     }
     
     func scrollToIndex(index:Int) {
@@ -462,6 +482,26 @@ class MyTaminViewController: UIViewController {
         default:
             break
         }
+    }
+    
+    func presentModal() {
+        let categoryBottomSheetView = UIHostingController(rootView: CategoryBottomSheetView())
+        
+        let nav = UINavigationController(rootViewController: categoryBottomSheetView)
+        
+        nav.modalPresentationStyle = .pageSheet
+        nav.isNavigationBarHidden = true
+        if let sheet = nav.sheetPresentationController {
+            sheet.detents = [.medium()]
+        }
+        
+        categoryBottomSheetView.rootView.buttonTouch = { text in
+            self.categoryViewModel.text = text
+            self.viewModel.selectCategoryText.send(text)
+            nav.dismiss(animated: true)
+        }
+        
+        present(nav, animated: true)
     }
 }
 
@@ -524,11 +564,14 @@ extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataS
         case .myTaminThreeOne:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MindCollectionViewCell.cellId, for: indexPath) as? MindCollectionViewCell else { return UICollectionViewCell() }
             
-            cell.buttonClick = { idx in
+            cell.buttonClick = {  [weak self] idx in
+                guard let self = self else { return }
                 self.checkIsDone(bool: true)
                 self.nextButtonAction(index: self.viewModel.currentIndex)
                 self.viewModel.selectMindIndex.send(idx)
                 self.setMindTextData(idx: idx)
+                self.viewModel.selectMindTexts.send([])
+                self.setMindTextSelectData()
             }
             
             return cell
@@ -542,16 +585,15 @@ extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataS
                 self.viewModel.appendMindSet(idx: self.viewModel.selectMindIndex.value, value: value)
             }
             
-            cell.selectCell = { texts in
+            cell.selectCell = { [weak self] texts in
+                guard let self = self else { return }
                 self.viewModel.selectMindTexts.send(texts)
-                
                 if texts.count == 3 {
                     self.checkIsDone(bool: true)
                 } else {
                     self.checkIsDone(bool: false)
                 }
                 
-                self.nextButtonAction(index: self.viewModel.currentIndex)
             }
             
             return cell
@@ -567,7 +609,7 @@ extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataS
                     if text?.isEmpty ?? true {
                         self.checkIsDone(bool: false)
                     } else {
-                        if (text ?? "") == self.viewModel.placeHolder {
+                        if self.viewModel.placeHolder.contains(where: { $0 == text ?? "" }) {
                             self.checkIsDone(bool: false)
                         } else {
                             self.checkIsDone(bool: true)
@@ -580,9 +622,15 @@ extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataS
             
             return cell
         case .myTaminFour:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TextViewCollectionViewCell.cellId, for: indexPath) as? TextViewCollectionViewCell else { return UICollectionViewCell() }
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCollectionViewCell.cellId, for: indexPath) as? CategoryCollectionViewCell else { return UICollectionViewCell() }
+            cell.viewModel = categoryViewModel
+            
+            cell.tapCategory = {
+                self.presentModal()
+            }
             
             cell.textView.delegate = self
+            cell.subTextView.delegate = self
             
             return cell
         }
@@ -596,16 +644,9 @@ extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataS
 extension MyTaminViewController: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.text == viewModel.placeHolder {
+        if viewModel.placeHolder.contains(where: { $0 == textView.text }) {
             textView.text = nil
             textView.textColor = .black
-        }
-    }
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            textView.text = viewModel.placeHolder
-            textView.textColor = UIColor.grayColor2
         }
     }
 }
