@@ -27,6 +27,7 @@ extension MyTaminViewController {
         var selectCategoryText = CurrentValueSubject<String, Never>("")
         var mainTextViewData = CurrentValueSubject<String, Never>("")
         var subTextViewData = CurrentValueSubject<String, Never>("")
+        var dailyReportData = CurrentValueSubject<String, Never>("")
         var networkManager = NetworkManager()
         var cancelBag = CancelBag()
         
@@ -60,6 +61,15 @@ extension MyTaminViewController {
                 "행복한", "감사한", "감동적인", "기대되는",
                 "만족한", "뿌듯한", "설레는", "상쾌한", "후련한"]
         ]
+        
+        func sendDailyReport() {
+            networkManager.reportNewDaily(condition: selectMindIndex.value, tags: selectMindTexts.value, todayReport: dailyReportData.value)
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: { _ in }, receiveValue: { result in
+                    print(result.data)
+                })
+                .cancel(with: cancelBag)
+        }
         
         func breathSuccess() {
             networkManager.breathCheckToServer()

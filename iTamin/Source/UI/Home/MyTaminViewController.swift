@@ -299,6 +299,7 @@ class MyTaminViewController: UIViewController {
             case .myTaminThreeOne, .myTaminThreeTwo, .myTaminThreeThree:
                 viewModel.myTaminStatus.send(3)
             case .myTaminFour:
+                viewModel.sendDailyReport()
                 viewModel.myTaminStatus.send(4)
             }
             
@@ -532,6 +533,7 @@ extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataS
             case .myTaminThreeOne, .myTaminThreeTwo, .myTaminThreeThree:
                 viewModel.myTaminStatus.send(3)
             case .myTaminFour:
+                
                 viewModel.myTaminStatus.send(4)
             }
                
@@ -627,7 +629,7 @@ extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataS
                             self.checkIsDone(bool: true)
                         }
                     }
-                    
+                    self.viewModel.dailyReportData.send(text ?? "")
                     self.nextButtonAction(index: self.viewModel.currentIndex)
                 })
                 .cancel(with: cancelBag)

@@ -72,3 +72,13 @@ struct MyTaminProgressModel: Codable {
     var reportIsDone: Bool
     var careIsDone: Bool
 }
+
+
+struct DailyNewModel: Codable {
+    var reportId: Int
+    var canEdit: Bool
+    var mentalConditionCode: Int
+    var mentalCondition: String
+    var feelingTag: String
+    var todayReport: String
+}
