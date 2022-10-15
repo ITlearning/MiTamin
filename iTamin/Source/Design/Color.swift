@@ -23,9 +23,13 @@ extension UIColor {
     static let tabBarUnSelectColor = UIColor(red: 0.80, green: 0.80, blue: 0.80, alpha: 1.00)
     static let tabBarSelectColor = UIColor(red: 0.40, green: 0.40, blue: 0.40, alpha: 1.00)
     static let mainTitleColor = UIColor(red: 0.07, green: 0.07, blue: 0.07, alpha: 1.00)
+    /// 0xFF7F57
     static let primaryColor = UIColor(rgb: 0xFF7F57)
+    /// 0xFFF3AB
     static let mainTopYellowColor = UIColor(rgb: 0xFFF3AB)
+    /// 0xF2F4F6
     static let backGroundWhiteColor = UIColor(rgb: 0xF2F4F6)
+    /// 0xEDEDED
     static let tabBarShadow = UIColor(rgb: 0xEDEDED)
     // MARK: - TabBar
     static let selectTabBarColor = UIColor(rgb: 0xFF7F57)

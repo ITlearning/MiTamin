@@ -73,8 +73,38 @@ struct MyTaminProgressModel: Codable {
     var careIsDone: Bool
 }
 
-
 struct DailyNewModel: Codable {
+    var reportId: Int
+    var canEdit: Bool
+    var mentalConditionCode: Int
+    var mentalCondition: String
+    var feelingTag: String
+    var todayReport: String
+}
+
+struct CareDailyModel: Codable {
+    var careId: Int
+    var canEdit: Bool
+    var careCategory: String
+    var careMsg1: String
+    var careMsg2: String
+}
+
+struct LatestMyTaminModel: Codable {
+    var takeAt: String
+    var report: ReportModel
+    var care: CareModel
+}
+
+struct CareModel: Codable {
+    var careId: Int
+    var canEdit: Bool
+    var careCategory: String
+    var careMsg1: String
+    var careMsg2: String
+}
+
+struct ReportModel: Codable {
     var reportId: Int
     var canEdit: Bool
     var mentalConditionCode: Int

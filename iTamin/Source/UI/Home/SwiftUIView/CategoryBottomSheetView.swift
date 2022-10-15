@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CategoryBottomSheetView: View {
     @Environment(\.presentationMode) var presentationMode
-    var buttonTouch: ((String) -> ())?
+    var buttonTouch: ((String, Int) -> ())?
     
     @State var menuTexts:[String] = [
         "이루어 낸 일",
@@ -29,12 +29,12 @@ struct CategoryBottomSheetView: View {
     
     var body: some View {
         List {
-            ForEach(menuTexts, id:\.self) { text in
+            ForEach(menuTexts.indices, id:\.self) { idx in
                 Button(action: {
-                    buttonTouch?(text)
+                    buttonTouch?(menuTexts[idx], idx)
                     presentationMode.wrappedValue.dismiss()
                 }, label: {
-                    listText(text: text)
+                    listText(text: menuTexts[idx])
                 })
             }
         }.listStyle(.plain)

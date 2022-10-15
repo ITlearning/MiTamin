@@ -78,6 +78,7 @@
 		F5A2EBCA28F2EBD900536E9B /* CategoryPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EBC928F2EBD900536E9B /* CategoryPickerView.swift */; };
 		F5A2EBCF28F2F09400536E9B /* CategoryBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EBCE28F2F09400536E9B /* CategoryBottomSheetView.swift */; };
 		F5A2EBD328F2FC3000536E9B /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F5A2EBD228F2FC3000536E9B /* IQKeyboardManagerSwift */; };
+		F5A2EBD528F309A100536E9B /* MyTaminReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EBD428F309A100536E9B /* MyTaminReportView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -168,6 +169,7 @@
 		F5A2EBC728F2EA4F00536E9B /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		F5A2EBC928F2EBD900536E9B /* CategoryPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerView.swift; sourceTree = "<group>"; };
 		F5A2EBCE28F2F09400536E9B /* CategoryBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryBottomSheetView.swift; sourceTree = "<group>"; };
+		F5A2EBD428F309A100536E9B /* MyTaminReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTaminReportView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -488,6 +490,7 @@
 				F5A2EBC328F2AE0100536E9B /* MainSubTitleView.swift */,
 				F5A2EBC928F2EBD900536E9B /* CategoryPickerView.swift */,
 				F5A2EBCE28F2F09400536E9B /* CategoryBottomSheetView.swift */,
+				F5A2EBD428F309A100536E9B /* MyTaminReportView.swift */,
 			);
 			path = SwiftUIView;
 			sourceTree = "<group>";
@@ -652,6 +655,7 @@
 				F5A2EB6828DEF80E00536E9B /* CustomButton.swift in Sources */,
 				F5A2EB5E28DCC07800536E9B /* ViewControllerPreview.swift in Sources */,
 				F5A2EBA028E4975100536E9B /* MainCollectionModel.swift in Sources */,
+				F5A2EBD528F309A100536E9B /* MyTaminReportView.swift in Sources */,
 				F5A2EBC428F2AE0200536E9B /* MainSubTitleView.swift in Sources */,
 				F5A2EAF728D3644800536E9B /* HomeViewController.swift in Sources */,
 				F5A2EB8B28DF38C700536E9B /* ServerModel.swift in Sources */,

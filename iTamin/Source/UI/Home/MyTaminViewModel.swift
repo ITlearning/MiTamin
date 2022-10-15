@@ -24,7 +24,7 @@ extension MyTaminViewController {
         var placeHolder: [String] = ["오늘 아침의 나에게 하루를 진단해준다면?", "스스로를 칭찬해주세요!", "대단해, 발전하고 있어, 역시 나야 등"]
         var selectMindIndex = CurrentValueSubject<Int, Never>(5)
         var selectMindTexts = CurrentValueSubject<[String], Never>([])
-        var selectCategoryText = CurrentValueSubject<String, Never>("")
+        var selectCategoryIdx = CurrentValueSubject<Int, Never>(0)
         var mainTextViewData = CurrentValueSubject<String, Never>("")
         var subTextViewData = CurrentValueSubject<String, Never>("")
         var dailyReportData = CurrentValueSubject<String, Never>("")
@@ -61,6 +61,15 @@ extension MyTaminViewController {
                 "행복한", "감사한", "감동적인", "기대되는",
                 "만족한", "뿌듯한", "설레는", "상쾌한", "후련한"]
         ]
+        
+        func sendCareDailyReport() {
+            networkManager.careDaily(category: selectCategoryIdx.value+1, careMsg1: mainTextViewData.value, careMsg2: subTextViewData.value)
+                .receive(on: DispatchQueue.global())
+                .sink(receiveCompletion: { _ in }, receiveValue: { result in
+                    print(result.data)
+                })
+                .cancel(with: cancelBag)
+        }
         
         func sendDailyReport() {
             networkManager.reportNewDaily(condition: selectMindIndex.value, tags: selectMindTexts.value, todayReport: dailyReportData.value)

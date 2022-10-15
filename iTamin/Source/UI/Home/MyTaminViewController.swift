@@ -29,10 +29,12 @@ class MyTaminViewController: UIViewController {
     var viewModel: ViewModel = ViewModel()
     var cancelBag = CancelBag()
     
-    var index: Int = 0
+    let index: Int
     
     init(index: Int) {
-        self.index = index
+        self.index = index != 3 ? index : index + 2
+        self.viewModel.currentIndex = index != 3 ? index : index + 2
+        self.viewModel.myTaminStatus.send(index + 1)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -140,8 +142,8 @@ class MyTaminViewController: UIViewController {
         
         
         bindCombine()
-        configureLayout()
         configureColletionView()
+        configureLayout()
         self.hideKeyboardWhenTappedAround()
     }
     
@@ -186,6 +188,7 @@ class MyTaminViewController: UIViewController {
                     self.scrollToIndex(index: self.viewModel.currentIndex)
                     self.nextButtonAction(index: self.viewModel.currentIndex)
                 } else {
+                    self.viewModel.sendCareDailyReport()
                     self.dismiss(animated: true)
                 }
             })
@@ -396,6 +399,7 @@ class MyTaminViewController: UIViewController {
             $0.width.equalTo(162)
             $0.height.equalTo(56)
         }
+        
     }
 
     func configureColletionView() {
@@ -412,9 +416,14 @@ class MyTaminViewController: UIViewController {
         collectionView.setCollectionViewLayout(flow, animated: true)
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.isPagingEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.isScrollEnabled = false
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.001, execute: {
+            self.collectionView.isScrollEnabled = false
+            self.collectionView.scrollToItem(at: IndexPath(item: self.viewModel.currentIndex, section: 0), at: .centeredHorizontally, animated: false)
+            self.collectionView.isScrollEnabled = true
+            self.resetView(index: self.viewModel.currentIndex)
+        })
     }
 
     func resetCell(idx: Int) {
@@ -506,9 +515,9 @@ class MyTaminViewController: UIViewController {
             sheet.detents = [.medium()]
         }
         
-        categoryBottomSheetView.rootView.buttonTouch = { text in
+        categoryBottomSheetView.rootView.buttonTouch = { text, idx in
             self.categoryViewModel.text = text
-            self.viewModel.selectCategoryText.send(text)
+            self.viewModel.selectMindIndex.send(idx)
             self.checkIsDone(bool: true)
             self.nextButtonAction(index: self.viewModel.currentIndex)
             nav.dismiss(animated: true)
@@ -519,26 +528,6 @@ class MyTaminViewController: UIViewController {
 }
 
 extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        for cell in collectionView.visibleCells {
-            let indexPath = collectionView.indexPath(for: cell)
-            let type = CellType((indexPath?.row ?? 0))
-            
-            switch type {
-            case .myTaminOne:
-                viewModel.myTaminStatus.send(1)
-            case .myTaminTwo:
-                viewModel.myTaminStatus.send(2)
-            case .myTaminThreeOne, .myTaminThreeTwo, .myTaminThreeThree:
-                viewModel.myTaminStatus.send(3)
-            case .myTaminFour:
-                
-                viewModel.myTaminStatus.send(4)
-            }
-               
-        }
-    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)

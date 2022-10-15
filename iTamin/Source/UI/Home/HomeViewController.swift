@@ -34,6 +34,8 @@ class HomeViewController: UIViewController {
     var viewModel = ViewModel()
     var cancelBag = CancelBag()
     
+    let scrollView = UIScrollView()
+    
     let mainTopYellowColorView: UIView = {
         let mainView = UIView()
         mainView.backgroundColor = UIColor.mainTopYellowColor
@@ -89,7 +91,7 @@ class HomeViewController: UIViewController {
     let notYetMyTaminImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "NotYetImage")
-        
+        imageView.isHidden = true
         return imageView
     }()
     
@@ -100,6 +102,7 @@ class HomeViewController: UIViewController {
         label.textColor = UIColor.grayColor4
         label.textAlignment = .center
         label.numberOfLines = 0
+        label.isHidden = true
         return label
     }()
     
@@ -126,8 +129,7 @@ class HomeViewController: UIViewController {
         
         viewModel.buttonClick
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { [weak self] idx in
-                guard let self = self else { return }
+            .sink(receiveValue: { idx in
                 let myTaminVC = MyTaminViewController(index: idx)
                 myTaminVC.modalPresentationStyle = .fullScreen
                 self.present(myTaminVC, animated: true)
@@ -156,6 +158,13 @@ class HomeViewController: UIViewController {
                 
             })
             .cancel(with: cancelBag)
+        
+        viewModel.getLatestData
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }, receiveValue: { _ in
+                self.viewModel.loadLatestData()
+            })
+            .cancel(with: cancelBag)
     }
     
     private func setCurrentDay() {
@@ -170,6 +179,7 @@ class HomeViewController: UIViewController {
     
     private func configureLayout() {
         let mainScrollView = UIHostingController(rootView: MainCollectionView(viewModel: self.viewModel))
+        let myTaminReportView = UIHostingController(rootView: MyTaminReportView())
         
         view.addSubview(mainTopYellowColorView)
         view.addSubview(mainCircleImageView)
@@ -180,6 +190,7 @@ class HomeViewController: UIViewController {
         view.addSubview(currentDateLabel)
         view.addSubview(toDayMyTaminLabel)
         view.addSubview(notYetMyTaminLabel)
+        view.addSubview(myTaminReportView.view)
         
         mainScrollView.view.backgroundColor = .clear
         
@@ -232,6 +243,12 @@ class HomeViewController: UIViewController {
         notYetMyTaminLabel.snp.makeConstraints {
             $0.top.equalTo(notYetMyTaminImage.snp.bottom).offset(20)
             $0.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
+        }
+        
+        myTaminReportView.view.snp.makeConstraints {
+            $0.top.equalTo(toDayMyTaminLabel.snp.bottom).offset(24)
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
     }
 
