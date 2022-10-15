@@ -9,13 +9,24 @@ import SwiftUI
 
 struct MyTaminReportView: View {
     
-    //@StateObject var viewModel: HomeViewController.ViewModel
+    @StateObject var viewModel: HomeViewController.ViewModel
     
-    //@State var dataModel: LatestMyTaminModel
+    @State var dataModel: LatestMyTaminModel? = nil
+    
+    var loadingView: some View {
+        HStack {
+            Text("열심히 로딩중이에요..!")
+                .font(.SDGothicRegular(size: 15))
+                .foregroundColor(Color(uiColor: UIColor.grayColor3))
+                .padding(.leading, 30)
+                .padding(.trailing, 25)
+                .multilineTextAlignment(.leading)
+        }
+    }
     
     var feelingView: some View {
         HStack {
-            Image("BVGood")
+            Image(getImage(idx: dataModel?.report.mentalConditionCode ?? 0))
                 .resizable()
                 .frame(width: 60, height: 60)
             ZStack {
@@ -26,13 +37,13 @@ struct MyTaminReportView: View {
                         .foregroundColor(Color(uiColor: UIColor.backGroundWhiteColor))
                 }
                 VStack(alignment: .leading) {
-                    Text("#hashTag")
+                    Text(dataModel?.report.feelingTag ?? "")
                         .font(.SDGothicRegular(size: 12))
                         .foregroundColor(Color(uiColor: UIColor.grayColor3))
                         .padding(.leading, 30)
                         .padding(.trailing, 25)
                         .multilineTextAlignment(.leading)
-                    Text("Text Field")
+                    Text("오늘은 기분이 \(dataModel?.report.mentalCondition ?? "")")
                         .font(.SDGothicBold(size: 16))
                         .foregroundColor(Color(uiColor: UIColor.primaryColor))
                         .padding(.leading, 30)
@@ -49,19 +60,35 @@ struct MyTaminReportView: View {
     
     var reportView: some View {
         VStack(alignment: .leading) {
-            Text("하루 진단")
-                .font(.SDGothicBold(size: 16))
-                .foregroundColor(.init(uiColor: .grayColor4))
-                .padding(.leading, 20)
+            HStack {
+                Text("하루 진단")
+                    .font(.SDGothicBold(size: 16))
+                    .foregroundColor(.init(uiColor: .grayColor4))
+                    .padding(.leading, 20)
+                Spacer()
+                
+                Button(action: {
+                    viewModel.buttonClick.send(2)
+                }, label: {
+                    Image("EditButton")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 88, height: 24)
+                })
+                .padding(.trailing, 20)
+            }
+            
+            
+            feelingView
             
             ZStack {
                 RoundedRectangle(cornerRadius: 12)
                     .foregroundColor(Color(uiColor: UIColor.backGroundWhiteColor))
-                Text("오늘 아침에 미리 날씨를 보고 우산을 챙겨서 이전처럼 편의점에서 불필요하게 우산을 살 필요가 없었어. 학교에서는 좀 많이 졸렸어. 다음부터는 일찍 자는게 좋을 것 같아.")
+                Text(dataModel?.report.todayReport ?? "")
                     .font(.SDGothicRegular(size: 14))
                     .foregroundColor(.init(uiColor: .grayColor3))
                     .lineSpacing(6)
-                    .frame(width: UIScreen.main.bounds.width - 80)
+                    .frame(width: UIScreen.main.bounds.width - 70)
                     .padding(.horizontal, 16)
                     .padding(.vertical, 16)
             }
@@ -72,22 +99,39 @@ struct MyTaminReportView: View {
     
     var careView: some View {
         VStack(alignment: .leading) {
-            Text("칭찬 처방")
-                .font(.SDGothicBold(size: 16))
-                .foregroundColor(.init(uiColor: .grayColor4))
-                .padding(.leading, 20)
+            HStack {
+                Text("칭찬 처방")
+                    .font(.SDGothicBold(size: 16))
+                    .foregroundColor(.init(uiColor: .grayColor4))
+                    .padding(.leading, 20)
+                Spacer()
+                
+                Button(action: {
+                    viewModel.buttonClick.send(5)
+                }, label: {
+                    Image("EditButton")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 88, height: 24)
+                })
+                .padding(.trailing, 20)
+                    
+            }
             
-            ZStack {
+            
+            ZStack(alignment: .leading) {
                 RoundedRectangle(cornerRadius: 12)
                     .foregroundColor(Color(uiColor: UIColor.backGroundWhiteColor))
-                
-                Text("오늘 계획했던 일을 전부 했어. 성실하려 노력하는 내 모습이 좋아.")
-                    .font(.SDGothicRegular(size: 14))
-                    .foregroundColor(.init(uiColor: .grayColor3))
-                    .lineSpacing(6)
-                    .frame(width: UIScreen.main.bounds.width - 80)
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 16)
+                VStack(alignment: .leading) {
+                    Text((dataModel?.care.careMsg1 ?? "")+"\n\(dataModel?.care.careMsg2 ?? "")")
+                        .font(.SDGothicRegular(size: 14))
+                        .foregroundColor(.init(uiColor: .grayColor3))
+                        .lineSpacing(6)
+                        .frame(width: UIScreen.main.bounds.width - 70)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 16)
+                        .frame(alignment: .leading)
+                }
             }
             .fixedSize()
             .padding(.leading, 20)
@@ -96,15 +140,15 @@ struct MyTaminReportView: View {
     
     func getImage(idx: Int) -> String {
         switch idx {
-        case 1:
+        case 5:
             return "BVGood"
-        case 2:
+        case 4:
             return "BGood"
         case 3:
             return "BSoso"
-        case 4:
+        case 2:
             return "BBad"
-        case 5:
+        case 1:
             return "BVBad"
         default:
             return "BSoso"
@@ -114,15 +158,22 @@ struct MyTaminReportView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
-                Spacer()
-                    .frame(height: 1)
+                ZStack {
+                    VStack {
+                        Spacer()
+                            .frame(height: 1)
+                        
+                        reportView
+                        careView
+                        
+                        Spacer()
+                            .frame(height: 50)
+                    }
+                    .opacity(self.dataModel == nil ? 0 : 1)
+                    
+                    loadingView.opacity(self.dataModel == nil ? 1 : 0)
+                }
                 
-                feelingView
-                reportView
-                careView
-                
-                Spacer()
-                    .frame(height: 50)
             }
             .background(GeometryReader{
                 Color.clear.preference(key: ViewOffsetKey.self, value: -$0.frame(in: .named("scroll")).origin.y)
@@ -131,12 +182,11 @@ struct MyTaminReportView: View {
                 print("Offset, \($0)")
             })
         }.coordinateSpace(name: "scroll")
-    }
-}
-
-struct MyTaminReportView_Previews: PreviewProvider {
-    static var previews: some View {
-        MyTaminReportView()
+        .onReceive(viewModel.latestData, perform: { value in
+            withAnimation {
+                self.dataModel = value
+            }
+        })
     }
 }
 

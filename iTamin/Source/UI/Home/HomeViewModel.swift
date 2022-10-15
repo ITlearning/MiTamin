@@ -18,6 +18,7 @@ extension HomeViewController {
         var subTextPublisher = CurrentValueSubject<String, Never>("")
         var getLatestData = PassthroughSubject<Bool, Never>()
         var latestData = CurrentValueSubject<LatestMyTaminModel?, Never>(nil)
+        var viewIsReady = PassthroughSubject<Bool, Never>()
         var networkManager = NetworkManager()
         var cancelBag = CancelBag()
         
@@ -66,6 +67,12 @@ extension HomeViewController {
                 .sink(receiveCompletion: { _ in }, receiveValue: { result in
                     self.latestData.send(result.data)
                     print(result.data)
+                    
+                    UserDefaults.standard.set(result.data.report.reportId, forKey: .reportId)
+                    UserDefaults.standard.set(result.data.care.careId, forKey: .careId)
+                    
+                    self.viewIsReady.send(true)
+                    
                 })
                 .cancel(with: cancelBag)
         }

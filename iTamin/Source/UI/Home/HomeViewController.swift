@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import SwiftUI
+import SkeletonView
 
 extension HomeViewController {
     private func setAnimate() {
@@ -67,6 +68,8 @@ class HomeViewController: UIViewController {
         label.font = UIFont.SDGothicBold(size: 24)
         label.textColor = UIColor.mainTitleColor
         label.numberOfLines = 0
+        label.isSkeletonable = true
+        label.text = "dsadsasdaasds"
         return label
     }()
     
@@ -84,7 +87,7 @@ class HomeViewController: UIViewController {
         label.textColor = UIColor.grayColor4
         label.font = UIFont.SDGothicBold(size: 18)
         label.text = "오늘의 마이타민"
-        
+        label.isSkeletonable = true
         return label
     }()
     
@@ -103,6 +106,7 @@ class HomeViewController: UIViewController {
         label.textAlignment = .center
         label.numberOfLines = 0
         label.isHidden = true
+        label.isSkeletonable = true
         return label
     }()
     
@@ -113,7 +117,8 @@ class HomeViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        setAnimate()
+        //setAnimate()
+        self.view.showAnimatedGradientSkeleton()
         viewModel.checkStatus()
     }
     
@@ -123,9 +128,18 @@ class HomeViewController: UIViewController {
         configureLayout()
         bindCombine()
         setCurrentDay()
+        
+       
     }
 
     private func bindCombine() {
+//
+//        viewModel.viewIsReady
+//            .receive(on: DispatchQueue.main)
+//            .sink(receiveValue: { value in
+//                self.view.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(1))
+//            })
+//            .cancel(with: cancelBag)
         
         viewModel.buttonClick
             .receive(on: DispatchQueue.main)
@@ -179,8 +193,9 @@ class HomeViewController: UIViewController {
     
     private func configureLayout() {
         let mainScrollView = UIHostingController(rootView: MainCollectionView(viewModel: self.viewModel))
-        let myTaminReportView = UIHostingController(rootView: MyTaminReportView())
-        
+        let myTaminReportView = UIHostingController(rootView: MyTaminReportView(viewModel: self.viewModel))
+        mainScrollView.view.isSkeletonable = true
+        mainLogoImageView.isSkeletonable = true
         view.addSubview(mainTopYellowColorView)
         view.addSubview(mainCircleImageView)
         view.addSubview(mainLogoImageView)
