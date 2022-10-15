@@ -623,7 +623,7 @@ extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataS
             cell.selectCell = { [weak self] texts in
                 guard let self = self else { return }
                 self.viewModel.selectMindTexts.send(texts)
-                if texts.count == 3 {
+                if texts.count > 0 {
                     self.checkIsDone(bool: true)
                 } else {
                     self.checkIsDone(bool: false)
