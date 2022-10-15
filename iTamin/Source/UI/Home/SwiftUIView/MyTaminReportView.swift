@@ -187,7 +187,7 @@ struct MyTaminReportView: View {
                     }
                     .opacity((self.dataModel == nil) && self.dataIsOn ? 0 : 1)
                     
-                    notYetImageView.opacity((self.dataModel == nil) && !self.dataIsOn ? 0 : 1)
+                    //notYetImageView.opacity((self.dataModel == nil) && !self.dataIsOn ? 0 : 1)
                     
                     loadingView.opacity(self.dataModel == nil ? 1 : 0)
                 }

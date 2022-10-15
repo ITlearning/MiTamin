@@ -24,18 +24,37 @@ enum CellType: CaseIterable {
     }
 }
 
+extension MyTaminViewController {
+    func getIsDoneStatus(idx: Int) -> Bool {
+        switch idx {
+        case 1:
+            return UserDefaults.standard.bool(forKey: .breathIsDone)
+        case 2:
+            return UserDefaults.standard.bool(forKey: .senseIsDone)
+        case 3:
+            return UserDefaults.standard.bool(forKey: .reportIsDone)
+        case 4:
+            return UserDefaults.standard.bool(forKey: .careIsDone)
+        default:
+            return false
+        }
+    }
+}
+
 class MyTaminViewController: UIViewController {
     var categoryViewModel = CategoryCollectionViewModel()
     var viewModel: ViewModel = ViewModel()
     var cancelBag = CancelBag()
     
     let index: Int
+    var isDone: Bool = false
     
     init(index: Int) {
         self.index = index != 3 ? index : index + 2
         self.viewModel.currentIndex = index != 3 ? index : index + 2
         self.viewModel.myTaminStatus.send(index + 1)
         super.init(nibName: nil, bundle: nil)
+        //self.isDone = self.getIsDoneStatus(idx: self.viewModel.myTaminStatus.value)
     }
     
     required init?(coder: NSCoder) {
@@ -136,12 +155,20 @@ class MyTaminViewController: UIViewController {
         return imageView
     }()
     
+    let blackView: UIView = {
+        let bView = UIView()
+        bView.backgroundColor = UIColor.black
+        bView.alpha = 0.2
+        return bView
+    }()
+    
+    lazy var alertView = UIHostingController(rootView: AlertView(viewModel: self.viewModel))
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         //navigationConfigure(title: "오늘의 마이타민")
         view.backgroundColor = .white
-        
         
         bindCombine()
         configureColletionView()
@@ -181,7 +208,6 @@ class MyTaminViewController: UIViewController {
             })
             .cancel(with: cancelBag)
         
-        
         nextButton.tapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { _ in
@@ -200,6 +226,31 @@ class MyTaminViewController: UIViewController {
             .sink(receiveValue: { [weak self] value in
                 guard let self = self else { return }
                 self.nextButtonAction(index: self.viewModel.currentIndex)
+            })
+            .cancel(with: cancelBag)
+        
+        viewModel.myTaminStatus
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { value in
+                self.isDone = self.getIsDoneStatus(idx: value)
+                print(self.getIsDoneStatus(idx: value))
+                if  self.getIsDoneStatus(idx: value) {
+                    self.viewModel.isEditStatus.send(true)
+                    self.blackView.alpha = 0.2
+                    self.alertView.view.alpha = 1.0
+                } else {
+                    self.viewModel.isEditStatus.send(false)
+                    self.blackView.alpha = 0.0
+                    self.alertView.view.alpha = 0.0
+                }
+            })
+            .cancel(with: cancelBag)
+        
+        viewModel.isEditStatus
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { value in
+                self.blackView.alpha = value ? 0.2 : 0.0
+                self.alertView.view.alpha = value ? 1.0 : 0.0
             })
             .cancel(with: cancelBag)
     }
@@ -286,7 +337,6 @@ class MyTaminViewController: UIViewController {
                 self.toggleSwitch.isHidden = true
             })
             
-            
         }
     }
     
@@ -337,6 +387,7 @@ class MyTaminViewController: UIViewController {
         view.addSubview(midNavTitle)
         view.addSubview(cancelButton)
         let indicatorView = UIHostingController(rootView: IndicatorView(viewModel: self.viewModel))
+        
         view.addSubview(indicatorView.view)
         view.addSubview(autoTextLabel)
         view.addSubview(toggleSwitch)
@@ -344,6 +395,22 @@ class MyTaminViewController: UIViewController {
         view.addSubview(bottomBarImage)
         view.addSubview(nextButton)
         view.addSubview(passButton)
+        view.addSubview(blackView)
+        view.addSubview(self.alertView.view)
+        self.alertView.view.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview()
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(36)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(36)
+        }
+        
+        blackView.snp.makeConstraints {
+            $0.top.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        self.alertView.rootView.cancelButtonAction = {
+            self.dismiss(animated: true)
+        }
         
         backgroundImage.snp.makeConstraints {
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(15)

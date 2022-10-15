@@ -44,6 +44,13 @@ extension HomeViewController {
                         MainCollectionModel(isDone: result.data.careIsDone, cellDescription: "칭찬 처방하기", image: "MyTamin04")
                     ])
                     
+                    UserDefaults.standard.set(result.data.breathIsDone, forKey: .breathIsDone)
+                    UserDefaults.standard.set(result.data.senseIsDone, forKey: .senseIsDone)
+                    UserDefaults.standard.set(result.data.reportIsDone, forKey: .reportIsDone)
+                    UserDefaults.standard.set(result.data.careIsDone, forKey: .careIsDone)
+                    
+                    
+                    
                     if result.data.reportIsDone && result.data.careIsDone {
                         self.getLatestData.send(true)
                     }

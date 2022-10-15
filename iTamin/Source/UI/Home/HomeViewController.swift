@@ -133,13 +133,6 @@ class HomeViewController: UIViewController {
     }
 
     private func bindCombine() {
-//
-//        viewModel.viewIsReady
-//            .receive(on: DispatchQueue.main)
-//            .sink(receiveValue: { value in
-//                self.view.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(1))
-//            })
-//            .cancel(with: cancelBag)
         
         viewModel.buttonClick
             .receive(on: DispatchQueue.main)

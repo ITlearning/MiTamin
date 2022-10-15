@@ -28,6 +28,7 @@ extension MyTaminViewController {
         var mainTextViewData = CurrentValueSubject<String, Never>("")
         var subTextViewData = CurrentValueSubject<String, Never>("")
         var dailyReportData = CurrentValueSubject<String, Never>("")
+        var isEditStatus = PassthroughSubject<Bool, Never>()
         var networkManager = NetworkManager()
         var cancelBag = CancelBag()
         
@@ -67,7 +68,7 @@ extension MyTaminViewController {
                 .receive(on: DispatchQueue.global())
                 .sink(receiveCompletion: { _ in }, receiveValue: { result in
                     print(result.data)
-                    UserDefaults.standard.set(result.data.reportId, forKey: .careId)
+                    UserDefaults.standard.set(result.data.careId, forKey: .careId)
                 })
                 .cancel(with: cancelBag)
         }
