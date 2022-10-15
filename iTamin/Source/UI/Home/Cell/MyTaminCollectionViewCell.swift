@@ -45,6 +45,7 @@ class MyTaminCollectionViewCell: UICollectionViewCell {
     var cancelBag = CancelBag()
     var timerStatus: TimerStatus = .start
     var nextOn: (() -> ())?
+    var buttonStatus: ((TimerStatus) -> ())?
     
     var timerLabel: UILabel = {
         let label = UILabel()
@@ -106,8 +107,10 @@ class MyTaminCollectionViewCell: UICollectionViewCell {
     private func bindCombine() {
         playButton.tapPublisher
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { _ in
+            .sink(receiveValue: {[weak self] _ in
+                guard let self = self else { return }
                 self.startOtpTimer()
+                self.buttonStatus?(self.timerStatus)
             })
             .cancel(with: cancelBag)
     }

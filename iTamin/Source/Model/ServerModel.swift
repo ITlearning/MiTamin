@@ -66,7 +66,7 @@ struct MyTaminSuccessModel: Codable {
     let updatedTime: String
 }
 
-struct MyTaminProgressModel: Codable {
+struct MyTaminProgressModel: Codable, Equatable {
     var breathIsDone: Bool
     var senseIsDone: Bool
     var reportIsDone: Bool

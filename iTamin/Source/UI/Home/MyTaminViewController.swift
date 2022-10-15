@@ -100,6 +100,7 @@ class MyTaminViewController: UIViewController {
     let passButton: UIButton = {
         let button = UIButton()
         button.setTitle("패스하기", for: .normal)
+        button.setTitle("패스하기", for: .disabled)
         button.layer.borderColor = UIColor.primaryColor.cgColor
         button.layer.borderWidth = 1
         button.layer.cornerRadius = 8
@@ -107,6 +108,7 @@ class MyTaminViewController: UIViewController {
         button.backgroundColor = UIColor.white
         button.titleLabel?.font = UIFont.SDGothicBold(size: 16)
         button.setTitleColor(UIColor.primaryColor, for: .normal)
+        button.setTitleColor(UIColor.grayColor1, for: .disabled)
         
         return button
     }()
@@ -288,6 +290,18 @@ class MyTaminViewController: UIViewController {
         }
     }
     
+    func passButtonSet() {
+        if passButton.isEnabled {
+            passButton.layer.borderColor = UIColor.primaryColor.cgColor
+            passButton.layer.borderWidth = 1
+            passButton.layer.cornerRadius = 8
+        } else {
+            passButton.layer.borderColor = UIColor.grayColor1.cgColor
+            passButton.layer.borderWidth = 1
+            passButton.layer.cornerRadius = 8
+        }
+    }
+    
     func controlIndex(back: Bool = false) {
         for cell in collectionView.visibleCells {
             let indexPath = collectionView.indexPath(for: cell)
@@ -423,6 +437,13 @@ class MyTaminViewController: UIViewController {
             self.collectionView.scrollToItem(at: IndexPath(item: self.viewModel.currentIndex, section: 0), at: .centeredHorizontally, animated: false)
             self.collectionView.isScrollEnabled = true
             self.resetView(index: self.viewModel.currentIndex)
+            
+            if self.viewModel.myTaminStatus.value == 4 {
+                self.nextButton.setTitle("섭취완료!", for: .normal)
+                self.nextButton.setTitle("섭취완료!", for: .disabled)
+                
+            }
+            
         })
     }
 
@@ -552,6 +573,8 @@ extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataS
             
             cell.nextOn = {
                 self.viewModel.myTaminModel[indexPath.row].isDone = true
+                self.passButton.isEnabled = true
+                self.passButtonSet()
                 self.checkToServer(idx: indexPath.row)
                 if self.toggleSwitch.isOn {
                     if indexPath.row < self.viewModel.myTaminModel.count {
@@ -560,7 +583,16 @@ extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataS
                 } else {
                     self.nextButtonAction(index: indexPath.row)
                 }
-                
+            }
+            
+            cell.buttonStatus = { value in
+                if value == .pause {
+                    self.passButton.isEnabled = true
+                    self.passButtonSet()
+                } else {
+                    self.passButton.isEnabled = false
+                    self.passButtonSet()
+                }
             }
             
             return cell

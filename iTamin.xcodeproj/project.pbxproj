@@ -79,6 +79,7 @@
 		F5A2EBCF28F2F09400536E9B /* CategoryBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EBCE28F2F09400536E9B /* CategoryBottomSheetView.swift */; };
 		F5A2EBD328F2FC3000536E9B /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F5A2EBD228F2FC3000536E9B /* IQKeyboardManagerSwift */; };
 		F5A2EBD528F309A100536E9B /* MyTaminReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EBD428F309A100536E9B /* MyTaminReportView.swift */; };
+		F5F3F15C28FA7B48006C9B6A /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F3F15B28FA7B48006C9B6A /* CoreDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -170,6 +171,7 @@
 		F5A2EBC928F2EBD900536E9B /* CategoryPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerView.swift; sourceTree = "<group>"; };
 		F5A2EBCE28F2F09400536E9B /* CategoryBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryBottomSheetView.swift; sourceTree = "<group>"; };
 		F5A2EBD428F309A100536E9B /* MyTaminReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTaminReportView.swift; sourceTree = "<group>"; };
+		F5F3F15B28FA7B48006C9B6A /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -287,6 +289,7 @@
 			isa = PBXGroup;
 			children = (
 				F5A2EAFB28D3644800536E9B /* iTamin.xcdatamodeld */,
+				F5F3F15B28FA7B48006C9B6A /* CoreDataManager.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -696,6 +699,7 @@
 				F5A2EB8D28DF6BA600536E9B /* UIWindow.swift in Sources */,
 				F5A2EBA728E5A6F200536E9B /* RoundedCircleView.swift in Sources */,
 				F5A2EBB628F1600A00536E9B /* MindCollectionViewCell.swift in Sources */,
+				F5F3F15C28FA7B48006C9B6A /* CoreDataManager.swift in Sources */,
 				F5A2EB6C28DEF93800536E9B /* ProgressBar.swift in Sources */,
 				F5A2EB3628D4B22A00536E9B /* MyPageViewController.swift in Sources */,
 				F5A2EBBC28F1758800536E9B /* MindTextCollectionViewCell.swift in Sources */,
