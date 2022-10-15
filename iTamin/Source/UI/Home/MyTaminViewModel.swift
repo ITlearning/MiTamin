@@ -29,6 +29,7 @@ extension MyTaminViewController {
         var subTextViewData = CurrentValueSubject<String, Never>("")
         var dailyReportData = CurrentValueSubject<String, Never>("")
         var isEditStatus = PassthroughSubject<Bool, Never>()
+        var dataIsReady = PassthroughSubject<Bool, Never>()
         var networkManager = NetworkManager()
         var cancelBag = CancelBag()
         
@@ -62,6 +63,42 @@ extension MyTaminViewController {
                 "행복한", "감사한", "감동적인", "기대되는",
                 "만족한", "뿌듯한", "설레는", "상쾌한", "후련한"]
         ]
+        
+        func editDailyReport() {
+            networkManager.editDailyReport(condition: selectMindIndex.value+1,
+                                           tags: selectMindTexts.value, todayReport: dailyReportData.value)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }, receiveValue: { value in
+                print(value.message)
+            })
+            .cancel(with: cancelBag)
+        }
+        
+        func loadDailyReport() {
+            
+            self.dataIsReady.send(false)
+            
+            networkManager.loadDailyReportData()
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: { _ in }, receiveValue: { value in
+                    let data = value.data
+                    
+                    // 컨디션
+                    self.selectMindIndex.send(data.mentalConditionCode)
+                    UserDefaults.standard.set(data.mentalConditionCode-1, forKey: .mindSelectIndex)
+                    // 태그들
+                    let tagValue = data.feelingTag
+                    let splitData = tagValue.components(separatedBy: " ")
+                    let sendData = splitData.map({ $0.trimmingCharacters(in: ["#"])})
+                    self.selectMindTexts.send(sendData)
+                    
+                    self.dailyReportData.send(data.todayReport)
+                    
+                    self.dataIsReady.send(true)
+                    
+                })
+                .cancel(with: cancelBag)
+        }
         
         func sendCareDailyReport() {
             networkManager.careDaily(category: selectCategoryIdx.value+1, careMsg1: mainTextViewData.value, careMsg2: subTextViewData.value)

@@ -7,7 +7,15 @@
 
 import SwiftUI
 
+extension UserDefaults {
+    @objc dynamic var userValue: Int {
+        return integer(forKey: .mindSelectIndex)
+    }
+}
+
 struct MindSelectView: View {
+    
+    @StateObject var viewModel: MindSelectViewModel
     
     @State var mindButtonImage: [String] = [
         "VBad", "Bad", "Soso","Good","VGood"
@@ -17,14 +25,15 @@ struct MindSelectView: View {
         "매우 나빠요","나쁜 편이에요","그럭저럭이에요","좋은 편이에요","매우 좋아요!"
     ]
     
-    @State var selectMindImage: Int = 0
+    @Binding var selectMindImage: Int
     
     var buttonClickIndex: ((Int) -> ())?
+    
+    let publisher = UserDefaults.standard.publisher(for: \.userValue)
     
     var body: some View {
         
         VStack {
-            
             Image("B\(mindButtonImage[selectMindImage])")
                 .resizable()
                 .frame(width: 180, height: 180)
@@ -49,11 +58,9 @@ struct MindSelectView: View {
             .padding(.top, 40)
         }
         .padding(.horizontal, 20)
-    }
-}
-
-struct MindSelectView_Previews: PreviewProvider {
-    static var previews: some View {
-        MindSelectView()
+        .onReceive(publisher, perform: { value in
+            print("dsds",value)
+            selectMindImage = value + 1
+        })
     }
 }

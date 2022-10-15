@@ -26,4 +26,7 @@ extension String {
     static var careIsDone: String {
         return "careIsDone"
     }
+    static var mindSelectIndex: String {
+        return "mindSelectIndex"
+    }
 }

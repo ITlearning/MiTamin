@@ -30,6 +30,9 @@ struct APIData<T: Decodable>: Decodable {
     var data: T
 }
 
+struct EditModel: Codable {
+}
+
 struct SignUpModel: Codable {
     let email: String
     let password: String

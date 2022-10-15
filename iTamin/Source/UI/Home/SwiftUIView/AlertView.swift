@@ -12,6 +12,7 @@ struct AlertView: View {
     @StateObject var viewModel: MyTaminViewController.ViewModel
     
     var cancelButtonAction: (() -> ())?
+    
     @State var isEdit: Bool = false
     var body: some View {
         ZStack {
@@ -53,6 +54,7 @@ struct AlertView: View {
                             
                             Button(action: {
                                 viewModel.isEditStatus.send(false)
+                                viewModel.loadDailyReport()
                             }, label: {
                                 Text("확인")
                                     .foregroundColor(.black)

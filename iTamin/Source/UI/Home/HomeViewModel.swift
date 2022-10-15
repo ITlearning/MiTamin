@@ -49,7 +49,9 @@ extension HomeViewController {
                     UserDefaults.standard.set(result.data.reportIsDone, forKey: .reportIsDone)
                     UserDefaults.standard.set(result.data.careIsDone, forKey: .careIsDone)
                     
-                    
+                    if !UserDefaults.standard.bool(forKey: .reportIsDone) {
+                        UserDefaults.standard.set(1, forKey: .mindSelectIndex)
+                    }
                     
                     if result.data.reportIsDone && result.data.careIsDone {
                         self.getLatestData.send(true)

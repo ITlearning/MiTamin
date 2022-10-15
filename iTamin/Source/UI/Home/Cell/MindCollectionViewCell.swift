@@ -8,12 +8,27 @@
 import UIKit
 import SwiftUI
 import SnapKit
+import Combine
+
+class MindSelectViewModel: ObservableObject {
+    var selectIndex = CurrentValueSubject<Int, Never>(UserDefaults.standard.integer(forKey: .mindSelectIndex))
+    @Published var index: Int = 0
+    
+    
+    private let cancellable = UserDefaults.standard.publisher(for: \.userValue).sink(receiveValue: { value in
+        print("가가ㅏ각",value)
+    })
+    
+}
 
 class MindCollectionViewCell: UICollectionViewCell {
+    
+    @ObservedObject var viewModel = MindSelectViewModel()
     
     static let cellId: String = "MindCollectionViewCell"
     
     var buttonClick: ((Int) -> ())?
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,12 +42,12 @@ class MindCollectionViewCell: UICollectionViewCell {
     
     
     private func configureCell() {
-        let mindView = UIHostingController(rootView: MindSelectView())
+        
+        let mindView = UIHostingController(rootView: MindSelectView(viewModel: self.viewModel, selectMindImage: $viewModel.index))
+        
         let mainSubTitleView = UIHostingController(rootView: MainSubTitleView(mainTitle: "3. 하루 진단하기",
                                                                               subTitle: "오늘의 마음 컨디션은 어떤가요?"))
-        
         mindView.rootView.buttonClickIndex = { idx in
-            print("dsdsa",idx)
             self.buttonClick?(idx)
         }
         
