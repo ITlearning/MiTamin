@@ -64,7 +64,8 @@ extension HomeViewController {
         func loadLatestData() {
             networkManager.getLatestMyTaminData()
                 .receive(on: DispatchQueue.main)
-                .sink(receiveCompletion: { _ in }, receiveValue: { result in
+                .sink(receiveCompletion: { _ in
+                }, receiveValue: { result in
                     self.latestData.send(result.data)
                     print(result.data)
                     

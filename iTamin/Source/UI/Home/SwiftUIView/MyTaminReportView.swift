@@ -12,6 +12,22 @@ struct MyTaminReportView: View {
     @StateObject var viewModel: HomeViewController.ViewModel
     
     @State var dataModel: LatestMyTaminModel? = nil
+    @State var dataIsOn: Bool = true
+    
+    var notYetImageView: some View {
+        VStack {
+            Spacer()
+            
+            Image("MyTaminNotYet")
+                .resizable()
+                .scaledToFit()
+                .padding(.horizontal, 26.5)
+                .frame(height: 24)
+            
+            Spacer()
+        }
+        
+    }
     
     var loadingView: some View {
         HStack {
@@ -169,7 +185,9 @@ struct MyTaminReportView: View {
                         Spacer()
                             .frame(height: 50)
                     }
-                    .opacity(self.dataModel == nil ? 0 : 1)
+                    .opacity((self.dataModel == nil) && self.dataIsOn ? 0 : 1)
+                    
+                    notYetImageView.opacity((self.dataModel == nil) && !self.dataIsOn ? 0 : 1)
                     
                     loadingView.opacity(self.dataModel == nil ? 1 : 0)
                 }
