@@ -38,6 +38,7 @@ extension MyTaminViewController {
 }
 
 class MyTaminViewController: UIViewController {
+    var mindSelectViewModel = MindSelectViewModel()
     var categoryViewModel = CategoryCollectionViewModel()
     var viewModel: ViewModel = ViewModel()
     var cancelBag = CancelBag()
@@ -46,9 +47,14 @@ class MyTaminViewController: UIViewController {
     var isDone: Bool = false
     
     init(index: Int) {
-        self.index = index != 3 ? index : index + 2
-        self.viewModel.currentIndex = index != 3 ? index : index + 2
-        self.viewModel.myTaminStatus.send(index + 1)
+        self.index = index
+        self.viewModel.currentIndex = index
+        
+        if index == 2 {
+            self.viewModel.myTaminStatus.send(3)
+        } else if index == 5 {
+            self.viewModel.myTaminStatus.send(4)
+        }
         super.init(nibName: nil, bundle: nil)
         //self.isDone = self.getIsDoneStatus(idx: self.viewModel.myTaminStatus.value)
     }
@@ -154,7 +160,7 @@ class MyTaminViewController: UIViewController {
     let blackView: UIView = {
         let bView = UIView()
         bView.backgroundColor = UIColor.black
-        bView.alpha = 0.2
+        bView.alpha = 0.0
         return bView
     }()
     
@@ -203,7 +209,6 @@ class MyTaminViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { _ in
                 if self.viewModel.currentIndex+1 < self.viewModel.myTaminModel.count {
-                    
                     self.controlIndex()
                     self.scrollToIndex(index: self.viewModel.currentIndex)
                     self.nextButtonAction(index: self.viewModel.currentIndex)
@@ -215,17 +220,29 @@ class MyTaminViewController: UIViewController {
         
         nextButton.tapPublisher
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { _ in
+            .sink(receiveValue: { [weak self] _ in
+                guard let self = self else { return }
                 if self.viewModel.currentIndex < self.viewModel.myTaminModel.count - 1 {
                     self.controlIndex()
                     self.scrollToIndex(index: self.viewModel.currentIndex)
                     self.nextButtonAction(index: self.viewModel.currentIndex)
                 } else {
-                    self.viewModel.sendCareDailyReport()
+                    if UserDefaults.standard.bool(forKey: .careIsDone) {
+                        self.viewModel.editCareReport()
+                    } else {
+                        self.viewModel.sendCareDailyReport()
+                    }
                     self.dismiss(animated: true)
                 }
             })
             .cancel(with: cancelBag)
+        
+        viewModel.selectCategoryIdx.receive(on: DispatchQueue.main)
+            .sink(receiveValue: { value in
+                self.categoryViewModel.text = self.viewModel.selectMindArray[value]
+            })
+            .cancel(with: cancelBag)
+        
         
         viewModel.selectMindTexts.receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] value in
@@ -240,6 +257,7 @@ class MyTaminViewController: UIViewController {
                 self.isDone = self.getIsDoneStatus(idx: value)
                 if self.getIsDoneStatus(idx: value) && (self.viewModel.currentIndex == 2 || self.viewModel.currentIndex == 5) {
                     self.viewModel.isEditStatus.send(true)
+                    self.viewModel.alertText = self.viewModel.currentIndex == 2 ? "하루 진단하기" : "칭찬 처방하기"
                     self.showBlackAnimate()
                     self.alertView.view.alpha = 1.0
                 } else {
@@ -268,6 +286,9 @@ class MyTaminViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { value in
                 if value {
+                    if self.viewModel.currentIndex == 5 {
+                        self.setCareReportData()
+                    }
                     self.hideBlackAnimate()
                 } else {
                     self.showBlackAnimate()
@@ -286,11 +307,16 @@ class MyTaminViewController: UIViewController {
         
         viewModel.dailyReportData
             .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] value in
+                guard let self = self else { return }
+                //self.setReportText()
+            })
+            .cancel(with: cancelBag)
+        
+        viewModel.selectMindIndex
+            .receive(on: DispatchQueue.main)
             .sink(receiveValue: { value in
-                
-                print("|||, \(value)")
-                
-                self.setReportText()
+                self.mindSelectViewModel.index = value
             })
             .cancel(with: cancelBag)
         
@@ -310,6 +336,18 @@ class MyTaminViewController: UIViewController {
         })
     }
     
+    
+    func setCareReportData() {
+        guard let cell = self.collectionView.cellForItem(at: IndexPath(row: 5, section: 0)) else {
+            return
+        }
+        guard let cell = cell as? CategoryCollectionViewCell else { return }
+        
+        cell.textView.text = viewModel.mainTextViewData.value
+        cell.textView.textColor = .black
+        cell.subTextView.text = viewModel.subTextViewData.value
+        cell.subTextView.textColor = .black
+    }
     
     func resetView(index: Int) {
         let type = CellType(index)
@@ -421,7 +459,7 @@ class MyTaminViewController: UIViewController {
             case .myTaminThreeOne, .myTaminThreeTwo, .myTaminThreeThree:
                 viewModel.myTaminStatus.send(3)
             case .myTaminFour:
-                if UserDefaults.standard.bool(forKey: .reportId) {
+                if UserDefaults.standard.bool(forKey: .reportIsDone) {
                     viewModel.editDailyReport()
                 } else {
                     viewModel.sendDailyReport()
@@ -580,13 +618,14 @@ class MyTaminViewController: UIViewController {
         })
     }
     
+    
+    
     func setReportText() {
         guard let cell = self.collectionView.cellForItem(at: IndexPath(row: 4, section: 0)) else {
             return
         }
         
         guard let cell = cell as? TextViewCollectionViewCell else { return }
-        print(viewModel.dailyReportData.value)
         cell.textView.text = viewModel.dailyReportData.value
     }
 
@@ -742,6 +781,8 @@ extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataS
         case .myTaminThreeOne:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MindCollectionViewCell.cellId, for: indexPath) as? MindCollectionViewCell else { return UICollectionViewCell() }
             
+            cell.viewModel = mindSelectViewModel
+            
             cell.buttonClick = {  [weak self] idx in
                 guard let self = self else { return }
                 self.checkIsDone(bool: true)
@@ -758,7 +799,6 @@ extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataS
             
             cell.cellData = viewModel.showMindSet(idx: viewModel.selectMindIndex.value)
             cell.selectCellTexts = viewModel.selectMindTexts.value
-            
             cell.addAction = { value in
                 self.viewModel.appendMindSet(idx: self.viewModel.selectMindIndex.value, value: value)
             }
@@ -802,7 +842,10 @@ extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataS
             return cell
         case .myTaminFour:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCollectionViewCell.cellId, for: indexPath) as? CategoryCollectionViewCell else { return UICollectionViewCell() }
+            
             cell.viewModel = categoryViewModel
+            cell.textView.text = viewModel.mainTextViewData.value
+            cell.subTextView.text = viewModel.subTextViewData.value
             
             cell.tapCategory = {
                 self.presentModal()

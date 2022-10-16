@@ -12,6 +12,8 @@ import SnapKit
 
 class CategoryCollectionViewModel: ObservableObject {
     @Published var text: String = "카테고리를 골라주세요."
+    @Published var mainTextViewString: String = ""
+    @Published var subTextViewString: String = ""
 }
 
 class CategoryCollectionViewCell: UICollectionViewCell {

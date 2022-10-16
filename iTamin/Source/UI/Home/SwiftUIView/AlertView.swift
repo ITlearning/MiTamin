@@ -29,8 +29,12 @@ struct AlertView: View {
                         
                         Spacer()
                         
-                        Text("새로운 사전이 있으셨나 보네요.")
-                        Text("하루 진단하기를 수정하시겠어요?")
+                        Text("새로운 사건이 있으셨나 보네요.")
+                        HStack(spacing: 0) {
+                            Text("\(viewModel.alertText)")
+                                .bold()
+                            Text("를 수정하시겠어요?")
+                        }
                         
                         Spacer()
 
@@ -54,7 +58,12 @@ struct AlertView: View {
                             
                             Button(action: {
                                 viewModel.isEditStatus.send(false)
-                                viewModel.loadDailyReport()
+                                if viewModel.myTaminStatus.value != 4 {
+                                    viewModel.loadDailyReport()
+                                } else {
+                                    viewModel.loadCareReport()
+                                }
+                                
                             }, label: {
                                 Text("확인")
                                     .foregroundColor(.black)

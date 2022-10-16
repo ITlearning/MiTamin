@@ -11,9 +11,6 @@ struct MyTaminReportView: View {
     
     @StateObject var viewModel: HomeViewController.ViewModel
     
-    @State var dataModel: LatestMyTaminModel? = nil
-    @State var dataIsOn: Bool = true
-    
     var notYetImageView: some View {
         VStack {
             Spacer()
@@ -42,7 +39,7 @@ struct MyTaminReportView: View {
     
     var feelingView: some View {
         HStack {
-            Image(getImage(idx: dataModel?.report.mentalConditionCode ?? 0))
+            Image(getImage(idx:(viewModel.reportData?.mentalConditionCode ?? 0)))
                 .resizable()
                 .frame(width: 60, height: 60)
             ZStack {
@@ -53,13 +50,13 @@ struct MyTaminReportView: View {
                         .foregroundColor(Color(uiColor: UIColor.backGroundWhiteColor))
                 }
                 VStack(alignment: .leading) {
-                    Text(dataModel?.report.feelingTag ?? "")
+                    Text(viewModel.reportData?.feelingTag ?? "")
                         .font(.SDGothicRegular(size: 12))
                         .foregroundColor(Color(uiColor: UIColor.grayColor3))
                         .padding(.leading, 30)
                         .padding(.trailing, 25)
                         .multilineTextAlignment(.leading)
-                    Text("오늘은 기분이 \(dataModel?.report.mentalCondition ?? "")")
+                    Text("오늘은 기분이 \(viewModel.reportData?.mentalCondition ?? "")")
                         .font(.SDGothicBold(size: 16))
                         .foregroundColor(Color(uiColor: UIColor.primaryColor))
                         .padding(.leading, 30)
@@ -100,7 +97,7 @@ struct MyTaminReportView: View {
             ZStack {
                 RoundedRectangle(cornerRadius: 12)
                     .foregroundColor(Color(uiColor: UIColor.backGroundWhiteColor))
-                Text(dataModel?.report.todayReport ?? "")
+                Text(viewModel.reportData?.todayReport ?? "")
                     .font(.SDGothicRegular(size: 14))
                     .foregroundColor(.init(uiColor: .grayColor3))
                     .lineSpacing(6)
@@ -139,7 +136,7 @@ struct MyTaminReportView: View {
                 RoundedRectangle(cornerRadius: 12)
                     .foregroundColor(Color(uiColor: UIColor.backGroundWhiteColor))
                 VStack(alignment: .leading) {
-                    Text((dataModel?.care.careMsg1 ?? "")+"\n\(dataModel?.care.careMsg2 ?? "")")
+                    Text((viewModel.careData?.careMsg1 ?? "")+"\n\(viewModel.careData?.careMsg2 ?? "")")
                         .font(.SDGothicRegular(size: 14))
                         .foregroundColor(.init(uiColor: .grayColor3))
                         .lineSpacing(6)
@@ -180,16 +177,30 @@ struct MyTaminReportView: View {
                             .frame(height: 1)
                         
                         reportView
+                            .overlay(
+                                Color.white
+                                    .overlay(
+                                        Text("아직 하루진단을 완료하지 않았어요!")
+                                    )
+                                    .opacity(viewModel.reportData == nil && viewModel.dataIsReady ? 1 : 0)
+                            )
                         careView
+                            .overlay(
+                                Color.white
+                                    .overlay(
+                                        Text("아직 칭찬처방을 완료하지 않았어요!")
+                                    )
+                                    .opacity(viewModel.careData == nil && viewModel.dataIsReady ? 1 : 0)
+                            )
                         
                         Spacer()
                             .frame(height: 50)
                     }
-                    .opacity((self.dataModel == nil) && self.dataIsOn ? 0 : 1)
+                    .opacity((viewModel.reportData != nil || viewModel.careData != nil) && viewModel.dataIsReady ? 1 : 0)
                     
-                    //notYetImageView.opacity((self.dataModel == nil) && !self.dataIsOn ? 0 : 1)
+                    notYetImageView.opacity((viewModel.reportData == nil && viewModel.careData == nil) && viewModel.dataIsReady ? 1 : 0)
                     
-                    loadingView.opacity(self.dataModel == nil ? 1 : 0)
+                    loadingView.opacity((viewModel.reportData == nil && viewModel.careData == nil) && !viewModel.dataIsReady ? 1 : 0)
                 }
                 
             }
@@ -200,11 +211,6 @@ struct MyTaminReportView: View {
                 print("Offset, \($0)")
             })
         }.coordinateSpace(name: "scroll")
-        .onReceive(viewModel.latestData, perform: { value in
-            withAnimation {
-                self.dataModel = value
-            }
-        })
     }
 }
 

@@ -110,6 +110,24 @@ class HomeViewController: UIViewController {
         return label
     }()
     
+    let blackScreenView: UIView = {
+        let bView = UIView()
+        bView.backgroundColor = .black
+        bView.alpha = 0.0
+        
+        return bView
+    }()
+    
+    let loadingTextLabel: UILabel = {
+        let label = UILabel()
+        label.text = "열심히 데이터를 불러오는중..🏃‍♂️"
+        label.alpha = 0.0
+        label.textColor = UIColor.white
+        label.font = UIFont.SDGothicBold(size: 17)
+        
+        return label
+    }()
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -128,8 +146,6 @@ class HomeViewController: UIViewController {
         configureLayout()
         bindCombine()
         setCurrentDay()
-        
-       
     }
 
     private func bindCombine() {
@@ -168,10 +184,45 @@ class HomeViewController: UIViewController {
         
         viewModel.getLatestData
             .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { _ in }, receiveValue: { _ in
-                self.viewModel.loadLatestData()
+            .sink(receiveCompletion: { _ in }, receiveValue: { value in
+                if value {
+                    self.viewModel.loadLatestData()
+                } else {
+                    if UserDefaults.standard.bool(forKey: .reportIsDone) {
+                        self.viewModel.loadDailyReport()
+                    } else if UserDefaults.standard.bool(forKey: .careIsDone) {
+                        self.viewModel.loadCareReport()
+                    }
+                }
             })
             .cancel(with: cancelBag)
+        
+        viewModel.loadingMainScreen
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { value in
+                if value {
+                    self.hideLoadingScreen()
+                } else {
+                    self.showLodingScreen()
+                }
+            })
+            .cancel(with: cancelBag)
+    }
+    
+    func showLodingScreen() {
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        UIView.animate(withDuration: 0.4, animations: {
+            self.blackScreenView.alpha = 0.4
+            self.loadingTextLabel.alpha = 1.0
+        })
+    }
+    
+    func hideLoadingScreen() {
+        UIApplication.shared.endIgnoringInteractionEvents()
+        UIView.animate(withDuration: 0.4, animations: {
+            self.blackScreenView.alpha = 0.0
+            self.loadingTextLabel.alpha = 0.0
+        })
     }
     
     private func setCurrentDay() {
@@ -199,6 +250,17 @@ class HomeViewController: UIViewController {
         view.addSubview(toDayMyTaminLabel)
         view.addSubview(notYetMyTaminLabel)
         view.addSubview(myTaminReportView.view)
+        view.addSubview(blackScreenView)
+        view.addSubview(loadingTextLabel)
+        
+        blackScreenView.snp.makeConstraints {
+            $0.top.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        loadingTextLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview()
+        }
         
         mainScrollView.view.backgroundColor = .clear
         

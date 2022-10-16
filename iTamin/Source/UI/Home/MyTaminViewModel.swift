@@ -22,16 +22,29 @@ extension MyTaminViewController {
         var myTaminStatus = CurrentValueSubject<Int, Never>(1)
         var currentIndex: Int = 0
         var placeHolder: [String] = ["오늘 아침의 나에게 하루를 진단해준다면?", "스스로를 칭찬해주세요!", "대단해, 발전하고 있어, 역시 나야 등"]
-        var selectMindIndex = CurrentValueSubject<Int, Never>(5)
+        var selectMindIndex = CurrentValueSubject<Int, Never>(0)
         var selectMindTexts = CurrentValueSubject<[String], Never>([])
         var selectCategoryIdx = CurrentValueSubject<Int, Never>(0)
         var mainTextViewData = CurrentValueSubject<String, Never>("")
         var subTextViewData = CurrentValueSubject<String, Never>("")
         var dailyReportData = CurrentValueSubject<String, Never>("")
+        var selectedDataString = CurrentValueSubject<String, Never>("")
         var isEditStatus = PassthroughSubject<Bool, Never>()
         var dataIsReady = PassthroughSubject<Bool, Never>()
         var networkManager = NetworkManager()
         var cancelBag = CancelBag()
+        
+        @Published var alertText: String = "하루 진단하기"
+        
+        var selectMindArray: [String] = [
+            "이루어 낸 일",
+            "잘한 일이나 행동",
+            "노력하고 있는 부분",
+            "긍정적인 변화나 깨달음",
+            "감정, 생각 혹은 신체 일부분",
+            "과거의 나",
+            "기타"
+        ]
         
         var myTaminModel: [MyTaminModel] = [
             MyTaminModel(image: "myTaminTimerImage", mainTitle: "1. 숨고르기", subTitle: "코로 천천히 숨을 들이 마셨다가\n배에 가득 담긴 공기를 잠시 느끼고\n천천히 내뱉어 보세요.", TotalTime: 5, isDone: false),
@@ -65,7 +78,7 @@ extension MyTaminViewController {
         ]
         
         func editDailyReport() {
-            networkManager.editDailyReport(condition: selectMindIndex.value+1,
+            networkManager.editDailyReport(condition: selectCategoryIdx.value+1,
                                            tags: selectMindTexts.value, todayReport: dailyReportData.value)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in }, receiveValue: { value in
@@ -82,10 +95,8 @@ extension MyTaminViewController {
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { _ in }, receiveValue: { value in
                     let data = value.data
-                    
                     // 컨디션
-                    self.selectMindIndex.send(data.mentalConditionCode)
-                    UserDefaults.standard.set(data.mentalConditionCode-1, forKey: .mindSelectIndex)
+                    self.selectMindIndex.send(data.mentalConditionCode-1)
                     // 태그들
                     let tagValue = data.feelingTag
                     let splitData = tagValue.components(separatedBy: " ")
@@ -96,6 +107,32 @@ extension MyTaminViewController {
                     
                     self.dataIsReady.send(true)
                     
+                })
+                .cancel(with: cancelBag)
+        }
+        
+        func loadCareReport() {
+            self.dataIsReady.send(false)
+            
+            networkManager.loadCareReportData()
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: { _ in }, receiveValue: { value in
+                    if let index = self.selectMindArray.firstIndex(where: { $0 == value.data.careCategory }) {
+                        self.selectCategoryIdx.send(index+1)
+                    }
+                    self.mainTextViewData.send(value.data.careMsg1)
+                    self.subTextViewData.send(value.data.careMsg2)
+                    
+                    self.dataIsReady.send(true)
+                })
+                .cancel(with: cancelBag)
+        }
+        
+        func editCareReport() {
+            networkManager.editCareReport(category: selectCategoryIdx.value+1, careMsg1: mainTextViewData.value, careMsg2: subTextViewData.value)
+                .receive(on: DispatchQueue.global())
+                .sink(receiveCompletion: { _ in }, receiveValue: { result in
+                    print(result.message)
                 })
                 .cancel(with: cancelBag)
         }

@@ -18,6 +18,10 @@ extension HomeViewController {
         var subTextPublisher = CurrentValueSubject<String, Never>("")
         var getLatestData = PassthroughSubject<Bool, Never>()
         var latestData = CurrentValueSubject<LatestMyTaminModel?, Never>(nil)
+        @Published var careData: CareModel? = nil
+        @Published var reportData: ReportModel? = nil
+        @Published var dataIsReady: Bool = false
+        var loadingMainScreen = PassthroughSubject<Bool, Never>()
         var viewIsReady = PassthroughSubject<Bool, Never>()
         var networkManager = NetworkManager()
         var cancelBag = CancelBag()
@@ -34,6 +38,8 @@ extension HomeViewController {
         }
         
         func checkStatus() {
+            loadingMainScreen.send(false)
+            
             networkManager.checkMyTaminStatus()
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { _ in }, receiveValue: { result in
@@ -55,34 +61,94 @@ extension HomeViewController {
                     
                     if result.data.reportIsDone && result.data.careIsDone {
                         self.getLatestData.send(true)
+                    } else {
+                        self.getLatestData.send(false)
                     }
+                    
+                    self.loadingMainScreen.send(true)
                 })
                 .cancel(with: cancelBag)
         }
         
         func loadWelComeComment() {
+            
+            loadingMainScreen.send(false)
+            
             networkManager.welcomeToServer()
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] result in
                     guard let self = self else {return}
                     self.userData = result.data
+                    
+                    self.loadingMainScreen.send(true)
+                    
+                })
+                .cancel(with: cancelBag)
+        }
+        
+        func loadDailyReport() {
+            
+            withAnimation {
+                dataIsReady = false
+            }
+            
+            self.reportData = nil
+            
+            networkManager.loadDailyReportData()
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: { _ in }, receiveValue: { value in
+                    let data = value.data
+                    self.reportData = data
+                    UserDefaults.standard.set(value.data.reportId, forKey: .reportId)
+                    withAnimation {
+                        self.dataIsReady = true
+                    }
+                })
+                .cancel(with: cancelBag)
+        }
+        
+        
+        func loadCareReport() {
+            withAnimation {
+                dataIsReady = false
+            }
+            self.careData = nil
+            
+            networkManager.loadCareReportData()
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: { _ in }, receiveValue: { value in
+                    self.careData = value.data
+                    UserDefaults.standard.set(value.data.careId, forKey: .careId)
+                    withAnimation {
+                        self.dataIsReady = true
+                    }
                 })
                 .cancel(with: cancelBag)
         }
         
         func loadLatestData() {
+            
+            withAnimation {
+                dataIsReady = false
+            }
+            
+            self.careData = nil
+            self.reportData = nil
+            
             networkManager.getLatestMyTaminData()
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { _ in
                 }, receiveValue: { result in
-                    self.latestData.send(result.data)
-                    print(result.data)
+                    
+                    self.careData = result.data.care
+                    self.reportData = result.data.report
                     
                     UserDefaults.standard.set(result.data.report.reportId, forKey: .reportId)
                     UserDefaults.standard.set(result.data.care.careId, forKey: .careId)
                     
-                    self.viewIsReady.send(true)
-                    
+                    withAnimation {
+                        self.dataIsReady = true
+                    }
                 })
                 .cancel(with: cancelBag)
         }

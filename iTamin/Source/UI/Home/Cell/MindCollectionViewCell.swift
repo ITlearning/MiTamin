@@ -11,19 +11,19 @@ import SnapKit
 import Combine
 
 class MindSelectViewModel: ObservableObject {
-    var selectIndex = CurrentValueSubject<Int, Never>(UserDefaults.standard.integer(forKey: .mindSelectIndex))
+    //var selectIndex = CurrentValueSubject<Int, Never>(UserDefaults.standard.integer(forKey: .mindSelectIndex))
     @Published var index: Int = 0
-    
-    
-    private let cancellable = UserDefaults.standard.publisher(for: \.userValue).sink(receiveValue: { value in
-        print("가가ㅏ각",value)
-    })
-    
+    @Published var mindButtonImage: [String] = [
+        "VBad", "Bad", "Soso","Good","VGood"
+    ]
+    @Published var mindDescription: [String] = [
+        "매우 나빠요","나쁜 편이에요","그럭저럭이에요","좋은 편이에요","매우 좋아요!"
+    ]
 }
 
 class MindCollectionViewCell: UICollectionViewCell {
     
-    @ObservedObject var viewModel = MindSelectViewModel()
+    var viewModel: MindSelectViewModel?
     
     static let cellId: String = "MindCollectionViewCell"
     
@@ -39,11 +39,9 @@ class MindCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    
     private func configureCell() {
         
-        let mindView = UIHostingController(rootView: MindSelectView(viewModel: self.viewModel, selectMindImage: $viewModel.index))
+        let mindView = UIHostingController(rootView: MindSelectView(viewModel: self.viewModel!))
         
         let mainSubTitleView = UIHostingController(rootView: MainSubTitleView(mainTitle: "3. 하루 진단하기",
                                                                               subTitle: "오늘의 마음 컨디션은 어떤가요?"))
