@@ -83,6 +83,7 @@
 		F5F3F16028FA85D5006C9B6A /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F3F15F28FA85D5006C9B6A /* String.swift */; };
 		F5F3F16328FA8A10006C9B6A /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = F5F3F16228FA8A10006C9B6A /* SkeletonView */; };
 		F5F3F16528FA9589006C9B6A /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F3F16428FA9589006C9B6A /* AlertView.swift */; };
+		F5F3F16828FC52C9006C9B6A /* ProfileBGView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F3F16728FC52C9006C9B6A /* ProfileBGView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -177,6 +178,7 @@
 		F5F3F15B28FA7B48006C9B6A /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		F5F3F15F28FA85D5006C9B6A /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		F5F3F16428FA9589006C9B6A /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
+		F5F3F16728FC52C9006C9B6A /* ProfileBGView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBGView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -341,6 +343,7 @@
 		F5A2EB3228D4B20D00536E9B /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				F5F3F16628FC52B3006C9B6A /* SwiftUI */,
 				F5A2EB3528D4B22A00536E9B /* MyPageViewController.swift */,
 			);
 			path = MyPage;
@@ -506,6 +509,14 @@
 			path = SwiftUIView;
 			sourceTree = "<group>";
 		};
+		F5F3F16628FC52B3006C9B6A /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				F5F3F16728FC52C9006C9B6A /* ProfileBGView.swift */,
+			);
+			path = SwiftUI;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -663,6 +674,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5F3F16828FC52C9006C9B6A /* ProfileBGView.swift in Sources */,
 				F5A2EB7428DF0F1000536E9B /* NickNameViewController.swift in Sources */,
 				F5A2EB5C28DCBFC700536E9B /* SignInViewController.swift in Sources */,
 				F5A2EB6828DEF80E00536E9B /* CustomButton.swift in Sources */,
