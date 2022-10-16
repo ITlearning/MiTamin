@@ -305,14 +305,6 @@ class MyTaminViewController: UIViewController {
             })
             .cancel(with: cancelBag)
         
-        viewModel.dailyReportData
-            .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { [weak self] value in
-                guard let self = self else { return }
-                //self.setReportText()
-            })
-            .cancel(with: cancelBag)
-        
         viewModel.selectMindIndex
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { value in
@@ -584,7 +576,6 @@ class MyTaminViewController: UIViewController {
             $0.width.equalTo(162)
             $0.height.equalTo(56)
         }
-        
     }
 
     func configureColletionView() {

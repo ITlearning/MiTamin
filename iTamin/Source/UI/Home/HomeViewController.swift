@@ -128,6 +128,13 @@ class HomeViewController: UIViewController {
         return label
     }()
     
+    let bellButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "Bell"), for: .normal)
+        
+        return button
+    }()
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -207,6 +214,14 @@ class HomeViewController: UIViewController {
                 }
             })
             .cancel(with: cancelBag)
+        
+        bellButton.tapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: {[weak self] _ in
+                guard let self = self else { return }
+                
+            })
+            .cancel(with: cancelBag)
     }
     
     func showLodingScreen() {
@@ -252,6 +267,7 @@ class HomeViewController: UIViewController {
         view.addSubview(myTaminReportView.view)
         view.addSubview(blackScreenView)
         view.addSubview(loadingTextLabel)
+        view.addSubview(bellButton)
         
         blackScreenView.snp.makeConstraints {
             $0.top.leading.trailing.bottom.equalToSuperview()
@@ -319,6 +335,11 @@ class HomeViewController: UIViewController {
             $0.top.equalTo(toDayMyTaminLabel.snp.bottom).offset(24)
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        }
+        
+        bellButton.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
         }
     }
 
