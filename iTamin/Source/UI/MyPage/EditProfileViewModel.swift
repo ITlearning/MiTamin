@@ -18,6 +18,7 @@ extension EditProfileViewController {
         var userData: ProfileModel? = nil
         var cancelBag = CancelBag()
         var networkManager = NetworkManager()
+        var isOpen: Bool = false
         
         func editProfile() {
             networkManager.editProfile(imageEdit: imageEdit ? "T" : "F", nickName: nickNameTextFieldString, sub: subMessageTextFieldString, image: imageEdit ? editImage : UIImage())

@@ -10,6 +10,7 @@ import SwiftUI
 import Combine
 import CombineCocoa
 import SnapKit
+import Kingfisher
 
 class MyPageViewController: UIViewController {
     
@@ -211,6 +212,10 @@ class MyPageViewController: UIViewController {
     func setText() {
         profileMainLabel.text = viewModel.profileData.value?.beMyMessage ?? ""
         profileSubLabel.text = "내가 될 \(viewModel.profileData.value?.nickname ?? "")"
+        if let url = viewModel.profileData.value?.profileImgUrl {
+            profileImageView.kf.indicatorType = .activity
+            profileImageView.kf.setImage(with: URL(string: url)!)
+        }
     }
     
     func bindCombine() {

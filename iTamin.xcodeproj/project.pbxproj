@@ -11,6 +11,8 @@
 		F5170A9929055DB800AE4FD5 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5170A9829055DB800AE4FD5 /* MyPageViewModel.swift */; };
 		F5170A9B29055F9700AE4FD5 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5170A9A29055F9700AE4FD5 /* EditProfileViewController.swift */; };
 		F5170A9F29056B2F00AE4FD5 /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5170A9E29056B2F00AE4FD5 /* EditProfileViewModel.swift */; };
+		F546AE5E29059F3000CE6C4D /* YPImagePicker in Frameworks */ = {isa = PBXBuildFile; productRef = F546AE5D29059F3000CE6C4D /* YPImagePicker */; };
+		F546AE612905A21A00CE6C4D /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = F546AE602905A21A00CE6C4D /* Kingfisher */; };
 		F5A2EAF328D3644800536E9B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EAF228D3644800536E9B /* AppDelegate.swift */; };
 		F5A2EAF528D3644800536E9B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EAF428D3644800536E9B /* SceneDelegate.swift */; };
 		F5A2EAF728D3644800536E9B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EAF628D3644800536E9B /* HomeViewController.swift */; };
@@ -196,6 +198,8 @@
 				F5A2EB8628DF388300536E9B /* Alamofire in Frameworks */,
 				F5A2EB3C28D4BB0300536E9B /* CombineCocoa in Frameworks */,
 				F5A2EB9028E1F1DD00536E9B /* SwiftKeychainWrapper in Frameworks */,
+				F546AE612905A21A00CE6C4D /* Kingfisher in Frameworks */,
+				F546AE5E29059F3000CE6C4D /* YPImagePicker in Frameworks */,
 				F5F3F16328FA8A10006C9B6A /* SkeletonView in Frameworks */,
 				F5A2EB3928D4B95F00536E9B /* SnapKit in Frameworks */,
 			);
@@ -549,6 +553,8 @@
 				F5A2EB8F28E1F1DD00536E9B /* SwiftKeychainWrapper */,
 				F5A2EBD228F2FC3000536E9B /* IQKeyboardManagerSwift */,
 				F5F3F16228FA8A10006C9B6A /* SkeletonView */,
+				F546AE5D29059F3000CE6C4D /* YPImagePicker */,
+				F546AE602905A21A00CE6C4D /* Kingfisher */,
 			);
 			productName = iTamin;
 			productReference = F5A2EAEF28D3644800536E9B /* iTamin.app */;
@@ -629,6 +635,8 @@
 				F5A2EB8E28E1F1DD00536E9B /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
 				F5A2EBD128F2FC3000536E9B /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 				F5F3F16128FA8A10006C9B6A /* XCRemoteSwiftPackageReference "SkeletonView" */,
+				F546AE5C29059F3000CE6C4D /* XCRemoteSwiftPackageReference "YPImagePicker" */,
+				F546AE5F2905A21A00CE6C4D /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = F5A2EAF028D3644800536E9B /* Products */;
 			projectDirPath = "";
@@ -912,6 +920,9 @@
 				DEVELOPMENT_TEAM = ZMXTCSPNUZ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iTamin/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "카메라 사용권한을 요청합니다.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "비디오 녹화를 위한 마이크 사용권한을 요청합니다.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "라이브러리 사용권한을 요청합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -939,6 +950,9 @@
 				DEVELOPMENT_TEAM = ZMXTCSPNUZ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iTamin/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "카메라 사용권한을 요청합니다.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "비디오 녹화를 위한 마이크 사용권한을 요청합니다.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "라이브러리 사용권한을 요청합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -1074,6 +1088,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		F546AE5C29059F3000CE6C4D /* XCRemoteSwiftPackageReference "YPImagePicker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Yummypets/YPImagePicker.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		F546AE5F2905A21A00CE6C4D /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 		F5A2EB3728D4B95F00536E9B /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -1125,6 +1155,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		F546AE5D29059F3000CE6C4D /* YPImagePicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F546AE5C29059F3000CE6C4D /* XCRemoteSwiftPackageReference "YPImagePicker" */;
+			productName = YPImagePicker;
+		};
+		F546AE602905A21A00CE6C4D /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F546AE5F2905A21A00CE6C4D /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
 		F5A2EB3828D4B95F00536E9B /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F5A2EB3728D4B95F00536E9B /* XCRemoteSwiftPackageReference "SnapKit" */;

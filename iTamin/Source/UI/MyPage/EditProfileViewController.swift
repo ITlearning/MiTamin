@@ -9,6 +9,8 @@ import UIKit
 import SwiftUI
 import Combine
 import SnapKit
+import YPImagePicker
+import Kingfisher
 
 class EditProfileViewController: UIViewController {
     
@@ -98,6 +100,26 @@ class EditProfileViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    let imageSelectView = UIView()
+    let defaultImageButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("기본 이미지 선택", for: .normal)
+        button.titleLabel?.font = UIFont.SDGothicMedium(size: 16)
+        button.setTitleColor(UIColor.grayColor4, for: .normal)
+        
+        return button
+    }()
+    
+    let albumImageButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("앨범에서 사진 선택", for: .normal)
+        button.titleLabel?.font = UIFont.SDGothicMedium(size: 16)
+        button.setTitleColor(UIColor.grayColor4, for: .normal)
+        
+        return button
+    }()
+    
+    let blackBackView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,6 +129,32 @@ class EditProfileViewController: UIViewController {
         setUI()
         bindCombine()
         
+    }
+    
+    func showImageSelector() {
+        viewModel.isOpen = true
+        UIView.animate(withDuration: 0.4, delay: 0, options: .transitionCurlUp, animations: {
+            self.imageSelectView.snp.remakeConstraints {
+                $0.top.equalTo(self.view.snp.bottom).inset(154)
+                $0.leading.trailing.equalToSuperview()
+                $0.height.equalTo(154)
+            }
+            self.blackBackView.alpha = 0.6
+            self.imageSelectView.superview?.layoutIfNeeded()
+        })
+    }
+    
+    func hideImageSelector() {
+        viewModel.isOpen = false
+        UIView.animate(withDuration: 0.4, delay: 0, options: .transitionCurlDown, animations: {
+            self.imageSelectView.snp.remakeConstraints {
+                $0.top.equalTo(self.view.snp.bottom)
+                $0.leading.trailing.equalToSuperview()
+                $0.height.equalTo(154)
+            }
+            self.blackBackView.alpha = 0.0
+            self.imageSelectView.superview?.layoutIfNeeded()
+        })
     }
     
     func bindCombine() {
@@ -129,11 +177,75 @@ class EditProfileViewController: UIViewController {
                 self.viewModel.editProfile()
             })
             .cancel(with: cancelBag)
+        
+        profileImageSelectButton.tapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { _ in
+                if self.viewModel.isOpen {
+                    self.hideImageSelector()
+                } else {
+                    self.showImageSelector()
+                }
+            })
+            .cancel(with: cancelBag)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapAction))
+        
+        blackBackView.addGestureRecognizer(tapGesture)
+        
+        defaultImageButton.tapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { _ in
+                self.profileImageView.image = UIImage(systemName: "person.fill")
+                self.viewModel.imageEdit = true
+                self.viewModel.editImage = UIImage(systemName: "person.fill")
+            })
+            .cancel(with: cancelBag)
+        
+        albumImageButton.tapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { _ in
+                self.selectPhoto()
+            })
+            .cancel(with: cancelBag)
+    }
+    
+    @objc func tapAction() {
+        if self.viewModel.isOpen {
+            self.hideImageSelector()
+        } else {
+            self.showImageSelector()
+        }
+    }
+    
+    
+    func selectPhoto() {
+        var config = YPImagePickerConfiguration()
+        config.wordings.libraryTitle = "갤러리"
+        config.wordings.cameraTitle = "카메라"
+        config.wordings.next = "확인"
+        
+        let picker = YPImagePicker()
+        
+        picker.didFinishPicking { items, cancelled in
+            if let photo = items.singlePhoto {
+                self.viewModel.editImage = photo.image
+                self.viewModel.imageEdit = true
+                self.profileImageView.image = photo.image
+            }
+            picker.dismiss(animated: true)
+            self.hideImageSelector()
+        }
+        present(picker, animated: true)
     }
     
     func setUI() {
         nickNameTextField.text = viewModel.userData?.nickname ?? ""
         subMessageTextField.text = viewModel.userData?.beMyMessage ?? ""
+        if let url = viewModel.userData?.profileImgUrl {
+            profileImageView.kf.indicatorType = .activity
+            profileImageView.kf.setImage(with: URL(string: url)!)
+        }
     }
     
     func configureLayout() {
@@ -145,6 +257,17 @@ class EditProfileViewController: UIViewController {
         view.addSubview(subMessageTextField)
         view.addSubview(subMessageLastLabel)
         view.addSubview(doneButton)
+        view.addSubview(blackBackView)
+        blackBackView.backgroundColor = .black
+        blackBackView.alpha = 0.0
+        view.addSubview(imageSelectView)
+        imageSelectView.clipsToBounds = true
+        imageSelectView.layer.cornerRadius = 10
+        imageSelectView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        imageSelectView.backgroundColor = .white
+        
+        imageSelectView.addSubview(defaultImageButton)
+        imageSelectView.addSubview(albumImageButton)
         
         profileImageView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(28)
@@ -193,6 +316,26 @@ class EditProfileViewController: UIViewController {
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
             $0.height.equalTo(56)
+        }
+        
+        imageSelectView.snp.makeConstraints {
+            $0.top.equalTo(view.snp.bottom)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(154)
+        }
+        
+        defaultImageButton.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(24)
+            $0.leading.equalToSuperview().offset(20)
+        }
+        
+        albumImageButton.snp.makeConstraints {
+            $0.top.equalTo(defaultImageButton.snp.bottom).offset(40)
+            $0.leading.equalTo(defaultImageButton)
+        }
+        
+        blackBackView.snp.makeConstraints {
+            $0.top.leading.trailing.bottom.equalTo(view)
         }
     }
 
