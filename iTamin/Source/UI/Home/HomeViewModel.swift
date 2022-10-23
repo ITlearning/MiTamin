@@ -96,9 +96,12 @@ extension HomeViewController {
             
             networkManager.loadDailyReportData()
                 .receive(on: DispatchQueue.main)
-                .sink(receiveCompletion: { _ in }, receiveValue: { value in
+                .sink(receiveCompletion: { _ in
+                    self.reportData = nil
+                }, receiveValue: { value in
                     let data = value.data
                     self.reportData = data
+                    print(self.reportData)
                     UserDefaults.standard.set(value.data.reportId, forKey: .reportId)
                     withAnimation {
                         self.dataIsReady = true
@@ -107,6 +110,12 @@ extension HomeViewController {
                 .cancel(with: cancelBag)
         }
         
+        func sendNil() {
+            dataIsReady = false
+            withAnimation {
+                self.dataIsReady = true
+            }
+        }
         
         func loadCareReport() {
             withAnimation {
@@ -116,8 +125,12 @@ extension HomeViewController {
             
             networkManager.loadCareReportData()
                 .receive(on: DispatchQueue.main)
-                .sink(receiveCompletion: { _ in }, receiveValue: { value in
+                .sink(receiveCompletion: { _ in
+                    print(self.careData)
+                    self.careData = nil
+                }, receiveValue: { value in
                     self.careData = value.data
+                    print(self.careData)
                     UserDefaults.standard.set(value.data.careId, forKey: .careId)
                     withAnimation {
                         self.dataIsReady = true

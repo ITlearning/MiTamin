@@ -78,7 +78,7 @@ extension MyTaminViewController {
         ]
         
         func editDailyReport() {
-            networkManager.editDailyReport(condition: selectCategoryIdx.value+1,
+            networkManager.editDailyReport(condition: selectMindIndex.value+1,
                                            tags: selectMindTexts.value, todayReport: dailyReportData.value)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in }, receiveValue: { value in

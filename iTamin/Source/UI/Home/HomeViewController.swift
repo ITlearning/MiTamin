@@ -195,10 +195,13 @@ class HomeViewController: UIViewController {
                 if value {
                     self.viewModel.loadLatestData()
                 } else {
+                    
                     if UserDefaults.standard.bool(forKey: .reportIsDone) {
                         self.viewModel.loadDailyReport()
                     } else if UserDefaults.standard.bool(forKey: .careIsDone) {
                         self.viewModel.loadCareReport()
+                    } else {
+                        self.viewModel.sendNil()
                     }
                 }
             })
