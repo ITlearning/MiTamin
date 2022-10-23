@@ -121,6 +121,14 @@ class EditProfileViewController: UIViewController {
             .map({ $0 ?? "" })
             .assign(to: \.subMessageTextFieldString, on: viewModel)
             .cancel(with: cancelBag)
+        
+        doneButton.tapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] _ in
+                guard let self = self else { return }
+                self.viewModel.editProfile()
+            })
+            .cancel(with: cancelBag)
     }
     
     func setUI() {

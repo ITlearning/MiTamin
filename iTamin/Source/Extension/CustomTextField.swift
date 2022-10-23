@@ -67,6 +67,18 @@ class CustomTextField2: UITextField {
         return bounds.inset(by: padding)
     }
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        clearButtonMode = .always
+        backgroundColor = .backGroundWhiteColor
+        layer.cornerRadius = 12
+        layer.masksToBounds = true
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         
@@ -74,23 +86,27 @@ class CustomTextField2: UITextField {
         
         underLine.layer.cornerRadius = 12
         
-        self.addSubview(underLine)
-        
+  //      self.addSubview(underLine)
         clearButtonMode = .always
         
-        underLine.isUserInteractionEnabled = false
+        backgroundColor = .backGroundWhiteColor
+        layer.cornerRadius = 12
         
-        underLine.snp.makeConstraints {
-            $0.bottom.equalToSuperview()
-            $0.leading.equalToSuperview()
-            $0.trailing.equalToSuperview()
-            $0.height.equalTo(50)
-        }
+        
+//        underLine.isUserInteractionEnabled = false
+//
+//        underLine.snp.makeConstraints {
+//            $0.bottom.equalToSuperview()
+//            $0.leading.equalToSuperview()
+//            $0.trailing.equalToSuperview()
+//            $0.height.equalTo(50)
+//        }
         
         setFont()
     }
     
     func setFont() {
         font = UIFont.notoRegular(size: 13)
+        textColor = .grayColor4
     }
 }

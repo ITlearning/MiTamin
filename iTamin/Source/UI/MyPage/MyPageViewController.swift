@@ -223,8 +223,7 @@ class MyPageViewController: UIViewController {
             .cancel(with: cancelBag)
         
         profileEditButton.tapPublisher
-            .sink(receiveCompletion: {_ in}, receiveValue: {[weak self] _ in
-                guard let self = self else { return }
+            .sink(receiveCompletion: {_ in}, receiveValue: { _ in
                 let editProfileVC = EditProfileViewController(profile: self.viewModel.profileData.value ?? ProfileModel(nickname: "", beMyMessage: ""))
                 self.navigationController?.pushViewController(editProfileVC, animated: true)
             })
