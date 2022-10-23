@@ -143,6 +143,7 @@ class HomeViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         //setAnimate()
+        navigationController?.isNavigationBarHidden = true  
         self.view.showAnimatedGradientSkeleton()
         viewModel.checkStatus()
     }

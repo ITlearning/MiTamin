@@ -9,6 +9,11 @@ import UIKit
 
 class HistoryViewController: UIViewController {
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tabBarItem = UITabBarItem(title: "처방기록", image: UIImage(named: "icon-card-mono"), selectedImage: UIImage(named: "icon-card-mono"))

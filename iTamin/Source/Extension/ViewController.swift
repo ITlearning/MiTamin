@@ -8,6 +8,7 @@
 import UIKit
 
 extension UIViewController {
+    
     func navigationConfigure(title: String = "") {
         let backButton = UIImage(named: "icon-arrow-left-small-mono")
         self.navigationController?.isNavigationBarHidden = false

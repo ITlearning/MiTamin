@@ -115,3 +115,10 @@ struct ReportModel: Codable {
     var feelingTag: String
     var todayReport: String
 }
+
+
+struct ProfileModel: Codable {
+    var nickname: String
+    var profileImgUrl: String?
+    var beMyMessage: String
+}

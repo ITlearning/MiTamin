@@ -9,6 +9,11 @@ import UIKit
 
 class MindConfigViewController: UIViewController {
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tabBarItem = UITabBarItem(title: "감정관리", image: UIImage(named: "icon-headphone-mono"), selectedImage: UIImage(named: "icon-headphone-mono"))

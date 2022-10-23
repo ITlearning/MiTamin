@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F5170A972905589E00AE4FD5 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5170A962905589E00AE4FD5 /* NetworkManager.swift */; };
+		F5170A9929055DB800AE4FD5 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5170A9829055DB800AE4FD5 /* MyPageViewModel.swift */; };
+		F5170A9B29055F9700AE4FD5 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5170A9A29055F9700AE4FD5 /* EditProfileViewController.swift */; };
+		F5170A9F29056B2F00AE4FD5 /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5170A9E29056B2F00AE4FD5 /* EditProfileViewModel.swift */; };
 		F5A2EAF328D3644800536E9B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EAF228D3644800536E9B /* AppDelegate.swift */; };
 		F5A2EAF528D3644800536E9B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EAF428D3644800536E9B /* SceneDelegate.swift */; };
 		F5A2EAF728D3644800536E9B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EAF628D3644800536E9B /* HomeViewController.swift */; };
@@ -48,7 +52,6 @@
 		F5A2EB7F28DF1C5500536E9B /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB7E28DF1C5500536E9B /* OnboardingCollectionViewCell.swift */; };
 		F5A2EB8128DF1E5E00536E9B /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB8028DF1E5D00536E9B /* CustomDatePicker.swift */; };
 		F5A2EB8628DF388300536E9B /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F5A2EB8528DF388300536E9B /* Alamofire */; };
-		F5A2EB8928DF38A400536E9B /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB8828DF38A400536E9B /* NetworkManager.swift */; };
 		F5A2EB8B28DF38C700536E9B /* ServerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB8A28DF38C700536E9B /* ServerModel.swift */; };
 		F5A2EB8D28DF6BA600536E9B /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB8C28DF6BA600536E9B /* UIWindow.swift */; };
 		F5A2EB9028E1F1DD00536E9B /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = F5A2EB8F28E1F1DD00536E9B /* SwiftKeychainWrapper */; };
@@ -104,6 +107,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F5170A962905589E00AE4FD5 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkManager.swift; path = iTamin/Source/NetworkManager/NetworkManager.swift; sourceTree = SOURCE_ROOT; };
+		F5170A9829055DB800AE4FD5 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
+		F5170A9A29055F9700AE4FD5 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		F5170A9E29056B2F00AE4FD5 /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
 		F5A2EAEF28D3644800536E9B /* iTamin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTamin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5A2EAF228D3644800536E9B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F5A2EAF428D3644800536E9B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -146,7 +153,6 @@
 		F5A2EB7C28DF1B3600536E9B /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
 		F5A2EB7E28DF1C5500536E9B /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
 		F5A2EB8028DF1E5D00536E9B /* CustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePicker.swift; sourceTree = "<group>"; };
-		F5A2EB8828DF38A400536E9B /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		F5A2EB8A28DF38C700536E9B /* ServerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerModel.swift; sourceTree = "<group>"; };
 		F5A2EB8C28DF6BA600536E9B /* UIWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIWindow.swift; sourceTree = "<group>"; };
 		F5A2EB9128E1FDBF00536E9B /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -212,6 +218,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F5170A952905589100AE4FD5 /*  NetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				F5170A962905589E00AE4FD5 /* NetworkManager.swift */,
+			);
+			path = " NetworkManager";
+			sourceTree = "<group>";
+		};
 		F5A2EAE628D3644800536E9B = {
 			isa = PBXGroup;
 			children = (
@@ -345,6 +359,9 @@
 			children = (
 				F5F3F16628FC52B3006C9B6A /* SwiftUI */,
 				F5A2EB3528D4B22A00536E9B /* MyPageViewController.swift */,
+				F5170A9829055DB800AE4FD5 /* MyPageViewModel.swift */,
+				F5170A9A29055F9700AE4FD5 /* EditProfileViewController.swift */,
+				F5170A9E29056B2F00AE4FD5 /* EditProfileViewModel.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -417,7 +434,7 @@
 		F5A2EB5828DCBD3A00536E9B /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				F5A2EB8728DF389700536E9B /* NetworkManager */,
+				F5170A952905589100AE4FD5 /*  NetworkManager */,
 				F5A2EB5528DCBA9E00536E9B /* Extension */,
 				F5A2EB4028DB2B8A00536E9B /* Design */,
 				F5A2EB2A28D4B05600536E9B /* System */,
@@ -469,14 +486,6 @@
 				F5A2EB7E28DF1C5500536E9B /* OnboardingCollectionViewCell.swift */,
 			);
 			path = OnBoarding;
-			sourceTree = "<group>";
-		};
-		F5A2EB8728DF389700536E9B /* NetworkManager */ = {
-			isa = PBXGroup;
-			children = (
-				F5A2EB8828DF38A400536E9B /* NetworkManager.swift */,
-			);
-			path = NetworkManager;
 			sourceTree = "<group>";
 		};
 		F5A2EBA328E5A3A100536E9B /* Cell */ = {
@@ -700,15 +709,17 @@
 				F5A2EB2C28D4B09800536E9B /* RootTabBarViewController.swift in Sources */,
 				F5A2EB4228DB2B9200536E9B /* Color.swift in Sources */,
 				F5A2EB6328DEE95600536E9B /* SignInViewModel.swift in Sources */,
+				F5170A9B29055F9700AE4FD5 /* EditProfileViewController.swift in Sources */,
 				F5A2EB7A28DF1A2100536E9B /* SignUpViewModel.swift in Sources */,
 				F5A2EBA228E5A34800536E9B /* MyTaminViewController.swift in Sources */,
 				F5A2EBB828F1615300536E9B /* MindSelectView.swift in Sources */,
 				F5A2EBC628F2BA2200536E9B /* TextViewCollectionViewCell.swift in Sources */,
 				F5F3F16528FA9589006C9B6A /* AlertView.swift in Sources */,
+				F5170A9929055DB800AE4FD5 /* MyPageViewModel.swift in Sources */,
 				F5A2EB2E28D4B1BC00536E9B /* HistoryViewController.swift in Sources */,
+				F5170A9F29056B2F00AE4FD5 /* EditProfileViewModel.swift in Sources */,
 				F5A2EBBE28F1760800536E9B /* LeftCell.swift in Sources */,
 				F5A2EB6F28DF009500536E9B /* TermsViewController.swift in Sources */,
-				F5A2EB8928DF38A400536E9B /* NetworkManager.swift in Sources */,
 				F5A2EBB428E9BF1000536E9B /* LineProgressBar.swift in Sources */,
 				F5A2EB5728DCBAA900536E9B /* CancelBag.swift in Sources */,
 				F5A2EB8128DF1E5E00536E9B /* CustomDatePicker.swift in Sources */,
@@ -726,6 +737,7 @@
 				F5F3F15C28FA7B48006C9B6A /* CoreDataManager.swift in Sources */,
 				F5A2EB6C28DEF93800536E9B /* ProgressBar.swift in Sources */,
 				F5A2EB3628D4B22A00536E9B /* MyPageViewController.swift in Sources */,
+				F5170A972905589E00AE4FD5 /* NetworkManager.swift in Sources */,
 				F5A2EBBC28F1758800536E9B /* MindTextCollectionViewCell.swift in Sources */,
 				F5A2EBCA28F2EBD900536E9B /* CategoryPickerView.swift in Sources */,
 				F5A2EB9E28E46F8100536E9B /* MainCollectionView.swift in Sources */,

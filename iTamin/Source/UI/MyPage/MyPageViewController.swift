@@ -8,9 +8,13 @@
 import UIKit
 import SwiftUI
 import Combine
+import CombineCocoa
 import SnapKit
 
 class MyPageViewController: UIViewController {
+    
+    var viewModel = ViewModel()
+    var cancelBag = CancelBag()
     
     private let scrollView: UIScrollView = {
         let scrolLView = UIScrollView()
@@ -63,8 +67,17 @@ class MyPageViewController: UIViewController {
     
     private let profileMainLabel: UILabel = {
         let label = UILabel()
-        label.text = "나를 가장 아껴줄 수 있는\n내가 될 태버 테스트"
+        label.text = "나를 가장 아껴줄 수 있는"
         label.font = UIFont.SDGothicBold(size: 18)
+        label.numberOfLines = 0
+        label.textAlignment = .left
+        return label
+    }()
+    
+    private let profileSubLabel: UILabel = {
+        let label = UILabel()
+        label.text = "내가 될 태버 테스트"
+        label.font = UIFont.SDGothicMedium(size: 18)
         label.numberOfLines = 0
         label.textAlignment = .left
         return label
@@ -180,13 +193,43 @@ class MyPageViewController: UIViewController {
         return label
     }()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationConfigure()
+        self.navigationController?.isNavigationBarHidden = true
+        viewModel.getProfile()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tabBarItem = UITabBarItem(title: "마이페이지", image: UIImage(named: "icon-user-mono"), selectedImage: UIImage(named: "icon-user-mono"))
         configureLayout()
+        bindCombine()
     }
-
+    
+    func setText() {
+        profileMainLabel.text = viewModel.profileData.value?.beMyMessage ?? ""
+        profileSubLabel.text = "내가 될 \(viewModel.profileData.value?.nickname ?? "")"
+    }
+    
+    func bindCombine() {
+        viewModel.profileData
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] value in
+                guard let self = self else { return }
+                self.setText()
+            })
+            .cancel(with: cancelBag)
+        
+        profileEditButton.tapPublisher
+            .sink(receiveCompletion: {_ in}, receiveValue: {[weak self] _ in
+                guard let self = self else { return }
+                let editProfileVC = EditProfileViewController(profile: self.viewModel.profileData.value ?? ProfileModel(nickname: "", beMyMessage: ""))
+                self.navigationController?.pushViewController(editProfileVC, animated: true)
+            })
+            .cancel(with: cancelBag)
+    }
     
     func configureLayout() {
         
@@ -201,6 +244,7 @@ class MyPageViewController: UIViewController {
         containerView.addSubview(profileImageView)
         containerView.addSubview(profileEditButton)
         containerView.addSubview(profileMainLabel)
+        containerView.addSubview(profileSubLabel)
         containerView.addSubview(roundedRectangleView)
         roundedRectangleView.addSubview(myDayLabel)
         roundedRectangleView.addSubview(myDayLabelSub)
@@ -270,8 +314,13 @@ class MyPageViewController: UIViewController {
         }
         
         profileMainLabel.snp.makeConstraints {
-            $0.centerY.equalTo(profileImageView)
+            $0.top.equalTo(profileBackGroundView.view.snp.top).offset(26)
             $0.leading.equalTo(profileImageView.snp.trailing).offset(24)
+        }
+        
+        profileSubLabel.snp.makeConstraints {
+            $0.top.equalTo(profileMainLabel.snp.bottom).offset(5)
+            $0.leading.equalTo(profileMainLabel)
         }
         
         roundedRectangleView.snp.makeConstraints {
