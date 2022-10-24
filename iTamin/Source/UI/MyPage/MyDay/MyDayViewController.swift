@@ -19,6 +19,13 @@ class MyDayViewController: UIViewController, MenuBarDelegate {
         return collectionView
     }()
     
+    private let floatingButton:UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "FAB"), for: .normal)
+        
+        return button
+    }()
+    
     var menuBar = MenuBar()
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,6 +40,17 @@ class MyDayViewController: UIViewController, MenuBarDelegate {
         view.backgroundColor = .white
         configureMenuBar()
         configureCollectionView()
+        configureLayout()
+    }
+    
+    func configureLayout() {
+        view.addSubview(floatingButton)
+        floatingButton.snp.makeConstraints {
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(20)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
+            $0.width.equalTo(56)
+            $0.height.equalTo(56)
+        }
     }
     
     func configureMenuBar() {

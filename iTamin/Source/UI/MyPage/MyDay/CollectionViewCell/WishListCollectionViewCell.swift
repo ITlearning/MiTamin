@@ -16,6 +16,7 @@ class WishListCollectionViewCell: UICollectionViewCell {
         label.text = "자신을 위해서 해보고\n싶은 행동이 있나요?"
         label.textAlignment = .left
         label.font = UIFont.SDGothicBold(size: 24)
+        label.numberOfLines = 0
         label.textColor = UIColor.grayColor4
         
         return label
@@ -32,6 +33,7 @@ class WishListCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "아직 작성된\n위시리스트가 없어요."
         label.textAlignment = .center
+        label.numberOfLines = 0
         label.font = UIFont.SDGothicBold(size: 18)
         label.textColor = UIColor.grayColor4
         
@@ -41,6 +43,7 @@ class WishListCollectionViewCell: UICollectionViewCell {
     private let notWriteSubLabel: UILabel = {
         let label = UILabel()
         label.text = "위시리스트를 채워주세요!"
+        label.numberOfLines = 0
         label.font = UIFont.SDGothicMedium(size: 16)
         label.textColor = UIColor.grayColor3
         

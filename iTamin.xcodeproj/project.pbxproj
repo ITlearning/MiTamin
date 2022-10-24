@@ -17,6 +17,7 @@
 		F546AE662906D5C600CE6C4D /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AE652906D5C600CE6C4D /* MenuBar.swift */; };
 		F546AE682906D69000CE6C4D /* MenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AE672906D69000CE6C4D /* MenuCollectionViewCell.swift */; };
 		F546AE6A2906DBEA00CE6C4D /* WishListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AE692906DBE900CE6C4D /* WishListCollectionViewCell.swift */; };
+		F546AE6E2906E42700CE6C4D /* AddWishListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AE6D2906E42700CE6C4D /* AddWishListViewController.swift */; };
 		F5A2EAF328D3644800536E9B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EAF228D3644800536E9B /* AppDelegate.swift */; };
 		F5A2EAF528D3644800536E9B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EAF428D3644800536E9B /* SceneDelegate.swift */; };
 		F5A2EAF728D3644800536E9B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EAF628D3644800536E9B /* HomeViewController.swift */; };
@@ -121,6 +122,7 @@
 		F546AE652906D5C600CE6C4D /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		F546AE672906D69000CE6C4D /* MenuCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCollectionViewCell.swift; sourceTree = "<group>"; };
 		F546AE692906DBE900CE6C4D /* WishListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListCollectionViewCell.swift; sourceTree = "<group>"; };
+		F546AE6D2906E42700CE6C4D /* AddWishListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWishListViewController.swift; sourceTree = "<group>"; };
 		F5A2EAEF28D3644800536E9B /* iTamin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTamin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5A2EAF228D3644800536E9B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F5A2EAF428D3644800536E9B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -241,12 +243,29 @@
 		F546AE622906D32F00CE6C4D /* MyDay */ = {
 			isa = PBXGroup;
 			children = (
+				F546AE6C2906E37C00CE6C4D /* CollectionViewCell */,
+				F546AE6B2906E37100CE6C4D /* View */,
 				F546AE632906D34200CE6C4D /* MyDayViewController.swift */,
-				F546AE652906D5C600CE6C4D /* MenuBar.swift */,
-				F546AE672906D69000CE6C4D /* MenuCollectionViewCell.swift */,
-				F546AE692906DBE900CE6C4D /* WishListCollectionViewCell.swift */,
+				F546AE6D2906E42700CE6C4D /* AddWishListViewController.swift */,
 			);
 			path = MyDay;
+			sourceTree = "<group>";
+		};
+		F546AE6B2906E37100CE6C4D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F546AE652906D5C600CE6C4D /* MenuBar.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F546AE6C2906E37C00CE6C4D /* CollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				F546AE692906DBE900CE6C4D /* WishListCollectionViewCell.swift */,
+				F546AE672906D69000CE6C4D /* MenuCollectionViewCell.swift */,
+			);
+			path = CollectionViewCell;
 			sourceTree = "<group>";
 		};
 		F5A2EAE628D3644800536E9B = {
@@ -713,6 +732,7 @@
 			files = (
 				F5F3F16828FC52C9006C9B6A /* ProfileBGView.swift in Sources */,
 				F5A2EB7428DF0F1000536E9B /* NickNameViewController.swift in Sources */,
+				F546AE6E2906E42700CE6C4D /* AddWishListViewController.swift in Sources */,
 				F5A2EB5C28DCBFC700536E9B /* SignInViewController.swift in Sources */,
 				F5A2EB6828DEF80E00536E9B /* CustomButton.swift in Sources */,
 				F546AE6A2906DBEA00CE6C4D /* WishListCollectionViewCell.swift in Sources */,
