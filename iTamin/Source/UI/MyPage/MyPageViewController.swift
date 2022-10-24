@@ -203,7 +203,7 @@ class MyPageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view.backgroundColor = .white
         tabBarItem = UITabBarItem(title: "마이페이지", image: UIImage(named: "icon-user-mono"), selectedImage: UIImage(named: "icon-user-mono"))
         configureLayout()
         bindCombine()
@@ -231,6 +231,14 @@ class MyPageViewController: UIViewController {
             .sink(receiveCompletion: {_ in}, receiveValue: { _ in
                 let editProfileVC = EditProfileViewController(profile: self.viewModel.profileData.value ?? ProfileModel(nickname: "", beMyMessage: ""))
                 self.navigationController?.pushViewController(editProfileVC, animated: true)
+            })
+            .cancel(with: cancelBag)
+        
+        myDayButton.tapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { _ in
+                let myDayVC = MyDayViewController()
+                self.navigationController?.pushViewController(myDayVC, animated: true)
             })
             .cancel(with: cancelBag)
     }
