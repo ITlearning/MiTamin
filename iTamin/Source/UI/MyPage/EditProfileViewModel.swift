@@ -19,12 +19,16 @@ extension EditProfileViewController {
         var cancelBag = CancelBag()
         var networkManager = NetworkManager()
         var isOpen: Bool = false
+        var profileEditSuccess = PassthroughSubject<Void, Error>()
         
         func editProfile() {
             networkManager.editProfile(imageEdit: imageEdit ? "T" : "F", nickName: nickNameTextFieldString, sub: subMessageTextFieldString, image: imageEdit ? editImage : UIImage())
                 .receive(on: DispatchQueue.global())
-                .sink(receiveCompletion: { _ in }, receiveValue: { value in
+                .sink(receiveCompletion: { value in
+                    self.profileEditSuccess.send(())
+                }, receiveValue: { value in
                     print(value.message)
+                    self.profileEditSuccess.send(())
                 })
                 .cancel(with: cancelBag)
         }

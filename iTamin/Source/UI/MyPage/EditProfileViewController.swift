@@ -208,6 +208,13 @@ class EditProfileViewController: UIViewController {
                 self.selectPhoto()
             })
             .cancel(with: cancelBag)
+        
+        viewModel.profileEditSuccess
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in}, receiveValue: { _ in
+                self.navigationController?.popViewController(animated: true)
+            })
+            .cancel(with: cancelBag)
     }
     
     @objc func tapAction() {
