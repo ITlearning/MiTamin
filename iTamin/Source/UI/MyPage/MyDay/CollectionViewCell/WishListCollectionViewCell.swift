@@ -8,8 +8,29 @@
 import UIKit
 import SnapKit
 
+protocol WishListCollectionViewDelegate: AnyObject {
+    func addData(text: String)
+    func editData(item: WishListModel)
+    func deleteData(item: WishListModel)
+}
+
 class WishListCollectionViewCell: UICollectionViewCell {
     static let cellId = "WishListCollectionViewCell"
+    var wishList: [WishListModel] = [] {
+        didSet {
+            tableView.reloadData()
+            
+            if !wishList.isEmpty {
+                showTableView()
+            } else {
+                hideTableView()
+            }
+        }
+    }
+    
+    weak var delegate: WishListCollectionViewDelegate?
+    
+    private let tableView = UITableView()
     
     private let wishListMainTitleLabel: UILabel = {
         let label = UILabel()
@@ -51,21 +72,66 @@ class WishListCollectionViewCell: UICollectionViewCell {
     }()
     
     
+    private let currentLabel: UILabel = {
+        let label = UILabel()
+        label.text = "현재 리스트"
+        label.font = UIFont.SDGothicBold(size: 18)
+        label.textColor = UIColor.grayColor4
+        label.isHidden = false
+        return label
+    }()
+    
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureLayout()
+        configureTableView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+        
     }
     
+    func showTableView() {
+        tableView.isHidden = false
+        currentLabel.isHidden = false
+        wishListMainTitleLabel.isHidden = true
+        mainillustrationImageView.isHidden = true
+        notWriteMainLabel.isHidden = true
+        notWriteSubLabel.isHidden = true
+    }
+    
+    func hideTableView() {
+        tableView.isHidden = true
+        currentLabel.isHidden = true
+        wishListMainTitleLabel.isHidden = false
+        mainillustrationImageView.isHidden = false
+        notWriteMainLabel.isHidden = false
+        notWriteSubLabel.isHidden = false
+    }
+    
+    func setText(text: String) {
+        wishListMainTitleLabel.text = text
+    }
+    
+    private func configureTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.isHidden = true
+        tableView.register(WishListTypingTableViewCell.self, forCellReuseIdentifier: WishListTypingTableViewCell.cellId)
+        tableView.register(WishListDoneTableViewCell.self, forCellReuseIdentifier: WishListDoneTableViewCell.cellId)
+        tableView.allowsSelection = false
+        tableView.separatorStyle = .none
+    }
     
     private func configureLayout() {
         self.addSubview(wishListMainTitleLabel)
         self.addSubview(mainillustrationImageView)
         self.addSubview(notWriteMainLabel)
         self.addSubview(notWriteSubLabel)
+        self.addSubview(currentLabel)
+        self.addSubview(tableView)
         
         wishListMainTitleLabel.snp.makeConstraints {
             $0.top.equalTo(self.snp.top).offset(40)
@@ -88,6 +154,80 @@ class WishListCollectionViewCell: UICollectionViewCell {
             $0.top.equalTo(notWriteMainLabel.snp.bottom).offset(16)
             $0.centerX.equalToSuperview()
         }
+        
+        currentLabel.snp.makeConstraints {
+            $0.top.equalTo(self.snp.top).offset(40)
+            $0.leading.equalTo(self.snp.leading).offset(20)
+        }
+        
+        tableView.snp.makeConstraints {
+            $0.top.equalTo(currentLabel.snp.bottom).offset(14)
+            $0.leading.equalTo(self.snp.leading).offset(18)
+            $0.trailing.equalTo(self.snp.trailing).inset(18)
+            $0.bottom.equalTo(self.snp.bottom).inset(20)
+        }
     }
     
 }
+
+extension WishListCollectionViewCell: WishListDelegate {
+    func textFieldDone(text: String) {
+        delegate?.addData(text: text)
+    }
+    
+}
+
+extension WishListCollectionViewCell: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        wishList.count + 1
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        60
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        60
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 10
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if indexPath.row < wishList.count {
+            
+            let item = wishList[indexPath.row]
+            
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: WishListDoneTableViewCell.cellId, for: indexPath) as? WishListDoneTableViewCell else { return UITableViewCell() }
+            
+            cell.setText(item: item)
+            cell.selectionStyle = .none
+            
+            return cell
+        } else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: WishListTypingTableViewCell.cellId, for: indexPath) as? WishListTypingTableViewCell else { return UITableViewCell() }
+            
+            cell.delegate = self
+            cell.wishListTextField.delegate = self
+            cell.selectionStyle = .none
+            
+            return cell
+        }
+    }
+    
+    
+}
+
+extension WishListCollectionViewCell: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        //delegate?.textFieldDone(text: textField.text ?? "")
+        
+        
+        return true
+    }
+}
+

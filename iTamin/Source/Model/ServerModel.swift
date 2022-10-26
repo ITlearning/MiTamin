@@ -24,6 +24,11 @@ struct Response<T> {
     let response: URLResponse
 }
 
+struct EmptyData: Codable {
+    var statusCode: Int
+    var message: String
+}
+
 struct APIData<T: Decodable>: Decodable {
     var statusCode: Int
     var message: String
@@ -121,4 +126,10 @@ struct ProfileModel: Codable {
     var nickname: String
     var profileImgUrl: String?
     var beMyMessage: String
+}
+
+struct WishListModel: Codable {
+    var wishId: Int
+    var wishText: String
+    var count: Int
 }

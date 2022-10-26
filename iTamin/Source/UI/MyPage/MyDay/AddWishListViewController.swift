@@ -28,8 +28,10 @@ class AddWishListViewController: UIViewController {
     }
     
 
-    func configureTableView() {
-        
-    }
+//    func configureTableView() {
+//        tableView.delegate = self
+//        tableView.dataSource = self
+//        tableView.register(<#T##nib: UINib?##UINib?#>, forCellReuseIdentifier: <#T##String#>)
+//    }
 
 }

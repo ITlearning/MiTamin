@@ -18,6 +18,10 @@
 		F546AE682906D69000CE6C4D /* MenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AE672906D69000CE6C4D /* MenuCollectionViewCell.swift */; };
 		F546AE6A2906DBEA00CE6C4D /* WishListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AE692906DBE900CE6C4D /* WishListCollectionViewCell.swift */; };
 		F546AE6E2906E42700CE6C4D /* AddWishListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AE6D2906E42700CE6C4D /* AddWishListViewController.swift */; };
+		F546AE702906E5B500CE6C4D /* WishListTypingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AE6F2906E5B500CE6C4D /* WishListTypingTableViewCell.swift */; };
+		F546AE7229096EE100CE6C4D /* MyDayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AE7129096EE100CE6C4D /* MyDayViewModel.swift */; };
+		F546AE74290972F000CE6C4D /* FirstTypingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AE73290972F000CE6C4D /* FirstTypingViewController.swift */; };
+		F546AE79290981D300CE6C4D /* WishListDoneTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AE78290981D300CE6C4D /* WishListDoneTableViewCell.swift */; };
 		F5A2EAF328D3644800536E9B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EAF228D3644800536E9B /* AppDelegate.swift */; };
 		F5A2EAF528D3644800536E9B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EAF428D3644800536E9B /* SceneDelegate.swift */; };
 		F5A2EAF728D3644800536E9B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EAF628D3644800536E9B /* HomeViewController.swift */; };
@@ -123,6 +127,10 @@
 		F546AE672906D69000CE6C4D /* MenuCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCollectionViewCell.swift; sourceTree = "<group>"; };
 		F546AE692906DBE900CE6C4D /* WishListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListCollectionViewCell.swift; sourceTree = "<group>"; };
 		F546AE6D2906E42700CE6C4D /* AddWishListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWishListViewController.swift; sourceTree = "<group>"; };
+		F546AE6F2906E5B500CE6C4D /* WishListTypingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListTypingTableViewCell.swift; sourceTree = "<group>"; };
+		F546AE7129096EE100CE6C4D /* MyDayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayViewModel.swift; sourceTree = "<group>"; };
+		F546AE73290972F000CE6C4D /* FirstTypingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTypingViewController.swift; sourceTree = "<group>"; };
+		F546AE78290981D300CE6C4D /* WishListDoneTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListDoneTableViewCell.swift; sourceTree = "<group>"; };
 		F5A2EAEF28D3644800536E9B /* iTamin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTamin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5A2EAF228D3644800536E9B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F5A2EAF428D3644800536E9B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -243,10 +251,13 @@
 		F546AE622906D32F00CE6C4D /* MyDay */ = {
 			isa = PBXGroup;
 			children = (
+				F546AE752909813300CE6C4D /* TableViewCell */,
 				F546AE6C2906E37C00CE6C4D /* CollectionViewCell */,
 				F546AE6B2906E37100CE6C4D /* View */,
 				F546AE632906D34200CE6C4D /* MyDayViewController.swift */,
+				F546AE7129096EE100CE6C4D /* MyDayViewModel.swift */,
 				F546AE6D2906E42700CE6C4D /* AddWishListViewController.swift */,
+				F546AE73290972F000CE6C4D /* FirstTypingViewController.swift */,
 			);
 			path = MyDay;
 			sourceTree = "<group>";
@@ -266,6 +277,15 @@
 				F546AE672906D69000CE6C4D /* MenuCollectionViewCell.swift */,
 			);
 			path = CollectionViewCell;
+			sourceTree = "<group>";
+		};
+		F546AE752909813300CE6C4D /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				F546AE6F2906E5B500CE6C4D /* WishListTypingTableViewCell.swift */,
+				F546AE78290981D300CE6C4D /* WishListDoneTableViewCell.swift */,
+			);
+			path = TableViewCell;
 			sourceTree = "<group>";
 		};
 		F5A2EAE628D3644800536E9B = {
@@ -741,9 +761,11 @@
 				F5A2EBD528F309A100536E9B /* MyTaminReportView.swift in Sources */,
 				F5F3F16028FA85D5006C9B6A /* String.swift in Sources */,
 				F5A2EBC428F2AE0200536E9B /* MainSubTitleView.swift in Sources */,
+				F546AE79290981D300CE6C4D /* WishListDoneTableViewCell.swift in Sources */,
 				F5A2EAF728D3644800536E9B /* HomeViewController.swift in Sources */,
 				F5A2EB8B28DF38C700536E9B /* ServerModel.swift in Sources */,
 				F5A2EB5428DCB73800536E9B /* LoginMainViewController.swift in Sources */,
+				F546AE74290972F000CE6C4D /* FirstTypingViewController.swift in Sources */,
 				F5A2EB7628DF0F2F00536E9B /* ViewController.swift in Sources */,
 				F5A2EBB028E80B3F00536E9B /* TextView.swift in Sources */,
 				F546AE662906D5C600CE6C4D /* MenuBar.swift in Sources */,
@@ -778,10 +800,12 @@
 				F5A2EB3F28DB231600536E9B /* CustomTabItem.swift in Sources */,
 				F5A2EAF328D3644800536E9B /* AppDelegate.swift in Sources */,
 				F5A2EAF528D3644800536E9B /* SceneDelegate.swift in Sources */,
+				F546AE702906E5B500CE6C4D /* WishListTypingTableViewCell.swift in Sources */,
 				F546AE682906D69000CE6C4D /* MenuCollectionViewCell.swift in Sources */,
 				F5A2EB3428D4B22000536E9B /* MindConfigViewController.swift in Sources */,
 				F5A2EB7D28DF1B3600536E9B /* OnBoardingViewController.swift in Sources */,
 				F5A2EBA528E5A3B000536E9B /* MyTaminCollectionViewCell.swift in Sources */,
+				F546AE7229096EE100CE6C4D /* MyDayViewModel.swift in Sources */,
 				F5A2EBCF28F2F09400536E9B /* CategoryBottomSheetView.swift in Sources */,
 				F5A2EB8D28DF6BA600536E9B /* UIWindow.swift in Sources */,
 				F5A2EBA728E5A6F200536E9B /* RoundedCircleView.swift in Sources */,

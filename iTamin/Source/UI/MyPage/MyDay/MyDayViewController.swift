@@ -10,6 +10,9 @@ import SnapKit
 
 class MyDayViewController: UIViewController, MenuBarDelegate {
     
+    var viewModel = ViewModel()
+    var cancelBag = CancelBag()
+    
     private var collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
@@ -41,6 +44,37 @@ class MyDayViewController: UIViewController, MenuBarDelegate {
         configureMenuBar()
         configureCollectionView()
         configureLayout()
+        viewModel.getWishList()
+        bindCombine()
+    }
+    
+    func bindCombine() {
+        floatingButton.tapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { _ in
+                self.moveToFAB()
+            })
+            .cancel(with: cancelBag)
+        
+        viewModel.$wishList
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }, receiveValue: { value in
+                print("value,", value)
+                self.collectionView.reloadData()
+                
+            })
+            .cancel(with: cancelBag)
+        
+    }
+    
+    func moveToFAB() {
+        if viewModel.wishList.isEmpty {
+            let firstVC = FirstTypingViewController()
+            firstVC.delegate = self
+            self.navigationController?.pushViewController(firstVC, animated: true)
+        } else {
+            
+        }
     }
     
     func configureLayout() {
@@ -88,9 +122,41 @@ class MyDayViewController: UIViewController, MenuBarDelegate {
     }
 }
 
+extension MyDayViewController: CustomTextFieldDelegate {
+    func sendToText(text: String) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+            self.viewModel.addWishList(text: text)
+        })
+    }
+}
+
+extension MyDayViewController: WishListCollectionViewDelegate {
+    func addData(text: String) {
+        viewModel.addWishList(text: text)
+    }
+    
+    func editData(item: WishListModel) {
+        viewModel.editWishList(item: item)
+    }
+    
+    func deleteData(item: WishListModel) {
+        viewModel.deleteWishList(item: item)
+    }
+    
+}
+
 extension MyDayViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WishListCollectionViewCell.cellId, for: indexPath) as? WishListCollectionViewCell else { return UICollectionViewCell() }
+        
+        cell.wishList = viewModel.wishList
+        cell.delegate = self
+        
+        if indexPath.row == 0 {
+            cell.setText(text: "자신을 위해서 해보고\n싶은 행동이 있나요?")
+        } else {
+            cell.setText(text: "이번 마이데이에는\n어떤 추억을 쌓게 될까요?")
+        }
         
         return cell
     }
