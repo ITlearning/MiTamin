@@ -11,7 +11,6 @@ extension MyDayViewController {
     class ViewModel: ObservableObject {
         
         @Published var wishList: [WishListModel] = []
-        
         var networkManager = NetworkManager()
         var cancelBag = CancelBag()
         

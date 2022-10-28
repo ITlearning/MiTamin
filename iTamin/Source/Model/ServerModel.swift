@@ -133,3 +133,9 @@ struct WishListModel: Codable {
     var wishText: String
     var count: Int
 }
+
+struct MyDayModel: Codable {
+    var myDayMMDD: String
+    var dday: String
+    var comment: String
+}

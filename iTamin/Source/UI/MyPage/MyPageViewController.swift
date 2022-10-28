@@ -206,6 +206,7 @@ class MyPageViewController: UIViewController {
         view.backgroundColor = .white
         tabBarItem = UITabBarItem(title: "마이페이지", image: UIImage(named: "icon-user-mono"), selectedImage: UIImage(named: "icon-user-mono"))
         configureLayout()
+        viewModel.getMyDayInfo()
         bindCombine()
     }
     
@@ -241,6 +242,20 @@ class MyPageViewController: UIViewController {
                 self.navigationController?.pushViewController(myDayVC, animated: true)
             })
             .cancel(with: cancelBag)
+        
+        
+        viewModel.$myDayInfo
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }, receiveValue: { value in
+                guard let value = value else { return }
+                self.setMyDayInfo(item: value)
+            })
+            .cancel(with: cancelBag)
+    }
+    
+    func setMyDayInfo(item: MyDayModel) {
+        myDayCountLabel.text = item.myDayMMDD
+        lastMyDayLabel.text = item.comment
     }
     
     func configureLayout() {

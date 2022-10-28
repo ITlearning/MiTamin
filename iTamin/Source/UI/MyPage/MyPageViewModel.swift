@@ -12,9 +12,19 @@ extension MyPageViewController {
     class ViewModel: ObservableObject {
         
         var profileData = CurrentValueSubject<ProfileModel?, Error>(nil)
+        @Published var myDayInfo: MyDayModel? = nil
         
         var networkManager = NetworkManager()
         var cancelBag = CancelBag()
+        
+        func getMyDayInfo() {
+            networkManager.getMyDayInformation()
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: { _ in }, receiveValue: { value in
+                    self.myDayInfo = value.data
+                })
+                .cancel(with: cancelBag)
+        }
         
         func getProfile() {
             networkManager.getProfile()
