@@ -194,6 +194,24 @@ class MyPageViewController: UIViewController {
         return label
     }()
     
+    private let ddayLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.SDGothicRegular(size: 13)
+        label.textColor = .primaryColor
+        
+        return label
+    }()
+    
+    private let roundView: UIView = {
+        let customView = UIView()
+        customView.backgroundColor = .clear
+        customView.layer.cornerRadius = 12
+        customView.layer.borderWidth = 1
+        customView.layer.borderColor = UIColor.primaryColor.cgColor
+        
+        return customView
+    }()
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationConfigure()
@@ -256,6 +274,7 @@ class MyPageViewController: UIViewController {
     func setMyDayInfo(item: MyDayModel) {
         myDayCountLabel.text = item.myDayMMDD
         lastMyDayLabel.text = item.comment
+        ddayLabel.text = item.dday
     }
     
     func configureLayout() {
@@ -265,6 +284,8 @@ class MyPageViewController: UIViewController {
         view.addSubview(mainLogo)
         view.addSubview(helpButton)
         view.addSubview(settingButton)
+        
+        
         
         //scrollView.addSubview()
         containerView.addSubview(profileBackGroundView.view)
@@ -278,6 +299,8 @@ class MyPageViewController: UIViewController {
         roundedRectangleView.addSubview(myDayCountLabel)
         roundedRectangleView.addSubview(myDayButton)
         roundedRectangleView.addSubview(lastMyDayLabel)
+        roundView.addSubview(ddayLabel)
+        roundedRectangleView.addSubview(roundView)
         containerView.addSubview(appInfoLabel)
         containerView.addSubview(accountSettingButton)
         containerView.addSubview(serviceInfoButton)
@@ -362,6 +385,7 @@ class MyPageViewController: UIViewController {
             $0.leading.equalTo(roundedRectangleView.snp.leading).offset(16)
         }
         
+        
         myDayLabelSub.snp.makeConstraints {
             $0.top.equalTo(myDayLabel.snp.bottom).offset(20)
             $0.leading.equalTo(myDayLabel)
@@ -370,6 +394,18 @@ class MyPageViewController: UIViewController {
         myDayCountLabel.snp.makeConstraints {
             $0.top.equalTo(myDayLabelSub.snp.bottom).offset(8)
             $0.leading.equalTo(myDayLabel)
+        }
+        
+        ddayLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview()
+        }
+        
+        roundView.snp.makeConstraints {
+            $0.leading.equalTo(myDayCountLabel.snp.trailing).offset(8)
+            $0.top.equalTo(myDayCountLabel).offset(2)
+            $0.width.equalTo(51)
+            $0.height.equalTo(24)
         }
         
         lastMyDayLabel.snp.makeConstraints {
