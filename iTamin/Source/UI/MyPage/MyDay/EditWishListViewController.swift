@@ -62,6 +62,7 @@ class EditWishListViewController: UIViewController {
         button.layer.cornerRadius = 8
         button.titleLabel?.font = UIFont.SDGothicMedium(size: 16)
         button.isHidden = true
+        button.isEnabled = false
         return button
     }()
     
@@ -83,9 +84,34 @@ class EditWishListViewController: UIViewController {
         doneButton.tapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { _ in
+                
+                self.deleteAction()
+                
                 self.activeDeleteMode()
             })
             .cancel(with: cancelBag)
+    }
+    
+    func deleteAction() {
+        deleteWishList.forEach { idx in
+            delegate?.deleteData(idx: idx)
+            if let index = deleteWishList.firstIndex(where: { $0 == idx }) {
+                wishList.remove(at: index)
+            }
+        }
+        
+        deleteWishList.removeAll()
+        tableView.reloadData()
+    }
+    
+    func activeDoneButton() {
+        doneButton.backgroundColor = .primaryColor
+        doneButton.isEnabled = true
+    }
+    
+    func disActiveDoneButton() {
+        doneButton.backgroundColor = .grayColor7
+        doneButton.isEnabled = false
     }
     
     @objc
@@ -171,6 +197,12 @@ extension EditWishListViewController: UITableViewDelegate, UITableViewDataSource
                 }
             } else {
                 deleteWishList.append(wishList[indexPath.row].wishId)
+            }
+            
+            if deleteWishList.isEmpty {
+                disActiveDoneButton()
+            } else {
+                activeDoneButton()
             }
             
             tableView.reloadData()

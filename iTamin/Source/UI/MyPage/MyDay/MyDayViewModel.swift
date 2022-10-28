@@ -53,8 +53,8 @@ extension MyDayViewController {
                 .cancel(with: cancelBag)
         }
         
-        func deleteWishList(item: WishListModel) {
-            networkManager.deleteWishList(wishId: item.wishId)
+        func deleteWishList(idx: Int) {
+            networkManager.deleteWishList(wishId: idx)
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { error in
                     switch error {

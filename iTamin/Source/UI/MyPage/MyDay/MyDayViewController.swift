@@ -163,8 +163,8 @@ extension MyDayViewController: WishListCollectionViewDelegate {
         viewModel.editWishList(item: item)
     }
     
-    func deleteData(item: WishListModel) {
-        viewModel.deleteWishList(item: item)
+    func deleteData(idx: Int) {
+        viewModel.deleteWishList(idx: idx)
     }
     
 }

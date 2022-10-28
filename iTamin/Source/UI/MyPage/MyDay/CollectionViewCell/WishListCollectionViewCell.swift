@@ -11,7 +11,7 @@ import SnapKit
 protocol WishListCollectionViewDelegate: AnyObject {
     func addData(text: String)
     func editData(item: WishListModel)
-    func deleteData(item: WishListModel)
+    func deleteData(idx: Int)
 }
 
 class WishListCollectionViewCell: UICollectionViewCell {
