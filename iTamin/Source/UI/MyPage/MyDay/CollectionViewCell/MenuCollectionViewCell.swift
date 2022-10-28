@@ -16,7 +16,7 @@ class MenuCollectionViewCell: UICollectionViewCell {
         label.text = "위시리스트"
         label.textAlignment = .center
         label.font = UIFont.SDGothicBold(size: 18)
-        label.textColor = UIColor.grayColor4
+        label.textColor = UIColor.grayColor7
         
         return label
     }()
