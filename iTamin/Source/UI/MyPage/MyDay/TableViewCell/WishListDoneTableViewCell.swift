@@ -19,6 +19,7 @@ class WishListDoneTableViewCell: UITableViewCell {
         
         return label
     }()
+    let borderView = UIView()
     
     let countLabel: UILabel = {
         let label = UILabel()
@@ -43,20 +44,34 @@ class WishListDoneTableViewCell: UITableViewCell {
     }
     
     
+    func selectAction() {
+        borderView.layer.borderWidth = 0
+        borderView.backgroundColor = .primaryColor
+        wishListLabel.textColor = .white
+        countLabel.textColor = .white
+    }
+    
+    func deselectAction() {
+        borderView.layer.borderWidth = 1
+        borderView.backgroundColor = .clear
+        wishListLabel.textColor = .grayColor4
+        countLabel.textColor = .primaryColor
+    }
+    
     func configureCell() {
         self.backgroundColor = .white
         
-        let borderView = UIView()
+       
         
-        borderView.layer.borderColor = UIColor.grayColor2.cgColor
+        borderView.layer.borderColor = UIColor.grayColor5.cgColor
         borderView.layer.borderWidth = 1
         borderView.layer.cornerRadius = 8
         borderView.backgroundColor = .clear
         
         let spacerView = UIView()
-        self.addSubview(wishListLabel)
-        self.addSubview(countLabel)
         self.addSubview(borderView)
+        contentView.addSubview(wishListLabel)
+        contentView.addSubview(countLabel)
         self.addSubview(spacerView)
         
         wishListLabel.snp.makeConstraints {

@@ -22,6 +22,7 @@
 		F546AE7229096EE100CE6C4D /* MyDayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AE7129096EE100CE6C4D /* MyDayViewModel.swift */; };
 		F546AE74290972F000CE6C4D /* FirstTypingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AE73290972F000CE6C4D /* FirstTypingViewController.swift */; };
 		F546AE79290981D300CE6C4D /* WishListDoneTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AE78290981D300CE6C4D /* WishListDoneTableViewCell.swift */; };
+		F546AE7B290BD5AD00CE6C4D /* EditWishListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AE7A290BD5AD00CE6C4D /* EditWishListViewController.swift */; };
 		F5A2EAF328D3644800536E9B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EAF228D3644800536E9B /* AppDelegate.swift */; };
 		F5A2EAF528D3644800536E9B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EAF428D3644800536E9B /* SceneDelegate.swift */; };
 		F5A2EAF728D3644800536E9B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EAF628D3644800536E9B /* HomeViewController.swift */; };
@@ -131,6 +132,7 @@
 		F546AE7129096EE100CE6C4D /* MyDayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayViewModel.swift; sourceTree = "<group>"; };
 		F546AE73290972F000CE6C4D /* FirstTypingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTypingViewController.swift; sourceTree = "<group>"; };
 		F546AE78290981D300CE6C4D /* WishListDoneTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListDoneTableViewCell.swift; sourceTree = "<group>"; };
+		F546AE7A290BD5AD00CE6C4D /* EditWishListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWishListViewController.swift; sourceTree = "<group>"; };
 		F5A2EAEF28D3644800536E9B /* iTamin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTamin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5A2EAF228D3644800536E9B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F5A2EAF428D3644800536E9B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 				F546AE7129096EE100CE6C4D /* MyDayViewModel.swift */,
 				F546AE6D2906E42700CE6C4D /* AddWishListViewController.swift */,
 				F546AE73290972F000CE6C4D /* FirstTypingViewController.swift */,
+				F546AE7A290BD5AD00CE6C4D /* EditWishListViewController.swift */,
 			);
 			path = MyDay;
 			sourceTree = "<group>";
@@ -772,6 +775,7 @@
 				F5A2EB9228E1FDBF00536E9B /* HomeViewModel.swift in Sources */,
 				F5A2EB6028DCC17600536E9B /* CustomTextField.swift in Sources */,
 				F5A2EBC228F176FE00536E9B /* TagCollectionViewCell.swift in Sources */,
+				F546AE7B290BD5AD00CE6C4D /* EditWishListViewController.swift in Sources */,
 				F5A2EBAA28E5AEA900536E9B /* IndicatorView.swift in Sources */,
 				F5A2EBAC28E5B26300536E9B /* MyTaminViewModel.swift in Sources */,
 				F5A2EBC828F2EA4F00536E9B /* CategoryCollectionViewCell.swift in Sources */,

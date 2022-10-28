@@ -10,13 +10,12 @@ import SnapKit
 
 protocol WishListDelegate: AnyObject {
     func textFieldDone(text: String)
+    func textFieldEdit(item: WishListModel)
 }
 
 class WishListTypingTableViewCell: UITableViewCell {
 
     static let cellId = "WishListTableViewCell"
-    
-    weak var delegate: WishListDelegate?
     
     let wishListTextField: UITextField = {
         let textField = UITextField()
@@ -41,7 +40,7 @@ class WishListTypingTableViewCell: UITableViewCell {
         
         let borderView = UIView()
         
-        borderView.layer.borderColor = UIColor.grayColor2.cgColor
+        borderView.layer.borderColor = UIColor.grayColor5.cgColor
         borderView.layer.borderWidth = 1
         borderView.layer.cornerRadius = 8
         borderView.backgroundColor = .clear
@@ -52,7 +51,6 @@ class WishListTypingTableViewCell: UITableViewCell {
         
         contentView.addSubview(wishListTextField)
         
-
         wishListTextField.snp.makeConstraints {
             $0.top.equalTo(self.snp.top).offset(16)
             $0.leading.equalTo(self.snp.leading).offset(16)
@@ -72,3 +70,4 @@ class WishListTypingTableViewCell: UITableViewCell {
         }
     }
 }
+

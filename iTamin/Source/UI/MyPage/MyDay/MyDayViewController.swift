@@ -13,6 +13,8 @@ class MyDayViewController: UIViewController, MenuBarDelegate {
     var viewModel = ViewModel()
     var cancelBag = CancelBag()
     
+    var editVC = EditWishListViewController()
+    
     private var collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
@@ -31,6 +33,12 @@ class MyDayViewController: UIViewController, MenuBarDelegate {
     
     var menuBar = MenuBar()
     
+    private lazy var editButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "편집", style: .plain, target: self, action: #selector(editButtonAction))
+        button.tintColor = UIColor.grayColor4
+        return button
+    }()
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
@@ -41,6 +49,7 @@ class MyDayViewController: UIViewController, MenuBarDelegate {
         super.viewDidLoad()
 
         view.backgroundColor = .white
+        
         configureMenuBar()
         configureCollectionView()
         configureLayout()
@@ -61,6 +70,14 @@ class MyDayViewController: UIViewController, MenuBarDelegate {
             .sink(receiveCompletion: { _ in }, receiveValue: { value in
                 print("value,", value)
                 self.collectionView.reloadData()
+                self.editVC.wishList = self.viewModel.wishList
+                if value.count > 0 {
+                    self.floatingButton.isHidden = true
+                    self.navigationItem.rightBarButtonItem = self.editButton
+                } else {
+                    self.floatingButton.isHidden = false
+                    self.navigationItem.rightBarButtonItem = nil
+                }
                 
             })
             .cancel(with: cancelBag)
@@ -77,7 +94,14 @@ class MyDayViewController: UIViewController, MenuBarDelegate {
         }
     }
     
+    @objc
+    func editButtonAction() {
+        editVC.delegate = self
+        self.navigationController?.pushViewController(editVC, animated: true)
+    }
+    
     func configureLayout() {
+        
         view.addSubview(floatingButton)
         floatingButton.snp.makeConstraints {
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(20)

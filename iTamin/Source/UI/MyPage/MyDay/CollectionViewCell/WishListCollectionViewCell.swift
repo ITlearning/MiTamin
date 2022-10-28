@@ -174,12 +174,14 @@ extension WishListCollectionViewCell: WishListDelegate {
     func textFieldDone(text: String) {
         delegate?.addData(text: text)
     }
-    
+    func textFieldEdit(item: WishListModel) {
+        delegate?.editData(item: item)
+    }
 }
 
 extension WishListCollectionViewCell: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        wishList.count + 1
+        wishList.count
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -196,38 +198,17 @@ extension WishListCollectionViewCell: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if indexPath.row < wishList.count {
-            
-            let item = wishList[indexPath.row]
-            
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: WishListDoneTableViewCell.cellId, for: indexPath) as? WishListDoneTableViewCell else { return UITableViewCell() }
-            
-            cell.setText(item: item)
-            cell.selectionStyle = .none
-            
-            return cell
-        } else {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: WishListTypingTableViewCell.cellId, for: indexPath) as? WishListTypingTableViewCell else { return UITableViewCell() }
-            
-            cell.delegate = self
-            cell.wishListTextField.delegate = self
-            cell.selectionStyle = .none
-            
-            return cell
-        }
+        let item = wishList[indexPath.row]
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: WishListDoneTableViewCell.cellId, for: indexPath) as? WishListDoneTableViewCell else { return UITableViewCell() }
+        
+        cell.setText(item: item)
+        cell.selectionStyle = .none
+        
+        return cell
     }
     
     
 }
 
-extension WishListCollectionViewCell: UITextFieldDelegate {
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
-        //delegate?.textFieldDone(text: textField.text ?? "")
-        
-        
-        return true
-    }
-}
 

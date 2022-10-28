@@ -66,7 +66,8 @@ extension UIColor {
     static let grayColor6 = UIColor(rgb: 0xD8D8D8)
     /// 0xCCCCCC
     static let grayColor7 = UIColor(rgb: 0xCCCCCC)
-    
+    /// 0x817979
+    static let grayColor8 = UIColor(rgb: 0x817979)
 }
 
 extension Color {
