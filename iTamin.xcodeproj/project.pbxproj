@@ -29,6 +29,9 @@
 		F546AE85290D08BF00CE6C4D /* CustomDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AE84290D08BF00CE6C4D /* CustomDatePickerView.swift */; };
 		F546AE87290D0D9E00CE6C4D /* AddDayNoteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AE86290D0D9E00CE6C4D /* AddDayNoteViewModel.swift */; };
 		F546AE89290D0E7100CE6C4D /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AE88290D0E7100CE6C4D /* Date.swift */; };
+		F546AE8D290D27F400CE6C4D /* AlertToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AE8C290D27F400CE6C4D /* AlertToastView.swift */; };
+		F546AE8F290D347900CE6C4D /* AddPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AE8E290D347900CE6C4D /* AddPhotoCollectionViewCell.swift */; };
+		F546AE93290D4FAB00CE6C4D /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AE92290D4FAA00CE6C4D /* PhotoCollectionViewCell.swift */; };
 		F5A2EAF328D3644800536E9B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EAF228D3644800536E9B /* AppDelegate.swift */; };
 		F5A2EAF528D3644800536E9B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EAF428D3644800536E9B /* SceneDelegate.swift */; };
 		F5A2EAF728D3644800536E9B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EAF628D3644800536E9B /* HomeViewController.swift */; };
@@ -145,6 +148,9 @@
 		F546AE84290D08BF00CE6C4D /* CustomDatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePickerView.swift; sourceTree = "<group>"; };
 		F546AE86290D0D9E00CE6C4D /* AddDayNoteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDayNoteViewModel.swift; sourceTree = "<group>"; };
 		F546AE88290D0E7100CE6C4D /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		F546AE8C290D27F400CE6C4D /* AlertToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertToastView.swift; sourceTree = "<group>"; };
+		F546AE8E290D347900CE6C4D /* AddPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		F546AE92290D4FAA00CE6C4D /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		F5A2EAEF28D3644800536E9B /* iTamin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTamin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5A2EAF228D3644800536E9B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F5A2EAF428D3644800536E9B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -291,6 +297,8 @@
 				F546AE692906DBE900CE6C4D /* WishListCollectionViewCell.swift */,
 				F546AE672906D69000CE6C4D /* MenuCollectionViewCell.swift */,
 				F546AE7E290CFD2300CE6C4D /* DayNoteCollectionViewCell.swift */,
+				F546AE8E290D347900CE6C4D /* AddPhotoCollectionViewCell.swift */,
+				F546AE92290D4FAA00CE6C4D /* PhotoCollectionViewCell.swift */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -527,6 +535,7 @@
 				F5F3F15F28FA85D5006C9B6A /* String.swift */,
 				F546AE7C290CF51300CE6C4D /* UIView.swift */,
 				F546AE88290D0E7100CE6C4D /* Date.swift */,
+				F546AE8C290D27F400CE6C4D /* AlertToastView.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -792,6 +801,8 @@
 				F5A2EB7428DF0F1000536E9B /* NickNameViewController.swift in Sources */,
 				F546AE6E2906E42700CE6C4D /* AddWishListViewController.swift in Sources */,
 				F5A2EB5C28DCBFC700536E9B /* SignInViewController.swift in Sources */,
+				F546AE8D290D27F400CE6C4D /* AlertToastView.swift in Sources */,
+				F546AE8F290D347900CE6C4D /* AddPhotoCollectionViewCell.swift in Sources */,
 				F5A2EB6828DEF80E00536E9B /* CustomButton.swift in Sources */,
 				F546AE6A2906DBEA00CE6C4D /* WishListCollectionViewCell.swift in Sources */,
 				F5A2EB5E28DCC07800536E9B /* ViewControllerPreview.swift in Sources */,
@@ -838,6 +849,7 @@
 				F5A2EB6F28DF009500536E9B /* TermsViewController.swift in Sources */,
 				F5A2EBB428E9BF1000536E9B /* LineProgressBar.swift in Sources */,
 				F5A2EB5728DCBAA900536E9B /* CancelBag.swift in Sources */,
+				F546AE93290D4FAB00CE6C4D /* PhotoCollectionViewCell.swift in Sources */,
 				F5A2EB8128DF1E5E00536E9B /* CustomDatePicker.swift in Sources */,
 				F5A2EB7F28DF1C5500536E9B /* OnboardingCollectionViewCell.swift in Sources */,
 				F5A2EB3F28DB231600536E9B /* CustomTabItem.swift in Sources */,

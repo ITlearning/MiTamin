@@ -229,6 +229,7 @@ class EditProfileViewController: UIViewController {
     func selectPhoto() {
         var config = YPImagePickerConfiguration()
         config.wordings.libraryTitle = "갤러리"
+        config.startOnScreen = .library
         config.wordings.cameraTitle = "카메라"
         config.wordings.next = "확인"
         

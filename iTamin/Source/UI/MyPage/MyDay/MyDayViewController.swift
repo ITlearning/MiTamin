@@ -51,7 +51,12 @@ class MyDayViewController: UIViewController, MenuBarDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
-        navigationConfigure(title: "마이데이")
+        navigationConfigure()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationItem.title = "마이데이"
     }
     
     override func viewDidLoad() {

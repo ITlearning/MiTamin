@@ -20,7 +20,12 @@ class CustomDatePickerView: UIView {
     
     var selectDay: String = ""
     var cancelBag = CancelBag()
-    var buttonSelect: ((String) -> ())?
+    var selectDayPrint: String = "" {
+        didSet {
+            datePicker.reloadAllComponents()
+        }
+    }
+    var buttonSelect: ((String,String) -> ())?
     
     private lazy var datePicker: UIPickerView = {
         let datePicker = UIPickerView()
@@ -56,7 +61,7 @@ class CustomDatePickerView: UIView {
         selectButton.tapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] _ in
-                self?.buttonSelect?((self?.selectDay ?? ""))
+                self?.buttonSelect?(self?.selectDayPrint ?? "", self?.selectDay ?? "")
             })
             .cancel(with: cancelBag)
     }
@@ -92,11 +97,17 @@ extension CustomDatePickerView: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return days[component][row]
+        if component == 0 {
+            return days[component][row]+"년"
+        } else {
+            return days[component][row]+"월"
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
+        
+        selectDayPrint = "\(days[0][row])년 \(days[1][row])월의 마이데이"
         selectDay = "\(days[0][row]).\(days[1][row])"
         
     }
