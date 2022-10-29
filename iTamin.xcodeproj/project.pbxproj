@@ -24,6 +24,7 @@
 		F546AE79290981D300CE6C4D /* WishListDoneTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AE78290981D300CE6C4D /* WishListDoneTableViewCell.swift */; };
 		F546AE7B290BD5AD00CE6C4D /* EditWishListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AE7A290BD5AD00CE6C4D /* EditWishListViewController.swift */; };
 		F546AE7D290CF51300CE6C4D /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AE7C290CF51300CE6C4D /* UIView.swift */; };
+		F546AE7F290CFD2300CE6C4D /* DayNoteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AE7E290CFD2300CE6C4D /* DayNoteCollectionViewCell.swift */; };
 		F5A2EAF328D3644800536E9B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EAF228D3644800536E9B /* AppDelegate.swift */; };
 		F5A2EAF528D3644800536E9B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EAF428D3644800536E9B /* SceneDelegate.swift */; };
 		F5A2EAF728D3644800536E9B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EAF628D3644800536E9B /* HomeViewController.swift */; };
@@ -135,6 +136,7 @@
 		F546AE78290981D300CE6C4D /* WishListDoneTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListDoneTableViewCell.swift; sourceTree = "<group>"; };
 		F546AE7A290BD5AD00CE6C4D /* EditWishListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWishListViewController.swift; sourceTree = "<group>"; };
 		F546AE7C290CF51300CE6C4D /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		F546AE7E290CFD2300CE6C4D /* DayNoteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayNoteCollectionViewCell.swift; sourceTree = "<group>"; };
 		F5A2EAEF28D3644800536E9B /* iTamin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTamin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5A2EAF228D3644800536E9B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F5A2EAF428D3644800536E9B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -280,6 +282,7 @@
 			children = (
 				F546AE692906DBE900CE6C4D /* WishListCollectionViewCell.swift */,
 				F546AE672906D69000CE6C4D /* MenuCollectionViewCell.swift */,
+				F546AE7E290CFD2300CE6C4D /* DayNoteCollectionViewCell.swift */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -757,6 +760,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5F3F16828FC52C9006C9B6A /* ProfileBGView.swift in Sources */,
+				F546AE7F290CFD2300CE6C4D /* DayNoteCollectionViewCell.swift in Sources */,
 				F5A2EB7428DF0F1000536E9B /* NickNameViewController.swift in Sources */,
 				F546AE6E2906E42700CE6C4D /* AddWishListViewController.swift in Sources */,
 				F5A2EB5C28DCBFC700536E9B /* SignInViewController.swift in Sources */,

@@ -8,12 +8,21 @@
 import UIKit
 import SnapKit
 
+enum ContentMode {
+    case WishList
+    case DayNote
+}
+
 class MyDayViewController: UIViewController, MenuBarDelegate {
     
     var viewModel = ViewModel()
     var cancelBag = CancelBag()
     
     var editVC = EditWishListViewController()
+    
+    var contentMode: ContentMode = .WishList
+    
+    var opacity: Float = 0.0
     
     private var collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -61,7 +70,12 @@ class MyDayViewController: UIViewController, MenuBarDelegate {
         floatingButton.tapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { _ in
-                self.moveToFAB()
+                switch self.contentMode {
+                case .WishList:
+                    self.moveToFAB()
+                case .DayNote:
+                    self.addDayNote()
+                }
             })
             .cancel(with: cancelBag)
         
@@ -72,15 +86,19 @@ class MyDayViewController: UIViewController, MenuBarDelegate {
                 self.collectionView.reloadData()
                 self.editVC.wishList = self.viewModel.wishList
                 if value.count > 0 {
-                    self.floatingButton.isHidden = true
+                    self.floatingButton.alpha = 0.0
                     self.navigationItem.rightBarButtonItem = self.editButton
                 } else {
-                    self.floatingButton.isHidden = false
+                    self.floatingButton.alpha = 1.0
                     self.navigationItem.rightBarButtonItem = nil
                 }
                 
             })
             .cancel(with: cancelBag)
+        
+    }
+    
+    func addDayNote() {
         
     }
     
@@ -125,6 +143,15 @@ class MyDayViewController: UIViewController, MenuBarDelegate {
     
     func menuBar(scrollTo index: Int) {
         let indexPath = IndexPath(row: index, section: 0)
+        
+        if indexPath.row == 0 {
+            contentMode = .WishList
+            self.navigationItem.rightBarButtonItem = self.editButton
+        } else {
+            self.navigationItem.rightBarButtonItem = nil
+            contentMode = .DayNote
+        }
+        
         self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
     }
     
@@ -135,6 +162,7 @@ class MyDayViewController: UIViewController, MenuBarDelegate {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.isPagingEnabled = true
         collectionView.register(WishListCollectionViewCell.self, forCellWithReuseIdentifier: WishListCollectionViewCell.cellId)
+        collectionView.register(DayNoteCollectionViewCell.self, forCellWithReuseIdentifier: DayNoteCollectionViewCell.cellId)
         self.view.addSubview(collectionView)
         
         collectionView.snp.makeConstraints {
@@ -171,18 +199,27 @@ extension MyDayViewController: WishListCollectionViewDelegate {
 
 extension MyDayViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WishListCollectionViewCell.cellId, for: indexPath) as? WishListCollectionViewCell else { return UICollectionViewCell() }
         
-        cell.wishList = viewModel.wishList
-        cell.delegate = self
-        
-        if indexPath.row == 0 {
+        switch indexPath.row {
+        case 0:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WishListCollectionViewCell.cellId, for: indexPath) as? WishListCollectionViewCell else { return UICollectionViewCell() }
+            
+            cell.wishList = viewModel.wishList
+            cell.delegate = self
+            
             cell.setText(text: "자신을 위해서 해보고\n싶은 행동이 있나요?")
-        } else {
-            cell.setText(text: "이번 마이데이에는\n어떤 추억을 쌓게 될까요?")
+            
+            return cell
+        case 1:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DayNoteCollectionViewCell.cellId, for: indexPath) as? DayNoteCollectionViewCell else { return UICollectionViewCell() }
+            
+            return cell
+        default:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DayNoteCollectionViewCell.cellId, for: indexPath) as? DayNoteCollectionViewCell else { return UICollectionViewCell() }
+            
+            return cell
         }
         
-        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -190,12 +227,26 @@ extension MyDayViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        if !viewModel.wishList.isEmpty {
+            floatingButton.alpha = scrollView.contentOffset.x / (scrollView.contentSize.width/2)
+        }
+        
         menuBar.indicatorViewLeadingConstraint.constant = scrollView.contentOffset.x / 2
     }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let itemAt = Int(targetContentOffset.pointee.x / self.view.frame.width)
         let indexPath = IndexPath(item: itemAt, section: 0)
+        
+        if indexPath.row == 0 {
+            contentMode = .WishList
+            self.navigationItem.rightBarButtonItem = self.editButton
+        } else {
+            self.navigationItem.rightBarButtonItem = nil
+            contentMode = .DayNote
+        }
+        
         menuBar.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
     }
 }
