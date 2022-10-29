@@ -23,13 +23,18 @@ class EditWishListViewController: UIViewController {
         }
     }
     
+    var currentWishList: [WishListModel] = []
+    
     var deleteWishList: [Int] = []
+    var deleteWishListToServer: [Int] = []
     
     var cancelBag = CancelBag()
     
     var isEditIndex = -1
     
     var deleteMode: Bool = false
+    
+    var deleteOn: Bool = false
     
     private let currentLabel: UILabel = {
         let label = UILabel()
@@ -55,6 +60,12 @@ class EditWishListViewController: UIViewController {
         return button
     }()
     
+    private lazy var rightDoneButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(activeDeleteMode))
+        button.tintColor = UIColor.grayColor4
+        return button
+    }()
+    
     private let doneButton: UIButton = {
         let button = UIButton()
         button.setTitle("삭제하기", for: .normal)
@@ -64,6 +75,42 @@ class EditWishListViewController: UIViewController {
         button.isHidden = true
         button.isEnabled = false
         return button
+    }()
+    
+    private let deletePopupView: UIView = {
+        let customView = UIView()
+        customView.layer.cornerRadius = 8
+        //customView.backgroundColor = .backgroundColor2
+        customView.backgroundColor = .white
+        customView.layer.applyShadow(color: UIColor.black, alpha: 0.1, x: 0, y: 4, blur: 20)
+        customView.alpha = 0.0
+        return customView
+    }()
+    
+    private let deleteCancelButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("실행취소", for: .normal)
+        button.backgroundColor = UIColor.primaryColor
+        button.layer.cornerRadius = 8
+        button.titleLabel?.font = UIFont.SDGothicBold(size: 16)
+        
+        return button
+    }()
+    
+    private let deletePopupInfoIcon: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "InfoIcon")
+        
+        return imageView
+    }()
+    
+    private let deletePopupTitleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "리스트가 삭제되었어요"
+        label.textColor = UIColor.grayColor4
+        label.font = UIFont.SDGothicRegular(size: 16)
+        
+        return label
     }()
     
     override func viewWillAppear(_ animated: Bool) {
@@ -90,11 +137,51 @@ class EditWishListViewController: UIViewController {
                 self.activeDeleteMode()
             })
             .cancel(with: cancelBag)
+        
+        deleteCancelButton.tapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { _ in
+                self.deleteOn = false
+                self.wishList = self.currentWishList
+                
+                UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
+                    self.deletePopupView.alpha = 0.0
+                }, completion: nil)
+                
+                self.tableView.reloadData()
+            })
+            .cancel(with: cancelBag)
     }
     
     func deleteAction() {
+        deleteOn = true
+        
+        deleteProgressOnDevice()
+        
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn, animations: {
+            self.deletePopupView.alpha = 1.0
+        }, completion: { _ in
+        })
+        
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4, execute: {
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
+                self.deletePopupView.alpha = 0.0
+            }, completion: nil)
+            
+            if self.deleteOn {
+                self.deleteProgressOnServer()
+            }
+        })
+        
+    }
+    
+    func deleteProgressOnDevice() {
+        
+        currentWishList = wishList
+        deleteWishListToServer = deleteWishList
+        
         deleteWishList.forEach { idx in
-            delegate?.deleteData(idx: idx)
             if let index = deleteWishList.firstIndex(where: { $0 == idx }) {
                 wishList.remove(at: index)
             }
@@ -102,6 +189,17 @@ class EditWishListViewController: UIViewController {
         
         deleteWishList.removeAll()
         tableView.reloadData()
+    }
+    
+    func deleteProgressOnServer() {
+        
+        deleteWishListToServer.forEach { idx in
+            delegate?.deleteData(idx: idx)
+        }
+        
+        deleteWishListToServer.removeAll()
+        //deleteWishList.removeAll()
+        //tableView.reloadData()
     }
     
     func activeDoneButton() {
@@ -118,7 +216,7 @@ class EditWishListViewController: UIViewController {
     func activeDeleteMode() {
         deleteMode.toggle()
         if deleteMode {
-            self.navigationItem.rightBarButtonItem = nil
+            self.navigationItem.rightBarButtonItem = rightDoneButton
             doneButton.isHidden = false
         } else {
             doneButton.isHidden = true
@@ -131,6 +229,12 @@ class EditWishListViewController: UIViewController {
         view.addSubview(selectDeleteButton)
         view.addSubview(tableView)
         view.addSubview(doneButton)
+        view.addSubview(deletePopupView)
+        
+        deletePopupView.addSubview(deletePopupInfoIcon)
+        deletePopupView.addSubview(deleteCancelButton)
+        deletePopupView.addSubview(deletePopupTitleLabel)
+        
         
         tableView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(40)
@@ -157,6 +261,30 @@ class EditWishListViewController: UIViewController {
             $0.height.equalTo(56)
         }
         
+        deletePopupView.snp.makeConstraints {
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(76)
+            $0.leading.trailing.equalTo(doneButton)
+            $0.height.equalTo(56)
+        }
+        
+        deleteCancelButton.snp.makeConstraints {
+            $0.top.equalTo(deletePopupView.snp.top).offset(8)
+            $0.trailing.equalTo(deletePopupView.snp.trailing).inset(16)
+            $0.height.equalTo(40)
+            $0.width.equalTo(108)
+        }
+        
+        deletePopupInfoIcon.snp.makeConstraints {
+            $0.top.equalTo(deletePopupView.snp.top).offset(16)
+            $0.leading.equalTo(deletePopupView.snp.leading).offset(16)
+            $0.width.equalTo(24)
+            $0.height.equalTo(24)
+        }
+        
+        deletePopupTitleLabel.snp.makeConstraints {
+            $0.top.equalTo(deletePopupView.snp.top).offset(20)
+            $0.leading.equalTo(deletePopupInfoIcon.snp.trailing).offset(16)
+        }
     }
     
     private func configureTableView() {
