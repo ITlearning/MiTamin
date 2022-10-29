@@ -53,16 +53,65 @@ class AddDayNoteViewController: UIViewController {
         return collectionView
     }()
     
+    private let borderView: UIView = {
+        let bView = UIView()
+        bView.backgroundColor = .white
+        bView.layer.borderColor = UIColor.grayColor5.cgColor
+        bView.layer.borderWidth = 1
+        bView.layer.cornerRadius = 8
+        
+        return bView
+    }()
+    
+    private let selectWishList: UILabel = {
+        let label = UILabel()
+        label.text = "완료한 위시리스트"
+        label.textColor = UIColor.grayColor4
+        label.font = UIFont.SDGothicMedium(size: 14)
+        
+        return label
+    }()
+    
+    private let rightArrowView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "icon-arrow-left-small-mono-1")
+        
+        return imageView
+    }()
+    
+    private let textView: UITextView = {
+        let textView = UITextView()
+        
+        textView.backgroundColor = .white
+        textView.layer.cornerRadius = 8
+        textView.layer.borderWidth = 1
+        textView.layer.borderColor = UIColor.grayColor5.cgColor
+        
+        return textView
+    }()
+    
+    private let doneButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("완료", for: .normal)
+        button.backgroundColor = UIColor.primaryColor
+        button.layer.cornerRadius = 8
+        button.titleLabel?.font = UIFont.SDGothicBold(size: 16)
+        return button
+    }()
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         stackView.startSkeletonAnimation()
         navigationItem.title = "기록 남기기"
-        navigationConfigure()
+        self.navigationController?.navigationBar.topItem?.title = "기록 남기기"
+        navigationConfigure(title: "기록 남기기")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        navigationItem.title = "기록 남기기"
+        self.navigationController?.navigationBar.topItem?.title = "기록 남기기"
         viewModel.loadDays()
         startSkeleton()
         bindCombine()
@@ -130,6 +179,29 @@ class AddDayNoteViewController: UIViewController {
             self.viewModel.currentDay = serverString
             self.dismissAction()
         }
+        
+        doneButton.tapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] _ in
+                guard let self = self else { return }
+                self.viewModel.writeDayNote()
+            })
+            .cancel(with: cancelBag)
+        
+        textView.textPublisher
+            .receive(on: DispatchQueue.main)
+            .map{ $0 ?? "" }
+            .assign(to: \.note, on: viewModel)
+            .cancel(with: cancelBag)
+        
+        viewModel.$uploadSuccess
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }, receiveValue: { value in
+                if value {
+                    self.navigationController?.popViewController(animated: true)
+                }
+            })
+            .cancel(with: cancelBag)
     }
     
     @objc
@@ -163,6 +235,19 @@ class AddDayNoteViewController: UIViewController {
         })
     }
     
+    @objc
+    func wishListOpen() {
+        let wishListVC = DoneWishListViewController()
+        
+        self.navigationController?.pushViewController(wishListVC, animated: true)
+        
+        wishListVC.selectAction = { [weak self] value in
+            guard let self = self else { return }
+            self.viewModel.selectWishList = value
+            self.selectWishList.text = value.wishText
+        }
+    }
+    
     func configureCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -182,6 +267,13 @@ class AddDayNoteViewController: UIViewController {
         view.addSubview(blackDemmedView)
         view.addSubview(datePickerView)
         view.addSubview(collectionView)
+        let borderTap = UITapGestureRecognizer(target: self, action: #selector(wishListOpen))
+        borderView.addGestureRecognizer(borderTap)
+        view.addSubview(borderView)
+        borderView.addSubview(selectWishList)
+        borderView.addSubview(rightArrowView)
+        view.addSubview(textView)
+        view.addSubview(doneButton)
         
         blackDemmedView.snp.makeConstraints {
             $0.top.equalTo(view.snp.top)
@@ -226,6 +318,38 @@ class AddDayNoteViewController: UIViewController {
             $0.height.equalTo(130)
         }
         
+        borderView.snp.makeConstraints {
+            $0.top.equalTo(collectionView.snp.bottom).offset(20)
+            $0.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(20)
+            $0.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing).inset(20)
+            $0.height.equalTo(48)
+        }
+        
+        selectWishList.snp.makeConstraints {
+            $0.top.equalTo(borderView.snp.top).offset(16)
+            $0.leading.equalTo(borderView.snp.leading).offset(16)
+        }
+        
+        rightArrowView.snp.makeConstraints {
+            $0.top.equalTo(borderView.snp.top).offset(15)
+            $0.trailing.equalTo(borderView.snp.trailing).inset(15)
+            $0.width.equalTo(18)
+            $0.height.equalTo(18)
+        }
+        
+        textView.snp.makeConstraints {
+            $0.top.equalTo(borderView.snp.bottom).offset(16)
+            $0.leading.trailing.equalTo(borderView)
+            $0.height.equalTo(100)
+        }
+        
+        
+        doneButton.snp.makeConstraints {
+            $0.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
+            $0.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(20)
+            $0.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing).inset(20)
+            $0.height.equalTo(56)
+        }
     }
     
     func selectPhoto() {
@@ -234,7 +358,7 @@ class AddDayNoteViewController: UIViewController {
         config.startOnScreen = .library
         config.wordings.cameraTitle = "카메라"
         config.wordings.next = "확인"
-        config.library.maxNumberOfItems = 100
+        config.library.maxNumberOfItems = 5
         config.library.defaultMultipleSelection = true
         let picker = YPImagePicker(configuration: config)
         

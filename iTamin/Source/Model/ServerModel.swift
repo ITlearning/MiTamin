@@ -144,3 +144,12 @@ struct CreatedAtModel: Codable {
     var year: Int
     var month: Int
 }
+
+struct DayNoteModel: Codable {
+    var daynoteId: Int
+    var imgList: [String]
+    var year: Int
+    var month: Int
+    var wishText: String
+    var note: String
+}

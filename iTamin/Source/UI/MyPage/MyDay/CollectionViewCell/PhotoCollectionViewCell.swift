@@ -21,9 +21,9 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    let button: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "icon-x-circle-mono"), for: .normal)
+    let button: UIImageView = {
+        let button = UIImageView()
+        button.image = UIImage(named: "icon-x-circle-mono")
         
         return button
     }()

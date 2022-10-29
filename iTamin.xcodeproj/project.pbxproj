@@ -32,6 +32,8 @@
 		F546AE8D290D27F400CE6C4D /* AlertToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AE8C290D27F400CE6C4D /* AlertToastView.swift */; };
 		F546AE8F290D347900CE6C4D /* AddPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AE8E290D347900CE6C4D /* AddPhotoCollectionViewCell.swift */; };
 		F546AE93290D4FAB00CE6C4D /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AE92290D4FAA00CE6C4D /* PhotoCollectionViewCell.swift */; };
+		F546AE95290D5A0600CE6C4D /* DoneWishListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AE94290D5A0600CE6C4D /* DoneWishListViewController.swift */; };
+		F546AE97290D5A9400CE6C4D /* DoneWishListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AE96290D5A9400CE6C4D /* DoneWishListViewModel.swift */; };
 		F5A2EAF328D3644800536E9B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EAF228D3644800536E9B /* AppDelegate.swift */; };
 		F5A2EAF528D3644800536E9B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EAF428D3644800536E9B /* SceneDelegate.swift */; };
 		F5A2EAF728D3644800536E9B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EAF628D3644800536E9B /* HomeViewController.swift */; };
@@ -151,6 +153,8 @@
 		F546AE8C290D27F400CE6C4D /* AlertToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertToastView.swift; sourceTree = "<group>"; };
 		F546AE8E290D347900CE6C4D /* AddPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		F546AE92290D4FAA00CE6C4D /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		F546AE94290D5A0600CE6C4D /* DoneWishListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneWishListViewController.swift; sourceTree = "<group>"; };
+		F546AE96290D5A9400CE6C4D /* DoneWishListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneWishListViewModel.swift; sourceTree = "<group>"; };
 		F5A2EAEF28D3644800536E9B /* iTamin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTamin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5A2EAF228D3644800536E9B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F5A2EAF428D3644800536E9B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -327,6 +331,8 @@
 				F546AE82290D049E00CE6C4D /* AddDayNoteViewController.swift */,
 				F546AE86290D0D9E00CE6C4D /* AddDayNoteViewModel.swift */,
 				F546AE84290D08BF00CE6C4D /* CustomDatePickerView.swift */,
+				F546AE94290D5A0600CE6C4D /* DoneWishListViewController.swift */,
+				F546AE96290D5A9400CE6C4D /* DoneWishListViewModel.swift */,
 			);
 			path = DayNote;
 			sourceTree = "<group>";
@@ -828,6 +834,7 @@
 				F5A2EBAC28E5B26300536E9B /* MyTaminViewModel.swift in Sources */,
 				F5A2EBC828F2EA4F00536E9B /* CategoryCollectionViewCell.swift in Sources */,
 				F5A2EB5128DB614C00536E9B /* Font.swift in Sources */,
+				F546AE95290D5A0600CE6C4D /* DoneWishListViewController.swift in Sources */,
 				F5A2EB6628DEF58200536E9B /* SignUpViewController.swift in Sources */,
 				F546AE89290D0E7100CE6C4D /* Date.swift in Sources */,
 				F5A2EAFD28D3644800536E9B /* iTamin.xcdatamodeld in Sources */,
@@ -864,6 +871,7 @@
 				F5A2EBCF28F2F09400536E9B /* CategoryBottomSheetView.swift in Sources */,
 				F5A2EB8D28DF6BA600536E9B /* UIWindow.swift in Sources */,
 				F5A2EBA728E5A6F200536E9B /* RoundedCircleView.swift in Sources */,
+				F546AE97290D5A9400CE6C4D /* DoneWishListViewModel.swift in Sources */,
 				F5A2EBB628F1600A00536E9B /* MindCollectionViewCell.swift in Sources */,
 				F5F3F15C28FA7B48006C9B6A /* CoreDataManager.swift in Sources */,
 				F5A2EB6C28DEF93800536E9B /* ProgressBar.swift in Sources */,

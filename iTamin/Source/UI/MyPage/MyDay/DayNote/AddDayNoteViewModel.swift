@@ -16,11 +16,24 @@ extension AddDayNoteViewController {
         @Published var currentDayPrint: String = ""
         @Published var currentDay: String = ""
         @Published var firstDay: String = ""
-        
+        @Published var note: String = ""
+        @Published var uploadSuccess: Bool = false
         var selectImages: [UIImage] = []
         var isWrite = CurrentValueSubject<Bool, Never>(false)
+        var selectWishList: WishListModel? = nil
         var networkManager = NetworkManager()
         var cancelBag = CancelBag()
+        
+        
+        func writeDayNote() {
+            networkManager.writeDayNote(wishText: selectWishList?.wishText ?? "", note: note, date: currentDay, images: selectImages)
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] value in
+                    print(value.data)
+                    self?.uploadSuccess = true
+                })
+                .cancel(with: cancelBag)
+        }
         
         func checkMonth(value: String) {
             networkManager.checkDayNote(day: value)
