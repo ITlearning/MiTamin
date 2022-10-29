@@ -139,3 +139,8 @@ struct MyDayModel: Codable {
     var dday: String
     var comment: String
 }
+
+struct CreatedAtModel: Codable {
+    var year: Int
+    var month: Int
+}

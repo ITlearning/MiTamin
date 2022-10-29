@@ -25,6 +25,10 @@
 		F546AE7B290BD5AD00CE6C4D /* EditWishListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AE7A290BD5AD00CE6C4D /* EditWishListViewController.swift */; };
 		F546AE7D290CF51300CE6C4D /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AE7C290CF51300CE6C4D /* UIView.swift */; };
 		F546AE7F290CFD2300CE6C4D /* DayNoteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AE7E290CFD2300CE6C4D /* DayNoteCollectionViewCell.swift */; };
+		F546AE83290D049E00CE6C4D /* AddDayNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AE82290D049E00CE6C4D /* AddDayNoteViewController.swift */; };
+		F546AE85290D08BF00CE6C4D /* CustomDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AE84290D08BF00CE6C4D /* CustomDatePickerView.swift */; };
+		F546AE87290D0D9E00CE6C4D /* AddDayNoteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AE86290D0D9E00CE6C4D /* AddDayNoteViewModel.swift */; };
+		F546AE89290D0E7100CE6C4D /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AE88290D0E7100CE6C4D /* Date.swift */; };
 		F5A2EAF328D3644800536E9B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EAF228D3644800536E9B /* AppDelegate.swift */; };
 		F5A2EAF528D3644800536E9B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EAF428D3644800536E9B /* SceneDelegate.swift */; };
 		F5A2EAF728D3644800536E9B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EAF628D3644800536E9B /* HomeViewController.swift */; };
@@ -137,6 +141,10 @@
 		F546AE7A290BD5AD00CE6C4D /* EditWishListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWishListViewController.swift; sourceTree = "<group>"; };
 		F546AE7C290CF51300CE6C4D /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		F546AE7E290CFD2300CE6C4D /* DayNoteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayNoteCollectionViewCell.swift; sourceTree = "<group>"; };
+		F546AE82290D049E00CE6C4D /* AddDayNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDayNoteViewController.swift; sourceTree = "<group>"; };
+		F546AE84290D08BF00CE6C4D /* CustomDatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePickerView.swift; sourceTree = "<group>"; };
+		F546AE86290D0D9E00CE6C4D /* AddDayNoteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDayNoteViewModel.swift; sourceTree = "<group>"; };
+		F546AE88290D0E7100CE6C4D /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		F5A2EAEF28D3644800536E9B /* iTamin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTamin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5A2EAF228D3644800536E9B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F5A2EAF428D3644800536E9B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -257,14 +265,14 @@
 		F546AE622906D32F00CE6C4D /* MyDay */ = {
 			isa = PBXGroup;
 			children = (
+				F546AE81290D048000CE6C4D /* DayNote */,
+				F546AE80290D047700CE6C4D /* WishList */,
 				F546AE752909813300CE6C4D /* TableViewCell */,
 				F546AE6C2906E37C00CE6C4D /* CollectionViewCell */,
 				F546AE6B2906E37100CE6C4D /* View */,
 				F546AE632906D34200CE6C4D /* MyDayViewController.swift */,
 				F546AE7129096EE100CE6C4D /* MyDayViewModel.swift */,
-				F546AE6D2906E42700CE6C4D /* AddWishListViewController.swift */,
 				F546AE73290972F000CE6C4D /* FirstTypingViewController.swift */,
-				F546AE7A290BD5AD00CE6C4D /* EditWishListViewController.swift */,
 			);
 			path = MyDay;
 			sourceTree = "<group>";
@@ -294,6 +302,25 @@
 				F546AE78290981D300CE6C4D /* WishListDoneTableViewCell.swift */,
 			);
 			path = TableViewCell;
+			sourceTree = "<group>";
+		};
+		F546AE80290D047700CE6C4D /* WishList */ = {
+			isa = PBXGroup;
+			children = (
+				F546AE7A290BD5AD00CE6C4D /* EditWishListViewController.swift */,
+				F546AE6D2906E42700CE6C4D /* AddWishListViewController.swift */,
+			);
+			path = WishList;
+			sourceTree = "<group>";
+		};
+		F546AE81290D048000CE6C4D /* DayNote */ = {
+			isa = PBXGroup;
+			children = (
+				F546AE82290D049E00CE6C4D /* AddDayNoteViewController.swift */,
+				F546AE86290D0D9E00CE6C4D /* AddDayNoteViewModel.swift */,
+				F546AE84290D08BF00CE6C4D /* CustomDatePickerView.swift */,
+			);
+			path = DayNote;
 			sourceTree = "<group>";
 		};
 		F5A2EAE628D3644800536E9B = {
@@ -499,6 +526,7 @@
 				F5A2EBBD28F1760800536E9B /* LeftCell.swift */,
 				F5F3F15F28FA85D5006C9B6A /* String.swift */,
 				F546AE7C290CF51300CE6C4D /* UIView.swift */,
+				F546AE88290D0E7100CE6C4D /* Date.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -767,6 +795,7 @@
 				F5A2EB6828DEF80E00536E9B /* CustomButton.swift in Sources */,
 				F546AE6A2906DBEA00CE6C4D /* WishListCollectionViewCell.swift in Sources */,
 				F5A2EB5E28DCC07800536E9B /* ViewControllerPreview.swift in Sources */,
+				F546AE83290D049E00CE6C4D /* AddDayNoteViewController.swift in Sources */,
 				F5A2EBA028E4975100536E9B /* MainCollectionModel.swift in Sources */,
 				F5A2EBD528F309A100536E9B /* MyTaminReportView.swift in Sources */,
 				F5F3F16028FA85D5006C9B6A /* String.swift in Sources */,
@@ -784,10 +813,12 @@
 				F5A2EBC228F176FE00536E9B /* TagCollectionViewCell.swift in Sources */,
 				F546AE7B290BD5AD00CE6C4D /* EditWishListViewController.swift in Sources */,
 				F5A2EBAA28E5AEA900536E9B /* IndicatorView.swift in Sources */,
+				F546AE87290D0D9E00CE6C4D /* AddDayNoteViewModel.swift in Sources */,
 				F5A2EBAC28E5B26300536E9B /* MyTaminViewModel.swift in Sources */,
 				F5A2EBC828F2EA4F00536E9B /* CategoryCollectionViewCell.swift in Sources */,
 				F5A2EB5128DB614C00536E9B /* Font.swift in Sources */,
 				F5A2EB6628DEF58200536E9B /* SignUpViewController.swift in Sources */,
+				F546AE89290D0E7100CE6C4D /* Date.swift in Sources */,
 				F5A2EAFD28D3644800536E9B /* iTamin.xcdatamodeld in Sources */,
 				F5A2EB2C28D4B09800536E9B /* RootTabBarViewController.swift in Sources */,
 				F5A2EB4228DB2B9200536E9B /* Color.swift in Sources */,
@@ -829,6 +860,7 @@
 				F5A2EBBC28F1758800536E9B /* MindTextCollectionViewCell.swift in Sources */,
 				F5A2EBCA28F2EBD900536E9B /* CategoryPickerView.swift in Sources */,
 				F5A2EB9E28E46F8100536E9B /* MainCollectionView.swift in Sources */,
+				F546AE85290D08BF00CE6C4D /* CustomDatePickerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

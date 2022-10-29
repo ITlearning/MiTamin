@@ -99,7 +99,8 @@ class MyDayViewController: UIViewController, MenuBarDelegate {
     }
     
     func addDayNote() {
-        
+        let addVC = AddDayNoteViewController()
+        self.navigationController?.pushViewController(addVC, animated: true)
     }
     
     func moveToFAB() {
@@ -107,8 +108,6 @@ class MyDayViewController: UIViewController, MenuBarDelegate {
             let firstVC = FirstTypingViewController()
             firstVC.delegate = self
             self.navigationController?.pushViewController(firstVC, animated: true)
-        } else {
-            
         }
     }
     
