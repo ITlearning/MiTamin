@@ -50,6 +50,7 @@ extension AddDayNoteViewController {
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { _ in }, receiveValue: { value in
                     self.firstDay = "\(String(value.data.year)).\(String(value.data.month))"
+                    self.currentDay = "\(String(value.data.year)).\(String(value.data.month))"
                     self.currentDayPrint = "\(String(value.data.year))년 \(String(value.data.month))월의 마이데이"
                     let createdAt = Date.stringToDate(year: String(value.data.year), month: String(value.data.month))
 

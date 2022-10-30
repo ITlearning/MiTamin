@@ -49,7 +49,7 @@ class AddDayNoteViewController: UIViewController {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        
+        collectionView.isSkeletonable = true
         return collectionView
     }()
     
@@ -59,7 +59,7 @@ class AddDayNoteViewController: UIViewController {
         bView.layer.borderColor = UIColor.grayColor5.cgColor
         bView.layer.borderWidth = 1
         bView.layer.cornerRadius = 8
-        
+        bView.isSkeletonable = true
         return bView
     }()
     
@@ -68,14 +68,14 @@ class AddDayNoteViewController: UIViewController {
         label.text = "완료한 위시리스트"
         label.textColor = UIColor.grayColor4
         label.font = UIFont.SDGothicMedium(size: 14)
-        
+        label.isSkeletonable = true
         return label
     }()
     
     private let rightArrowView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "icon-arrow-left-small-mono-1")
-        
+        imageView.isSkeletonable = true
         return imageView
     }()
     
@@ -86,7 +86,7 @@ class AddDayNoteViewController: UIViewController {
         textView.layer.cornerRadius = 8
         textView.layer.borderWidth = 1
         textView.layer.borderColor = UIColor.grayColor5.cgColor
-        
+        textView.isSkeletonable = true
         return textView
     }()
     
@@ -96,6 +96,7 @@ class AddDayNoteViewController: UIViewController {
         button.backgroundColor = UIColor.primaryColor
         button.layer.cornerRadius = 8
         button.titleLabel?.font = UIFont.SDGothicBold(size: 16)
+        button.isSkeletonable = true
         return button
     }()
     
@@ -124,6 +125,18 @@ class AddDayNoteViewController: UIViewController {
         dateLabel.showGradientSkeleton()
         arrowDownImage.startSkeletonAnimation()
         arrowDownImage.showGradientSkeleton()
+        collectionView.startSkeletonAnimation()
+        collectionView.showGradientSkeleton()
+        borderView.startSkeletonAnimation()
+        borderView.showGradientSkeleton()
+        selectWishList.startSkeletonAnimation()
+        selectWishList.showGradientSkeleton()
+        rightArrowView.startSkeletonAnimation()
+        rightArrowView.showGradientSkeleton()
+        textView.startSkeletonAnimation()
+        textView.showGradientSkeleton()
+        doneButton.startSkeletonAnimation()
+        doneButton.showGradientSkeleton()
     }
     
     func stopSkeleton() {
@@ -131,6 +144,18 @@ class AddDayNoteViewController: UIViewController {
         dateLabel.hideSkeleton()
         arrowDownImage.stopSkeletonAnimation()
         arrowDownImage.hideSkeleton()
+        collectionView.stopSkeletonAnimation()
+        collectionView.hideSkeleton()
+        borderView.stopSkeletonAnimation()
+        borderView.hideSkeleton()
+        selectWishList.stopSkeletonAnimation()
+        selectWishList.hideSkeleton()
+        rightArrowView.stopSkeletonAnimation()
+        rightArrowView.hideSkeleton()
+        textView.stopSkeletonAnimation()
+        textView.hideSkeleton()
+        doneButton.stopSkeletonAnimation()
+        doneButton.hideSkeleton()
     }
     
     func bindCombine() {
@@ -257,6 +282,7 @@ class AddDayNoteViewController: UIViewController {
     }
     
     func configureLayout() {
+        view.isSkeletonable = true
         blackDemmedView.backgroundColor = .black
         blackDemmedView.alpha = 0.0
         let tapGesutre = UITapGestureRecognizer(target: self, action: #selector(dismissAction))
@@ -370,7 +396,7 @@ class AddDayNoteViewController: UIViewController {
                 switch item {
                 case .photo(let photo):
                     photoArray.append(photo.image)
-                case .video(let video):
+                case .video(let _):
                     break
                 }
             }
@@ -428,6 +454,8 @@ extension AddDayNoteViewController: UICollectionViewDelegate, UICollectionViewDa
         
         return UICollectionViewCell()
     }
+    
+    
     
     
 }

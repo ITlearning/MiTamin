@@ -14,7 +14,7 @@ class AddPhotoCollectionViewCell: UICollectionViewCell {
     let button: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "AddButton"), for: .normal)
-        
+        button.isSkeletonable = true
         return button
     }()
     

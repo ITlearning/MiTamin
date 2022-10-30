@@ -17,14 +17,14 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 8
         imageView.layer.masksToBounds = true
-        
+        imageView.isSkeletonable = true
         return imageView
     }()
     
     let button: UIImageView = {
         let button = UIImageView()
         button.image = UIImage(named: "icon-x-circle-mono")
-        
+        button.isSkeletonable = true
         return button
     }()
     
