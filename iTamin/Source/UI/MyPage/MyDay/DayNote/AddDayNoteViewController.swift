@@ -237,7 +237,7 @@ class AddDayNoteViewController: UIViewController {
     
     @objc
     func wishListOpen() {
-        let wishListVC = DoneWishListViewController()
+        let wishListVC = DoneWishListViewController(selectWishList: viewModel.selectWishList)
         
         self.navigationController?.pushViewController(wishListVC, animated: true)
         
@@ -264,8 +264,6 @@ class AddDayNoteViewController: UIViewController {
         view.addSubview(scrollView)
         datePickerView.alpha = 0.0
         scrollView.addSubview(stackView)
-        view.addSubview(blackDemmedView)
-        view.addSubview(datePickerView)
         view.addSubview(collectionView)
         let borderTap = UITapGestureRecognizer(target: self, action: #selector(wishListOpen))
         borderView.addGestureRecognizer(borderTap)
@@ -274,6 +272,9 @@ class AddDayNoteViewController: UIViewController {
         borderView.addSubview(rightArrowView)
         view.addSubview(textView)
         view.addSubview(doneButton)
+        
+        view.addSubview(blackDemmedView)
+        view.addSubview(datePickerView)
         
         blackDemmedView.snp.makeConstraints {
             $0.top.equalTo(view.snp.top)
