@@ -105,6 +105,12 @@
 		F5A2EBCF28F2F09400536E9B /* CategoryBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EBCE28F2F09400536E9B /* CategoryBottomSheetView.swift */; };
 		F5A2EBD328F2FC3000536E9B /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F5A2EBD228F2FC3000536E9B /* IQKeyboardManagerSwift */; };
 		F5A2EBD528F309A100536E9B /* MyTaminReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EBD428F309A100536E9B /* MyTaminReportView.swift */; };
+		F5E15A8E290E3B01007179A2 /* DayNoteListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15A8D290E3B01007179A2 /* DayNoteListCollectionViewCell.swift */; };
+		F5E15A90290E3BF4007179A2 /* BlurEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15A8F290E3BF4007179A2 /* BlurEffect.swift */; };
+		F5E15A92290FDE2C007179A2 /* DayNoteHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15A91290FDE2C007179A2 /* DayNoteHeaderCollectionReusableView.swift */; };
+		F5E15A96290FFA37007179A2 /* MyDayDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15A95290FFA37007179A2 /* MyDayDetailView.swift */; };
+		F5E15A99290FFD0F007179A2 /* SkeletonUI in Frameworks */ = {isa = PBXBuildFile; productRef = F5E15A98290FFD0F007179A2 /* SkeletonUI */; };
+		F5E15A9B29100B75007179A2 /* AppInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15A9A29100B75007179A2 /* AppInfoView.swift */; };
 		F5F3F15C28FA7B48006C9B6A /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F3F15B28FA7B48006C9B6A /* CoreDataManager.swift */; };
 		F5F3F16028FA85D5006C9B6A /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F3F15F28FA85D5006C9B6A /* String.swift */; };
 		F5F3F16328FA8A10006C9B6A /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = F5F3F16228FA8A10006C9B6A /* SkeletonView */; };
@@ -225,6 +231,11 @@
 		F5A2EBC928F2EBD900536E9B /* CategoryPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerView.swift; sourceTree = "<group>"; };
 		F5A2EBCE28F2F09400536E9B /* CategoryBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryBottomSheetView.swift; sourceTree = "<group>"; };
 		F5A2EBD428F309A100536E9B /* MyTaminReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTaminReportView.swift; sourceTree = "<group>"; };
+		F5E15A8D290E3B01007179A2 /* DayNoteListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayNoteListCollectionViewCell.swift; sourceTree = "<group>"; };
+		F5E15A8F290E3BF4007179A2 /* BlurEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurEffect.swift; sourceTree = "<group>"; };
+		F5E15A91290FDE2C007179A2 /* DayNoteHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayNoteHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		F5E15A95290FFA37007179A2 /* MyDayDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayDetailView.swift; sourceTree = "<group>"; };
+		F5E15A9A29100B75007179A2 /* AppInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoView.swift; sourceTree = "<group>"; };
 		F5F3F15B28FA7B48006C9B6A /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		F5F3F15F28FA85D5006C9B6A /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		F5F3F16428FA9589006C9B6A /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
@@ -237,6 +248,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5A2EBD328F2FC3000536E9B /* IQKeyboardManagerSwift in Frameworks */,
+				F5E15A99290FFD0F007179A2 /* SkeletonUI in Frameworks */,
 				F5A2EB8628DF388300536E9B /* Alamofire in Frameworks */,
 				F5A2EB3C28D4BB0300536E9B /* CombineCocoa in Frameworks */,
 				F5A2EB9028E1F1DD00536E9B /* SwiftKeychainWrapper in Frameworks */,
@@ -303,6 +315,8 @@
 				F546AE7E290CFD2300CE6C4D /* DayNoteCollectionViewCell.swift */,
 				F546AE8E290D347900CE6C4D /* AddPhotoCollectionViewCell.swift */,
 				F546AE92290D4FAA00CE6C4D /* PhotoCollectionViewCell.swift */,
+				F5E15A8D290E3B01007179A2 /* DayNoteListCollectionViewCell.swift */,
+				F5E15A91290FDE2C007179A2 /* DayNoteHeaderCollectionReusableView.swift */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -542,6 +556,7 @@
 				F546AE7C290CF51300CE6C4D /* UIView.swift */,
 				F546AE88290D0E7100CE6C4D /* Date.swift */,
 				F546AE8C290D27F400CE6C4D /* AlertToastView.swift */,
+				F5E15A8F290E3BF4007179A2 /* BlurEffect.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -637,6 +652,8 @@
 			isa = PBXGroup;
 			children = (
 				F5F3F16728FC52C9006C9B6A /* ProfileBGView.swift */,
+				F5E15A95290FFA37007179A2 /* MyDayDetailView.swift */,
+				F5E15A9A29100B75007179A2 /* AppInfoView.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -666,6 +683,7 @@
 				F5F3F16228FA8A10006C9B6A /* SkeletonView */,
 				F546AE5D29059F3000CE6C4D /* YPImagePicker */,
 				F546AE602905A21A00CE6C4D /* Kingfisher */,
+				F5E15A98290FFD0F007179A2 /* SkeletonUI */,
 			);
 			productName = iTamin;
 			productReference = F5A2EAEF28D3644800536E9B /* iTamin.app */;
@@ -748,6 +766,7 @@
 				F5F3F16128FA8A10006C9B6A /* XCRemoteSwiftPackageReference "SkeletonView" */,
 				F546AE5C29059F3000CE6C4D /* XCRemoteSwiftPackageReference "YPImagePicker" */,
 				F546AE5F2905A21A00CE6C4D /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				F5E15A97290FFD0F007179A2 /* XCRemoteSwiftPackageReference "SkeletonUI" */,
 			);
 			productRefGroup = F5A2EAF028D3644800536E9B /* Products */;
 			projectDirPath = "";
@@ -806,6 +825,7 @@
 				F546AE7F290CFD2300CE6C4D /* DayNoteCollectionViewCell.swift in Sources */,
 				F5A2EB7428DF0F1000536E9B /* NickNameViewController.swift in Sources */,
 				F546AE6E2906E42700CE6C4D /* AddWishListViewController.swift in Sources */,
+				F5E15A92290FDE2C007179A2 /* DayNoteHeaderCollectionReusableView.swift in Sources */,
 				F5A2EB5C28DCBFC700536E9B /* SignInViewController.swift in Sources */,
 				F546AE8D290D27F400CE6C4D /* AlertToastView.swift in Sources */,
 				F546AE8F290D347900CE6C4D /* AddPhotoCollectionViewCell.swift in Sources */,
@@ -833,6 +853,7 @@
 				F546AE87290D0D9E00CE6C4D /* AddDayNoteViewModel.swift in Sources */,
 				F5A2EBAC28E5B26300536E9B /* MyTaminViewModel.swift in Sources */,
 				F5A2EBC828F2EA4F00536E9B /* CategoryCollectionViewCell.swift in Sources */,
+				F5E15A90290E3BF4007179A2 /* BlurEffect.swift in Sources */,
 				F5A2EB5128DB614C00536E9B /* Font.swift in Sources */,
 				F546AE95290D5A0600CE6C4D /* DoneWishListViewController.swift in Sources */,
 				F5A2EB6628DEF58200536E9B /* SignUpViewController.swift in Sources */,
@@ -857,6 +878,7 @@
 				F5A2EBB428E9BF1000536E9B /* LineProgressBar.swift in Sources */,
 				F5A2EB5728DCBAA900536E9B /* CancelBag.swift in Sources */,
 				F546AE93290D4FAB00CE6C4D /* PhotoCollectionViewCell.swift in Sources */,
+				F5E15A96290FFA37007179A2 /* MyDayDetailView.swift in Sources */,
 				F5A2EB8128DF1E5E00536E9B /* CustomDatePicker.swift in Sources */,
 				F5A2EB7F28DF1C5500536E9B /* OnboardingCollectionViewCell.swift in Sources */,
 				F5A2EB3F28DB231600536E9B /* CustomTabItem.swift in Sources */,
@@ -871,6 +893,7 @@
 				F5A2EBCF28F2F09400536E9B /* CategoryBottomSheetView.swift in Sources */,
 				F5A2EB8D28DF6BA600536E9B /* UIWindow.swift in Sources */,
 				F5A2EBA728E5A6F200536E9B /* RoundedCircleView.swift in Sources */,
+				F5E15A9B29100B75007179A2 /* AppInfoView.swift in Sources */,
 				F546AE97290D5A9400CE6C4D /* DoneWishListViewModel.swift in Sources */,
 				F5A2EBB628F1600A00536E9B /* MindCollectionViewCell.swift in Sources */,
 				F5F3F15C28FA7B48006C9B6A /* CoreDataManager.swift in Sources */,
@@ -880,6 +903,7 @@
 				F5A2EBBC28F1758800536E9B /* MindTextCollectionViewCell.swift in Sources */,
 				F5A2EBCA28F2EBD900536E9B /* CategoryPickerView.swift in Sources */,
 				F5A2EB9E28E46F8100536E9B /* MainCollectionView.swift in Sources */,
+				F5E15A8E290E3B01007179A2 /* DayNoteListCollectionViewCell.swift in Sources */,
 				F546AE85290D08BF00CE6C4D /* CustomDatePickerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1276,6 +1300,14 @@
 				kind = branch;
 			};
 		};
+		F5E15A97290FFD0F007179A2 /* XCRemoteSwiftPackageReference "SkeletonUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CSolanaM/SkeletonUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		F5F3F16128FA8A10006C9B6A /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
@@ -1321,6 +1353,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F5A2EBD128F2FC3000536E9B /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
 			productName = IQKeyboardManagerSwift;
+		};
+		F5E15A98290FFD0F007179A2 /* SkeletonUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F5E15A97290FFD0F007179A2 /* XCRemoteSwiftPackageReference "SkeletonUI" */;
+			productName = SkeletonUI;
 		};
 		F5F3F16228FA8A10006C9B6A /* SkeletonView */ = {
 			isa = XCSwiftPackageProductDependency;

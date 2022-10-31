@@ -11,8 +11,21 @@ extension MyDayViewController {
     class ViewModel: ObservableObject {
         
         @Published var wishList: [WishListModel] = []
+        @Published var dayNoteList: [DayNoteListModel] = []
         var networkManager = NetworkManager()
         var cancelBag = CancelBag()
+        
+        func getDayNoteList() {
+            networkManager.getDayNoteList()
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: { _ in }, receiveValue: { value in
+                    self.dayNoteList.removeAll()
+                    value.data.forEach { (key, value) in
+                        self.dayNoteList.append(DayNoteListModel(year: key, data: value))
+                    }
+                })
+                .cancel(with: cancelBag)
+        }
         
         func getWishList() {
             networkManager.getWishList()

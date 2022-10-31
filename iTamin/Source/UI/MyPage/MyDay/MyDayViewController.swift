@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import SwiftUI
 
 enum ContentMode {
     case WishList
@@ -68,6 +69,7 @@ class MyDayViewController: UIViewController, MenuBarDelegate {
         configureCollectionView()
         configureLayout()
         viewModel.getWishList()
+        viewModel.getDayNoteList()
         bindCombine()
     }
     
@@ -98,6 +100,14 @@ class MyDayViewController: UIViewController, MenuBarDelegate {
                     self.navigationItem.rightBarButtonItem = nil
                 }
                 
+            })
+            .cancel(with: cancelBag)
+        
+        viewModel.$dayNoteList
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] _ in
+                guard let self = self else { return }
+                self.collectionView.reloadData()
             })
             .cancel(with: cancelBag)
         
@@ -201,7 +211,16 @@ extension MyDayViewController: WishListCollectionViewDelegate {
     
 }
 
+extension MyDayViewController: DayNoteDeletgate {
+    func selectIndexPath(indexPath: IndexPath) {
+        let vc = UIHostingController(rootView: MyDayDetailView(myDayData: viewModel.dayNoteList[indexPath.section].data[indexPath.row]))
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+    }
+}
+
 extension MyDayViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         switch indexPath.row {
@@ -216,6 +235,10 @@ extension MyDayViewController: UICollectionViewDelegate, UICollectionViewDataSou
             return cell
         case 1:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DayNoteCollectionViewCell.cellId, for: indexPath) as? DayNoteCollectionViewCell else { return UICollectionViewCell() }
+            
+            cell.dayNotes = viewModel.dayNoteList
+            
+            cell.delegate = self
             
             return cell
         default:

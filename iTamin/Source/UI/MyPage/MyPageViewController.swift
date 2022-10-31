@@ -212,6 +212,7 @@ class MyPageViewController: UIViewController {
         return customView
     }()
     
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationConfigure()
@@ -302,14 +303,15 @@ class MyPageViewController: UIViewController {
         roundView.addSubview(ddayLabel)
         roundedRectangleView.addSubview(roundView)
         containerView.addSubview(appInfoLabel)
-        containerView.addSubview(accountSettingButton)
-        containerView.addSubview(serviceInfoButton)
-        containerView.addSubview(userDataButton)
-        containerView.addSubview(appVersionLabel)
-        containerView.addSubview(appVersionStatus)
         let seprateLineView = UIView()
         seprateLineView.backgroundColor = UIColor.backgroundColor2
         containerView.addSubview(seprateLineView)
+        
+        let appInfoView = UIHostingController(rootView: AppInfoView())
+        
+        appInfoView.rootView.delegate = self
+        
+        containerView.addSubview(appInfoView.view)
         
         mainLogo.snp.makeConstraints {
             $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(10)
@@ -430,38 +432,20 @@ class MyPageViewController: UIViewController {
             $0.top.equalTo(seprateLineView.snp.bottom).offset(24)
             $0.leading.equalTo(containerView.snp.leading).offset(20)
         }
-        accountSettingButton.snp.makeConstraints {
-            $0.top.equalTo(appInfoLabel.snp.bottom).offset(24)
-            $0.leading.equalTo(appInfoLabel.snp.leading)
-            $0.trailing.equalTo(containerView.snp.trailing).inset(20)
-            $0.height.equalTo(40)
-        }
         
-        serviceInfoButton.snp.makeConstraints {
-            $0.top.equalTo(accountSettingButton.snp.bottom)
-            $0.leading.equalTo(appInfoLabel)
-            $0.trailing.equalTo(containerView.snp.trailing).inset(20)
-            $0.height.equalTo(40)
-        }
-        
-        userDataButton.snp.makeConstraints {
-            $0.top.equalTo(serviceInfoButton.snp.bottom)
-            $0.leading.equalTo(appInfoLabel)
-            $0.height.equalTo(40)
-        }
-        
-        appVersionLabel.snp.makeConstraints {
-            $0.top.equalTo(userDataButton.snp.bottom).offset(10)
-            $0.leading.equalTo(appInfoLabel)
-        }
-        
-        appVersionStatus.snp.makeConstraints {
-            $0.top.equalTo(appVersionLabel.snp.top)
-            $0.trailing.equalTo(containerView.snp.trailing).inset(20)
+        appInfoView.view.snp.makeConstraints {
+            $0.top.equalTo(appInfoLabel.snp.bottom).offset(20)
+            $0.leading.equalToSuperview()
+            $0.trailing.equalToSuperview()
             $0.bottom.equalTo(containerView.snp.bottom)
         }
         
-        
+    }
+}
+
+extension MyPageViewController: AppInfoDelegate {
+    func touchAction(type: AppInfo) {
+        print(type)
     }
 }
 

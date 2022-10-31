@@ -153,3 +153,8 @@ struct DayNoteModel: Codable {
     var wishText: String
     var note: String
 }
+
+struct DayNoteListModel: Codable {
+    var year: String
+    var data: [DayNoteModel]
+}
