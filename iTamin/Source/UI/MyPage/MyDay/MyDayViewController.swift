@@ -58,6 +58,7 @@ class MyDayViewController: UIViewController, MenuBarDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         navigationItem.title = "마이데이"
+        
     }
     
     override func viewDidLoad() {

@@ -11,7 +11,7 @@ extension UIViewController {
     
     func navigationConfigure(title: String = "") {
         let backButton = UIImage(named: "icon-arrow-left-small-mono")
-        self.navigationController?.isNavigationBarHidden = false
+        //self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.navigationBar.backIndicatorImage = backButton
         self.navigationController?.navigationBar.backItem?.title = ""
         self.navigationController?.navigationBar.topItem?.title = title

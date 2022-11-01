@@ -286,9 +286,6 @@ class MyPageViewController: UIViewController {
         view.addSubview(helpButton)
         view.addSubview(settingButton)
         
-        
-        
-        //scrollView.addSubview()
         containerView.addSubview(profileBackGroundView.view)
         containerView.addSubview(profileImageView)
         containerView.addSubview(profileEditButton)

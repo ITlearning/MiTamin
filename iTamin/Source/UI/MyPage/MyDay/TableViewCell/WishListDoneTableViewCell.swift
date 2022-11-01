@@ -16,7 +16,7 @@ class WishListDoneTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont.SDGothicMedium(size: 16)
         label.textColor = UIColor.grayColor4
-        
+        label.isSkeletonable = true
         return label
     }()
     let borderView = UIView()
@@ -25,7 +25,7 @@ class WishListDoneTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont.SDGothicBold(size: 16)
         label.textColor = UIColor.primaryColor
-        
+        label.isSkeletonable = true
         return label
     }()
     

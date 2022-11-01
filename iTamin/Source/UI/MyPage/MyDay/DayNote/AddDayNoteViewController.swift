@@ -103,16 +103,16 @@ class AddDayNoteViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         stackView.startSkeletonAnimation()
-        navigationItem.title = "기록 남기기"
-        self.navigationController?.navigationBar.topItem?.title = "기록 남기기"
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         navigationConfigure(title: "기록 남기기")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        navigationItem.title = "기록 남기기"
-        self.navigationController?.navigationBar.topItem?.title = "기록 남기기"
         viewModel.loadDays()
         startSkeleton()
         bindCombine()

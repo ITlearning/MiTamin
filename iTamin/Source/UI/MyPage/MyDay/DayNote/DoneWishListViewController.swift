@@ -28,6 +28,17 @@ class DoneWishListViewController: UIViewController {
         return button
     }()
     
+    private let loadingText: UILabel = {
+        let label = UILabel()
+        label.text = "작고 소중한 서버에서\n열심히 불러오는 중..."
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.textColor = UIColor.grayColor4
+        label.font = UIFont.SDGothicRegular(size: 15)
+        label.alpha = 0.0
+        return label
+    }()
+    
     init(selectWishList: WishListModel?) {
         viewModel.selectWishList = selectWishList
         super.init(nibName: nil, bundle: nil)
@@ -37,14 +48,40 @@ class DoneWishListViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationConfigure(title: "완료한 위시리스트")
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        showLoadingText()
         viewModel.getWishList()
-        navigationConfigure(title: "완료한 위시리스트")
         bindCombine()
         configureLayout()
         configureTableView()
+    }
+    
+    func showLoadingText() {
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
+            self.loadingText.alpha = 1.0
+        })
+    }
+    
+    func hideLoadText() {
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
+            self.loadingText.alpha = 0.0
+        })
+    }
+    
+    func showTableView() {
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
+            self.tableView.alpha = 1.0
+        }, completion: { _ in
+            self.tableView.reloadData()
+        })
     }
     
     func activeButton() {
@@ -62,7 +99,10 @@ class DoneWishListViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] value in
                 guard let self = self else { return }
-                self.tableView.reloadData()
+                if !value.isEmpty {
+                    self.hideLoadText()
+                    self.showTableView()
+                }
             })
             .cancel(with: cancelBag)
         
@@ -103,6 +143,7 @@ class DoneWishListViewController: UIViewController {
     private func configureLayout() {
         view.addSubview(tableView)
         view.addSubview(doneButton)
+        view.addSubview(loadingText)
         tableView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(19)
@@ -115,6 +156,11 @@ class DoneWishListViewController: UIViewController {
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
             $0.height.equalTo(56)
+        }
+        
+        loadingText.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview()
         }
         
     }
