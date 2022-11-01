@@ -16,8 +16,20 @@ extension DayNoteDetailViewController {
         @Published var dayNoteModel: DayNoteModel? = nil
         @Published var editWishList: WishListModel? = nil
         var downloadIsDone: Bool = false
+        var dismissAction = PassthroughSubject<Bool, Never>()
         var networkManager = NetworkManager()
         var cancelBag = CancelBag()
+        
+        func deleteDayNote() {
+            networkManager.deleteDayNote(dayNoteId: dayNoteModel?.daynoteId ?? 0)
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] value in
+                    print(value.message)
+                    self?.dismissAction.send(true)
+                })
+                .cancel(with: cancelBag)
+        }
+        
         func downLoadImage() {
             
             downloadedImage.removeAll()

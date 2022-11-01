@@ -19,6 +19,7 @@ class DayNoteDetailViewController: UIViewController {
     var cancelBag = CancelBag()
     var viewModel = ViewModel()
     var alertToastView = AlertToastView()
+    
     private lazy var rightMenuButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: UIImage(named: "more-horizontal"), style: .plain, target: self, action: #selector(menuMode))
         button.tintColor = UIColor.grayColor4
@@ -76,6 +77,20 @@ class DayNoteDetailViewController: UIViewController {
         bindCombine()
     }
     
+    func alertOn() {
+        let alert = UIAlertController(title: "기록 삭제", message: "기록을 정말로 삭제하시겠어요?\n삭제된 내용은 복구할 수 없습니다.", preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "취소", style: .default)
+        let deleteAction = UIAlertAction(title: "삭제", style: .destructive, handler: {_ in
+            self.viewModel.deleteDayNote()
+        })
+        
+        alert.addAction(cancelAction)
+        alert.addAction(deleteAction)
+        
+        self.present(alert, animated: true)
+    }
+    
     func openEditView() {
         let addVC = AddDayNoteViewController(dayNoteModel: dayNoteModel, images: viewModel.downloadedImage, isEdit: true)
         self.navigationController?.pushViewController(addVC, animated: true)
@@ -97,10 +112,19 @@ class DayNoteDetailViewController: UIViewController {
         deleteButton.tapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] _ in
-                
+                guard let self = self else { return }
+                self.alertOn()
+            })
+            .cancel(with: cancelBag)
+        
+        viewModel.dismissAction.receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }, receiveValue: { value in
+                self.navigationController?.popViewController(animated: true)
             })
             .cancel(with: cancelBag)
     }
+    
+    
     
     @objc
     func menuMode() {
