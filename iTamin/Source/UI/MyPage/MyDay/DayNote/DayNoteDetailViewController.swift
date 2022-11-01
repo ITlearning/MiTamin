@@ -70,6 +70,7 @@ class DayNoteDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        UserDefaults.standard.set(false, forKey: "MyDayUpdate")
         view.backgroundColor = .white
         navigationItem.rightBarButtonItem = rightMenuButton
         configureLayout()
@@ -119,6 +120,7 @@ class DayNoteDetailViewController: UIViewController {
         
         viewModel.dismissAction.receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in }, receiveValue: { value in
+                UserDefaults.standard.set(true, forKey: "MyDayUpdate")
                 self.navigationController?.popViewController(animated: true)
             })
             .cancel(with: cancelBag)

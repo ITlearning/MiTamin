@@ -34,6 +34,7 @@ extension AddDayNoteViewController {
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] value in
                     print(value.data)
+                    UserDefaults.standard.set(true, forKey: "MyDayUpdate")
                     self?.uploadSuccess = true
                 })
                 .cancel(with: cancelBag)

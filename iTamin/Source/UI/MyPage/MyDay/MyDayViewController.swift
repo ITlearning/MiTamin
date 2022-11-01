@@ -51,19 +51,24 @@ class MyDayViewController: UIViewController, MenuBarDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if UserDefaults.standard.bool(forKey: "MyDayUpdate") {
+            viewModel.getDayNoteList()
+            UserDefaults.standard.set(false, forKey: "MyDayUpdate")
+        }
+        
         self.navigationController?.isNavigationBarHidden = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
         navigationConfigure(title: "마이데이")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         view.backgroundColor = .white
-        
         configureMenuBar()
         configureCollectionView()
         configureLayout()

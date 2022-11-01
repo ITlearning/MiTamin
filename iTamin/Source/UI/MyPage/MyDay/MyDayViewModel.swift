@@ -28,6 +28,7 @@ extension MyDayViewController {
         }
         
         func getWishList() {
+            self.wishList.removeAll()
             networkManager.getWishList()
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { _ in }, receiveValue: { value in
