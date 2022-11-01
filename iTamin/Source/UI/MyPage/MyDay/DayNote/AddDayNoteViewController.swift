@@ -20,6 +20,7 @@ class AddDayNoteViewController: UIViewController {
     var datePickerView = CustomDatePickerView()
     var blackDemmedView = UIView()
     var alretView = AlertToastView()
+
     private let dateLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.grayColor4
@@ -100,6 +101,23 @@ class AddDayNoteViewController: UIViewController {
         return button
     }()
     
+    init(dayNoteModel: DayNoteModel? = nil, images: [UIImage]? = [], isEdit: Bool = false) {
+        viewModel.isEdit = isEdit
+        if isEdit {
+            viewModel.firstDay = "\(String(dayNoteModel?.year ?? 0)).\(String(dayNoteModel?.month ?? 0))"
+            viewModel.selectYear = dayNoteModel?.year ?? 0
+            viewModel.selectMonth = dayNoteModel?.month ?? 0
+            viewModel.currentDay = "\(String(dayNoteModel?.year ?? 0)).\(String(dayNoteModel?.month ?? 0))"
+            viewModel.currentDayPrint = "\(String(dayNoteModel?.year ?? 0))년 \(String(dayNoteModel?.month ?? 0))월의 마이데이"
+            viewModel.selectImages = images ?? []
+        }
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         stackView.startSkeletonAnimation()
@@ -160,7 +178,7 @@ class AddDayNoteViewController: UIViewController {
             .sink(receiveValue: { [weak self] value in
                 guard let self = self else { return }
                 self.datePickerView.days = value
-                if value.count > 1 {
+                if value.count > 1 && !self.viewModel.isEdit {
                     guard let yearIndex = value[0].firstIndex(where: { Int($0) == self.viewModel.selectYear }) else { return }
                     guard let monthIndex = value[1].firstIndex(where: { Int($0) == self.viewModel.selectMonth }) else { return }
                     self.datePickerView.selectYear = Int(value[0][yearIndex]) ?? 0
@@ -169,7 +187,6 @@ class AddDayNoteViewController: UIViewController {
                     self.datePickerView.datePicker.selectRow(monthIndex, inComponent: 1, animated: true)
                     self.datePickerView.pickerView(self.datePickerView.datePicker, didSelectRow: yearIndex, inComponent: 0)
                     self.datePickerView.pickerView(self.datePickerView.datePicker, didSelectRow: monthIndex, inComponent: 1)
-
                 }
             })
             .cancel(with: cancelBag)

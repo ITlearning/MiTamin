@@ -18,6 +18,7 @@ extension AddDayNoteViewController {
         @Published var firstDay: String = ""
         @Published var note: String = ""
         @Published var uploadSuccess: Bool = false
+        var isEdit = false
         var isReady: Bool = false
         var selectYear: Int = 0
         var selectMonth: Int = 0
@@ -29,7 +30,7 @@ extension AddDayNoteViewController {
         
         
         func writeDayNote() {
-            networkManager.writeDayNote(wishText: selectWishList?.wishText ?? "", note: note, date: currentDay, images: selectImages)
+            networkManager.writeDayNote(wishIdx: selectWishList?.wishId ?? 0, note: note, date: currentDay, images: selectImages)
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] value in
                     print(value.data)
@@ -52,11 +53,14 @@ extension AddDayNoteViewController {
             networkManager.getCreateAt()
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { _ in }, receiveValue: { value in
-                    self.firstDay = "\(String(value.data.year)).\(String(value.data.month))"
-                    self.selectYear = value.data.year
-                    self.selectMonth = value.data.month
-                    self.currentDay = "\(String(value.data.year)).\(String(value.data.month))"
-                    self.currentDayPrint = "\(String(value.data.year))년 \(String(value.data.month))월의 마이데이"
+                    if !self.isEdit {
+                        self.firstDay = "\(String(value.data.year)).\(String(value.data.month))"
+                        self.selectYear = value.data.year
+                        self.selectMonth = value.data.month
+                        self.currentDay = "\(String(value.data.year)).\(String(value.data.month))"
+                        self.currentDayPrint = "\(String(value.data.year))년 \(String(value.data.month))월의 마이데이"
+                    }
+                    
                     let createdAt = Date.stringToDate(year: String(value.data.year), month: String(value.data.month))
 
                     let diffNum = Date.diffToMonth(day: createdAt ?? Date())

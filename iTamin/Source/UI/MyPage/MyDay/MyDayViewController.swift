@@ -52,13 +52,11 @@ class MyDayViewController: UIViewController, MenuBarDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
-        navigationConfigure()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        navigationItem.title = "마이데이"
-        
+        navigationConfigure(title: "마이데이")
     }
     
     override func viewDidLoad() {
@@ -151,11 +149,11 @@ class MyDayViewController: UIViewController, MenuBarDelegate {
         let indexPath = IndexPath(row: index, section: 0)
         
         if indexPath.row == 0 {
+            contentMode = .DayNote
+            self.navigationItem.rightBarButtonItem = nil
+        } else {
             contentMode = .WishList
             self.navigationItem.rightBarButtonItem = self.editButton
-        } else {
-            self.navigationItem.rightBarButtonItem = nil
-            contentMode = .DayNote
         }
         
         self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
@@ -205,7 +203,8 @@ extension MyDayViewController: WishListCollectionViewDelegate {
 
 extension MyDayViewController: DayNoteDeletgate {
     func selectIndexPath(indexPath: IndexPath) {
-        let vc = UIHostingController(rootView: MyDayDetailView(myDayData: viewModel.dayNoteList[indexPath.section].data[indexPath.row]))
+        let vc = DayNoteDetailViewController(dayNoteModel: viewModel.dayNoteList[indexPath.section].data[indexPath.row])
+        
         self.navigationController?.pushViewController(vc, animated: true)
         
     }

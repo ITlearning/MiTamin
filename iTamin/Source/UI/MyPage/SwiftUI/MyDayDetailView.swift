@@ -19,6 +19,9 @@ struct MyDayDetailView: View {
     ], year: 2022, month: 10, wishText: "빵 나오는 시간에 맞춰서 갓 나온 빵 사먹기", note: "따끈따끈한 식빵에 우유는 역시 최고! 빵 나오는 시간에 맞춰서 나가니까 뭔가 부지런해진 기분이라 더 뿌듯하다.")
     @State var index: Int = 0
     @State var isDownload: Bool = false
+    
+    var editButtonAction: (() -> ())?
+    
     func close() {
         presentation.wrappedValue.dismiss()
     }
@@ -91,31 +94,7 @@ struct MyDayDetailView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
-        .navigationBarHidden(false)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button {
-                    self.close()
-                } label: {
-                    Image("icon-arrow-left-small-mono")
-                        .renderingMode(.original)
-                }
-            }
-            ToolbarItem(placement: .principal) {
-                Text("마이데이 기록")
-                    .font(.SDGothicRegular(size: 16))
-                    .foregroundColor(Color(uiColor: UIColor.grayColor4))
-            }
-            ToolbarItem(placement: .navigationBarTrailing, content: {
-                Button(action: {
-                    
-                }, label: {
-                    Image("more-horizontal")
-                        .resizable()
-                        .frame(width: 24, height: 24)
-                })
-            })
-        }
+        .navigationBarHidden(true)
     }
 }
 

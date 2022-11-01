@@ -111,6 +111,8 @@
 		F5E15A96290FFA37007179A2 /* MyDayDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15A95290FFA37007179A2 /* MyDayDetailView.swift */; };
 		F5E15A99290FFD0F007179A2 /* SkeletonUI in Frameworks */ = {isa = PBXBuildFile; productRef = F5E15A98290FFD0F007179A2 /* SkeletonUI */; };
 		F5E15A9B29100B75007179A2 /* AppInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15A9A29100B75007179A2 /* AppInfoView.swift */; };
+		F5E15A9D29115579007179A2 /* DayNoteDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15A9C29115579007179A2 /* DayNoteDetailViewController.swift */; };
+		F5E15A9F2911613A007179A2 /* DayNoteDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15A9E2911613A007179A2 /* DayNoteDetailViewModel.swift */; };
 		F5F3F15C28FA7B48006C9B6A /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F3F15B28FA7B48006C9B6A /* CoreDataManager.swift */; };
 		F5F3F16028FA85D5006C9B6A /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F3F15F28FA85D5006C9B6A /* String.swift */; };
 		F5F3F16328FA8A10006C9B6A /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = F5F3F16228FA8A10006C9B6A /* SkeletonView */; };
@@ -236,6 +238,8 @@
 		F5E15A91290FDE2C007179A2 /* DayNoteHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayNoteHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		F5E15A95290FFA37007179A2 /* MyDayDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayDetailView.swift; sourceTree = "<group>"; };
 		F5E15A9A29100B75007179A2 /* AppInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoView.swift; sourceTree = "<group>"; };
+		F5E15A9C29115579007179A2 /* DayNoteDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayNoteDetailViewController.swift; sourceTree = "<group>"; };
+		F5E15A9E2911613A007179A2 /* DayNoteDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayNoteDetailViewModel.swift; sourceTree = "<group>"; };
 		F5F3F15B28FA7B48006C9B6A /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		F5F3F15F28FA85D5006C9B6A /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		F5F3F16428FA9589006C9B6A /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
@@ -347,6 +351,8 @@
 				F546AE84290D08BF00CE6C4D /* CustomDatePickerView.swift */,
 				F546AE94290D5A0600CE6C4D /* DoneWishListViewController.swift */,
 				F546AE96290D5A9400CE6C4D /* DoneWishListViewModel.swift */,
+				F5E15A9C29115579007179A2 /* DayNoteDetailViewController.swift */,
+				F5E15A9E2911613A007179A2 /* DayNoteDetailViewModel.swift */,
 			);
 			path = DayNote;
 			sourceTree = "<group>";
@@ -842,6 +848,7 @@
 				F5A2EB8B28DF38C700536E9B /* ServerModel.swift in Sources */,
 				F5A2EB5428DCB73800536E9B /* LoginMainViewController.swift in Sources */,
 				F546AE74290972F000CE6C4D /* FirstTypingViewController.swift in Sources */,
+				F5E15A9D29115579007179A2 /* DayNoteDetailViewController.swift in Sources */,
 				F5A2EB7628DF0F2F00536E9B /* ViewController.swift in Sources */,
 				F5A2EBB028E80B3F00536E9B /* TextView.swift in Sources */,
 				F546AE662906D5C600CE6C4D /* MenuBar.swift in Sources */,
@@ -858,6 +865,7 @@
 				F546AE95290D5A0600CE6C4D /* DoneWishListViewController.swift in Sources */,
 				F5A2EB6628DEF58200536E9B /* SignUpViewController.swift in Sources */,
 				F546AE89290D0E7100CE6C4D /* Date.swift in Sources */,
+				F5E15A9F2911613A007179A2 /* DayNoteDetailViewModel.swift in Sources */,
 				F5A2EAFD28D3644800536E9B /* iTamin.xcdatamodeld in Sources */,
 				F5A2EB2C28D4B09800536E9B /* RootTabBarViewController.swift in Sources */,
 				F5A2EB4228DB2B9200536E9B /* Color.swift in Sources */,
