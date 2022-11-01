@@ -18,6 +18,9 @@ extension AddDayNoteViewController {
         @Published var firstDay: String = ""
         @Published var note: String = ""
         @Published var uploadSuccess: Bool = false
+        var isReady: Bool = false
+        var selectYear: Int = 0
+        var selectMonth: Int = 0
         var selectImages: [UIImage] = []
         var isWrite = CurrentValueSubject<Bool, Never>(false)
         var selectWishList: WishListModel? = nil
@@ -50,6 +53,8 @@ extension AddDayNoteViewController {
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { _ in }, receiveValue: { value in
                     self.firstDay = "\(String(value.data.year)).\(String(value.data.month))"
+                    self.selectYear = value.data.year
+                    self.selectMonth = value.data.month
                     self.currentDay = "\(String(value.data.year)).\(String(value.data.month))"
                     self.currentDayPrint = "\(String(value.data.year))년 \(String(value.data.month))월의 마이데이"
                     let createdAt = Date.stringToDate(year: String(value.data.year), month: String(value.data.month))

@@ -127,8 +127,6 @@ class AddDayNoteViewController: UIViewController {
         arrowDownImage.showGradientSkeleton()
         collectionView.startSkeletonAnimation()
         collectionView.showGradientSkeleton()
-        borderView.startSkeletonAnimation()
-        borderView.showGradientSkeleton()
         selectWishList.startSkeletonAnimation()
         selectWishList.showGradientSkeleton()
         rightArrowView.startSkeletonAnimation()
@@ -146,8 +144,6 @@ class AddDayNoteViewController: UIViewController {
         arrowDownImage.hideSkeleton()
         collectionView.stopSkeletonAnimation()
         collectionView.hideSkeleton()
-        borderView.stopSkeletonAnimation()
-        borderView.hideSkeleton()
         selectWishList.stopSkeletonAnimation()
         selectWishList.hideSkeleton()
         rightArrowView.stopSkeletonAnimation()
@@ -161,8 +157,20 @@ class AddDayNoteViewController: UIViewController {
     func bindCombine() {
         viewModel.$days
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { value in
+            .sink(receiveValue: { [weak self] value in
+                guard let self = self else { return }
                 self.datePickerView.days = value
+                if value.count > 1 {
+                    guard let yearIndex = value[0].firstIndex(where: { Int($0) == self.viewModel.selectYear }) else { return }
+                    guard let monthIndex = value[1].firstIndex(where: { Int($0) == self.viewModel.selectMonth }) else { return }
+                    self.datePickerView.selectYear = Int(value[0][yearIndex]) ?? 0
+                    self.datePickerView.selectMonth = Int(value[1][monthIndex]) ?? 0
+                    self.datePickerView.datePicker.selectRow(yearIndex, inComponent: 0, animated: true)
+                    self.datePickerView.datePicker.selectRow(monthIndex, inComponent: 1, animated: true)
+                    self.datePickerView.pickerView(self.datePickerView.datePicker, didSelectRow: yearIndex, inComponent: 0)
+                    self.datePickerView.pickerView(self.datePickerView.datePicker, didSelectRow: monthIndex, inComponent: 1)
+
+                }
             })
             .cancel(with: cancelBag)
         
@@ -173,6 +181,7 @@ class AddDayNoteViewController: UIViewController {
                 if value != "" {
                     self.stackView.stopSkeletonAnimation()
                     self.stopSkeleton()
+                    self.viewModel.isReady = true
                 }
                 self.dateLabel.text = value
                 
@@ -190,18 +199,23 @@ class AddDayNoteViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] value in
                 guard let self = self else { return }
-                if value {
-                    self.alretView.showToastPopup(text: "이미 작성된 데이노트가 있어요!\n다른 날을 선택해주세요.")
-                } else {
-                    self.alretView.showToastPopup(text: "이미 작성된 데이노트가 있어요!\n다른 날을 선택해주세요.")
+                if self.viewModel.isReady {
+                    if value {
+                        self.viewModel.writeDayNote()
+                    } else {
+                        self.alretView.showToastPopup(text: "이미 작성된 데이노트가 있어요!\n다른 날을 선택해주세요.")
+                    }
                 }
             })
             .cancel(with: cancelBag)
         
-        datePickerView.buttonSelect = { [weak self] printString, serverString in
+        datePickerView.buttonSelect = { [weak self] printString, serverString, year, month in
             guard let self = self else { return }
             self.viewModel.currentDayPrint = printString
             self.viewModel.currentDay = serverString
+            self.viewModel.selectYear = year
+            self.viewModel.selectMonth = month
+            print("Button",year, month)
             self.dismissAction()
         }
         
@@ -209,7 +223,7 @@ class AddDayNoteViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] _ in
                 guard let self = self else { return }
-                self.viewModel.writeDayNote()
+                self.viewModel.checkMonth(value: self.viewModel.currentDay)
             })
             .cancel(with: cancelBag)
         
@@ -233,6 +247,24 @@ class AddDayNoteViewController: UIViewController {
     func openPopup() {
         
         self.datePickerView.selectDayPrint = self.viewModel.currentDayPrint
+        self.datePickerView.selectYear = self.viewModel.selectYear
+        self.datePickerView.selectMonth = self.viewModel.selectMonth
+        print("Open",self.viewModel.selectYear, self.viewModel.selectMonth)
+        guard let yearIndex = self.viewModel.days[0].firstIndex(where: { Int($0) == self.viewModel.selectYear }) else {
+            print("이어 에러")
+            return
+            
+        }
+        guard let monthIndex = self.viewModel.days[1].firstIndex(where: { Int($0) == self.viewModel.selectMonth }) else {
+            print("먼쓰 에러")
+            return
+            
+        }
+        
+        self.datePickerView.datePicker.selectRow(yearIndex, inComponent: 0, animated: true)
+        self.datePickerView.datePicker.selectRow(monthIndex, inComponent: 1, animated: true)
+        self.datePickerView.pickerView(self.datePickerView.datePicker, didSelectRow: yearIndex, inComponent: 0)
+        self.datePickerView.pickerView(self.datePickerView.datePicker, didSelectRow: monthIndex, inComponent: 1)
         
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
             self.datePickerView.snp.remakeConstraints {

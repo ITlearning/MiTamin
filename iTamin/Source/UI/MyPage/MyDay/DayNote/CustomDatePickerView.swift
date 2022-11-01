@@ -25,9 +25,11 @@ class CustomDatePickerView: UIView {
             datePicker.reloadAllComponents()
         }
     }
-    var buttonSelect: ((String,String) -> ())?
+    var selectYear: Int = 0
+    var selectMonth: Int = 0
+    var buttonSelect: ((String,String, Int, Int) -> ())?
     
-    private lazy var datePicker: UIPickerView = {
+    lazy var datePicker: UIPickerView = {
         let datePicker = UIPickerView()
         datePicker.delegate = self
         datePicker.dataSource = self
@@ -61,7 +63,11 @@ class CustomDatePickerView: UIView {
         selectButton.tapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] _ in
-                self?.buttonSelect?(self?.selectDayPrint ?? "", self?.selectDay ?? "")
+                
+                let selectPrintDayString = "\(self?.selectYear ?? 0)년 \(self?.selectMonth ?? 0)월의 마이데이"
+                let selectDayString = "\(self?.selectYear ?? 0).\(self?.selectMonth ?? 0)"
+                
+                self?.buttonSelect?(selectPrintDayString, selectDayString, self?.selectYear ?? 0, self?.selectMonth ?? 0)
             })
             .cancel(with: cancelBag)
     }
@@ -106,10 +112,14 @@ extension CustomDatePickerView: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
+        if component == 0 {
+            self.selectYear = Int(days[component][row]) ?? 0
+        } else {
+            self.selectMonth = Int(days[component][row]) ?? 0
+
+        }
         
-        selectDayPrint = "\(days[0][row])년 \(days[1][row])월의 마이데이"
-        selectDay = "\(days[0][row]).\(days[1][row])"
-        
+        print(self.selectYear, self.selectMonth)
     }
     
     

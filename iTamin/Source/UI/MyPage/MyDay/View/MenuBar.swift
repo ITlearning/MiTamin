@@ -79,9 +79,9 @@ extension MenuBar: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MenuCollectionViewCell.cellId, for: indexPath) as? MenuCollectionViewCell else { return UICollectionViewCell() }
         if indexPath.row == 0 {
-            cell.tabLabel.text = "위시리스트"
-        } else {
             cell.tabLabel.text = "데이노트"
+        } else {
+            cell.tabLabel.text = "위시리스트"
         }
         return cell
     }

@@ -21,7 +21,7 @@ class MyDayViewController: UIViewController, MenuBarDelegate {
     
     var editVC = EditWishListViewController()
     
-    var contentMode: ContentMode = .WishList
+    var contentMode: ContentMode = .DayNote
     
     var opacity: Float = 0.0
     
@@ -89,17 +89,8 @@ class MyDayViewController: UIViewController, MenuBarDelegate {
         viewModel.$wishList
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in }, receiveValue: { value in
-                print("value,", value)
                 self.collectionView.reloadData()
                 self.editVC.wishList = self.viewModel.wishList
-                if value.count > 0 {
-                    self.floatingButton.alpha = 0.0
-                    self.navigationItem.rightBarButtonItem = self.editButton
-                } else {
-                    self.floatingButton.alpha = 1.0
-                    self.navigationItem.rightBarButtonItem = nil
-                }
-                
             })
             .cancel(with: cancelBag)
         
@@ -225,20 +216,20 @@ extension MyDayViewController: UICollectionViewDelegate, UICollectionViewDataSou
         
         switch indexPath.row {
         case 0:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DayNoteCollectionViewCell.cellId, for: indexPath) as? DayNoteCollectionViewCell else { return UICollectionViewCell() }
+            
+            cell.dayNotes = viewModel.dayNoteList
+            
+            cell.delegate = self
+            
+            return cell
+        case 1:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WishListCollectionViewCell.cellId, for: indexPath) as? WishListCollectionViewCell else { return UICollectionViewCell() }
             
             cell.wishList = viewModel.wishList
             cell.delegate = self
             
             cell.setText(text: "자신을 위해서 해보고\n싶은 행동이 있나요?")
-            
-            return cell
-        case 1:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DayNoteCollectionViewCell.cellId, for: indexPath) as? DayNoteCollectionViewCell else { return UICollectionViewCell() }
-            
-            cell.dayNotes = viewModel.dayNoteList
-            
-            cell.delegate = self
             
             return cell
         default:
@@ -256,7 +247,7 @@ extension MyDayViewController: UICollectionViewDelegate, UICollectionViewDataSou
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         if !viewModel.wishList.isEmpty {
-            floatingButton.alpha = scrollView.contentOffset.x / (scrollView.contentSize.width/2)
+            floatingButton.alpha = ((scrollView.contentSize.width/2) - scrollView.contentOffset.x) / (scrollView.contentSize.width/2)
         }
         
         menuBar.indicatorViewLeadingConstraint.constant = scrollView.contentOffset.x / 2
@@ -267,11 +258,11 @@ extension MyDayViewController: UICollectionViewDelegate, UICollectionViewDataSou
         let indexPath = IndexPath(item: itemAt, section: 0)
         
         if indexPath.row == 0 {
-            contentMode = .WishList
-            self.navigationItem.rightBarButtonItem = self.editButton
-        } else {
             self.navigationItem.rightBarButtonItem = nil
             contentMode = .DayNote
+        } else {
+            contentMode = .WishList
+            self.navigationItem.rightBarButtonItem = self.editButton
         }
         
         menuBar.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
