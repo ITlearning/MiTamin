@@ -29,6 +29,8 @@ class WishListCollectionViewCell: UICollectionViewCell {
     
     var currentWishList: [WishListModel] = []
     
+    
+    var deleteIndex: Int = 0
     var deleteWishList: [Int] = []
     var deleteWishListToServer: [Int] = []
     
@@ -93,6 +95,7 @@ class WishListCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         configureLayout()
         configureTableView()
+        bindCombine()
     }
     
     required init?(coder: NSCoder) {
@@ -102,6 +105,23 @@ class WishListCollectionViewCell: UICollectionViewCell {
     
     func setText(text: String) {
         wishListMainTitleLabel.text = text
+    }
+    
+    func bindCombine() {
+        deleteCancelButton.tapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { _ in
+                self.deleteOn = false
+                self.wishList = self.currentWishList
+                UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
+                    self.deletePopupView.alpha = 0.0
+                }, completion: nil)
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            })
+            .cancel(with: cancelBag)
     }
     
     func deleteAction() {
@@ -195,8 +215,8 @@ class WishListCollectionViewCell: UICollectionViewCell {
         
         deletePopupView.snp.makeConstraints {
             $0.bottom.equalTo(self.snp.bottom).inset(76)
-            $0.leading.equalTo(self.snp.leading)
-            $0.trailing.equalTo(self.snp.trailing)
+            $0.leading.equalTo(self.snp.leading).offset(20)
+            $0.trailing.equalTo(self.snp.trailing).inset(20)
             $0.height.equalTo(56)
         }
         
@@ -251,7 +271,8 @@ extension WishListCollectionViewCell: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row < wishList.count {
             currentWishList = wishList
-            deleteWishList = [indexPath.row]
+            deleteWishList = [wishList[indexPath.row].wishId]
+            deleteIndex = indexPath.row
             self.delegate?.selectIndex(text: wishList[indexPath.row].wishText, idx: indexPath.row)
         }
     }
