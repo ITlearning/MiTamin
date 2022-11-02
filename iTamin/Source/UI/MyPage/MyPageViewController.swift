@@ -281,17 +281,17 @@ class MyPageViewController: UIViewController {
     func configureLayout() {
         
         view.addSubview(scrollView)
-        scrollView.addSubview(containerView)
+        //scrollView.addSubview(containerView)
         view.addSubview(mainLogo)
         view.addSubview(helpButton)
         view.addSubview(settingButton)
         
-        containerView.addSubview(profileBackGroundView.view)
-        containerView.addSubview(profileImageView)
-        containerView.addSubview(profileEditButton)
-        containerView.addSubview(profileMainLabel)
-        containerView.addSubview(profileSubLabel)
-        containerView.addSubview(roundedRectangleView)
+        scrollView.addSubview(profileBackGroundView.view)
+        scrollView.addSubview(profileImageView)
+        scrollView.addSubview(profileEditButton)
+        scrollView.addSubview(profileMainLabel)
+        scrollView.addSubview(profileSubLabel)
+        scrollView.addSubview(roundedRectangleView)
         roundedRectangleView.addSubview(myDayLabel)
         roundedRectangleView.addSubview(myDayLabelSub)
         roundedRectangleView.addSubview(myDayCountLabel)
@@ -299,16 +299,16 @@ class MyPageViewController: UIViewController {
         roundedRectangleView.addSubview(lastMyDayLabel)
         roundView.addSubview(ddayLabel)
         roundedRectangleView.addSubview(roundView)
-        containerView.addSubview(appInfoLabel)
+        scrollView.addSubview(appInfoLabel)
         let seprateLineView = UIView()
         seprateLineView.backgroundColor = UIColor.backgroundColor2
-        containerView.addSubview(seprateLineView)
+        scrollView.addSubview(seprateLineView)
         
         let appInfoView = UIHostingController(rootView: AppInfoView())
         
         appInfoView.rootView.delegate = self
         
-        containerView.addSubview(appInfoView.view)
+        scrollView.addSubview(appInfoView.view)
         
         mainLogo.snp.makeConstraints {
             $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(10)
@@ -337,14 +337,8 @@ class MyPageViewController: UIViewController {
             $0.bottom.equalToSuperview()
         }
         
-        containerView.snp.makeConstraints {
-            $0.top.equalTo(scrollView.snp.top)
-            $0.leading.equalTo(scrollView.snp.leading)
-            $0.trailing.equalTo(scrollView.snp.trailing)
-        }
-        
         profileBackGroundView.view.snp.makeConstraints {
-            $0.top.equalTo(containerView.snp.top).offset(34)
+            $0.top.equalTo(scrollView.snp.top).offset(34)
             $0.leading.trailing.equalToSuperview()
             $0.width.equalTo(UIScreen.main.bounds.width)
             $0.height.equalTo(92)
@@ -374,8 +368,8 @@ class MyPageViewController: UIViewController {
         
         roundedRectangleView.snp.makeConstraints {
             $0.top.equalTo(profileBackGroundView.view.snp.bottom).offset(30)
-            $0.leading.equalTo(containerView.snp.leading).offset(20)
-            $0.trailing.equalTo(containerView.snp.trailing).inset(20)
+            $0.leading.equalTo(scrollView.snp.leading).offset(20)
+            $0.trailing.equalTo(scrollView.snp.trailing).inset(20)
             $0.height.equalTo(220)
         }
         
@@ -427,14 +421,14 @@ class MyPageViewController: UIViewController {
         
         appInfoLabel.snp.makeConstraints {
             $0.top.equalTo(seprateLineView.snp.bottom).offset(24)
-            $0.leading.equalTo(containerView.snp.leading).offset(20)
+            $0.leading.equalTo(scrollView.snp.leading).offset(20)
         }
         
         appInfoView.view.snp.makeConstraints {
             $0.top.equalTo(appInfoLabel.snp.bottom).offset(20)
             $0.leading.equalToSuperview()
             $0.trailing.equalToSuperview()
-            $0.bottom.equalTo(containerView.snp.bottom)
+            $0.bottom.equalTo(scrollView.snp.bottom)
         }
         
     }

@@ -51,7 +51,7 @@ struct AppInfoView: View {
                         makeButton(text: buttonText[idx])
                     })
                 }
-                .padding(.vertical, 3)
+                .padding(.vertical, 10)
             }
             .padding(.horizontal, 20)
         }
@@ -64,10 +64,11 @@ struct AppInfoView: View {
                 .foregroundColor(Color(uiColor: UIColor.grayColor4))
             
             Spacer()
-            
-            Image("icon-arrow-left-small-mono-1")
-                .resizable()
-                .frame(width: 18, height: 18)
+            if !text.contains("버전") {
+                Image("icon-arrow-left-small-mono-1")
+                    .resizable()
+                    .frame(width: 18, height: 18)
+            }
         }
         
     }
