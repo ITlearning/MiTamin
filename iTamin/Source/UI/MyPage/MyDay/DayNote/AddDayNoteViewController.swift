@@ -284,7 +284,11 @@ class AddDayNoteViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in }, receiveValue: { value in
                 if value {
-                    self.navigationController?.popViewController(animated: true)
+                    if self.viewModel.isEdit {
+                        self.navigationController?.popViewControllers(viewsToPop: 2)
+                    } else {
+                        self.navigationController?.popViewController(animated: true)
+                    }
                 }
             })
             .cancel(with: cancelBag)
@@ -299,9 +303,7 @@ class AddDayNoteViewController: UIViewController {
     
     func demmed(bool: Bool) {
         
-        if viewModel.isEdit {
-            progressText.text = viewModel.isEdit ? "수정된 정보를 올리고 있는중이에요!" : "작성한 정보를 올리고 있는중이에요!"
-        }
+        progressText.text = viewModel.isEdit ? "수정된 정보를 올리고 있는중이에요!" : "작성한 정보를 올리고 있는중이에요!"
         
         if bool {
             UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {

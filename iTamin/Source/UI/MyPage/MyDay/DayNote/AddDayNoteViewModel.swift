@@ -52,6 +52,7 @@ extension AddDayNoteViewController {
                     }, receiveValue: { [weak self] value in
                         guard let self = self else { return }
                         self.isDemmed.send(false)
+                        UserDefaults.standard.set(true, forKey: "MyDayUpdate")
                         self.uploadSuccess = true
                     })
                     .cancel(with: cancelBag)
