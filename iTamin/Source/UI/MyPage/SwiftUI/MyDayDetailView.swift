@@ -16,7 +16,7 @@ struct MyDayDetailView: View {
         "https://mytamin-bucket.s3.ap-northeast-2.amazonaws.com/DN-c4a5c93c-434a-4e8c-8f73-3b07be10f66c",
         "https://mytamin-bucket.s3.ap-northeast-2.amazonaws.com/DN-cf4ae39d-ff6a-4316-b104-c2a23f2655c7",
         "https://mytamin-bucket.s3.ap-northeast-2.amazonaws.com/DN-5a2bfc00-242d-46f4-83a0-fad78a1d8006"
-    ], year: 2022, month: 10, wishText: "빵 나오는 시간에 맞춰서 갓 나온 빵 사먹기", note: "따끈따끈한 식빵에 우유는 역시 최고! 빵 나오는 시간에 맞춰서 나가니까 뭔가 부지런해진 기분이라 더 뿌듯하다.")
+    ], year: 2022, month: 10, wishId: 0, wishText: "빵 나오는 시간에 맞춰서 갓 나온 빵 사먹기", note: "따끈따끈한 식빵에 우유는 역시 최고! 빵 나오는 시간에 맞춰서 나가니까 뭔가 부지런해진 기분이라 더 뿌듯하다.")
     @State var index: Int = 0
     @State var isDownload: Bool = false
     

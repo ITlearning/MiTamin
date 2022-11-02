@@ -18,6 +18,8 @@ extension AddDayNoteViewController {
         @Published var firstDay: String = ""
         @Published var note: String = ""
         @Published var uploadSuccess: Bool = false
+        var isDemmed = PassthroughSubject<Bool, Never>()
+        var editModel: DayNoteModel? = nil
         var isEdit = false
         var isReady: Bool = false
         var selectYear: Int = 0
@@ -28,12 +30,41 @@ extension AddDayNoteViewController {
         var networkManager = NetworkManager()
         var cancelBag = CancelBag()
         
+        func loadWishList(idx: Int) {
+            networkManager.getWishList()
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] value in
+                    guard let self = self else { return }
+                    if let idx = value.data.firstIndex(where: { $0.wishId == idx }) {
+                        self.selectWishList = value.data[idx]
+                    }
+                })
+                .cancel(with: cancelBag)
+        }
+        
+        func editDayNote() {
+            if editModel != nil {
+                
+                networkManager.editDayNote(daynoteId: editModel?.daynoteId ?? 0, wishIdx: selectWishList?.wishId ?? 0, note: note, images: selectImages)
+                    .receive(on: DispatchQueue.main)
+                    .sink(receiveCompletion: { _
+                        in
+                    }, receiveValue: { [weak self] value in
+                        guard let self = self else { return }
+                        self.isDemmed.send(false)
+                        self.uploadSuccess = true
+                    })
+                    .cancel(with: cancelBag)
+            }
+            
+        }
         
         func writeDayNote() {
             networkManager.writeDayNote(wishIdx: selectWishList?.wishId ?? 0, note: note, date: currentDay, images: selectImages)
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] value in
                     print(value.data)
+                    self?.isDemmed.send(false)
                     UserDefaults.standard.set(true, forKey: "MyDayUpdate")
                     self?.uploadSuccess = true
                 })
@@ -41,6 +72,7 @@ extension AddDayNoteViewController {
         }
         
         func checkMonth(value: String) {
+            isDemmed.send(true)
             networkManager.checkDayNote(day: value)
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { _ in }, receiveValue: { value in

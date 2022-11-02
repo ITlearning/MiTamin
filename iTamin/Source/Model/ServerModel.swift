@@ -150,6 +150,7 @@ struct DayNoteModel: Codable {
     var imgList: [String]
     var year: Int
     var month: Int
+    var wishId: Int
     var wishText: String
     var note: String
 }

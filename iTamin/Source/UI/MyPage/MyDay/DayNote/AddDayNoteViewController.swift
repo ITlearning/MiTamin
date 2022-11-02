@@ -20,7 +20,13 @@ class AddDayNoteViewController: UIViewController {
     var datePickerView = CustomDatePickerView()
     var blackDemmedView = UIView()
     var alretView = AlertToastView()
-
+    let progressText: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = UIFont.SDGothicRegular()
+        
+        return label
+    }()
     private let dateLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.grayColor4
@@ -101,15 +107,34 @@ class AddDayNoteViewController: UIViewController {
         return button
     }()
     
+    lazy var demmedView: UIView = {
+        let dView = UIView()
+        dView.backgroundColor = .black.withAlphaComponent(0.6)
+        dView.isHidden = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(demmedAction))
+        dView.addGestureRecognizer(tap)
+        return dView
+    }()
+    
+    @objc
+    func demmedAction() {
+        viewModel.isDemmed.send(false)
+    }
+    
     init(dayNoteModel: DayNoteModel? = nil, images: [UIImage]? = [], isEdit: Bool = false) {
         viewModel.isEdit = isEdit
         if isEdit {
+            viewModel.editModel = dayNoteModel
+            viewModel.loadWishList(idx: dayNoteModel?.wishId ?? 0)
             viewModel.firstDay = "\(String(dayNoteModel?.year ?? 0)).\(String(dayNoteModel?.month ?? 0))"
             viewModel.selectYear = dayNoteModel?.year ?? 0
             viewModel.selectMonth = dayNoteModel?.month ?? 0
             viewModel.currentDay = "\(String(dayNoteModel?.year ?? 0)).\(String(dayNoteModel?.month ?? 0))"
             viewModel.currentDayPrint = "\(String(dayNoteModel?.year ?? 0))년 \(String(dayNoteModel?.month ?? 0))월의 마이데이"
             viewModel.selectImages = images ?? []
+            selectWishList.text = dayNoteModel?.wishText ?? ""
+            textView.text = dayNoteModel?.note ?? ""
+            viewModel.note = dayNoteModel?.note ?? ""
         }
         super.init(nibName: nil, bundle: nil)
     }
@@ -136,6 +161,7 @@ class AddDayNoteViewController: UIViewController {
         bindCombine()
         configureLayout()
         configureCollectionView()
+        viewModel.isDemmed.send(false)
     }
     
     func startSkeleton() {
@@ -220,7 +246,11 @@ class AddDayNoteViewController: UIViewController {
                     if value {
                         self.viewModel.writeDayNote()
                     } else {
-                        self.alretView.showToastPopup(text: "이미 작성된 데이노트가 있어요!\n다른 날을 선택해주세요.")
+                        if self.viewModel.isEdit {
+                            self.viewModel.editDayNote()
+                        } else {
+                            self.alretView.showToastPopup(text: "이미 작성된 데이노트가 있어요!\n다른 날을 선택해주세요.")
+                        }
                     }
                 }
             })
@@ -258,6 +288,33 @@ class AddDayNoteViewController: UIViewController {
                 }
             })
             .cancel(with: cancelBag)
+        
+        viewModel.isDemmed
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] value in
+                self?.demmed(bool: value)
+            })
+            .cancel(with: cancelBag)
+    }
+    
+    func demmed(bool: Bool) {
+        
+        if viewModel.isEdit {
+            progressText.text = viewModel.isEdit ? "수정된 정보를 올리고 있는중이에요!" : "작성한 정보를 올리고 있는중이에요!"
+        }
+        
+        if bool {
+            UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
+                self.demmedView.isHidden = false
+                self.demmedView.backgroundColor = .black.withAlphaComponent(0.6)
+            })
+        } else {
+            UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
+                self.demmedView.backgroundColor = .black.withAlphaComponent(0.0)
+            }, completion: { _ in
+                self.demmedView.isHidden = true
+            })
+        }
     }
     
     @objc
@@ -311,6 +368,19 @@ class AddDayNoteViewController: UIViewController {
     
     @objc
     func wishListOpen() {
+        if viewModel.isEdit {
+            if viewModel.selectWishList != nil {
+                openWishList()
+            } else {
+                self.alretView.showToastPopup(text: "위시리스트를 불러오는 중이에요..!")
+            }
+        } else {
+            openWishList()
+        }
+
+    }
+    
+    func openWishList() {
         let wishListVC = DoneWishListViewController(selectWishList: viewModel.selectWishList)
         
         self.navigationController?.pushViewController(wishListVC, animated: true)
@@ -350,6 +420,21 @@ class AddDayNoteViewController: UIViewController {
         
         view.addSubview(blackDemmedView)
         view.addSubview(datePickerView)
+        
+        view.addSubview(demmedView)
+        demmedView.addSubview(progressText)
+        
+        demmedView.snp.makeConstraints {
+            $0.top.equalTo(view.snp.top)
+            $0.leading.equalTo(view.snp.leading)
+            $0.trailing.equalTo(view.snp.trailing)
+            $0.bottom.equalTo(view.snp.bottom)
+        }
+        
+        progressText.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview()
+        }
         
         blackDemmedView.snp.makeConstraints {
             $0.top.equalTo(view.snp.top)
