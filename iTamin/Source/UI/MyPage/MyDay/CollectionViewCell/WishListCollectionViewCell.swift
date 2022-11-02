@@ -23,12 +23,18 @@ class WishListCollectionViewCell: UICollectionViewCell {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
-            
+        }
+    }
+    
+    var editMode: Bool = false {
+        didSet {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
     }
     
     var currentWishList: [WishListModel] = []
-    
     
     var deleteIndex: Int = 0
     var deleteWishList: [Int] = []
@@ -96,11 +102,36 @@ class WishListCollectionViewCell: UICollectionViewCell {
         configureLayout()
         configureTableView()
         bindCombine()
+        
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
         
+    }
+    
+    @objc
+    func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height + 100, right: 0)
+            
+            if deleteIndex == -1 {
+                tableView.scrollToRow(at: IndexPath(row: wishList.count, section: 0), at: .bottom, animated: true)
+            } else {
+                tableView.scrollToRow(at: IndexPath(row: deleteIndex, section: 0), at: .bottom, animated: true)
+            }
+            tableView.scrollIndicatorInsets = tableView.contentInset
+        }
+    }
+    
+    @objc
+    func keyboardWillHide(notification: NSNotification) {
+        tableView.contentInset = .zero
     }
     
     func setText(text: String) {
@@ -180,6 +211,7 @@ class WishListCollectionViewCell: UICollectionViewCell {
         tableView.register(WishListDoneTableViewCell.self, forCellReuseIdentifier: WishListDoneTableViewCell.cellId)
         //tableView.allowsSelection = false
         tableView.separatorStyle = .none
+        //tableView.keyboardDismissMode = .onDrag
     }
     
     private func configureLayout() {
@@ -195,6 +227,7 @@ class WishListCollectionViewCell: UICollectionViewCell {
         deletePopupView.addSubview(deletePopupTitleLabel)
         
         tableView.tableHeaderView = headerView
+        tableView.showsVerticalScrollIndicator = false
         
         headerView.snp.makeConstraints {
             $0.width.equalTo(tableView.snp.width)
@@ -240,6 +273,13 @@ class WishListCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    @objc
+    func cancelAction() {
+        deleteWishList = []
+        deleteIndex = -1
+        self.endEditing(true)
+        editMode = false
+    }
 }
 
 extension WishListCollectionViewCell: WishListDelegate {
@@ -247,11 +287,16 @@ extension WishListCollectionViewCell: WishListDelegate {
         delegate?.addData(text: text)
     }
     func textFieldEdit(item: WishListModel) {
+        deleteIndex = -1
+        deleteWishList = []
         delegate?.editData(item: item)
+        
+        editMode = false
     }
 }
 
 extension WishListCollectionViewCell: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         wishList.count + 1
     }
@@ -280,18 +325,56 @@ extension WishListCollectionViewCell: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.row < wishList.count {
-            let item = wishList[indexPath.row]
             
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: WishListDoneTableViewCell.cellId, for: indexPath) as? WishListDoneTableViewCell else { return UITableViewCell() }
-            
-            cell.setText(item: item)
-            cell.selectionStyle = .none
-            
-            return cell
+            if (deleteIndex == indexPath.row) && editMode {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: WishListTypingTableViewCell.cellId, for: indexPath) as? WishListTypingTableViewCell else { return UITableViewCell() }
+                cell.editModel = true
+                cell.setMode()
+                cell.wishListTextField.text = wishList[deleteIndex].wishText
+                cell.wishListTextField.delegate = self
+                
+                let toolbar = UIToolbar()
+                toolbar.sizeToFit()
+                        
+                let doneButton = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(cancelAction))
+                        
+                toolbar.setItems([doneButton], animated: false)
+                        
+                //toolbar를 넣고싶은 textField 및 textView 필자의 경우 recommendDataTextView
+                cell.wishListTextField.inputAccessoryView = toolbar
+                
+                cell.wishListTextField.becomeFirstResponder()
+                cell.selectionStyle = .none
+                
+                return cell
+            } else {
+                let item = wishList[indexPath.row]
+                
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: WishListDoneTableViewCell.cellId, for: indexPath) as? WishListDoneTableViewCell else { return UITableViewCell() }
+                
+                cell.setText(item: item)
+                cell.selectionStyle = .none
+                
+                return cell
+            }
         } else {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: WishListTypingTableViewCell.cellId, for: indexPath) as? WishListTypingTableViewCell else { return UITableViewCell() }
             
+            cell.editModel = false
+            cell.setMode()
+            cell.wishListTextField.text = ""
+            
             cell.delegate = self
+            let toolbar = UIToolbar()
+            toolbar.sizeToFit()
+            
+            let doneButton = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(cancelAction))
+                    
+            toolbar.setItems([doneButton], animated: false)
+                    
+            //toolbar를 넣고싶은 textField 및 textView 필자의 경우 recommendDataTextView
+            cell.wishListTextField.inputAccessoryView = toolbar
+            
             cell.selectionStyle = .none
             return cell
             
@@ -304,3 +387,21 @@ extension WishListCollectionViewCell: UITableViewDelegate, UITableViewDataSource
 }
 
 
+extension WishListCollectionViewCell: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        var data = wishList[deleteIndex]
+        data.wishText = textField.text ?? ""
+        
+        wishList[deleteIndex] = data
+        
+        delegate?.editData(item: data)
+        deleteIndex = -1
+        deleteWishList = []
+        
+        editMode = false
+        textField.resignFirstResponder()
+        return true
+    }
+}

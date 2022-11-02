@@ -23,6 +23,10 @@ class WishListTypingTableViewCell: UITableViewCell {
     
     weak var delegate: WishListDelegate?
     
+    var editModel: Bool = false
+    
+    let borderView = UIView()
+    
     let wishListTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "내용 입력"
@@ -59,10 +63,36 @@ class WishListTypingTableViewCell: UITableViewCell {
             .cancel(with: cancelBag)
     }
     
+    func setMode() {
+        if editModel {
+            addButton.isHidden = true
+        } else {
+            addButton.isHidden = false
+        }
+        
+        contentView.addSubview(addButton)
+        
+        let minusValue: CGFloat = editModel ? 20 : (48 + 20 + 16 + 12)
+        
+        wishListTextField.snp.remakeConstraints {
+            $0.top.equalTo(self.snp.top).offset(16)
+            $0.leading.equalTo(self.snp.leading).offset(16)
+            $0.width.equalTo(UIScreen.main.bounds.width - minusValue)
+        }
+        
+        borderView.snp.makeConstraints {
+            $0.top.equalTo(self.snp.top)
+            $0.leading.equalTo(self.snp.leading)
+            $0.width.equalTo(UIScreen.main.bounds.width - minusValue)
+            $0.height.equalTo(48)
+        }
+        
+    }
+    
     func configureCell() {
         self.backgroundColor = .white
         
-        let borderView = UIView()
+
         
         borderView.layer.borderColor = UIColor.grayColor5.cgColor
         borderView.layer.borderWidth = 1
@@ -74,11 +104,21 @@ class WishListTypingTableViewCell: UITableViewCell {
         self.addSubview(spacerView)
         
         contentView.addSubview(wishListTextField)
+        
+        if editModel {
+            addButton.isHidden = true
+        } else {
+            addButton.isHidden = false
+        }
+        
         contentView.addSubview(addButton)
+        
+        let minusValue: CGFloat = editModel ? 20 : (48 - 20 - 16 - 12)
+        
         wishListTextField.snp.makeConstraints {
             $0.top.equalTo(self.snp.top).offset(16)
             $0.leading.equalTo(self.snp.leading).offset(16)
-            $0.width.equalTo(UIScreen.main.bounds.width - 48 - 20 - 16 - 12)
+            $0.width.equalTo(UIScreen.main.bounds.width - minusValue)
         }
         
         addButton.snp.makeConstraints {
@@ -91,7 +131,7 @@ class WishListTypingTableViewCell: UITableViewCell {
         borderView.snp.makeConstraints {
             $0.top.equalTo(self.snp.top)
             $0.leading.equalTo(self.snp.leading)
-            $0.width.equalTo(UIScreen.main.bounds.width - 48 - 20 - 16 - 12)
+            $0.width.equalTo(UIScreen.main.bounds.width - minusValue)
             $0.height.equalTo(48)
         }
         

@@ -128,7 +128,22 @@ class MyDayViewController: UIViewController, MenuBarDelegate {
             })
             .cancel(with: cancelBag)
         
-        
+        editButton.tapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] _ in
+                guard let self = self else { return }
+                self.openSelectMenu()
+                
+                guard let cell = self.collectionView.cellForItem(at: IndexPath(row: 1, section: 0)) else {
+                    return
+                }
+                
+                guard let cell = cell as? WishListCollectionViewCell else { return }
+                
+                cell.editMode = true
+                
+            })
+            .cancel(with: cancelBag)
         
         deleteButton.tapPublisher
             .receive(on: DispatchQueue.main)
