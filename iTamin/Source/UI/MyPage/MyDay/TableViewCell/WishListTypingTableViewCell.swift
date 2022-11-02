@@ -7,6 +7,8 @@
 
 import UIKit
 import SnapKit
+import Combine
+import CombineCocoa
 
 protocol WishListDelegate: AnyObject {
     func textFieldDone(text: String)
@@ -17,6 +19,10 @@ class WishListTypingTableViewCell: UITableViewCell {
 
     static let cellId = "WishListTableViewCell"
     
+    var cancelBag = CancelBag()
+    
+    weak var delegate: WishListDelegate?
+    
     let wishListTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "내용 입력"
@@ -26,13 +32,31 @@ class WishListTypingTableViewCell: UITableViewCell {
         return textField
     }()
     
+    let addButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "WishAddButton"), for: .normal)
+        
+        return button
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureCell()
+        bindCombine()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func bindCombine() {
+        addButton.tapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] _ in
+                self?.delegate?.textFieldDone(text: self?.wishListTextField.text ?? "")
+                self?.wishListTextField.text = ""
+            })
+            .cancel(with: cancelBag)
     }
     
     func configureCell() {
@@ -50,17 +74,24 @@ class WishListTypingTableViewCell: UITableViewCell {
         self.addSubview(spacerView)
         
         contentView.addSubview(wishListTextField)
-        
+        contentView.addSubview(addButton)
         wishListTextField.snp.makeConstraints {
             $0.top.equalTo(self.snp.top).offset(16)
             $0.leading.equalTo(self.snp.leading).offset(16)
-            $0.trailing.equalTo(self.snp.trailing).inset(16)
+            $0.width.equalTo(UIScreen.main.bounds.width - 48 - 20 - 16 - 12)
+        }
+        
+        addButton.snp.makeConstraints {
+            $0.top.equalTo(self.snp.top)
+            $0.trailing.equalTo(self.snp.trailing)
+            $0.height.equalTo(48)
+            $0.width.equalTo(48)
         }
         
         borderView.snp.makeConstraints {
             $0.top.equalTo(self.snp.top)
             $0.leading.equalTo(self.snp.leading)
-            $0.trailing.equalTo(self.snp.trailing)
+            $0.width.equalTo(UIScreen.main.bounds.width - 48 - 20 - 16 - 12)
             $0.height.equalTo(48)
         }
         

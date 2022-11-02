@@ -11,6 +11,12 @@ import SnapKit
 class WishListDoneTableViewCell: UITableViewCell {
 
     static let cellId = "WishListDoneTableViewCell"
+    let spacerView = UIView()
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        wishListLabel.text = ""
+        
+    }
     
     let wishListLabel: UILabel = {
         let label = UILabel()
@@ -60,15 +66,11 @@ class WishListDoneTableViewCell: UITableViewCell {
     
     func configureCell() {
         self.backgroundColor = .white
-        
-       
-        
         borderView.layer.borderColor = UIColor.grayColor5.cgColor
         borderView.layer.borderWidth = 1
         borderView.layer.cornerRadius = 8
         borderView.backgroundColor = .clear
         
-        let spacerView = UIView()
         self.addSubview(borderView)
         contentView.addSubview(wishListLabel)
         contentView.addSubview(countLabel)

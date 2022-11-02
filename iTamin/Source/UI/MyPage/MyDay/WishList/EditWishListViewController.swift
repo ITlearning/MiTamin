@@ -361,12 +361,6 @@ extension EditWishListViewController: UITableViewDelegate, UITableViewDataSource
                 
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: WishListDoneTableViewCell.cellId, for: indexPath) as? WishListDoneTableViewCell else { return UITableViewCell() }
                 
-                if deleteWishList.contains(item.wishId) {
-                    cell.selectAction()
-                } else {
-                    cell.deselectAction()
-                }
-                
                 cell.setText(item: item)
                 cell.selectionStyle = .none
                 

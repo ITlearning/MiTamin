@@ -12,23 +12,68 @@ protocol WishListCollectionViewDelegate: AnyObject {
     func addData(text: String)
     func editData(item: WishListModel)
     func deleteData(idx: Int)
+    func selectIndex(text: String, idx: Int)
 }
 
 class WishListCollectionViewCell: UICollectionViewCell {
     static let cellId = "WishListCollectionViewCell"
+    
     var wishList: [WishListModel] = [] {
         didSet {
-            tableView.reloadData()
-            
-            if !wishList.isEmpty {
-                showTableView()
-            } else {
-                hideTableView()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
             }
+            
         }
     }
     
+    var currentWishList: [WishListModel] = []
+    
+    var deleteWishList: [Int] = []
+    var deleteWishListToServer: [Int] = []
+    
+    var selectIndex: Int = 0
+    var isOpen: Bool = false
+    var cancelBag = CancelBag()
+    
     weak var delegate: WishListCollectionViewDelegate?
+    var deleteOn: Bool = false
+    
+    private let deletePopupView: UIView = {
+        let customView = UIView()
+        customView.layer.cornerRadius = 8
+        //customView.backgroundColor = .backgroundColor2
+        customView.backgroundColor = .white
+        customView.layer.applyShadow(color: UIColor.black, alpha: 0.1, x: 0, y: 4, blur: 20)
+        customView.alpha = 0.0
+        return customView
+    }()
+    
+    private let deleteCancelButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("실행취소", for: .normal)
+        button.backgroundColor = UIColor.primaryColor
+        button.layer.cornerRadius = 8
+        button.titleLabel?.font = UIFont.SDGothicBold(size: 16)
+        
+        return button
+    }()
+
+    private let deletePopupInfoIcon: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "InfoIcon")
+        
+        return imageView
+    }()
+    
+    private let deletePopupTitleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "리스트가 삭제되었어요"
+        label.textColor = UIColor.grayColor4
+        label.font = UIFont.SDGothicRegular(size: 16)
+        
+        return label
+    }()
     
     private let tableView = UITableView()
     
@@ -40,44 +85,6 @@ class WishListCollectionViewCell: UICollectionViewCell {
         label.numberOfLines = 0
         label.textColor = UIColor.grayColor4
         
-        return label
-    }()
-    
-    private let mainillustrationImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "Mainillustration")
-        
-        return imageView
-    }()
-    
-    private let notWriteMainLabel: UILabel = {
-        let label = UILabel()
-        label.text = "아직 작성된\n위시리스트가 없어요."
-        label.textAlignment = .center
-        label.numberOfLines = 0
-        label.font = UIFont.SDGothicBold(size: 18)
-        label.textColor = UIColor.grayColor4
-        
-        return label
-    }()
-    
-    private let notWriteSubLabel: UILabel = {
-        let label = UILabel()
-        label.text = "위시리스트를 채워주세요!"
-        label.numberOfLines = 0
-        label.font = UIFont.SDGothicMedium(size: 16)
-        label.textColor = UIColor.grayColor3
-        
-        return label
-    }()
-    
-    
-    private let currentLabel: UILabel = {
-        let label = UILabel()
-        label.text = "현재 리스트"
-        label.font = UIFont.SDGothicBold(size: 18)
-        label.textColor = UIColor.grayColor4
-        label.isHidden = false
         return label
     }()
     
@@ -93,78 +100,123 @@ class WishListCollectionViewCell: UICollectionViewCell {
         
     }
     
-    func showTableView() {
-        tableView.isHidden = false
-        currentLabel.isHidden = false
-        wishListMainTitleLabel.isHidden = true
-        mainillustrationImageView.isHidden = true
-        notWriteMainLabel.isHidden = true
-        notWriteSubLabel.isHidden = true
-    }
-    
-    func hideTableView() {
-        tableView.isHidden = true
-        currentLabel.isHidden = true
-        wishListMainTitleLabel.isHidden = false
-        mainillustrationImageView.isHidden = false
-        notWriteMainLabel.isHidden = false
-        notWriteSubLabel.isHidden = false
-    }
-    
     func setText(text: String) {
         wishListMainTitleLabel.text = text
     }
     
+    func deleteAction() {
+        deleteOn = true
+        
+        deleteProgressOnDevice()
+        
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn, animations: {
+            self.deletePopupView.alpha = 1.0
+        }, completion: { _ in
+        })
+        
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4, execute: {
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
+                self.deletePopupView.alpha = 0.0
+            }, completion: nil)
+            
+            if self.deleteOn {
+                self.deleteProgressOnServer()
+            }
+        })
+        
+    }
+    
+    func deleteProgressOnDevice() {
+        
+        currentWishList = wishList
+        deleteWishListToServer = deleteWishList
+        
+        deleteWishList.forEach { idx in
+            if let index = deleteWishList.firstIndex(where: { $0 == idx }) {
+                wishList.remove(at: index)
+            }
+        }
+        
+        deleteWishList.removeAll()
+        tableView.reloadData()
+    }
+    
+    func deleteProgressOnServer() {
+        
+        deleteWishListToServer.forEach { idx in
+            delegate?.deleteData(idx: idx)
+        }
+        
+        deleteWishListToServer.removeAll()
+    }
+    
+    
     private func configureTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.isHidden = true
+        tableView.isHidden = false
         tableView.register(WishListTypingTableViewCell.self, forCellReuseIdentifier: WishListTypingTableViewCell.cellId)
         tableView.register(WishListDoneTableViewCell.self, forCellReuseIdentifier: WishListDoneTableViewCell.cellId)
-        tableView.allowsSelection = false
+        //tableView.allowsSelection = false
         tableView.separatorStyle = .none
     }
     
     private func configureLayout() {
-        self.addSubview(wishListMainTitleLabel)
-        self.addSubview(mainillustrationImageView)
-        self.addSubview(notWriteMainLabel)
-        self.addSubview(notWriteSubLabel)
-        self.addSubview(currentLabel)
+        
+        let headerView = UIView()
+        headerView.backgroundColor = .white
+        headerView.addSubview(wishListMainTitleLabel)
         self.addSubview(tableView)
+        self.addSubview(deletePopupView)
+        
+        deletePopupView.addSubview(deletePopupInfoIcon)
+        deletePopupView.addSubview(deleteCancelButton)
+        deletePopupView.addSubview(deletePopupTitleLabel)
+        
+        tableView.tableHeaderView = headerView
+        
+        headerView.snp.makeConstraints {
+            $0.width.equalTo(tableView.snp.width)
+            $0.height.equalTo(126)
+        }
         
         wishListMainTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(self.snp.top).offset(40)
-            $0.leading.equalTo(self.snp.leading).offset(20)
-        }
-        
-        mainillustrationImageView.snp.makeConstraints {
-            $0.top.equalTo(wishListMainTitleLabel.snp.bottom).offset(40)
-            $0.centerX.equalToSuperview()
-            $0.width.equalTo(200)
-            $0.height.equalTo(200)
-        }
-        
-        notWriteMainLabel.snp.makeConstraints {
-            $0.top.equalTo(mainillustrationImageView.snp.bottom).offset(40)
-            $0.centerX.equalToSuperview()
-        }
-        
-        notWriteSubLabel.snp.makeConstraints {
-            $0.top.equalTo(notWriteMainLabel.snp.bottom).offset(16)
-            $0.centerX.equalToSuperview()
-        }
-        
-        currentLabel.snp.makeConstraints {
-            $0.top.equalTo(self.snp.top).offset(40)
-            $0.leading.equalTo(self.snp.leading).offset(20)
+            $0.top.equalTo(headerView.snp.top).offset(40)
+            $0.leading.equalTo(headerView.snp.leading).offset(20)
         }
         
         tableView.snp.makeConstraints {
-            $0.top.equalTo(currentLabel.snp.bottom).offset(14)
+            $0.top.equalTo(self.snp.top)
             $0.leading.equalTo(self.snp.leading).offset(18)
             $0.trailing.equalTo(self.snp.trailing).inset(18)
             $0.bottom.equalTo(self.snp.bottom).inset(20)
+        }
+        
+        deletePopupView.snp.makeConstraints {
+            $0.bottom.equalTo(self.snp.bottom).inset(76)
+            $0.leading.equalTo(self.snp.leading)
+            $0.trailing.equalTo(self.snp.trailing)
+            $0.height.equalTo(56)
+        }
+        
+        deleteCancelButton.snp.makeConstraints {
+            $0.top.equalTo(deletePopupView.snp.top).offset(8)
+            $0.trailing.equalTo(deletePopupView.snp.trailing).inset(16)
+            $0.height.equalTo(40)
+            $0.width.equalTo(108)
+        }
+        
+        deletePopupInfoIcon.snp.makeConstraints {
+            $0.top.equalTo(deletePopupView.snp.top).offset(16)
+            $0.leading.equalTo(deletePopupView.snp.leading).offset(16)
+            $0.width.equalTo(24)
+            $0.height.equalTo(24)
+        }
+        
+        deletePopupTitleLabel.snp.makeConstraints {
+            $0.top.equalTo(deletePopupView.snp.top).offset(20)
+            $0.leading.equalTo(deletePopupInfoIcon.snp.trailing).offset(16)
         }
     }
     
@@ -181,7 +233,7 @@ extension WishListCollectionViewCell: WishListDelegate {
 
 extension WishListCollectionViewCell: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        wishList.count
+        wishList.count + 1
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -196,16 +248,35 @@ extension WishListCollectionViewCell: UITableViewDelegate, UITableViewDataSource
         return 10
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row < wishList.count {
+            currentWishList = wishList
+            deleteWishList = [indexPath.row]
+            self.delegate?.selectIndex(text: wishList[indexPath.row].wishText, idx: indexPath.row)
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let item = wishList[indexPath.row]
+        if indexPath.row < wishList.count {
+            let item = wishList[indexPath.row]
+            
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: WishListDoneTableViewCell.cellId, for: indexPath) as? WishListDoneTableViewCell else { return UITableViewCell() }
+            
+            cell.setText(item: item)
+            cell.selectionStyle = .none
+            
+            return cell
+        } else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: WishListTypingTableViewCell.cellId, for: indexPath) as? WishListTypingTableViewCell else { return UITableViewCell() }
+            
+            cell.delegate = self
+            cell.selectionStyle = .none
+            return cell
+            
+        }
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: WishListDoneTableViewCell.cellId, for: indexPath) as? WishListDoneTableViewCell else { return UITableViewCell() }
         
-        cell.setText(item: item)
-        cell.selectionStyle = .none
-        
-        return cell
     }
     
     

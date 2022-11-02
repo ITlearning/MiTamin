@@ -14,7 +14,7 @@ extension MyDayViewController {
         @Published var dayNoteList: [DayNoteListModel] = []
         var networkManager = NetworkManager()
         var cancelBag = CancelBag()
-        
+        var selectIdx: Int = 0
         func getDayNoteList() {
             networkManager.getDayNoteList()
                 .receive(on: DispatchQueue.main)

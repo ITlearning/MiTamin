@@ -23,6 +23,8 @@ class MyDayViewController: UIViewController, MenuBarDelegate {
     
     var contentMode: ContentMode = .DayNote
     
+    var isDemmed: Bool = false
+    
     var opacity: Float = 0.0
     
     private var collectionView: UICollectionView = {
@@ -43,9 +45,30 @@ class MyDayViewController: UIViewController, MenuBarDelegate {
     
     var menuBar = MenuBar()
     
-    private lazy var editButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title: "편집", style: .plain, target: self, action: #selector(editButtonAction))
-        button.tintColor = UIColor.grayColor4
+    let demmedView = UIView()
+    
+    var editView = UIView()
+    
+    var selectLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.grayColor4
+        label.font = UIFont.SDGothicBold(size: 18)
+        label.text = "DJSakdjsakdha"
+        return label
+    }()
+    
+    var editButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("내용 수정하기", for: .normal)
+        button.setTitleColor(UIColor.grayColor4, for: .normal)
+        
+        return button
+    }()
+    
+    var deleteButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("삭제하기", for: .normal)
+        button.setTitleColor(UIColor(rgb: 0xF04452), for: .normal)
         return button
     }()
     
@@ -100,8 +123,7 @@ class MyDayViewController: UIViewController, MenuBarDelegate {
         
         viewModel.$dayNoteList
             .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] _ in
-                guard let self = self else { return }
+            .sink(receiveCompletion: { _ in }, receiveValue: {_ in
                 self.collectionView.reloadData()
             })
             .cancel(with: cancelBag)
@@ -127,6 +149,38 @@ class MyDayViewController: UIViewController, MenuBarDelegate {
         self.navigationController?.pushViewController(editVC, animated: true)
     }
     
+    @objc
+    func openSelectMenu() {
+        if isDemmed {
+            UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
+                self.editView.snp.remakeConstraints {
+                    $0.bottom.equalTo(self.view.snp.bottom).offset(204)
+                    $0.leading.equalTo(self.view.snp.leading)
+                    $0.width.equalTo(UIScreen.main.bounds.width)
+                    $0.height.equalTo(204)
+                }
+                self.demmedView.backgroundColor = .black.withAlphaComponent(0.0)
+                self.editView.superview?.layoutSubviews()
+            }, completion: { _ in
+                self.demmedView.isHidden = true
+            })
+        } else {
+            UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
+                self.editView.snp.remakeConstraints {
+                    $0.bottom.equalTo(self.view.snp.bottom)
+                    $0.leading.equalTo(self.view.snp.leading)
+                    $0.width.equalTo(UIScreen.main.bounds.width)
+                    $0.height.equalTo(204)
+                }
+                self.demmedView.isHidden = false
+                self.demmedView.backgroundColor = .black.withAlphaComponent(0.6)
+                self.editView.superview?.layoutSubviews()
+            })
+        }
+        isDemmed.toggle()
+    }
+    
+    
     func configureLayout() {
         
         view.addSubview(floatingButton)
@@ -136,7 +190,64 @@ class MyDayViewController: UIViewController, MenuBarDelegate {
             $0.width.equalTo(56)
             $0.height.equalTo(56)
         }
+        demmedView.backgroundColor = .black.withAlphaComponent(0.0)
+        demmedView.isHidden = true
+        view.addSubview(demmedView)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(openSelectMenu))
+        
+        demmedView.addGestureRecognizer(tap)
+        
+        demmedView.snp.makeConstraints {
+            $0.top.equalTo(self.view.snp.top)
+            $0.leading.equalTo(self.view.snp.leading)
+            $0.trailing.equalTo(self.view.snp.trailing)
+            $0.bottom.equalTo(self.view.snp.bottom)
+        }
+        
+        let sepLine = UIView()
+        sepLine.backgroundColor = UIColor(rgb: 0xEDEDED)
+        view.addSubview(editView)
+        editView.addSubview(editButton)
+        editView.addSubview(selectLabel)
+        editView.addSubview(sepLine)
+        editView.addSubview(deleteButton)
+        
+        editView.clipsToBounds = true
+        editView.layer.cornerRadius = 12
+        editView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        
+        editView.snp.makeConstraints {
+            $0.bottom.equalTo(self.view.snp.bottom).offset(204)
+            $0.leading.equalTo(self.view.snp.leading)
+            $0.width.equalTo(UIScreen.main.bounds.width)
+            $0.height.equalTo(204)
+        }
+        
+        selectLabel.snp.makeConstraints {
+            $0.top.equalTo(editView.snp.top).offset(24)
+            $0.leading.equalTo(editView.snp.leading).offset(20)
+        }
+        editView.backgroundColor = .white
+
+        editButton.snp.makeConstraints {
+            $0.top.equalTo(selectLabel.snp.top).offset(32)
+            $0.leading.equalTo(selectLabel.snp.leading)
+        }
+        
+        sepLine.snp.makeConstraints {
+            $0.top.equalTo(editButton.snp.bottom).offset(20)
+            $0.leading.equalTo(selectLabel)
+            $0.height.equalTo(1)
+            $0.trailing.equalTo(self.view.snp.trailing).inset(20)
+        }
+        
+        deleteButton.snp.makeConstraints {
+            $0.top.equalTo(sepLine.snp.bottom).offset(10)
+            $0.leading.equalTo(selectLabel)
+        }
+        
     }
+    
     
     func configureMenuBar() {
         view.addSubview(menuBar)
@@ -155,10 +266,8 @@ class MyDayViewController: UIViewController, MenuBarDelegate {
         
         if indexPath.row == 0 {
             contentMode = .DayNote
-            self.navigationItem.rightBarButtonItem = nil
         } else {
             contentMode = .WishList
-            self.navigationItem.rightBarButtonItem = self.editButton
         }
         
         self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
@@ -204,6 +313,11 @@ extension MyDayViewController: WishListCollectionViewDelegate {
         viewModel.deleteWishList(idx: idx)
     }
     
+    func selectIndex(text: String, idx: Int) {
+        selectLabel.text = text
+        viewModel.selectIdx = idx
+        openSelectMenu()
+    }
 }
 
 extension MyDayViewController: DayNoteDeletgate {
@@ -251,9 +365,7 @@ extension MyDayViewController: UICollectionViewDelegate, UICollectionViewDataSou
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        if !viewModel.wishList.isEmpty {
-            floatingButton.alpha = ((scrollView.contentSize.width/2) - scrollView.contentOffset.x) / (scrollView.contentSize.width/2)
-        }
+        floatingButton.alpha = ((scrollView.contentSize.width/2) - scrollView.contentOffset.x) / (scrollView.contentSize.width/2)
         
         menuBar.indicatorViewLeadingConstraint.constant = scrollView.contentOffset.x / 2
     }
@@ -263,11 +375,9 @@ extension MyDayViewController: UICollectionViewDelegate, UICollectionViewDataSou
         let indexPath = IndexPath(item: itemAt, section: 0)
         
         if indexPath.row == 0 {
-            self.navigationItem.rightBarButtonItem = nil
             contentMode = .DayNote
         } else {
             contentMode = .WishList
-            self.navigationItem.rightBarButtonItem = self.editButton
         }
         
         menuBar.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
