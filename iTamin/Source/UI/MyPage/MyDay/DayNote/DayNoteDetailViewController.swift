@@ -140,9 +140,12 @@ class DayNoteDetailViewController: UIViewController {
                 }
                 
                 self.menuView.superview?.layoutSubviews()
+            }, completion: { _ in
+                self.demmedView.isHidden = true
             })
         } else {
             UIView.animate(withDuration: 0.3, animations: {
+                self.demmedView.isHidden = false
                 self.demmedView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
                 self.menuView.snp.remakeConstraints {
                     $0.bottom.equalTo(self.view.snp.bottom)
@@ -164,6 +167,7 @@ class DayNoteDetailViewController: UIViewController {
         
         
         demmedView.backgroundColor = UIColor.black.withAlphaComponent(0.0)
+        demmedView.isHidden = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(menuMode))
         demmedView.addGestureRecognizer(tapGesture)
         vc.view.addSubview(demmedView)
@@ -200,7 +204,7 @@ class DayNoteDetailViewController: UIViewController {
         separateLine.snp.makeConstraints {
             $0.top.equalTo(editButton.snp.bottom)
             $0.leading.equalTo(editButton.snp.leading)
-            $0.trailing.equalTo(editButton.snp.trailing)
+            $0.trailing.equalTo(self.view.snp.trailing).inset(20)
             $0.height.equalTo(1)
         }
         
