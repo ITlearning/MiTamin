@@ -11,6 +11,10 @@ enum AppInfo {
     case Service
     case Privacy
     case Version
+    case PasswordChange
+    case ResetData
+    case LogOut
+    case UserOut
     
     func replaceType(idx: Int) -> AppInfo {
         switch idx {
@@ -20,6 +24,14 @@ enum AppInfo {
             return .Privacy
         case 2:
             return .Version
+        case 3:
+            return .PasswordChange
+        case 4:
+            return .ResetData
+        case 5:
+            return .LogOut
+        case 6:
+            return .UserOut
         default:
             return .Privacy
         }
@@ -42,6 +54,7 @@ struct AppInfoView: View {
     }
     
     @State var buttonText: [String] = ["서비스 이용약관", "개인정보 처리방침", "버전 "]
+    @State var accountButtonText: [String] = ["비밀번호 변경", "기록 초기화", "로그아웃", "회원탈퇴"]
     
     @State var type: AppInfo = .Privacy
     
@@ -60,7 +73,29 @@ struct AppInfoView: View {
                 .padding(.vertical, 10)
             }
             .padding(.horizontal, 20)
+            
+            HStack {
+                Text("계정 정보")
+                    .font(.SDGothicBold(size: 18))
+                    .foregroundColor(Color(uiColor: UIColor.grayColor4))
+                Spacer()
+            }
+            .padding(.top, 15)
+            .padding(.horizontal, 20)
+            
+            ForEach(accountButtonText.indices, id: \.self) { idx in
+                HStack {
+                    Button(action: {
+                        delegate?.touchAction(type: type.replaceType(idx: idx+3))
+                    }, label: {
+                        makeButton(text: accountButtonText[idx])
+                    })
+                }
+                .padding(.vertical, 10)
+            }
+            .padding(.horizontal, 20)
         }
+        
     }
     
     func makeButton(text: String) -> some View {
@@ -69,11 +104,10 @@ struct AppInfoView: View {
                 .font(.SDGothicMedium(size: 16))
                 .foregroundColor(Color(uiColor: UIColor.grayColor4))
             Spacer()
-            if !text.contains("버전") {
-                Image("icon-arrow-left-small-mono-1")
-                    .resizable()
-                    .frame(width: 18, height: 18)
-            }
+            Image("icon-arrow-left-small-mono-1")
+                .resizable()
+                .frame(width: 18, height: 18)
+                .opacity(text.contains("버전") || text.contains("회원") ? 0 : 1)
         }
         
     }
