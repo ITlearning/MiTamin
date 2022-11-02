@@ -8,7 +8,6 @@
 import SwiftUI
 
 enum AppInfo {
-    case Account
     case Service
     case Privacy
     case Version
@@ -16,15 +15,13 @@ enum AppInfo {
     func replaceType(idx: Int) -> AppInfo {
         switch idx {
         case 0:
-            return .Account
-        case 1:
             return .Service
-        case 2:
+        case 1:
             return .Privacy
-        case 3:
+        case 2:
             return .Version
         default:
-            return .Account
+            return .Privacy
         }
     }
 }
@@ -35,9 +32,18 @@ protocol AppInfoDelegate: AnyObject {
 
 struct AppInfoView: View {
     
-    @State var buttonText: [String] = ["계정관리", "서비스 이용약관", "개인정보 처리방침", "버전 "]
+    var version: String? {
+        guard let dictionary = Bundle.main.infoDictionary,
+            let version = dictionary["CFBundleShortVersionString"] as? String,
+            let build = dictionary["CFBundleVersion"] as? String else {return nil}
+
+        let versionAndBuild: String = "\(version)"
+        return versionAndBuild
+    }
     
-    @State var type: AppInfo = .Account
+    @State var buttonText: [String] = ["서비스 이용약관", "개인정보 처리방침", "버전 "]
+    
+    @State var type: AppInfo = .Privacy
     
     weak var delegate: AppInfoDelegate?
     
@@ -59,10 +65,9 @@ struct AppInfoView: View {
     
     func makeButton(text: String) -> some View {
         HStack {
-            Text(text)
+            Text(text.contains("버전") ? text+(version ?? "") : text)
                 .font(.SDGothicMedium(size: 16))
                 .foregroundColor(Color(uiColor: UIColor.grayColor4))
-            
             Spacer()
             if !text.contains("버전") {
                 Image("icon-arrow-left-small-mono-1")

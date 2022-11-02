@@ -126,6 +126,7 @@ struct ProfileModel: Codable {
     var nickname: String
     var profileImgUrl: String?
     var beMyMessage: String
+    var provider: String
 }
 
 struct WishListModel: Codable {

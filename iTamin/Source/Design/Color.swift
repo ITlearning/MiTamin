@@ -68,6 +68,8 @@ extension UIColor {
     static let grayColor7 = UIColor(rgb: 0xCCCCCC)
     /// 0x817979
     static let grayColor8 = UIColor(rgb: 0x817979)
+    /// 0xF6F4F2
+    static let grayColor9 = UIColor(rgb: 0xF6F4F2)
     
     
     // MARK: - Etc.

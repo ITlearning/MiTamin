@@ -249,7 +249,7 @@ class MyPageViewController: UIViewController {
         
         profileEditButton.tapPublisher
             .sink(receiveCompletion: {_ in}, receiveValue: { _ in
-                let editProfileVC = EditProfileViewController(profile: self.viewModel.profileData.value ?? ProfileModel(nickname: "", beMyMessage: ""))
+                let editProfileVC = EditProfileViewController(profile: self.viewModel.profileData.value ?? ProfileModel(nickname: "", beMyMessage: "", provider: ""))
                 self.navigationController?.pushViewController(editProfileVC, animated: true)
             })
             .cancel(with: cancelBag)
@@ -437,6 +437,16 @@ class MyPageViewController: UIViewController {
 extension MyPageViewController: AppInfoDelegate {
     func touchAction(type: AppInfo) {
         print(type)
+        
+//        switch type {
+//        case .Service:
+//            
+//        case .Privacy:
+//            
+//        case .Version:
+//            
+//        }
+        
     }
 }
 
