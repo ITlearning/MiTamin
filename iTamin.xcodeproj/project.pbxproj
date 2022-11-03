@@ -113,6 +113,7 @@
 		F5E15A9D29115579007179A2 /* DayNoteDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15A9C29115579007179A2 /* DayNoteDetailViewController.swift */; };
 		F5E15A9F2911613A007179A2 /* DayNoteDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15A9E2911613A007179A2 /* DayNoteDetailViewModel.swift */; };
 		F5E15AA12912CCFE007179A2 /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15AA02912CCFE007179A2 /* UINavigationController.swift */; };
+		F5E15AA729141D1E007179A2 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = F5E15AA629141D1E007179A2 /* SwiftUICharts */; };
 		F5F3F15C28FA7B48006C9B6A /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F3F15B28FA7B48006C9B6A /* CoreDataManager.swift */; };
 		F5F3F16028FA85D5006C9B6A /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F3F15F28FA85D5006C9B6A /* String.swift */; };
 		F5F3F16328FA8A10006C9B6A /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = F5F3F16228FA8A10006C9B6A /* SkeletonView */; };
@@ -260,6 +261,7 @@
 				F546AE5E29059F3000CE6C4D /* YPImagePicker in Frameworks */,
 				F5F3F16328FA8A10006C9B6A /* SkeletonView in Frameworks */,
 				F5A2EB3928D4B95F00536E9B /* SnapKit in Frameworks */,
+				F5E15AA729141D1E007179A2 /* SwiftUICharts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -682,6 +684,7 @@
 				F546AE5D29059F3000CE6C4D /* YPImagePicker */,
 				F546AE602905A21A00CE6C4D /* Kingfisher */,
 				F5E15A98290FFD0F007179A2 /* SkeletonUI */,
+				F5E15AA629141D1E007179A2 /* SwiftUICharts */,
 			);
 			productName = iTamin;
 			productReference = F5A2EAEF28D3644800536E9B /* iTamin.app */;
@@ -765,6 +768,7 @@
 				F546AE5C29059F3000CE6C4D /* XCRemoteSwiftPackageReference "YPImagePicker" */,
 				F546AE5F2905A21A00CE6C4D /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				F5E15A97290FFD0F007179A2 /* XCRemoteSwiftPackageReference "SkeletonUI" */,
+				F5E15AA529141D1E007179A2 /* XCRemoteSwiftPackageReference "ChartView" */,
 			);
 			productRefGroup = F5A2EAF028D3644800536E9B /* Products */;
 			projectDirPath = "";
@@ -1308,6 +1312,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		F5E15AA529141D1E007179A2 /* XCRemoteSwiftPackageReference "ChartView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AppPear/ChartView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		F5F3F16128FA8A10006C9B6A /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
@@ -1358,6 +1370,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F5E15A97290FFD0F007179A2 /* XCRemoteSwiftPackageReference "SkeletonUI" */;
 			productName = SkeletonUI;
+		};
+		F5E15AA629141D1E007179A2 /* SwiftUICharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F5E15AA529141D1E007179A2 /* XCRemoteSwiftPackageReference "ChartView" */;
+			productName = SwiftUICharts;
 		};
 		F5F3F16228FA8A10006C9B6A /* SkeletonView */ = {
 			isa = XCSwiftPackageProductDependency;

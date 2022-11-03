@@ -23,6 +23,14 @@ class RootTabBarViewController: UITabBarController {
         viewControllers.forEach({ $0.view.backgroundColor = UIColor.white })
         viewControllers.forEach({ $0.navigationController?.isNavigationBarHidden = true })
         self.setViewControllers(viewControllers, animated: false)
+        
+        if let items = tabBar.items {
+            // Setting the title text color of all tab bar items:
+            for item in items {
+                item.setTitleTextAttributes([.foregroundColor: UIColor.black], for: .selected)
+                item.setTitleTextAttributes([.foregroundColor: UIColor.lightGray], for: .normal)
+            }
+        }
     }
     
     required init?(coder: NSCoder) {
