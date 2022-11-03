@@ -45,7 +45,6 @@
 		F5A2EB1928D3644A00536E9B /* iTaminUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB1828D3644A00536E9B /* iTaminUITestsLaunchTests.swift */; };
 		F5A2EB2C28D4B09800536E9B /* RootTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB2B28D4B09800536E9B /* RootTabBarViewController.swift */; };
 		F5A2EB2E28D4B1BC00536E9B /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB2D28D4B1BC00536E9B /* HistoryViewController.swift */; };
-		F5A2EB3428D4B22000536E9B /* MindConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB3328D4B22000536E9B /* MindConfigViewController.swift */; };
 		F5A2EB3628D4B22A00536E9B /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A2EB3528D4B22A00536E9B /* MyPageViewController.swift */; };
 		F5A2EB3928D4B95F00536E9B /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F5A2EB3828D4B95F00536E9B /* SnapKit */; };
 		F5A2EB3C28D4BB0300536E9B /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = F5A2EB3B28D4BB0300536E9B /* CombineCocoa */; };
@@ -179,7 +178,6 @@
 		F5A2EB1828D3644A00536E9B /* iTaminUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iTaminUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		F5A2EB2B28D4B09800536E9B /* RootTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabBarViewController.swift; sourceTree = "<group>"; };
 		F5A2EB2D28D4B1BC00536E9B /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
-		F5A2EB3328D4B22000536E9B /* MindConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MindConfigViewController.swift; sourceTree = "<group>"; };
 		F5A2EB3528D4B22A00536E9B /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		F5A2EB3E28DB231600536E9B /* CustomTabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabItem.swift; sourceTree = "<group>"; };
 		F5A2EB4128DB2B9200536E9B /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -424,7 +422,6 @@
 				F5A2EB3D28DB22F800536E9B /* TabbarUI */,
 				F5A2EB2F28D4B1C300536E9B /* Home */,
 				F5A2EB3028D4B1CD00536E9B /* History */,
-				F5A2EB3128D4B1DB00536E9B /* MindConfig */,
 				F5A2EB3228D4B20D00536E9B /* MyPage */,
 				F5A2EB2B28D4B09800536E9B /* RootTabBarViewController.swift */,
 			);
@@ -477,14 +474,6 @@
 				F5A2EB2D28D4B1BC00536E9B /* HistoryViewController.swift */,
 			);
 			path = History;
-			sourceTree = "<group>";
-		};
-		F5A2EB3128D4B1DB00536E9B /* MindConfig */ = {
-			isa = PBXGroup;
-			children = (
-				F5A2EB3328D4B22000536E9B /* MindConfigViewController.swift */,
-			);
-			path = MindConfig;
 			sourceTree = "<group>";
 		};
 		F5A2EB3228D4B20D00536E9B /* MyPage */ = {
@@ -898,7 +887,6 @@
 				F5A2EAF528D3644800536E9B /* SceneDelegate.swift in Sources */,
 				F546AE702906E5B500CE6C4D /* WishListTypingTableViewCell.swift in Sources */,
 				F546AE682906D69000CE6C4D /* MenuCollectionViewCell.swift in Sources */,
-				F5A2EB3428D4B22000536E9B /* MindConfigViewController.swift in Sources */,
 				F5A2EB7D28DF1B3600536E9B /* OnBoardingViewController.swift in Sources */,
 				F5A2EBA528E5A3B000536E9B /* MyTaminCollectionViewCell.swift in Sources */,
 				F546AE7229096EE100CE6C4D /* MyDayViewModel.swift in Sources */,
