@@ -9,6 +9,7 @@ import UIKit
 import Combine
 import CombineCocoa
 import SnapKit
+import SwiftUI
 
 
 class HistoryViewController: UIViewController {
@@ -102,6 +103,41 @@ class HistoryViewController: UIViewController {
         return label
     }()
     
+    private let graphView: UIView = {
+        let v = UIView()
+        v.backgroundColor = .gray
+        
+        return v
+    }()
+    
+    private let calendarView: UIView = {
+        let v = UIView()
+        v.backgroundColor = .gray
+        
+        return v
+    }()
+    
+    private let mindCalLabel: UILabel = {
+        let label = UILabel()
+        label.text = "이번 달 가장 많이 느낀 감정"
+        label.textColor = UIColor.black
+        label.font = UIFont.SDGothicMedium(size: 16)
+        
+        return label
+    }()
+    
+    private lazy var feelingRankView = FeelingRankView()
+    
+    private let collectMyTaminLabel: UILabel = {
+        let label = UILabel()
+        label.text = "마이타민 모아보기"
+        label.textColor = UIColor.black
+        label.font = UIFont.SDGothicBold(size: 18)
+        
+        return label
+    }()
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
@@ -126,6 +162,15 @@ class HistoryViewController: UIViewController {
         complimentHistoryView.addSubview(complimentResetButton)
         complimentHistoryView.addSubview(complimentDayLabel)
         complimentHistoryView.addSubview(allcomplimentButton)
+        scrollView.addSubview(mindReportHistoryTitle)
+        scrollView.addSubview(weekMindConditionTitle)
+        scrollView.addSubview(graphView)
+        scrollView.addSubview(mindCalLabel)
+        let vc = UIHostingController(rootView: feelingRankView)
+        scrollView.addSubview(vc.view)
+        scrollView.addSubview(collectMyTaminLabel)
+        
+        scrollView.addSubview(calendarView)
         
         mainMiTaminLogoImageView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(14)
@@ -179,6 +224,47 @@ class HistoryViewController: UIViewController {
             $0.leading.equalTo(complimentHistoryView.snp.leading).offset(20)
             $0.trailing.equalTo(complimentHistoryView.snp.trailing).inset(19)
             $0.height.equalTo(40)
+        }
+        
+        mindReportHistoryTitle.snp.makeConstraints {
+            $0.top.equalTo(complimentHistoryView.snp.bottom).offset(48)
+            $0.leading.equalTo(complimentHistoryView.snp.leading)
+        }
+        
+        weekMindConditionTitle.snp.makeConstraints {
+            $0.top.equalTo(mindReportHistoryTitle.snp.bottom).offset(24)
+            $0.leading.equalTo(mindReportHistoryTitle.snp.leading)
+        }
+        
+        graphView.snp.makeConstraints {
+            $0.top.equalTo(weekMindConditionTitle.snp.bottom).offset(16)
+            $0.leading.equalTo(view.snp.leading).offset(20)
+            $0.trailing.equalTo(view.snp.trailing).inset(20)
+            $0.height.equalTo(140)
+        }
+        
+        mindCalLabel.snp.makeConstraints {
+            $0.top.equalTo(graphView.snp.bottom).offset(40)
+            $0.leading.equalTo(graphView.snp.leading)
+        }
+        
+        vc.view.snp.makeConstraints {
+            $0.top.equalTo(mindCalLabel.snp.bottom).offset(16)
+            $0.leading.equalTo(view.snp.leading)
+            $0.trailing.equalTo(view.snp.trailing)
+        }
+        
+        collectMyTaminLabel.snp.makeConstraints {
+            $0.top.equalTo(vc.view.snp.bottom).offset(48)
+            $0.leading.equalTo(mindCalLabel)
+        }
+        
+        calendarView.snp.makeConstraints {
+            $0.top.equalTo(collectMyTaminLabel.snp.bottom).offset(24)
+            $0.leading.equalTo(view.snp.leading).offset(20)
+            $0.trailing.equalTo(view.snp.trailing).inset(20)
+            $0.height.equalTo(400)
+            $0.bottom.equalTo(scrollView.snp.bottom)
         }
     }
 

@@ -160,3 +160,8 @@ struct DayNoteListModel: Codable {
     var year: String
     var data: [DayNoteModel]
 }
+
+struct FeelingRankModel: Codable {
+    var feeling: String
+    var count: Int
+}

@@ -114,6 +114,7 @@
 		F5E15A9F2911613A007179A2 /* DayNoteDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15A9E2911613A007179A2 /* DayNoteDetailViewModel.swift */; };
 		F5E15AA12912CCFE007179A2 /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15AA02912CCFE007179A2 /* UINavigationController.swift */; };
 		F5E15AA729141D1E007179A2 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = F5E15AA629141D1E007179A2 /* SwiftUICharts */; };
+		F5E15AAA2915659B007179A2 /* FeelingRankView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15AA92915659B007179A2 /* FeelingRankView.swift */; };
 		F5F3F15C28FA7B48006C9B6A /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F3F15B28FA7B48006C9B6A /* CoreDataManager.swift */; };
 		F5F3F16028FA85D5006C9B6A /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F3F15F28FA85D5006C9B6A /* String.swift */; };
 		F5F3F16328FA8A10006C9B6A /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = F5F3F16228FA8A10006C9B6A /* SkeletonView */; };
@@ -241,6 +242,7 @@
 		F5E15A9C29115579007179A2 /* DayNoteDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayNoteDetailViewController.swift; sourceTree = "<group>"; };
 		F5E15A9E2911613A007179A2 /* DayNoteDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayNoteDetailViewModel.swift; sourceTree = "<group>"; };
 		F5E15AA02912CCFE007179A2 /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
+		F5E15AA92915659B007179A2 /* FeelingRankView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeelingRankView.swift; sourceTree = "<group>"; };
 		F5F3F15B28FA7B48006C9B6A /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		F5F3F15F28FA85D5006C9B6A /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		F5F3F16428FA9589006C9B6A /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
@@ -473,6 +475,7 @@
 		F5A2EB3028D4B1CD00536E9B /* History */ = {
 			isa = PBXGroup;
 			children = (
+				F5E15AA82915658A007179A2 /* SwiftUI */,
 				F5A2EB2D28D4B1BC00536E9B /* HistoryViewController.swift */,
 			);
 			path = History;
@@ -646,6 +649,14 @@
 				F5F3F16428FA9589006C9B6A /* AlertView.swift */,
 			);
 			path = SwiftUIView;
+			sourceTree = "<group>";
+		};
+		F5E15AA82915658A007179A2 /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				F5E15AA92915659B007179A2 /* FeelingRankView.swift */,
+			);
+			path = SwiftUI;
 			sourceTree = "<group>";
 		};
 		F5F3F16628FC52B3006C9B6A /* SwiftUI */ = {
@@ -856,6 +867,7 @@
 				F546AE87290D0D9E00CE6C4D /* AddDayNoteViewModel.swift in Sources */,
 				F5A2EBAC28E5B26300536E9B /* MyTaminViewModel.swift in Sources */,
 				F5A2EBC828F2EA4F00536E9B /* CategoryCollectionViewCell.swift in Sources */,
+				F5E15AAA2915659B007179A2 /* FeelingRankView.swift in Sources */,
 				F5E15A90290E3BF4007179A2 /* BlurEffect.swift in Sources */,
 				F5A2EB5128DB614C00536E9B /* Font.swift in Sources */,
 				F546AE95290D5A0600CE6C4D /* DoneWishListViewController.swift in Sources */,
