@@ -421,6 +421,7 @@
 		F5A2EB2628D368F000536E9B /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				F5E15AAB29157870007179A2 /* SwiftUIView */,
 				F5A2EB7B28DF1B2500536E9B /* OnBoarding */,
 				F5A2EB5228DCB3DC00536E9B /* Login */,
 				F5A2EB3D28DB22F800536E9B /* TabbarUI */,
@@ -462,7 +463,6 @@
 		F5A2EB2F28D4B1C300536E9B /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				F5A2EBA828E5AE8F00536E9B /* SwiftUIView */,
 				F5A2EBA328E5A3A100536E9B /* Cell */,
 				F5A2EAF628D3644800536E9B /* HomeViewController.swift */,
 				F5A2EB9128E1FDBF00536E9B /* HomeViewModel.swift */,
@@ -475,7 +475,6 @@
 		F5A2EB3028D4B1CD00536E9B /* History */ = {
 			isa = PBXGroup;
 			children = (
-				F5E15AA82915658A007179A2 /* SwiftUI */,
 				F5A2EB2D28D4B1BC00536E9B /* HistoryViewController.swift */,
 			);
 			path = History;
@@ -485,7 +484,6 @@
 			isa = PBXGroup;
 			children = (
 				F546AE622906D32F00CE6C4D /* MyDay */,
-				F5F3F16628FC52B3006C9B6A /* SwiftUI */,
 				F5A2EB3528D4B22A00536E9B /* MyPageViewController.swift */,
 				F5170A9829055DB800AE4FD5 /* MyPageViewModel.swift */,
 				F5170A9A29055F9700AE4FD5 /* EditProfileViewController.swift */,
@@ -634,9 +632,13 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
-		F5A2EBA828E5AE8F00536E9B /* SwiftUIView */ = {
+		F5E15AAB29157870007179A2 /* SwiftUIView */ = {
 			isa = PBXGroup;
 			children = (
+				F5F3F16728FC52C9006C9B6A /* ProfileBGView.swift */,
+				F5E15A95290FFA37007179A2 /* MyDayDetailView.swift */,
+				F5E15A9A29100B75007179A2 /* AppInfoView.swift */,
+				F5E15AA92915659B007179A2 /* FeelingRankView.swift */,
 				F5A2EB9D28E46F8100536E9B /* MainCollectionView.swift */,
 				F5A2EBA628E5A6F200536E9B /* RoundedCircleView.swift */,
 				F5A2EBA928E5AEA900536E9B /* IndicatorView.swift */,
@@ -649,24 +651,6 @@
 				F5F3F16428FA9589006C9B6A /* AlertView.swift */,
 			);
 			path = SwiftUIView;
-			sourceTree = "<group>";
-		};
-		F5E15AA82915658A007179A2 /* SwiftUI */ = {
-			isa = PBXGroup;
-			children = (
-				F5E15AA92915659B007179A2 /* FeelingRankView.swift */,
-			);
-			path = SwiftUI;
-			sourceTree = "<group>";
-		};
-		F5F3F16628FC52B3006C9B6A /* SwiftUI */ = {
-			isa = PBXGroup;
-			children = (
-				F5F3F16728FC52C9006C9B6A /* ProfileBGView.swift */,
-				F5E15A95290FFA37007179A2 /* MyDayDetailView.swift */,
-				F5E15A9A29100B75007179A2 /* AppInfoView.swift */,
-			);
-			path = SwiftUI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

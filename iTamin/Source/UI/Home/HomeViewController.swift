@@ -39,9 +39,15 @@ class HomeViewController: UIViewController {
     
     let mainTopYellowColorView: UIView = {
         let mainView = UIView()
-        mainView.backgroundColor = UIColor.mainTopYellowColor
+        mainView.backgroundColor = UIColor(rgb: 0xFFF6CF)
         
         return mainView
+    }()
+    
+    let mainTopView: UIView = {
+        let v = UIView()
+        v.backgroundColor = UIColor(rgb: 0xFFF6CF)
+        return v
     }()
     
     let mainCircleImageView: UIImageView = {
@@ -59,7 +65,7 @@ class HomeViewController: UIViewController {
         imageView.image = UIImage(named: "MainLogoColor")
         
         imageView.contentMode = .scaleAspectFit
-        
+        imageView.backgroundColor = .clear
         return imageView
     }()
     
@@ -131,7 +137,7 @@ class HomeViewController: UIViewController {
     let bellButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "Bell"), for: .normal)
-        
+        button.backgroundColor = .clear
         return button
     }()
     
@@ -259,19 +265,31 @@ class HomeViewController: UIViewController {
         let myTaminReportView = UIHostingController(rootView: MyTaminReportView(viewModel: self.viewModel))
         mainScrollView.view.isSkeletonable = true
         mainLogoImageView.isSkeletonable = true
-        view.addSubview(mainTopYellowColorView)
-        view.addSubview(mainCircleImageView)
+        scrollView.backgroundColor = .white
+        scrollView.bounces = false
+        view.backgroundColor = .mainTopYellowColor
+        view.addSubview(mainTopView)
+        view.addSubview(scrollView)
         view.addSubview(mainLogoImageView)
-        view.addSubview(mainTitleLabel)
-        view.addSubview(mainScrollView.view)
-        view.addSubview(notYetMyTaminImage)
-        view.addSubview(currentDateLabel)
-        view.addSubview(toDayMyTaminLabel)
-        view.addSubview(notYetMyTaminLabel)
-        view.addSubview(myTaminReportView.view)
-        view.addSubview(blackScreenView)
-        view.addSubview(loadingTextLabel)
         view.addSubview(bellButton)
+        view.addSubview(blackScreenView)
+        
+        scrollView.snp.makeConstraints {
+            $0.top.equalTo(mainLogoImageView.snp.bottom)
+            $0.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        scrollView.addSubview(mainTopYellowColorView)
+        scrollView.addSubview(mainCircleImageView)
+        scrollView.addSubview(mainTitleLabel)
+        scrollView.addSubview(mainScrollView.view)
+        scrollView.addSubview(notYetMyTaminImage)
+        scrollView.addSubview(currentDateLabel)
+        scrollView.addSubview(toDayMyTaminLabel)
+        scrollView.addSubview(notYetMyTaminLabel)
+        scrollView.addSubview(myTaminReportView.view)
+        view.addSubview(loadingTextLabel)
+        
         
         blackScreenView.snp.makeConstraints {
             $0.top.leading.trailing.bottom.equalToSuperview()
@@ -282,16 +300,23 @@ class HomeViewController: UIViewController {
             $0.centerY.equalToSuperview()
         }
         
+        mainTopView.snp.makeConstraints {
+            $0.top.equalTo(view.snp.top)
+            $0.width.equalTo(UIScreen.main.bounds.width)
+            $0.height.equalTo(350)
+        }
+        
         mainScrollView.view.backgroundColor = .clear
         
         mainTitleLabel.alpha = 0.0
         mainTopYellowColorView.snp.makeConstraints {
-            $0.top.leading.trailing.equalTo(view)
-            $0.height.equalTo(330)
+            $0.top.equalTo(scrollView.snp.top)
+            $0.width.equalTo(UIScreen.main.bounds.width)
+            $0.height.equalTo(250)
         }
         
         mainCircleImageView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(50)
+            $0.top.equalTo(scrollView.snp.top)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
         }
         
@@ -302,9 +327,9 @@ class HomeViewController: UIViewController {
             $0.height.equalTo(24)
         }
         mainTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(mainLogoImageView.snp.bottom).offset(29)
-            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(36)
-            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(70)
+            $0.top.equalTo(scrollView.snp.top).offset(20)
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
         }
         
         mainScrollView.view.snp.makeConstraints {
@@ -338,7 +363,17 @@ class HomeViewController: UIViewController {
         myTaminReportView.view.snp.makeConstraints {
             $0.top.equalTo(toDayMyTaminLabel.snp.bottom).offset(24)
             $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        }
+        
+        let sepView = UIView()
+        
+        scrollView.addSubview(sepView)
+        
+        sepView.snp.makeConstraints {
+            $0.top.equalTo(myTaminReportView.view.snp.bottom)
+            $0.width.equalTo(UIScreen.main.bounds.width)
+            $0.height.equalTo(60)
+            $0.bottom.equalTo(scrollView.snp.bottom)
         }
         
         bellButton.snp.makeConstraints {

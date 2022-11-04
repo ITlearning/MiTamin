@@ -11,8 +11,10 @@ struct MainCollectionView: View {
     
     @StateObject var viewModel: HomeViewController.ViewModel
     @State var items:[MainCollectionModel] = []
+    @State var illustrationImages: [String] = ["One", "Two", "Three", "Four"]
     func mainCellView(idx: Int, item: MainCollectionModel) -> some View {
         ZStack(alignment: .topLeading) {
+            
             RoundedRectangle(cornerRadius: 12)
                 .frame(width: 196, height: 150)
                 .foregroundColor(Color.white)
@@ -20,6 +22,17 @@ struct MainCollectionView: View {
                     .shadow(color: Color.black.opacity(0.1), radius: 0, x: 0, y: 8)
                     .blur(radius: 10)
                 )
+                .overlay(
+                    HStack {
+                        Spacer()
+                        Image("s\(illustrationImages[idx])")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 112, height: 98)
+                            .padding(.trailing, idx < 2 ? -2 : -12)
+                    }
+                )
+            
             
             HStack(alignment: .center,spacing: 8) {
                 Text("\(idx+1)")

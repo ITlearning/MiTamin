@@ -20,6 +20,7 @@ class RootTabBarViewController: UITabBarController {
         let myPageVC = MyPageViewController()
         
         let viewControllers = [homeVC, historyVC, myPageVC]
+        
         viewControllers.forEach({ $0.view.backgroundColor = UIColor.white })
         viewControllers.forEach({ $0.navigationController?.isNavigationBarHidden = true })
         self.setViewControllers(viewControllers, animated: false)
