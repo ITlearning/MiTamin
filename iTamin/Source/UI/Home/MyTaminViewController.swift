@@ -54,6 +54,8 @@ class MyTaminViewController: UIViewController {
             self.viewModel.myTaminStatus.send(3)
         } else if index == 5 {
             self.viewModel.myTaminStatus.send(4)
+        } else {
+            self.viewModel.myTaminStatus.send(index+1)
         }
         super.init(nibName: nil, bundle: nil)
         //self.isDone = self.getIsDoneStatus(idx: self.viewModel.myTaminStatus.value)
@@ -261,7 +263,10 @@ class MyTaminViewController: UIViewController {
                     self.viewModel.isEditStatus.send(true)
                     self.viewModel.alertText = self.viewModel.currentIndex == 2 ? "하루 진단하기" : "칭찬 처방하기"
                     self.showBlackAnimate()
-                    self.alertView.view.alpha = 1.0
+                    DispatchQueue.main.async {
+                        self.alertView.view.alpha = 1.0
+                    }
+                    
                 } else {
                     self.viewModel.isEditStatus.send(false)
                     self.alertView.view.alpha = 0.0
@@ -272,7 +277,9 @@ class MyTaminViewController: UIViewController {
         viewModel.isEditStatus
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { value in
-                self.alertView.view.alpha = value ? 1.0 : 0.0
+                DispatchQueue.main.async {
+                    self.alertView.view.alpha = value ? 1.0 : 0.0
+                }
             })
             .cancel(with: cancelBag)
         
@@ -594,11 +601,10 @@ class MyTaminViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.showsHorizontalScrollIndicator = false
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.001, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
             self.collectionView.isScrollEnabled = false
             self.collectionView.scrollToItem(at: IndexPath(item: self.viewModel.currentIndex, section: 0), at: .centeredHorizontally, animated: false)
             self.resetView(index: self.viewModel.currentIndex)
-            
             if self.viewModel.myTaminStatus.value == 4 {
                 self.nextButton.setTitle("섭취완료!", for: .normal)
                 self.nextButton.setTitle("섭취완료!", for: .disabled)
@@ -722,6 +728,15 @@ class MyTaminViewController: UIViewController {
 }
 
 extension MyTaminViewController: MyTaminCollectionViewDelegate {
+    func buttonClick(idx: Int) {
+          self.checkIsDone(bool: true)
+          self.nextButtonAction(index: self.viewModel.currentIndex)
+          self.viewModel.selectMindIndex.send(idx)
+          self.setMindTextData()
+          self.viewModel.selectMindTexts.send([])
+          self.setMindTextSelectData()
+    }
+    
     func buttonStatus(timer: TimerStatus) {
         if timer == .pause {
             self.passButton.isEnabled = true
@@ -734,6 +749,7 @@ extension MyTaminViewController: MyTaminCollectionViewDelegate {
     
     func nextOn() {
         for cell in collectionView.visibleCells {
+            UserDefaults.standard.set(true, forKey: "updateData")
             guard let indexPath = collectionView.indexPath(for: cell) else { return }
             self.viewModel.myTaminModel[indexPath.row].isDone = true
             self.passButton.isEnabled = true
@@ -780,16 +796,7 @@ extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataS
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MindCollectionViewCell.cellId, for: indexPath) as? MindCollectionViewCell else { return UICollectionViewCell() }
             
             cell.viewModel = mindSelectViewModel
-            
-            cell.buttonClick = {  [weak self] idx in
-                guard let self = self else { return }
-                self.checkIsDone(bool: true)
-                self.nextButtonAction(index: self.viewModel.currentIndex)
-                self.viewModel.selectMindIndex.send(idx)
-                self.setMindTextData()
-                self.viewModel.selectMindTexts.send([])
-                self.setMindTextSelectData()
-            }
+            cell.delegate = self
             
             return cell
         case .myTaminThreeTwo:

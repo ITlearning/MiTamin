@@ -75,7 +75,6 @@ struct AlertView: View {
                     
                 )
         }
-        .opacity(isEdit ? 1 : 0)
         .onReceive(viewModel.isEditStatus, perform: { value in
             withAnimation {
                 self.isEdit = value

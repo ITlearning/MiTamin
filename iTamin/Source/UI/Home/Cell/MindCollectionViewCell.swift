@@ -27,8 +27,7 @@ class MindCollectionViewCell: UICollectionViewCell {
     
     static let cellId: String = "MindCollectionViewCell"
     
-    var buttonClick: ((Int) -> ())?
-    
+    weak var delegate: MyTaminCollectionViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -45,8 +44,9 @@ class MindCollectionViewCell: UICollectionViewCell {
         
         let mainSubTitleView = UIHostingController(rootView: MainSubTitleView(mainTitle: "3. 하루 진단하기",
                                                                               subTitle: "오늘의 마음 컨디션은 어떤가요?"))
-        mindView.rootView.buttonClickIndex = { idx in
-            self.buttonClick?(idx)
+        mindView.rootView.buttonClickIndex = { [weak self] idx in
+            guard let self = self else { return }
+            self.delegate?.buttonClick(idx: idx)
         }
         
         addSubview(mainSubTitleView.view)

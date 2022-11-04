@@ -20,6 +20,7 @@ enum TimerStatus {
 protocol MyTaminCollectionViewDelegate: AnyObject {
     func nextOn()
     func buttonStatus(timer: TimerStatus)
+    func buttonClick(idx: Int)
 }
 
 class MyTaminCollectionViewCell: UICollectionViewCell {

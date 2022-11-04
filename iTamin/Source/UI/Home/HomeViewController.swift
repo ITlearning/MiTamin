@@ -151,7 +151,12 @@ class HomeViewController: UIViewController {
         //setAnimate()
         navigationController?.isNavigationBarHidden = true  
         self.view.showAnimatedGradientSkeleton()
-        viewModel.checkStatus()
+        
+        if UserDefaults.standard.bool(forKey: "updateData") {
+            viewModel.checkStatus()
+            UserDefaults.standard.set(false, forKey: "updateData")
+        }
+        
     }
     
     override func viewDidLoad() {
@@ -160,6 +165,7 @@ class HomeViewController: UIViewController {
         configureLayout()
         bindCombine()
         setCurrentDay()
+        viewModel.checkStatus()
     }
 
     private func bindCombine() {
