@@ -62,7 +62,7 @@ class HomeViewController: UIViewController {
     let mainLogoImageView: UIImageView = {
         let imageView = UIImageView()
         
-        imageView.image = UIImage(named: "MainLogoColor")
+        imageView.image = UIImage(named: "mitamin")
         
         imageView.contentMode = .scaleAspectFit
         imageView.backgroundColor = .clear
@@ -323,8 +323,8 @@ class HomeViewController: UIViewController {
         mainLogoImageView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
-            $0.width.equalTo(92)
-            $0.height.equalTo(24)
+            $0.width.equalTo(73)
+            $0.height.equalTo(16)
         }
         mainTitleLabel.snp.makeConstraints {
             $0.top.equalTo(scrollView.snp.top).offset(20)
