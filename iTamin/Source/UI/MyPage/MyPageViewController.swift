@@ -27,7 +27,7 @@ class MyPageViewController: UIViewController {
     
     private let mainLogo: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "MyPageLogo")
+        imageView.image = UIImage(named: "mitamin")
         imageView.contentMode = .scaleAspectFit
         
         return imageView
@@ -311,10 +311,10 @@ class MyPageViewController: UIViewController {
         scrollView.addSubview(appInfoView.view)
         
         mainLogo.snp.makeConstraints {
-            $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(10)
+            $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(14)
             $0.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(20)
-            $0.width.equalTo(86)
-            $0.height.equalTo(24)
+            $0.width.equalTo(73)
+            $0.height.equalTo(16)
         }
         
         settingButton.snp.makeConstraints {

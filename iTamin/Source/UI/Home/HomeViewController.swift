@@ -321,7 +321,7 @@ class HomeViewController: UIViewController {
         }
         
         mainLogoImageView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(14)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
             $0.width.equalTo(73)
             $0.height.equalTo(16)

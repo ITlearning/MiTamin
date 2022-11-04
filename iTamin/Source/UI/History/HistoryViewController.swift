@@ -17,7 +17,7 @@ class HistoryViewController: UIViewController {
     private let mainMiTaminLogoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "mitamin")
-        
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
@@ -175,6 +175,8 @@ class HistoryViewController: UIViewController {
         mainMiTaminLogoImageView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(14)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
+            $0.width.equalTo(73)
+            $0.height.equalTo(16)
         }
         
         bellButton.snp.makeConstraints {
