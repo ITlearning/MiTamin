@@ -17,6 +17,11 @@ enum TimerStatus {
     case end
 }
 
+protocol MyTaminCollectionViewDelegate: AnyObject {
+    func nextOn()
+    func buttonStatus(timer: TimerStatus)
+}
+
 class MyTaminCollectionViewCell: UICollectionViewCell {
     static let cellId = "MyTaminCollectionViewCell"
     
@@ -36,7 +41,7 @@ class MyTaminCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    
+    weak var delegate: MyTaminCollectionViewDelegate?
     //var timer: Timer?
     var timer: DispatchSourceTimer?
     
@@ -44,8 +49,6 @@ class MyTaminCollectionViewCell: UICollectionViewCell {
     var currentTime: Int = 0
     var cancelBag = CancelBag()
     var timerStatus: TimerStatus = .start
-    var nextOn: (() -> ())?
-    var buttonStatus: ((TimerStatus) -> ())?
     
     var timerLabel: UILabel = {
         let label = UILabel()
@@ -110,7 +113,7 @@ class MyTaminCollectionViewCell: UICollectionViewCell {
             .sink(receiveValue: {[weak self] _ in
                 guard let self = self else { return }
                 self.startOtpTimer()
-                self.buttonStatus?(self.timerStatus)
+                self.delegate?.buttonStatus(timer: self.timerStatus)
             })
             .cancel(with: cancelBag)
     }
@@ -171,7 +174,7 @@ class MyTaminCollectionViewCell: UICollectionViewCell {
         self.isDone = model.isDone
         
         if model.isDone {
-            self.nextOn?()
+            self.delegate?.nextOn()
         }
         
     }
@@ -196,7 +199,7 @@ class MyTaminCollectionViewCell: UICollectionViewCell {
                         timer.cancel()
                         self.restartButton(reset: true)
                         self.timer = nil
-                        self.nextOn?()
+                        self.delegate?.nextOn()
                     }
                 }
             })

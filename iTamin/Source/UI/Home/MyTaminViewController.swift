@@ -247,7 +247,9 @@ class MyTaminViewController: UIViewController {
         viewModel.selectMindTexts.receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] value in
                 guard let self = self else { return }
-                self.nextButtonAction(index: self.viewModel.currentIndex)
+                if !value.isEmpty {
+                    self.nextButtonAction(index: self.viewModel.currentIndex)
+                }
             })
             .cancel(with: cancelBag)
         
@@ -278,7 +280,6 @@ class MyTaminViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { value in
                 self.checkIsDone(bool: true)
-                self.nextButtonAction(index: self.viewModel.currentIndex)
             })
             .cancel(with: cancelBag)
         
@@ -301,7 +302,6 @@ class MyTaminViewController: UIViewController {
             .sink(receiveValue: { value in
                 self.setMindTextData()
                 self.checkIsDone(bool: true)
-                self.nextButtonAction(index: self.viewModel.currentIndex)
             })
             .cancel(with: cancelBag)
         
@@ -597,7 +597,6 @@ class MyTaminViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.001, execute: {
             self.collectionView.isScrollEnabled = false
             self.collectionView.scrollToItem(at: IndexPath(item: self.viewModel.currentIndex, section: 0), at: .centeredHorizontally, animated: false)
-            self.collectionView.isScrollEnabled = true
             self.resetView(index: self.viewModel.currentIndex)
             
             if self.viewModel.myTaminStatus.value == 4 {
@@ -656,7 +655,7 @@ class MyTaminViewController: UIViewController {
         
         if index == viewModel.currentIndex {
             let isDone = viewModel.myTaminModel[index].isDone
-            
+            print("isDOne?", isDone)
             if isDone {
                 self.nextButton.isEnabled = true
                 self.nextButton.backgroundColor = UIColor.primaryColor
@@ -678,6 +677,7 @@ class MyTaminViewController: UIViewController {
                 }
                 guard let cell = cell as? MyTaminCollectionViewCell else { return }
                 cell.startOtpTimer()
+                self.viewModel.myTaminStatus.send(index)
             })
         }
     }
@@ -721,6 +721,36 @@ class MyTaminViewController: UIViewController {
     }
 }
 
+extension MyTaminViewController: MyTaminCollectionViewDelegate {
+    func buttonStatus(timer: TimerStatus) {
+        if timer == .pause {
+            self.passButton.isEnabled = true
+            self.passButtonSet()
+        } else {
+            self.passButton.isEnabled = false
+            self.passButtonSet()
+        }
+    }
+    
+    func nextOn() {
+        for cell in collectionView.visibleCells {
+            guard let indexPath = collectionView.indexPath(for: cell) else { return }
+            self.viewModel.myTaminModel[indexPath.row].isDone = true
+            self.passButton.isEnabled = true
+            self.passButtonSet()
+            self.checkToServer(idx: indexPath.row)
+            if self.toggleSwitch.isOn {
+                if indexPath.row < self.viewModel.myTaminModel.count {
+                    self.scrollToIndex(index: indexPath.row+1)
+                    self.viewModel.myTaminStatus.send(indexPath.row + 1)
+                }
+            } else {
+                self.nextButtonAction(index: indexPath.row)
+            }
+        }
+    }
+}
+
 extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -742,31 +772,8 @@ extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataS
         case .myTaminOne, .myTaminTwo:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyTaminCollectionViewCell.cellId, for: indexPath) as? MyTaminCollectionViewCell else { return UICollectionViewCell() }
             
+            cell.delegate = self
             cell.configureCell(index: indexPath.row, model: model)
-            
-            cell.nextOn = {
-                self.viewModel.myTaminModel[indexPath.row].isDone = true
-                self.passButton.isEnabled = true
-                self.passButtonSet()
-                self.checkToServer(idx: indexPath.row)
-                if self.toggleSwitch.isOn {
-                    if indexPath.row < self.viewModel.myTaminModel.count {
-                        self.scrollToIndex(index: indexPath.row+1)
-                    }
-                } else {
-                    self.nextButtonAction(index: indexPath.row)
-                }
-            }
-            
-            cell.buttonStatus = { value in
-                if value == .pause {
-                    self.passButton.isEnabled = true
-                    self.passButtonSet()
-                } else {
-                    self.passButton.isEnabled = false
-                    self.passButtonSet()
-                }
-            }
             
             return cell
         case .myTaminThreeOne:
