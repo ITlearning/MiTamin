@@ -115,6 +115,12 @@
 		F5E15AA12912CCFE007179A2 /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15AA02912CCFE007179A2 /* UINavigationController.swift */; };
 		F5E15AA729141D1E007179A2 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = F5E15AA629141D1E007179A2 /* SwiftUICharts */; };
 		F5E15AAA2915659B007179A2 /* FeelingRankView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15AA92915659B007179A2 /* FeelingRankView.swift */; };
+		F5E15AAD29164EE4007179A2 /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15AAC29164EE4007179A2 /* HistoryViewModel.swift */; };
+		F5E15AAF291652B3007179A2 /* CareHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15AAE291652B3007179A2 /* CareHistoryViewController.swift */; };
+		F5E15AB2291654E7007179A2 /* CareHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15AB1291654E7007179A2 /* CareHistoryTableViewCell.swift */; };
+		F5E15AB429165880007179A2 /* CareHistotyHeaderViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15AB329165880007179A2 /* CareHistotyHeaderViewCell.swift */; };
+		F5E15AB629165C64007179A2 /* CareHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15AB529165C64007179A2 /* CareHistoryViewModel.swift */; };
+		F5E15AB829166E0B007179A2 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15AB729166E0B007179A2 /* CategoryView.swift */; };
 		F5F3F15C28FA7B48006C9B6A /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F3F15B28FA7B48006C9B6A /* CoreDataManager.swift */; };
 		F5F3F16028FA85D5006C9B6A /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F3F15F28FA85D5006C9B6A /* String.swift */; };
 		F5F3F16328FA8A10006C9B6A /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = F5F3F16228FA8A10006C9B6A /* SkeletonView */; };
@@ -243,6 +249,12 @@
 		F5E15A9E2911613A007179A2 /* DayNoteDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayNoteDetailViewModel.swift; sourceTree = "<group>"; };
 		F5E15AA02912CCFE007179A2 /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
 		F5E15AA92915659B007179A2 /* FeelingRankView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeelingRankView.swift; sourceTree = "<group>"; };
+		F5E15AAC29164EE4007179A2 /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
+		F5E15AAE291652B3007179A2 /* CareHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareHistoryViewController.swift; sourceTree = "<group>"; };
+		F5E15AB1291654E7007179A2 /* CareHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareHistoryTableViewCell.swift; sourceTree = "<group>"; };
+		F5E15AB329165880007179A2 /* CareHistotyHeaderViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareHistotyHeaderViewCell.swift; sourceTree = "<group>"; };
+		F5E15AB529165C64007179A2 /* CareHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareHistoryViewModel.swift; sourceTree = "<group>"; };
+		F5E15AB729166E0B007179A2 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
 		F5F3F15B28FA7B48006C9B6A /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		F5F3F15F28FA85D5006C9B6A /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		F5F3F16428FA9589006C9B6A /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
@@ -475,7 +487,11 @@
 		F5A2EB3028D4B1CD00536E9B /* History */ = {
 			isa = PBXGroup;
 			children = (
+				F5E15AB0291654D2007179A2 /* TableViewCell */,
 				F5A2EB2D28D4B1BC00536E9B /* HistoryViewController.swift */,
+				F5E15AAC29164EE4007179A2 /* HistoryViewModel.swift */,
+				F5E15AAE291652B3007179A2 /* CareHistoryViewController.swift */,
+				F5E15AB529165C64007179A2 /* CareHistoryViewModel.swift */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -649,8 +665,18 @@
 				F5A2EBCE28F2F09400536E9B /* CategoryBottomSheetView.swift */,
 				F5A2EBD428F309A100536E9B /* MyTaminReportView.swift */,
 				F5F3F16428FA9589006C9B6A /* AlertView.swift */,
+				F5E15AB729166E0B007179A2 /* CategoryView.swift */,
 			);
 			path = SwiftUIView;
+			sourceTree = "<group>";
+		};
+		F5E15AB0291654D2007179A2 /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				F5E15AB1291654E7007179A2 /* CareHistoryTableViewCell.swift */,
+				F5E15AB329165880007179A2 /* CareHistotyHeaderViewCell.swift */,
+			);
+			path = TableViewCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -819,6 +845,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5F3F16828FC52C9006C9B6A /* ProfileBGView.swift in Sources */,
+				F5E15AB429165880007179A2 /* CareHistotyHeaderViewCell.swift in Sources */,
 				F546AE7F290CFD2300CE6C4D /* DayNoteCollectionViewCell.swift in Sources */,
 				F5A2EB7428DF0F1000536E9B /* NickNameViewController.swift in Sources */,
 				F546AE6E2906E42700CE6C4D /* AddWishListViewController.swift in Sources */,
@@ -827,6 +854,7 @@
 				F546AE8D290D27F400CE6C4D /* AlertToastView.swift in Sources */,
 				F546AE8F290D347900CE6C4D /* AddPhotoCollectionViewCell.swift in Sources */,
 				F5A2EB6828DEF80E00536E9B /* CustomButton.swift in Sources */,
+				F5E15AB629165C64007179A2 /* CareHistoryViewModel.swift in Sources */,
 				F546AE6A2906DBEA00CE6C4D /* WishListCollectionViewCell.swift in Sources */,
 				F5A2EB5E28DCC07800536E9B /* ViewControllerPreview.swift in Sources */,
 				F546AE83290D049E00CE6C4D /* AddDayNoteViewController.swift in Sources */,
@@ -841,7 +869,9 @@
 				F546AE74290972F000CE6C4D /* FirstTypingViewController.swift in Sources */,
 				F5E15A9D29115579007179A2 /* DayNoteDetailViewController.swift in Sources */,
 				F5A2EB7628DF0F2F00536E9B /* ViewController.swift in Sources */,
+				F5E15AB2291654E7007179A2 /* CareHistoryTableViewCell.swift in Sources */,
 				F5A2EBB028E80B3F00536E9B /* TextView.swift in Sources */,
+				F5E15AAF291652B3007179A2 /* CareHistoryViewController.swift in Sources */,
 				F546AE662906D5C600CE6C4D /* MenuBar.swift in Sources */,
 				F5A2EB9228E1FDBF00536E9B /* HomeViewModel.swift in Sources */,
 				F5A2EB6028DCC17600536E9B /* CustomTextField.swift in Sources */,
@@ -897,8 +927,10 @@
 				F546AE97290D5A9400CE6C4D /* DoneWishListViewModel.swift in Sources */,
 				F5A2EBB628F1600A00536E9B /* MindCollectionViewCell.swift in Sources */,
 				F5F3F15C28FA7B48006C9B6A /* CoreDataManager.swift in Sources */,
+				F5E15AAD29164EE4007179A2 /* HistoryViewModel.swift in Sources */,
 				F5A2EB6C28DEF93800536E9B /* ProgressBar.swift in Sources */,
 				F5A2EB3628D4B22A00536E9B /* MyPageViewController.swift in Sources */,
+				F5E15AB829166E0B007179A2 /* CategoryView.swift in Sources */,
 				F5170A972905589E00AE4FD5 /* NetworkManager.swift in Sources */,
 				F5A2EBBC28F1758800536E9B /* MindTextCollectionViewCell.swift in Sources */,
 				F5A2EBCA28F2EBD900536E9B /* CategoryPickerView.swift in Sources */,

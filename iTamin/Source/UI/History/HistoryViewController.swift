@@ -14,6 +14,9 @@ import SwiftUI
 
 class HistoryViewController: UIViewController {
 
+    var viewModel = ViewModel()
+    var cancelBag = CancelBag()
+    
     private let mainMiTaminLogoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "mitamin")
@@ -54,6 +57,7 @@ class HistoryViewController: UIViewController {
         label.textColor = UIColor.black
         label.font = UIFont.SDGothicMedium(size: 16)
         label.textAlignment = .left
+        label.isSkeletonable = true
         label.numberOfLines = 0
         return label
     }()
@@ -70,7 +74,7 @@ class HistoryViewController: UIViewController {
         label.text = "22.09.01"
         label.textColor = UIColor.grayColor2
         label.font = UIFont.SDGothicRegular(size: 12)
-        
+        label.isSkeletonable = true
         return label
     }()
     
@@ -147,10 +151,52 @@ class HistoryViewController: UIViewController {
         super.viewDidLoad()
         tabBarItem = UITabBarItem(title: "히스토리", image: UIImage(named: "icon-card-mono"), selectedImage: UIImage(named: "icon-card-mono"))
         configureLayout()
-        
+        viewModel.getCareRandomData()
+        bindCombine()
     }
     
+    private func bindCombine() {
+        viewModel.$randomCareData
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] value in
+                guard let self = self else { return }
+                self.setRandomText(item: value)
+            })
+            .cancel(with: cancelBag)
+        
+        complimentResetButton.tapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] _ in
+                guard let self = self else { return }
+                self.complimentHistoryLabel.startSkeletonAnimation()
+                self.complimentHistoryLabel.showGradientSkeleton()
+                self.complimentDayLabel.startSkeletonAnimation()
+                self.complimentDayLabel.showGradientSkeleton()
+                self.viewModel.getCareRandomData()
+            })
+            .cancel(with: cancelBag)
+        
+        allcomplimentButton.tapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }, receiveValue: { _ in
+                let vc =  CareHistoryViewController()
+                self.navigationController?.pushViewController(vc, animated: true)
+            })
+            .cancel(with: cancelBag)
+    }
     
+    func setRandomText(item: RandomCareModel?) {
+        
+        self.complimentHistoryLabel.stopSkeletonAnimation()
+        self.complimentHistoryLabel.hideSkeleton()
+        self.complimentDayLabel.stopSkeletonAnimation()
+        self.complimentDayLabel.hideSkeleton()
+        
+        complimentHistoryLabel.text = "\(item?.careMsg1 ?? "작성한 처방이 없어요!")\n\(item?.careMsg2 ?? "지금 칭찬 처방을 작성해보세요!")"
+        complimentDayLabel.text = item?.takeAt ?? ""
+        
+        
+    }
     
     private func configureLayout() {
         view.addSubview(mainMiTaminLogoImageView)

@@ -231,6 +231,7 @@ class MyTaminViewController: UIViewController {
                 } else {
                     if UserDefaults.standard.bool(forKey: .careIsDone) {
                         self.viewModel.editCareReport()
+                        UserDefaults.standard.set(true, forKey: "updateData")
                     } else {
                         self.viewModel.sendCareDailyReport()
                     }
@@ -460,6 +461,7 @@ class MyTaminViewController: UIViewController {
             case .myTaminFour:
                 if UserDefaults.standard.bool(forKey: .reportIsDone) {
                     viewModel.editDailyReport()
+                    UserDefaults.standard.set(true, forKey: "updateData")
                 } else {
                     viewModel.sendDailyReport()
                 }

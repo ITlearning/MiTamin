@@ -58,7 +58,6 @@ extension HomeViewController {
                         MainCollectionModel(isDone: result.data.reportIsDone, cellDescription: "하루 진단하기", image: "MyTamin03"),
                         MainCollectionModel(isDone: result.data.careIsDone, cellDescription: "칭찬 처방하기", image: "MyTamin04")
                     ])
-                    print("I'm Officially",UserDefaults.standard.bool(forKey: .breathIsDone))
                     UserDefaults.standard.set(result.data.breathIsDone, forKey: .breathIsDone)
                     UserDefaults.standard.set(result.data.senseIsDone, forKey: .senseIsDone)
                     UserDefaults.standard.set(result.data.reportIsDone, forKey: .reportIsDone)

@@ -104,6 +104,24 @@ struct LatestMyTaminModel: Codable {
     var care: CareModel
 }
 
+struct RandomCareModel: Codable {
+    var careMsg1: String
+    var careMsg2: String
+    var takeAt: String
+}
+
+struct CategoryCareModel: Codable {
+    var date: String
+    var data: [CareFilterModel]
+}
+
+struct CareFilterModel: Codable {
+    var careMsg1: String
+    var careMsg2: String
+    var careCategory: String
+    var takeAt: String
+}
+
 struct CareModel: Codable {
     var careId: Int
     var canEdit: Bool

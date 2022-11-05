@@ -83,6 +83,7 @@ extension MyTaminViewController {
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in }, receiveValue: { value in
                 print(value.message)
+                
             })
             .cancel(with: cancelBag)
         }
@@ -142,6 +143,7 @@ extension MyTaminViewController {
                 .receive(on: DispatchQueue.global())
                 .sink(receiveCompletion: { _ in }, receiveValue: { result in
                     print(result.data)
+                    UserDefaults.standard.set(true, forKey: "updateData")
                     UserDefaults.standard.set(result.data.careId, forKey: .careId)
                 })
                 .cancel(with: cancelBag)
@@ -152,6 +154,7 @@ extension MyTaminViewController {
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { _ in }, receiveValue: { result in
                     print(result.data)
+                    UserDefaults.standard.set(true, forKey: "updateData")
                     UserDefaults.standard.set(result.data.reportId, forKey: .reportId)
                 })
                 .cancel(with: cancelBag)
