@@ -17,6 +17,7 @@ extension HomeViewController {
         var buttonClick = PassthroughSubject<Int, Never>()
         var subTextPublisher = CurrentValueSubject<String, Never>("")
         var getLatestData = PassthroughSubject<Bool, Never>()
+        var serverLoadFailed = PassthroughSubject<Bool, Never>()
         var latestData = CurrentValueSubject<LatestMyTaminModel?, Never>(nil)
         @Published var careData: CareModel? = nil
         @Published var reportData: ReportModel? = nil
@@ -42,7 +43,15 @@ extension HomeViewController {
             
             networkManager.checkMyTaminStatus()
                 .receive(on: DispatchQueue.main)
-                .sink(receiveCompletion: { _ in }, receiveValue: { result in
+                .sink(receiveCompletion: { result in
+                    switch result {
+                    case .failure(let error):
+                        self.serverLoadFailed.send(true)
+                        print(error.localizedDescription)
+                    case .finished:
+                        print("에러발생")
+                    }
+                }, receiveValue: { result in
                     self.mainCellItems.send([
                         MainCollectionModel(isDone: result.data.breathIsDone, cellDescription: "숨 고르기", image: "MyTamin01"),
                         MainCollectionModel(isDone: result.data.senseIsDone, cellDescription: "감각 깨우기", image: "MyTamin02"),

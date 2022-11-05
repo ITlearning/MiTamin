@@ -170,6 +170,13 @@ class HomeViewController: UIViewController {
 
     private func bindCombine() {
         
+        viewModel.serverLoadFailed
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { value in
+                self.moveToLogin()
+            })
+            .cancel(with: cancelBag)
+        
         viewModel.buttonClick
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { idx in
