@@ -12,10 +12,28 @@ extension HistoryViewController {
     class ViewModel: ObservableObject {
         
         @Published var randomCareData: RandomCareModel? = nil
+        @Published var feelingRankList: [FeelingRankModel] = []
         
         var cancelBag = CancelBag()
         
         var networkManager = NetworkManager()
+        
+        func getFeelingRank() {
+            networkManager.getFeelingRank()
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: { result in
+                    switch result {
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                    case .finished:
+                        print("Finish")
+                    }
+                }, receiveValue: { [weak self] value in
+                    guard let self = self else { return }
+                    self.feelingRankList = value.data
+                })
+                .cancel(with: cancelBag)
+        }
         
         func getCareRandomData() {
             networkManager.getCareRandom()

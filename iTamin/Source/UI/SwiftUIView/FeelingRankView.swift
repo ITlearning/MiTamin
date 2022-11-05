@@ -9,6 +9,8 @@ import SwiftUI
 
 struct FeelingRankView: View {
     
+    @StateObject var viewModel: HistoryViewController.ViewModel
+    
     @State var items: [FeelingRankModel] = [
         FeelingRankModel(feeling: "행복한", count: 3),
         FeelingRankModel(feeling: "뿌듯한", count: 7),
@@ -54,11 +56,8 @@ struct FeelingRankView: View {
                     .frame(height: 56)
             }
         }
-    }
-}
-
-struct FeelingRankView_Previews: PreviewProvider {
-    static var previews: some View {
-        FeelingRankView()
+        .onReceive(viewModel.$feelingRankList, perform: { value in
+            items = value
+        })
     }
 }

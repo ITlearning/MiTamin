@@ -130,7 +130,7 @@ class HistoryViewController: UIViewController {
         return label
     }()
     
-    private lazy var feelingRankView = FeelingRankView()
+    private lazy var feelingRankView = FeelingRankView(viewModel: self.viewModel)
     
     private let collectMyTaminLabel: UILabel = {
         let label = UILabel()
@@ -152,6 +152,7 @@ class HistoryViewController: UIViewController {
         tabBarItem = UITabBarItem(title: "히스토리", image: UIImage(named: "icon-card-mono"), selectedImage: UIImage(named: "icon-card-mono"))
         configureLayout()
         viewModel.getCareRandomData()
+        viewModel.getFeelingRank()
         bindCombine()
     }
     
