@@ -183,3 +183,8 @@ struct FeelingRankModel: Codable {
     var feeling: String
     var count: Int
 }
+
+struct WeeklyMentalModel: Codable {
+    var dayOfWeek: String
+    var mentalConditionCode: Int
+}

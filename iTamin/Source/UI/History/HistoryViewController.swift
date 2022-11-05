@@ -107,13 +107,6 @@ class HistoryViewController: UIViewController {
         return label
     }()
     
-    private let graphView: UIView = {
-        let v = UIView()
-        v.backgroundColor = .gray
-        
-        return v
-    }()
-    
     private let calendarView: UIView = {
         let v = UIView()
         v.backgroundColor = .gray
@@ -131,6 +124,8 @@ class HistoryViewController: UIViewController {
     }()
     
     private lazy var feelingRankView = FeelingRankView(viewModel: self.viewModel)
+    
+    private lazy var conditionGraphView = ConditionChartView(viewModel: self.viewModel)
     
     private let collectMyTaminLabel: UILabel = {
         let label = UILabel()
@@ -153,6 +148,7 @@ class HistoryViewController: UIViewController {
         configureLayout()
         viewModel.getCareRandomData()
         viewModel.getFeelingRank()
+        viewModel.getWeeklyMental()
         bindCombine()
     }
     
@@ -211,7 +207,10 @@ class HistoryViewController: UIViewController {
         complimentHistoryView.addSubview(allcomplimentButton)
         scrollView.addSubview(mindReportHistoryTitle)
         scrollView.addSubview(weekMindConditionTitle)
-        scrollView.addSubview(graphView)
+        
+        let graphView = UIHostingController(rootView: conditionGraphView)
+        
+        scrollView.addSubview(graphView.view)
         scrollView.addSubview(mindCalLabel)
         let vc = UIHostingController(rootView: feelingRankView)
         scrollView.addSubview(vc.view)
@@ -285,16 +284,16 @@ class HistoryViewController: UIViewController {
             $0.leading.equalTo(mindReportHistoryTitle.snp.leading)
         }
         
-        graphView.snp.makeConstraints {
-            $0.top.equalTo(weekMindConditionTitle.snp.bottom).offset(16)
-            $0.leading.equalTo(view.snp.leading).offset(20)
-            $0.trailing.equalTo(view.snp.trailing).inset(20)
+        graphView.view.snp.makeConstraints {
+            $0.top.equalTo(weekMindConditionTitle.snp.bottom).offset(36)
+            $0.leading.equalTo(view.snp.leading)
+            $0.trailing.equalTo(view.snp.trailing)
             $0.height.equalTo(140)
         }
         
         mindCalLabel.snp.makeConstraints {
-            $0.top.equalTo(graphView.snp.bottom).offset(40)
-            $0.leading.equalTo(graphView.snp.leading)
+            $0.top.equalTo(graphView.view.snp.bottom).offset(60)
+            $0.leading.equalTo(graphView.view.snp.leading).offset(20)
         }
         
         vc.view.snp.makeConstraints {

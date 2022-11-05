@@ -113,7 +113,6 @@
 		F5E15A9D29115579007179A2 /* DayNoteDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15A9C29115579007179A2 /* DayNoteDetailViewController.swift */; };
 		F5E15A9F2911613A007179A2 /* DayNoteDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15A9E2911613A007179A2 /* DayNoteDetailViewModel.swift */; };
 		F5E15AA12912CCFE007179A2 /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15AA02912CCFE007179A2 /* UINavigationController.swift */; };
-		F5E15AA729141D1E007179A2 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = F5E15AA629141D1E007179A2 /* SwiftUICharts */; };
 		F5E15AAA2915659B007179A2 /* FeelingRankView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15AA92915659B007179A2 /* FeelingRankView.swift */; };
 		F5E15AAD29164EE4007179A2 /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15AAC29164EE4007179A2 /* HistoryViewModel.swift */; };
 		F5E15AAF291652B3007179A2 /* CareHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15AAE291652B3007179A2 /* CareHistoryViewController.swift */; };
@@ -121,6 +120,8 @@
 		F5E15AB429165880007179A2 /* CareHistotyHeaderViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15AB329165880007179A2 /* CareHistotyHeaderViewCell.swift */; };
 		F5E15AB629165C64007179A2 /* CareHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15AB529165C64007179A2 /* CareHistoryViewModel.swift */; };
 		F5E15AB829166E0B007179A2 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15AB729166E0B007179A2 /* CategoryView.swift */; };
+		F5E15ABB2916771A007179A2 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = F5E15ABA2916771A007179A2 /* SwiftUICharts */; };
+		F5E15ABD29167739007179A2 /* ConditionChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15ABC29167739007179A2 /* ConditionChartView.swift */; };
 		F5F3F15C28FA7B48006C9B6A /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F3F15B28FA7B48006C9B6A /* CoreDataManager.swift */; };
 		F5F3F16028FA85D5006C9B6A /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F3F15F28FA85D5006C9B6A /* String.swift */; };
 		F5F3F16328FA8A10006C9B6A /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = F5F3F16228FA8A10006C9B6A /* SkeletonView */; };
@@ -255,6 +256,7 @@
 		F5E15AB329165880007179A2 /* CareHistotyHeaderViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareHistotyHeaderViewCell.swift; sourceTree = "<group>"; };
 		F5E15AB529165C64007179A2 /* CareHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareHistoryViewModel.swift; sourceTree = "<group>"; };
 		F5E15AB729166E0B007179A2 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
+		F5E15ABC29167739007179A2 /* ConditionChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionChartView.swift; sourceTree = "<group>"; };
 		F5F3F15B28FA7B48006C9B6A /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		F5F3F15F28FA85D5006C9B6A /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		F5F3F16428FA9589006C9B6A /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
@@ -275,7 +277,7 @@
 				F546AE5E29059F3000CE6C4D /* YPImagePicker in Frameworks */,
 				F5F3F16328FA8A10006C9B6A /* SkeletonView in Frameworks */,
 				F5A2EB3928D4B95F00536E9B /* SnapKit in Frameworks */,
-				F5E15AA729141D1E007179A2 /* SwiftUICharts in Frameworks */,
+				F5E15ABB2916771A007179A2 /* SwiftUICharts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -666,6 +668,7 @@
 				F5A2EBD428F309A100536E9B /* MyTaminReportView.swift */,
 				F5F3F16428FA9589006C9B6A /* AlertView.swift */,
 				F5E15AB729166E0B007179A2 /* CategoryView.swift */,
+				F5E15ABC29167739007179A2 /* ConditionChartView.swift */,
 			);
 			path = SwiftUIView;
 			sourceTree = "<group>";
@@ -705,7 +708,7 @@
 				F546AE5D29059F3000CE6C4D /* YPImagePicker */,
 				F546AE602905A21A00CE6C4D /* Kingfisher */,
 				F5E15A98290FFD0F007179A2 /* SkeletonUI */,
-				F5E15AA629141D1E007179A2 /* SwiftUICharts */,
+				F5E15ABA2916771A007179A2 /* SwiftUICharts */,
 			);
 			productName = iTamin;
 			productReference = F5A2EAEF28D3644800536E9B /* iTamin.app */;
@@ -789,7 +792,7 @@
 				F546AE5C29059F3000CE6C4D /* XCRemoteSwiftPackageReference "YPImagePicker" */,
 				F546AE5F2905A21A00CE6C4D /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				F5E15A97290FFD0F007179A2 /* XCRemoteSwiftPackageReference "SkeletonUI" */,
-				F5E15AA529141D1E007179A2 /* XCRemoteSwiftPackageReference "ChartView" */,
+				F5E15AB92916771A007179A2 /* XCRemoteSwiftPackageReference "SwiftUICharts" */,
 			);
 			productRefGroup = F5A2EAF028D3644800536E9B /* Products */;
 			projectDirPath = "";
@@ -901,6 +904,7 @@
 				F5A2EBC628F2BA2200536E9B /* TextViewCollectionViewCell.swift in Sources */,
 				F5F3F16528FA9589006C9B6A /* AlertView.swift in Sources */,
 				F5170A9929055DB800AE4FD5 /* MyPageViewModel.swift in Sources */,
+				F5E15ABD29167739007179A2 /* ConditionChartView.swift in Sources */,
 				F5A2EB2E28D4B1BC00536E9B /* HistoryViewController.swift in Sources */,
 				F5170A9F29056B2F00AE4FD5 /* EditProfileViewModel.swift in Sources */,
 				F5A2EBBE28F1760800536E9B /* LeftCell.swift in Sources */,
@@ -1340,12 +1344,12 @@
 				minimumVersion = 1.0.0;
 			};
 		};
-		F5E15AA529141D1E007179A2 /* XCRemoteSwiftPackageReference "ChartView" */ = {
+		F5E15AB92916771A007179A2 /* XCRemoteSwiftPackageReference "SwiftUICharts" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/AppPear/ChartView.git";
+			repositoryURL = "https://github.com/willdale/SwiftUICharts.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				minimumVersion = 2.0.0;
 			};
 		};
 		F5F3F16128FA8A10006C9B6A /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
@@ -1399,9 +1403,9 @@
 			package = F5E15A97290FFD0F007179A2 /* XCRemoteSwiftPackageReference "SkeletonUI" */;
 			productName = SkeletonUI;
 		};
-		F5E15AA629141D1E007179A2 /* SwiftUICharts */ = {
+		F5E15ABA2916771A007179A2 /* SwiftUICharts */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F5E15AA529141D1E007179A2 /* XCRemoteSwiftPackageReference "ChartView" */;
+			package = F5E15AB92916771A007179A2 /* XCRemoteSwiftPackageReference "SwiftUICharts" */;
 			productName = SwiftUICharts;
 		};
 		F5F3F16228FA8A10006C9B6A /* SkeletonView */ = {
