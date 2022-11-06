@@ -20,6 +20,8 @@ class CareHistoryHeaderViewCell: UITableViewHeaderFooterView {
         return label
     }()
     
+    let spacerView = UIView()
+    
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         configureCellLayout()
@@ -35,9 +37,18 @@ class CareHistoryHeaderViewCell: UITableViewHeaderFooterView {
     
     private func configureCellLayout() {
         self.addSubview(label)
+        spacerView.backgroundColor = .clear
+        self.addSubview(spacerView)
         label.snp.makeConstraints {
             $0.top.equalTo(self.snp.top).offset(10)
             $0.leading.equalTo(self.snp.leading).offset(20)
+            $0.bottom.equalTo(spacerView.snp.top)
+        }
+        
+        spacerView.snp.makeConstraints {
+            $0.top.equalTo(label.snp.bottom)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(20)
         }
     }
     

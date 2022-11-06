@@ -7,10 +7,16 @@
 
 import SwiftUI
 
+enum CategoryOpenType {
+    case write
+    case history
+}
+
 struct CategoryBottomSheetView: View {
     @Environment(\.presentationMode) var presentationMode
     var buttonTouch: ((String, Int) -> ())?
-    
+    var doneAction: (() -> ())?
+    var type: CategoryOpenType = .write
     @State var menuTexts:[String] = [
         "이루어 낸 일",
         "잘한 일이나 행동",
@@ -23,21 +29,41 @@ struct CategoryBottomSheetView: View {
 
     func listText(text: String) -> some View {
         Text(text)
-            .font(Font.SDGothicMedium(size: 18))
+            .font(.SDGothicMedium(size: 18))
             .foregroundColor(Color(uiColor: UIColor.grayColor4))
     }
     
     var body: some View {
-        List {
-            ForEach(menuTexts.indices, id:\.self) { idx in
+        
+        VStack {
+            List {
+                ForEach(menuTexts.indices, id:\.self) { idx in
+                    Button(action: {
+                        buttonTouch?(menuTexts[idx], idx)
+                        presentationMode.wrappedValue.dismiss()
+                    }, label: {
+                        listText(text: menuTexts[idx])
+                    })
+                }
+            }.listStyle(.plain)
+                .padding(.top, 24)
+                .navigationBarHidden(true)
+                .offset(x: -10)
+            
+            if type == .history {
                 Button(action: {
-                    buttonTouch?(menuTexts[idx], idx)
-                    presentationMode.wrappedValue.dismiss()
+                    doneAction?()
                 }, label: {
-                    listText(text: menuTexts[idx])
+                    Text("적용하기")
+                        .foregroundColor(.white)
+                        .font(.SDGothicBold(size: 16))
+                        .background(
+                            RoundedRectangle(cornerRadius: 8)
+                                .foregroundColor(Color(uiColor: .primaryColor))
+                                .frame(width: UIScreen.main.bounds.width - 40, height: 56)
+                        )
                 })
             }
-        }.listStyle(.plain)
-            .offset(x: -10)
+        }
     }
 }

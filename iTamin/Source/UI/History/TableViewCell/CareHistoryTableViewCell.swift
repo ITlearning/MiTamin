@@ -33,6 +33,7 @@ class CareHistoryTableViewCell: UITableViewCell {
         let v = UIView()
         v.backgroundColor = UIColor(rgb: 0xFBF9F7)
         v.layer.cornerRadius = 12
+        v.layer.masksToBounds = true
         return v
     }()
     
@@ -57,15 +58,20 @@ class CareHistoryTableViewCell: UITableViewCell {
         self.addSubview(titleLabel)
         self.addSubview(dateLabel)
         self.addSubview(spacerView)
+        spacerView.backgroundColor = .clear
         
         backGroundView.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview()
+            $0.top.equalToSuperview()
+            $0.leading.equalTo(self.snp.leading).offset(20)
+            $0.trailing.equalTo(self.snp.trailing).inset(20)
             $0.bottom.equalTo(spacerView.snp.top)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(UIScreen.main.bounds.width - 40)
         }
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalTo(self.snp.top).offset(16)
-            $0.leading.equalTo(self.snp.leading).offset(16)
+            $0.top.equalTo(backGroundView.snp.top).offset(16)
+            $0.leading.equalTo(backGroundView.snp.leading).offset(16)
         }
         
         dateLabel.snp.makeConstraints {
@@ -74,7 +80,7 @@ class CareHistoryTableViewCell: UITableViewCell {
         }
         
         spacerView.snp.makeConstraints {
-            $0.top.equalTo(backGroundView.snp.top)
+            $0.top.equalTo(backGroundView.snp.bottom)
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalToSuperview()
             $0.height.equalTo(12)

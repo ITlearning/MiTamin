@@ -28,8 +28,10 @@ class CareHistoryViewController: UIViewController {
     
     @objc
     func sortAction() {
-        
+        presentModal()
     }
+    
+    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -82,12 +84,58 @@ class CareHistoryViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(CareHistoryTableViewCell.self, forCellReuseIdentifier: CareHistoryTableViewCell.cellId)
         tableView.register(CareHistoryHeaderViewCell.self, forHeaderFooterViewReuseIdentifier: CareHistoryHeaderViewCell.cellId)
+        tableView.separatorStyle = .none
+    }
+    
+    func presentModal() {
+        let categoryBottomSheetView = UIHostingController(rootView: CategoryBottomSheetView(type: .history))
+        
+        let nav = UINavigationController(rootViewController: categoryBottomSheetView)
+        nav.navigationController?.isNavigationBarHidden = true
+        nav.modalPresentationStyle = .pageSheet
+        nav.isNavigationBarHidden = true
+        if let sheet = nav.sheetPresentationController {
+            sheet.detents = [.medium()]
+        }
+        
+        categoryBottomSheetView.rootView.buttonTouch = { [weak self] text, idx in
+            guard let self = self else { return }
+            if !self.viewModel.selectIndex.contains(idx) {
+                self.viewModel.selectIndex.append(idx)
+            } else {
+                if let index = self.viewModel.selectIndex.firstIndex(where: { $0 == idx}) {
+                    self.viewModel.selectIndex.remove(at: index)
+                }
+            }
+        }
+        
+        categoryBottomSheetView.rootView.doneAction = {
+            nav.dismiss(animated: true)
+        }
+        
+        present(nav, animated: true)
     }
 
 }
 
 
 extension CareHistoryViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: CareHistoryHeaderViewCell.cellId) as? CareHistoryHeaderViewCell else { return UIView() }
+        header.setTitle(text: viewModel.careList[section].date)
+        
+        return header
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 96
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.careList[section].data.count
     }
