@@ -75,6 +75,17 @@ class WeeklyCalendarViewController: UIViewController {
         return v
     }()
     
+    private lazy var deleteButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: UIImage(named: "icon_trashcan"), style: .plain, target: self, action: #selector(deleteAction))
+        
+        return button
+    }()
+    
+    @objc
+    func deleteAction() {
+        openPopup()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -104,11 +115,29 @@ class WeeklyCalendarViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         //viewModel.getCalendarMonthly(date: Date.dateToString(date: Date()))
+        navigationItem.rightBarButtonItem = deleteButton
         viewModel.weeklyCalendarData = nil
         self.setCurrentDay(date: viewModel.selectDate)
         setMyTaminText(date: viewModel.selectDate)
         configureLayout()
         bindCombine()
+    }
+    
+    func openPopup() {
+        let alertView = UIAlertController(title: "마이타민 삭제", message: "정말로 마이타민을 삭제할까요?", preferredStyle: .alert)
+        let cancelButton = UIAlertAction(title: "아니요", style: .cancel) { _ in
+            
+        }
+        let doneButton = UIAlertAction(title: "네", style: .destructive) { _ in
+            if let index = self.viewModel.calendarWeekList.firstIndex(where: { Int($0.day) == Int(self.viewModel.selectWeeklyDate) }) {
+                self.viewModel.deleteMyTamin(id: self.viewModel.calendarWeekList[index].data?.mytaminId ?? 0)
+            }
+        }
+        
+        alertView.addAction(cancelButton)
+        alertView.addAction(doneButton)
+        
+        self.present(alertView, animated: true)
     }
     
     func bindCombine() {

@@ -150,7 +150,7 @@ extension MyTaminViewController {
         }
         
         func sendDailyReport() {
-            networkManager.reportNewDaily(condition: selectMindIndex.value, tags: selectMindTexts.value, todayReport: dailyReportData.value)
+            networkManager.reportNewDaily(condition: selectMindIndex.value+1, tags: selectMindTexts.value, todayReport: dailyReportData.value)
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { _ in }, receiveValue: { result in
                     print(result.data)

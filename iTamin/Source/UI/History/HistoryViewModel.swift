@@ -26,11 +26,24 @@ extension HistoryViewController {
         
         var networkManager = NetworkManager()
         
+        func deleteMyTamin(id: Int) {
+            networkManager.deleteMyTamin(id: id)
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] value in
+                    guard let self = self else { return }
+                    self.getCalendarWeekly(date: self.selectDate)
+                    let replace = self.selectDate.components(separatedBy: ".")
+                    self.getCalendarMonthly(date: "\(replace[0]).\(replace[1])")
+                })
+                .cancel(with: cancelBag)
+        }
+        
         func getCalendarWeekly(date: String) {
             withAnimation {
                 dataIsReady = false
             }
             calendarWeekList.removeAll()
+            self.weeklyCalendarData = nil
             
             networkManager.getCalendarWeekly(date: date)
                 .receive(on: DispatchQueue.main)
@@ -58,6 +71,7 @@ extension HistoryViewController {
         }
         
         func getCalendarMonthly(date: String) {
+            self.calendarMonthList.removeAll()
             networkManager.getCalendarMonthly(day: date)
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] value in

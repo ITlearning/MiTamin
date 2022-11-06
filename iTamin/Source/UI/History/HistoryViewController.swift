@@ -164,6 +164,7 @@ class HistoryViewController: UIViewController {
         super.viewWillAppear(animated)
         viewModel.getFeelingRank()
         viewModel.getWeeklyMental()
+        viewModel.getCalendarMonthly(date: Date.dateToString(date: viewModel.currentDate))
         navigationController?.isNavigationBarHidden = true
     }
     
