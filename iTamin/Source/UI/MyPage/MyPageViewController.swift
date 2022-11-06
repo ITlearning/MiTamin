@@ -48,7 +48,14 @@ class MyPageViewController: UIViewController {
     }()
     
     
-    let profileBackGroundView = UIHostingController(rootView: ProfileBGView())
+    //let profileBackGroundView = UIHostingController(rootView: ProfileBGView())
+    
+    private let profileBackGroundView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "BG")
+        
+        return imageView
+    }()
     
     private let profileEditButton: UIButton = {
         let button = UIButton()
@@ -286,7 +293,7 @@ class MyPageViewController: UIViewController {
         view.addSubview(helpButton)
         view.addSubview(settingButton)
         
-        scrollView.addSubview(profileBackGroundView.view)
+        scrollView.addSubview(profileBackGroundView)
         scrollView.addSubview(profileImageView)
         scrollView.addSubview(profileEditButton)
         scrollView.addSubview(profileMainLabel)
@@ -333,43 +340,46 @@ class MyPageViewController: UIViewController {
         
         scrollView.snp.makeConstraints {
             $0.top.equalTo(settingButton.snp.bottom).offset(8)
-            $0.leading.trailing.equalToSuperview()
+            $0.leading.equalTo(view.snp.leading)
+            $0.trailing.equalTo(view.snp.trailing)
             $0.bottom.equalToSuperview()
         }
         
-        profileBackGroundView.view.snp.makeConstraints {
-            $0.top.equalTo(scrollView.snp.top).offset(34)
-            $0.leading.trailing.equalToSuperview()
-            $0.width.equalTo(UIScreen.main.bounds.width)
-            $0.height.equalTo(92)
+        profileBackGroundView.snp.makeConstraints {
+            $0.top.equalTo(scrollView.snp.top).offset(58)
+            $0.leading.equalTo(view.snp.leading).offset(20)
+            $0.trailing.equalTo(view.snp.trailing).inset(20)
+            $0.height.equalTo(134)
         }
         
         profileImageView.snp.makeConstraints {
-            $0.top.equalTo(profileBackGroundView.view.snp.top).offset(12)
-            $0.leading.equalTo(profileBackGroundView.view.snp.leading).offset(32)
-            $0.width.equalTo(72)
-            $0.height.equalTo(72)
+            $0.top.equalTo(scrollView.snp.top).offset(24)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(68)
+            $0.height.equalTo(68)
         }
         
         profileEditButton.snp.makeConstraints {
-            $0.bottom.equalTo(profileImageView.snp.bottom)
-            $0.trailing.equalTo(profileImageView.snp.trailing)
+            $0.top.equalTo(scrollView.snp.top).offset(70)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(32)
+            $0.width.equalTo(28)
+            $0.height.equalTo(28)
         }
         
         profileMainLabel.snp.makeConstraints {
-            $0.top.equalTo(profileBackGroundView.view.snp.top).offset(26)
-            $0.leading.equalTo(profileImageView.snp.trailing).offset(24)
+            $0.top.equalTo(profileImageView.snp.bottom).offset(16)
+            $0.centerX.equalToSuperview()
         }
         
         profileSubLabel.snp.makeConstraints {
             $0.top.equalTo(profileMainLabel.snp.bottom).offset(5)
-            $0.leading.equalTo(profileMainLabel)
+            $0.centerX.equalToSuperview()
         }
         
         roundedRectangleView.snp.makeConstraints {
-            $0.top.equalTo(profileBackGroundView.view.snp.bottom).offset(30)
-            $0.leading.equalTo(scrollView.snp.leading).offset(20)
-            $0.trailing.equalTo(scrollView.snp.trailing).inset(20)
+            $0.top.equalTo(profileBackGroundView.snp.bottom).offset(30)
+            $0.leading.equalTo(view.snp.leading).offset(20)
+            $0.trailing.equalTo(view.snp.trailing).inset(20)
             $0.height.equalTo(220)
         }
         
@@ -415,7 +425,8 @@ class MyPageViewController: UIViewController {
         
         seprateLineView.snp.makeConstraints {
             $0.top.equalTo(roundedRectangleView.snp.bottom).offset(24)
-            $0.leading.trailing.equalToSuperview()
+            $0.leading.equalTo(scrollView.snp.leading)
+            $0.width.equalTo(UIScreen.main.bounds.width)
             $0.height.equalTo(8)
         }
         
@@ -426,8 +437,8 @@ class MyPageViewController: UIViewController {
         
         appInfoView.view.snp.makeConstraints {
             $0.top.equalTo(appInfoLabel.snp.bottom).offset(20)
-            $0.leading.equalToSuperview()
-            $0.trailing.equalToSuperview()
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
             $0.bottom.equalTo(scrollView.snp.bottom)
         }
         
