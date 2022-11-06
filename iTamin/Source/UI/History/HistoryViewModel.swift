@@ -18,12 +18,18 @@ extension HistoryViewController {
         @Published var calendarMonthList: [CalendarModel] = []
         @Published var calendarWeekList: [WeeklyCalendarModel] = []
         @Published var selectWeeklyDate: String = ""
-        @Published var dataIsReady: Bool = true
+        @Published var selectDate: String = ""
+        @Published var dataIsReady: Bool = false
+        @Published var weeklyCalendarData: WeeklyCalendarModel? = nil
         var cancelBag = CancelBag()
         
         var networkManager = NetworkManager()
         
         func getCalendarWeekly(date: String) {
+            withAnimation {
+                dataIsReady = false
+            }
+            
             networkManager.getCalendarWeekly(date: date)
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] value in
@@ -33,6 +39,17 @@ extension HistoryViewController {
                         calendarWeekList.append(WeeklyCalendarModel(day: key, data: value))
                     }
                     self.calendarWeekList = calendarWeekList
+                    
+                    if let index = self.calendarWeekList.firstIndex(where: { Int($0.day) == Int(self.selectWeeklyDate) }) {
+                        print("들어옴,",self.calendarWeekList[index])
+                        self.weeklyCalendarData = self.calendarWeekList[index]
+                    } else {
+                        print("못들어옴..")
+                    }
+                    
+                    withAnimation {
+                        self.dataIsReady = true
+                    }
                     
                 })
                 .cancel(with: cancelBag)

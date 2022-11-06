@@ -401,6 +401,7 @@ extension HistoryViewController: CalendarDelegate {
     func calendarTap(date: String) {
         let replace = date.components(separatedBy: ".")
         viewModel.selectWeeklyDate = replace.last ?? ""
+        viewModel.selectDate = date
         let vc = WeeklyCalendarViewController(viewModel: viewModel, date: date)
         navigationController?.pushViewController(vc, animated: true)
         print(date)

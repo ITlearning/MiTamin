@@ -17,8 +17,6 @@ struct MyTaminReportView: View {
     @StateObject var viewModel: HomeViewController.ViewModel
     @StateObject var historyViewModel: HistoryViewController.ViewModel
     
-    @State var weeklyCalendarData: WeeklyCalendarModel? = nil
-    
     var type: ReportType = .home
     
     var notYetImageView: some View {
@@ -49,7 +47,7 @@ struct MyTaminReportView: View {
     
     var feelingView: some View {
         HStack {
-            Image(getImage(idx:( type == .home ? (viewModel.reportData?.mentalConditionCode ?? 0 ): weeklyCalendarData?.data?.report?.mentalConditionCode ?? 0)))
+            Image(getImage(idx:( type == .home ? (viewModel.reportData?.mentalConditionCode ?? 0 ): historyViewModel.weeklyCalendarData?.data?.report?.mentalConditionCode ?? 0)))
                 .resizable()
                 .frame(width: 60, height: 60)
             ZStack {
@@ -60,13 +58,13 @@ struct MyTaminReportView: View {
                         .foregroundColor(Color(uiColor: UIColor.backGroundWhiteColor))
                 }
                 VStack(alignment: .leading) {
-                    Text(type == .home ? viewModel.reportData?.feelingTag ?? "" : weeklyCalendarData?.data?.report?.feelingTag ?? "")
+                    Text(type == .home ? viewModel.reportData?.feelingTag ?? "" : historyViewModel.weeklyCalendarData?.data?.report?.feelingTag ?? "")
                         .font(.SDGothicRegular(size: 12))
                         .foregroundColor(Color(uiColor: UIColor.grayColor3))
                         .padding(.leading, 30)
                         .padding(.trailing, 25)
                         .multilineTextAlignment(.leading)
-                    Text("오늘은 기분이 \(type == .home ? viewModel.reportData?.mentalCondition ?? "" : weeklyCalendarData?.data?.report?.mentalCondition ?? "")")
+                    Text("오늘은 기분이 \(type == .home ? viewModel.reportData?.mentalCondition ?? "" : historyViewModel.weeklyCalendarData?.data?.report?.mentalCondition ?? "")")
                         .font(.SDGothicBold(size: 16))
                         .foregroundColor(Color(uiColor: UIColor.primaryColor))
                         .padding(.leading, 30)
@@ -107,7 +105,7 @@ struct MyTaminReportView: View {
             ZStack {
                 RoundedRectangle(cornerRadius: 12)
                     .foregroundColor(Color(uiColor: UIColor.backGroundWhiteColor))
-                Text(type == .home ? viewModel.reportData?.todayReport ?? "" : weeklyCalendarData?.data?.report?.todayReport)
+                Text(type == .home ? viewModel.reportData?.todayReport ?? "" : historyViewModel.weeklyCalendarData?.data?.report?.todayReport)
                     .font(.SDGothicRegular(size: 14))
                     .foregroundColor(.init(uiColor: .grayColor3))
                     .lineSpacing(6)
@@ -146,7 +144,7 @@ struct MyTaminReportView: View {
                 RoundedRectangle(cornerRadius: 12)
                     .foregroundColor(Color(uiColor: UIColor.backGroundWhiteColor))
                 VStack(alignment: .leading) {
-                    Text(type == .home ? (viewModel.careData?.careMsg1 ?? "")+"\n\(viewModel.careData?.careMsg2 ?? "")" : (weeklyCalendarData?.data?.care?.careMsg1 ?? "")+"\n\(weeklyCalendarData?.data?.care?.careMsg2 ?? "")")
+                    Text(type == .home ? (viewModel.careData?.careMsg1 ?? "")+"\n\(viewModel.careData?.careMsg2 ?? "")" : (historyViewModel.weeklyCalendarData?.data?.care?.careMsg1 ?? "")+"\n\(historyViewModel.weeklyCalendarData?.data?.care?.careMsg2 ?? "")")
                         .font(.SDGothicRegular(size: 14))
                         .foregroundColor(.init(uiColor: .grayColor3))
                         .lineSpacing(6)
@@ -191,7 +189,7 @@ struct MyTaminReportView: View {
                                 .overlay(
                                     Text("아직 하루진단을 완료하지 않았어요!")
                                 )
-                                .opacity(type == .home ? (viewModel.reportData == nil && viewModel.dataIsReady ? 1 : 0) : weeklyCalendarData?.data?.report == nil ? 1 : 0 )
+                                .opacity(type == .home ? (viewModel.reportData == nil && viewModel.dataIsReady ? 1 : 0) : historyViewModel.weeklyCalendarData?.data?.report == nil ? 1 : 0 )
                         )
                     careView
                         .overlay(
@@ -199,15 +197,15 @@ struct MyTaminReportView: View {
                                 .overlay(
                                     Text("아직 칭찬처방을 완료하지 않았어요!")
                                 )
-                                .opacity(type == .home ? (viewModel.careData == nil && viewModel.dataIsReady ? 1 : 0) : weeklyCalendarData?.data?.care == nil ? 1 : 0)
+                                .opacity(type == .home ? (viewModel.careData == nil && viewModel.dataIsReady ? 1 : 0) : historyViewModel.weeklyCalendarData?.data?.care == nil ? 1 : 0)
                         )
                     
                     Spacer()
                         .frame(height: 50)
                 }
-                .opacity(type == .home ? ((viewModel.reportData != nil || viewModel.careData != nil) && viewModel.dataIsReady ? 1 : 0) : weeklyCalendarData?.data?.report == nil && weeklyCalendarData?.data?.care == nil ? 0 : 1)
+                .opacity(type == .home ? ((viewModel.reportData != nil || viewModel.careData != nil) && viewModel.dataIsReady ? 1 : 0) : historyViewModel.weeklyCalendarData?.data?.report == nil && historyViewModel.weeklyCalendarData?.data?.care == nil ? 0 : 1)
                 
-                notYetImageView.opacity(type == .home ? ((viewModel.reportData == nil && viewModel.careData == nil) && viewModel.dataIsReady ? 1 : 0) : weeklyCalendarData?.data?.care == nil && weeklyCalendarData?.data?.report == nil && historyViewModel.dataIsReady ? 1 : 0)
+                notYetImageView.opacity(type == .home ? ((viewModel.reportData == nil && viewModel.careData == nil) && viewModel.dataIsReady ? 1 : 0) : historyViewModel.weeklyCalendarData?.data?.care == nil && historyViewModel.weeklyCalendarData?.data?.report == nil && historyViewModel.dataIsReady ? 1 : 0)
                 
                 loadingView.opacity(type == .home ? ((viewModel.reportData == nil && viewModel.careData == nil) && !viewModel.dataIsReady ? 1 : 0) : !historyViewModel.dataIsReady ? 1 : 0)
             }
@@ -215,7 +213,7 @@ struct MyTaminReportView: View {
                 print("뷰 안에서 작동",value)
                 if let index = historyViewModel.calendarWeekList.firstIndex(where: { $0.day == value }) {
                     print(historyViewModel.calendarWeekList[index])
-                    self.weeklyCalendarData = historyViewModel.calendarWeekList[index]
+                    historyViewModel.weeklyCalendarData = historyViewModel.calendarWeekList[index]
                 }
             })
         }

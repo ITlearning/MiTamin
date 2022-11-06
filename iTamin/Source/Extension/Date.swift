@@ -8,6 +8,16 @@
 import Foundation
 
 extension Date {
+    
+    static func stringToDate(date: String) -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        dateFormatter.dateFormat = "yyyy.MM.dd"
+        let date = dateFormatter.date(from: date)
+        
+        return date
+    }
+    
     static func stringToDate(year: String, month: String) -> Date? {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ko_KR")
