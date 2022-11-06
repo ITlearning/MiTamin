@@ -49,6 +49,7 @@ extension CareHistoryViewController {
                         temp.append(CategoryCareModel(date: key, data: value))
                     }
                     
+                    print("결과", temp)
                     self.careList = temp
                 })
                 .cancel(with: cancelBag)

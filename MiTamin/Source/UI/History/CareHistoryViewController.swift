@@ -43,9 +43,9 @@ class CareHistoryViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         viewModel.getCategoryCareData()
-
         configureLayout()
         configureTableView()
+        bindCombine()
     }
     
     private func bindCombine() {
