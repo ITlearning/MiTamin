@@ -79,13 +79,14 @@ class MyPageViewController: UIViewController {
         label.font = UIFont.SDGothicBold(size: 18)
         label.numberOfLines = 0
         label.textAlignment = .left
+        label.textColor = .primaryColor
         return label
     }()
     
     private let profileSubLabel: UILabel = {
         let label = UILabel()
         label.text = "내가 될 태버 테스트"
-        label.font = UIFont.SDGothicMedium(size: 18)
+        label.font = UIFont.SDGothicBold(size: 18)
         label.numberOfLines = 0
         label.textAlignment = .left
         return label
@@ -256,6 +257,7 @@ class MyPageViewController: UIViewController {
         
         profileEditButton.tapPublisher
             .sink(receiveCompletion: {_ in}, receiveValue: { _ in
+                print("안눌림?")
                 let editProfileVC = EditProfileViewController(profile: self.viewModel.profileData.value ?? ProfileModel(nickname: "", beMyMessage: "", provider: ""))
                 self.navigationController?.pushViewController(editProfileVC, animated: true)
             })
@@ -275,6 +277,14 @@ class MyPageViewController: UIViewController {
             .sink(receiveCompletion: { _ in }, receiveValue: { value in
                 guard let value = value else { return }
                 self.setMyDayInfo(item: value)
+            })
+            .cancel(with: cancelBag)
+        
+        settingButton.tapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { _ in
+                let vc = SettingViewController()
+                self.navigationController?.pushViewController(vc, animated: true)
             })
             .cancel(with: cancelBag)
     }

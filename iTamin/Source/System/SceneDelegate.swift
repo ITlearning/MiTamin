@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         
         if UserDefaults.standard.bool(forKey: "isLogined") {
-            window.rootViewController = UINavigationController(rootViewController: RootTabBarViewController()) 
+            window.rootViewController = UINavigationController(rootViewController: RootTabBarViewController())
         } else {
             window.rootViewController = UINavigationController(rootViewController: LoginMainViewController())
         }
@@ -53,7 +53,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // 아까 위에서 설정한 window를 기준으로 RootViewController를 재설정하는 코드
         window.rootViewController = vc
-        
         // 뷰가 변경될 때 이동하는 애니메이션과 시간등을 정의
         UIView.transition(with: window, duration: 0.4, options: [.transitionCrossDissolve], animations: nil, completion: nil)
     }

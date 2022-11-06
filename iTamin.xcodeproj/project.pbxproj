@@ -131,6 +131,8 @@
 		F5E15ACD2917B4BB007179A2 /* EmailCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15ACC2917B4BB007179A2 /* EmailCheckViewController.swift */; };
 		F5E15AD02917B990007179A2 /* EmailCheckViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15ACF2917B990007179A2 /* EmailCheckViewModel.swift */; };
 		F5E15AD22917D9F8007179A2 /* OnBoardingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15AD12917D9F8007179A2 /* OnBoardingIndicator.swift */; };
+		F5E15AD42917DEA5007179A2 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15AD32917DEA5007179A2 /* SettingViewController.swift */; };
+		F5E15AD62917E59E007179A2 /* BiometricsAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15AD52917E59E007179A2 /* BiometricsAuth.swift */; };
 		F5F3F15C28FA7B48006C9B6A /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F3F15B28FA7B48006C9B6A /* CoreDataManager.swift */; };
 		F5F3F16028FA85D5006C9B6A /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F3F15F28FA85D5006C9B6A /* String.swift */; };
 		F5F3F16328FA8A10006C9B6A /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = F5F3F16228FA8A10006C9B6A /* SkeletonView */; };
@@ -274,6 +276,8 @@
 		F5E15ACC2917B4BB007179A2 /* EmailCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailCheckViewController.swift; sourceTree = "<group>"; };
 		F5E15ACF2917B990007179A2 /* EmailCheckViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailCheckViewModel.swift; sourceTree = "<group>"; };
 		F5E15AD12917D9F8007179A2 /* OnBoardingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingIndicator.swift; sourceTree = "<group>"; };
+		F5E15AD32917DEA5007179A2 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		F5E15AD52917E59E007179A2 /* BiometricsAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricsAuth.swift; sourceTree = "<group>"; };
 		F5F3F15B28FA7B48006C9B6A /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		F5F3F15F28FA85D5006C9B6A /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		F5F3F16428FA9589006C9B6A /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
@@ -525,6 +529,7 @@
 				F5170A9829055DB800AE4FD5 /* MyPageViewModel.swift */,
 				F5170A9A29055F9700AE4FD5 /* EditProfileViewController.swift */,
 				F5170A9E29056B2F00AE4FD5 /* EditProfileViewModel.swift */,
+				F5E15AD32917DEA5007179A2 /* SettingViewController.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -597,6 +602,7 @@
 				F546AE8C290D27F400CE6C4D /* AlertToastView.swift */,
 				F5E15A8F290E3BF4007179A2 /* BlurEffect.swift */,
 				F5E15AA02912CCFE007179A2 /* UINavigationController.swift */,
+				F5E15AD52917E59E007179A2 /* BiometricsAuth.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -970,8 +976,10 @@
 				F5E15AA12912CCFE007179A2 /* UINavigationController.swift in Sources */,
 				F5A2EAF328D3644800536E9B /* AppDelegate.swift in Sources */,
 				F5A2EAF528D3644800536E9B /* SceneDelegate.swift in Sources */,
+				F5E15AD42917DEA5007179A2 /* SettingViewController.swift in Sources */,
 				F546AE702906E5B500CE6C4D /* WishListTypingTableViewCell.swift in Sources */,
 				F546AE682906D69000CE6C4D /* MenuCollectionViewCell.swift in Sources */,
+				F5E15AD62917E59E007179A2 /* BiometricsAuth.swift in Sources */,
 				F5A2EB7D28DF1B3600536E9B /* OnBoardingViewController.swift in Sources */,
 				F5A2EBA528E5A3B000536E9B /* MyTaminCollectionViewCell.swift in Sources */,
 				F546AE7229096EE100CE6C4D /* MyDayViewModel.swift in Sources */,
@@ -1166,6 +1174,7 @@
 				INFOPLIST_FILE = iTamin/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MiTamin;
 				INFOPLIST_KEY_NSCameraUsageDescription = "카메라 사용권한을 요청합니다.";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "앱 잠금시에 Face ID를 사용해요.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "비디오 녹화를 위한 마이크 사용권한을 요청합니다.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "라이브러리 사용권한을 요청합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1197,6 +1206,7 @@
 				INFOPLIST_FILE = iTamin/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MiTamin;
 				INFOPLIST_KEY_NSCameraUsageDescription = "카메라 사용권한을 요청합니다.";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "앱 잠금시에 Face ID를 사용해요.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "비디오 녹화를 위한 마이크 사용권한을 요청합니다.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "라이브러리 사용권한을 요청합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

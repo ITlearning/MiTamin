@@ -52,7 +52,7 @@ extension SignInViewController {
                     
                     self.saveToken(accessToken: result.data.accessToken, refreshToken: result.data.refreshToken)
                     
-                    let rootTabBarViewController = RootTabBarViewController()
+                    let rootTabBarViewController = UINavigationController(rootViewController: RootTabBarViewController())
                     (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(rootTabBarViewController, animated: true)
                 })
                 .cancel(with: cancelBag)
