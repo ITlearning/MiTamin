@@ -107,13 +107,6 @@ class HistoryViewController: UIViewController {
         return label
     }()
     
-    private let calendarView: UIView = {
-        let v = UIView()
-        v.backgroundColor = .gray
-        
-        return v
-    }()
-    
     private let mindCalLabel: UILabel = {
         let label = UILabel()
         label.text = "이번 달 가장 많이 느낀 감정"
@@ -123,8 +116,38 @@ class HistoryViewController: UIViewController {
         return label
     }()
     
-    private lazy var feelingRankView = FeelingRankView(viewModel: self.viewModel)
+    private let pastButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "icon-arrow-left-circle-mono"), for: .normal)
+        
+        return button
+    }()
     
+    private let calendarMonthLabel: UILabel = {
+        let label = UILabel()
+        label.text = Date.dateToStringKor(date: Date())
+        label.textColor = UIColor.black
+        label.font = UIFont.SDGothicMedium(size: 16)
+        return label
+    }()
+    
+    private let futureButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "icon-arrow-right-circle-mono"), for: .normal)
+        
+        return button
+    }()
+    
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [pastButton, calendarMonthLabel, futureButton])
+        stackView.axis = .horizontal
+        stackView.spacing = 24
+        
+        return stackView
+    }()
+    
+    private lazy var feelingRankView = FeelingRankView(viewModel: self.viewModel)
+    private lazy var calendarView = CalendarView(viewModel: self.viewModel)
     private lazy var conditionGraphView = ConditionChartView(viewModel: self.viewModel)
     
     private let collectMyTaminLabel: UILabel = {
@@ -149,6 +172,7 @@ class HistoryViewController: UIViewController {
         viewModel.getCareRandomData()
         viewModel.getFeelingRank()
         viewModel.getWeeklyMental()
+        //viewModel.getCalendarMonthly(date: Date.dateToString(date: Date))
         bindCombine()
     }
     
@@ -180,6 +204,40 @@ class HistoryViewController: UIViewController {
                 self.navigationController?.pushViewController(vc, animated: true)
             })
             .cancel(with: cancelBag)
+        
+        pastButton.tapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] _ in
+                guard let self = self else { return }
+                let date = self.viewModel.currentDate
+                
+                self.viewModel.currentDate = Calendar.current.date(byAdding: .month, value: -1, to: date) ?? Date()
+                self.setCalendarText(date: self.viewModel.currentDate)
+                
+            })
+            .cancel(with: cancelBag)
+        
+        futureButton.tapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] _ in
+                guard let self = self else { return }
+                let date = self.viewModel.currentDate
+                self.viewModel.currentDate = Calendar.current.date(byAdding: .month, value: 1, to: date) ?? Date()
+                self.setCalendarText(date: self.viewModel.currentDate)
+            })
+            .cancel(with: cancelBag)
+        
+        viewModel.$currentDate
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] value in
+                guard let self = self else { return }
+                self.viewModel.getCalendarMonthly(date: Date.dateToString(date: value))
+            })
+            .cancel(with: cancelBag)
+    }
+    
+    func setCalendarText(date: Date) {
+        calendarMonthLabel.text = Date.dateToStringKor(date: date)
     }
     
     func setRandomText(item: RandomCareModel?) {
@@ -208,6 +266,7 @@ class HistoryViewController: UIViewController {
         scrollView.addSubview(mindReportHistoryTitle)
         scrollView.addSubview(weekMindConditionTitle)
         
+        
         let graphView = UIHostingController(rootView: conditionGraphView)
         
         scrollView.addSubview(graphView.view)
@@ -215,8 +274,11 @@ class HistoryViewController: UIViewController {
         let vc = UIHostingController(rootView: feelingRankView)
         scrollView.addSubview(vc.view)
         scrollView.addSubview(collectMyTaminLabel)
+        scrollView.addSubview(stackView)
+        let calendarView = UIHostingController(rootView: calendarView)
+        scrollView.addSubview(calendarView.view)
         
-        scrollView.addSubview(calendarView)
+        
         
         mainMiTaminLogoImageView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(14)
@@ -307,8 +369,23 @@ class HistoryViewController: UIViewController {
             $0.leading.equalTo(mindCalLabel)
         }
         
-        calendarView.snp.makeConstraints {
+        stackView.snp.makeConstraints {
             $0.top.equalTo(collectMyTaminLabel.snp.bottom).offset(24)
+            $0.centerX.equalToSuperview()
+        }
+        
+        pastButton.snp.makeConstraints {
+            $0.width.equalTo(24)
+            $0.height.equalTo(24)
+        }
+        
+        futureButton.snp.makeConstraints {
+            $0.width.equalTo(24)
+            $0.height.equalTo(24)
+        }
+        
+        calendarView.view.snp.makeConstraints {
+            $0.top.equalTo(stackView.snp.bottom).offset(24)
             $0.leading.equalTo(view.snp.leading).offset(20)
             $0.trailing.equalTo(view.snp.trailing).inset(20)
             $0.height.equalTo(400)

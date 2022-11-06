@@ -19,6 +19,15 @@
       }
     },
     {
+      "identity" : "dategrid",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/yodagamaheshan/DateGrid.git",
+      "state" : {
+        "revision" : "68378c8276f2d57569fa492188e1d098ea56869b",
+        "version" : "0.0.3"
+      }
+    },
+    {
       "identity" : "iqkeyboardmanager",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/hackiftekhar/IQKeyboardManager.git",

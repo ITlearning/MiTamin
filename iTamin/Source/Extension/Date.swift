@@ -22,11 +22,26 @@ extension Date {
         dateComponents.month = addingMonth
         let resultDate = Calendar.current.date(byAdding: dateComponents, to: startDate)
         
-        return dateToString(date: resultDate ?? Date())
+        return dateToStringArray(date: resultDate ?? Date())
         
     }
     
-    static func dateToString(date: Date) -> [String] {
+    static func dateToStringKor(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy년MM월"
+        let dateString = dateFormatter.string(from: date)
+        return dateString
+    }
+    
+    static func dateToString(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy.MM"
+        let dateString = dateFormatter.string(from: date)
+        
+        return dateString
+    }
+    
+    static func dateToStringArray(date: Date) -> [String] {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy.MM"
         let dateString = dateFormatter.string(from: date)

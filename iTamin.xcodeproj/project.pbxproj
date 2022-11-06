@@ -122,6 +122,8 @@
 		F5E15AB829166E0B007179A2 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15AB729166E0B007179A2 /* CategoryView.swift */; };
 		F5E15ABB2916771A007179A2 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = F5E15ABA2916771A007179A2 /* SwiftUICharts */; };
 		F5E15ABD29167739007179A2 /* ConditionChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15ABC29167739007179A2 /* ConditionChartView.swift */; };
+		F5E15AC0291687D6007179A2 /* DateGrid in Frameworks */ = {isa = PBXBuildFile; productRef = F5E15ABF291687D6007179A2 /* DateGrid */; };
+		F5E15AC22916882D007179A2 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15AC12916882D007179A2 /* CalendarView.swift */; };
 		F5F3F15C28FA7B48006C9B6A /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F3F15B28FA7B48006C9B6A /* CoreDataManager.swift */; };
 		F5F3F16028FA85D5006C9B6A /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F3F15F28FA85D5006C9B6A /* String.swift */; };
 		F5F3F16328FA8A10006C9B6A /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = F5F3F16228FA8A10006C9B6A /* SkeletonView */; };
@@ -257,6 +259,7 @@
 		F5E15AB529165C64007179A2 /* CareHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareHistoryViewModel.swift; sourceTree = "<group>"; };
 		F5E15AB729166E0B007179A2 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
 		F5E15ABC29167739007179A2 /* ConditionChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionChartView.swift; sourceTree = "<group>"; };
+		F5E15AC12916882D007179A2 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		F5F3F15B28FA7B48006C9B6A /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		F5F3F15F28FA85D5006C9B6A /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		F5F3F16428FA9589006C9B6A /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
@@ -277,6 +280,7 @@
 				F546AE5E29059F3000CE6C4D /* YPImagePicker in Frameworks */,
 				F5F3F16328FA8A10006C9B6A /* SkeletonView in Frameworks */,
 				F5A2EB3928D4B95F00536E9B /* SnapKit in Frameworks */,
+				F5E15AC0291687D6007179A2 /* DateGrid in Frameworks */,
 				F5E15ABB2916771A007179A2 /* SwiftUICharts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -669,6 +673,7 @@
 				F5F3F16428FA9589006C9B6A /* AlertView.swift */,
 				F5E15AB729166E0B007179A2 /* CategoryView.swift */,
 				F5E15ABC29167739007179A2 /* ConditionChartView.swift */,
+				F5E15AC12916882D007179A2 /* CalendarView.swift */,
 			);
 			path = SwiftUIView;
 			sourceTree = "<group>";
@@ -709,6 +714,7 @@
 				F546AE602905A21A00CE6C4D /* Kingfisher */,
 				F5E15A98290FFD0F007179A2 /* SkeletonUI */,
 				F5E15ABA2916771A007179A2 /* SwiftUICharts */,
+				F5E15ABF291687D6007179A2 /* DateGrid */,
 			);
 			productName = iTamin;
 			productReference = F5A2EAEF28D3644800536E9B /* iTamin.app */;
@@ -793,6 +799,7 @@
 				F546AE5F2905A21A00CE6C4D /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				F5E15A97290FFD0F007179A2 /* XCRemoteSwiftPackageReference "SkeletonUI" */,
 				F5E15AB92916771A007179A2 /* XCRemoteSwiftPackageReference "SwiftUICharts" */,
+				F5E15ABE291687D6007179A2 /* XCRemoteSwiftPackageReference "DateGrid" */,
 			);
 			productRefGroup = F5A2EAF028D3644800536E9B /* Products */;
 			projectDirPath = "";
@@ -897,6 +904,7 @@
 				F5A2EB6328DEE95600536E9B /* SignInViewModel.swift in Sources */,
 				F5170A9B29055F9700AE4FD5 /* EditProfileViewController.swift in Sources */,
 				F546AE642906D34200CE6C4D /* MyDayViewController.swift in Sources */,
+				F5E15AC22916882D007179A2 /* CalendarView.swift in Sources */,
 				F5A2EB7A28DF1A2100536E9B /* SignUpViewModel.swift in Sources */,
 				F5A2EBA228E5A34800536E9B /* MyTaminViewController.swift in Sources */,
 				F546AE7D290CF51300CE6C4D /* UIView.swift in Sources */,
@@ -1112,6 +1120,7 @@
 				DEVELOPMENT_TEAM = ZMXTCSPNUZ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iTamin/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MiTamin;
 				INFOPLIST_KEY_NSCameraUsageDescription = "카메라 사용권한을 요청합니다.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "비디오 녹화를 위한 마이크 사용권한을 요청합니다.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "라이브러리 사용권한을 요청합니다.";
@@ -1124,7 +1133,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.goodJob.iTamin;
+				PRODUCT_BUNDLE_IDENTIFIER = com.goodJob.MiTamin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1142,6 +1151,7 @@
 				DEVELOPMENT_TEAM = ZMXTCSPNUZ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iTamin/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MiTamin;
 				INFOPLIST_KEY_NSCameraUsageDescription = "카메라 사용권한을 요청합니다.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "비디오 녹화를 위한 마이크 사용권한을 요청합니다.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "라이브러리 사용권한을 요청합니다.";
@@ -1154,7 +1164,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.goodJob.iTamin;
+				PRODUCT_BUNDLE_IDENTIFIER = com.goodJob.MiTamin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1352,6 +1362,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		F5E15ABE291687D6007179A2 /* XCRemoteSwiftPackageReference "DateGrid" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/yodagamaheshan/DateGrid.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.3;
+			};
+		};
 		F5F3F16128FA8A10006C9B6A /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
@@ -1407,6 +1425,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F5E15AB92916771A007179A2 /* XCRemoteSwiftPackageReference "SwiftUICharts" */;
 			productName = SwiftUICharts;
+		};
+		F5E15ABF291687D6007179A2 /* DateGrid */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F5E15ABE291687D6007179A2 /* XCRemoteSwiftPackageReference "DateGrid" */;
+			productName = DateGrid;
 		};
 		F5F3F16228FA8A10006C9B6A /* SkeletonView */ = {
 			isa = XCSwiftPackageProductDependency;

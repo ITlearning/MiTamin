@@ -14,9 +14,21 @@ extension HistoryViewController {
         @Published var randomCareData: RandomCareModel? = nil
         @Published var feelingRankList: [FeelingRankModel] = []
         @Published var weeklyMentalList: [WeeklyMentalModel] = []
+        @Published var currentDate = Date()
+        @Published var calendarMonthList: [CalendarModel] = []
         var cancelBag = CancelBag()
         
         var networkManager = NetworkManager()
+        
+        func getCalendarMonthly(date: String) {
+            networkManager.getCalendarMonthly(day: date)
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] value in
+                    guard let self = self else { return }
+                    self.calendarMonthList = value.data
+                })
+                .cancel(with: cancelBag)
+        }
         
         func getWeeklyMental() {
             networkManager.getWeekMental()

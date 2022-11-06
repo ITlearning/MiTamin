@@ -188,3 +188,8 @@ struct WeeklyMentalModel: Codable {
     var dayOfWeek: String
     var mentalConditionCode: Int
 }
+
+struct CalendarModel: Codable {
+    var day: Int
+    var mentalConditionCode: Int
+}
