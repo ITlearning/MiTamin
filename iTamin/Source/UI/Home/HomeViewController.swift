@@ -275,7 +275,7 @@ class HomeViewController: UIViewController {
     
     private func configureLayout() {
         let mainScrollView = UIHostingController(rootView: MainCollectionView(viewModel: self.viewModel))
-        let myTaminReportView = UIHostingController(rootView: MyTaminReportView(viewModel: self.viewModel))
+        let myTaminReportView = UIHostingController(rootView: MyTaminReportView(viewModel: self.viewModel, historyViewModel: HistoryViewController.ViewModel()))
         mainScrollView.view.isSkeletonable = true
         mainLogoImageView.isSkeletonable = true
         scrollView.backgroundColor = .white

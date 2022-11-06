@@ -162,6 +162,8 @@ class HistoryViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        viewModel.getFeelingRank()
+        viewModel.getWeeklyMental()
         navigationController?.isNavigationBarHidden = true
     }
     
@@ -277,7 +279,7 @@ class HistoryViewController: UIViewController {
         scrollView.addSubview(stackView)
         let calendarView = UIHostingController(rootView: calendarView)
         scrollView.addSubview(calendarView.view)
-        
+        calendarView.rootView.delegate = self
         
         
         mainMiTaminLogoImageView.snp.makeConstraints {
@@ -393,4 +395,14 @@ class HistoryViewController: UIViewController {
         }
     }
 
+}
+
+extension HistoryViewController: CalendarDelegate {
+    func calendarTap(date: String) {
+        let replace = date.components(separatedBy: ".")
+        viewModel.selectWeeklyDate = replace.last ?? ""
+        let vc = WeeklyCalendarViewController(viewModel: viewModel, date: date)
+        navigationController?.pushViewController(vc, animated: true)
+        print(date)
+    }
 }

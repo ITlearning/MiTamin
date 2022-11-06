@@ -124,6 +124,8 @@
 		F5E15ABD29167739007179A2 /* ConditionChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15ABC29167739007179A2 /* ConditionChartView.swift */; };
 		F5E15AC0291687D6007179A2 /* DateGrid in Frameworks */ = {isa = PBXBuildFile; productRef = F5E15ABF291687D6007179A2 /* DateGrid */; };
 		F5E15AC22916882D007179A2 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15AC12916882D007179A2 /* CalendarView.swift */; };
+		F5E15AC429174A35007179A2 /* WeeklyCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15AC329174A35007179A2 /* WeeklyCalendarViewController.swift */; };
+		F5E15AC629176766007179A2 /* WeeklyMyTaminView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15AC529176766007179A2 /* WeeklyMyTaminView.swift */; };
 		F5F3F15C28FA7B48006C9B6A /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F3F15B28FA7B48006C9B6A /* CoreDataManager.swift */; };
 		F5F3F16028FA85D5006C9B6A /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F3F15F28FA85D5006C9B6A /* String.swift */; };
 		F5F3F16328FA8A10006C9B6A /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = F5F3F16228FA8A10006C9B6A /* SkeletonView */; };
@@ -260,6 +262,8 @@
 		F5E15AB729166E0B007179A2 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
 		F5E15ABC29167739007179A2 /* ConditionChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionChartView.swift; sourceTree = "<group>"; };
 		F5E15AC12916882D007179A2 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		F5E15AC329174A35007179A2 /* WeeklyCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCalendarViewController.swift; sourceTree = "<group>"; };
+		F5E15AC529176766007179A2 /* WeeklyMyTaminView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyMyTaminView.swift; sourceTree = "<group>"; };
 		F5F3F15B28FA7B48006C9B6A /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		F5F3F15F28FA85D5006C9B6A /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		F5F3F16428FA9589006C9B6A /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
@@ -498,6 +502,7 @@
 				F5E15AAC29164EE4007179A2 /* HistoryViewModel.swift */,
 				F5E15AAE291652B3007179A2 /* CareHistoryViewController.swift */,
 				F5E15AB529165C64007179A2 /* CareHistoryViewModel.swift */,
+				F5E15AC329174A35007179A2 /* WeeklyCalendarViewController.swift */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -674,6 +679,7 @@
 				F5E15AB729166E0B007179A2 /* CategoryView.swift */,
 				F5E15ABC29167739007179A2 /* ConditionChartView.swift */,
 				F5E15AC12916882D007179A2 /* CalendarView.swift */,
+				F5E15AC529176766007179A2 /* WeeklyMyTaminView.swift */,
 			);
 			path = SwiftUIView;
 			sourceTree = "<group>";
@@ -889,10 +895,12 @@
 				F546AE7B290BD5AD00CE6C4D /* EditWishListViewController.swift in Sources */,
 				F5A2EBAA28E5AEA900536E9B /* IndicatorView.swift in Sources */,
 				F546AE87290D0D9E00CE6C4D /* AddDayNoteViewModel.swift in Sources */,
+				F5E15AC429174A35007179A2 /* WeeklyCalendarViewController.swift in Sources */,
 				F5A2EBAC28E5B26300536E9B /* MyTaminViewModel.swift in Sources */,
 				F5A2EBC828F2EA4F00536E9B /* CategoryCollectionViewCell.swift in Sources */,
 				F5E15AAA2915659B007179A2 /* FeelingRankView.swift in Sources */,
 				F5E15A90290E3BF4007179A2 /* BlurEffect.swift in Sources */,
+				F5E15AC629176766007179A2 /* WeeklyMyTaminView.swift in Sources */,
 				F5A2EB5128DB614C00536E9B /* Font.swift in Sources */,
 				F546AE95290D5A0600CE6C4D /* DoneWishListViewController.swift in Sources */,
 				F5A2EB6628DEF58200536E9B /* SignUpViewController.swift in Sources */,

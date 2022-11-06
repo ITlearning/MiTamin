@@ -16,9 +16,27 @@ extension HistoryViewController {
         @Published var weeklyMentalList: [WeeklyMentalModel] = []
         @Published var currentDate = Date()
         @Published var calendarMonthList: [CalendarModel] = []
+        @Published var calendarWeekList: [WeeklyCalendarModel] = []
+        @Published var selectWeeklyDate: String = ""
+        @Published var dataIsReady: Bool = true
         var cancelBag = CancelBag()
         
         var networkManager = NetworkManager()
+        
+        func getCalendarWeekly(date: String) {
+            networkManager.getCalendarWeekly(date: date)
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] value in
+                    guard let self = self else { return }
+                    var calendarWeekList: [WeeklyCalendarModel] = []
+                    value.data.forEach { (key, value) in
+                        calendarWeekList.append(WeeklyCalendarModel(day: key, data: value))
+                    }
+                    self.calendarWeekList = calendarWeekList
+                    
+                })
+                .cancel(with: cancelBag)
+        }
         
         func getCalendarMonthly(date: String) {
             networkManager.getCalendarMonthly(day: date)

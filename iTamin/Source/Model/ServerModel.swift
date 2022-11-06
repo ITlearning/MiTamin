@@ -189,7 +189,19 @@ struct WeeklyMentalModel: Codable {
     var mentalConditionCode: Int
 }
 
-struct CalendarModel: Codable {
+struct CalendarModel: Hashable, Codable {
     var day: Int
     var mentalConditionCode: Int
+}
+
+struct WeeklyCalendarModel: Codable {
+    var day: String
+    var data: CalendarWeeklyServerModel?
+}
+
+struct CalendarWeeklyServerModel: Codable {
+    var mytaminId: Int
+    var takeAt: String
+    var report: DailyNewModel?
+    var care: CareDailyModel?
 }
