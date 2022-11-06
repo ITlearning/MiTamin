@@ -98,6 +98,7 @@ class WeeklyCalendarViewController: UIViewController {
         view.backgroundColor = .white
         //viewModel.getCalendarMonthly(date: Date.dateToString(date: Date()))
         self.setCurrentDay(date: viewModel.selectDate)
+        setMyTaminText(date: viewModel.selectDate)
         configureLayout()
     }
     
@@ -154,7 +155,14 @@ class WeeklyCalendarViewController: UIViewController {
         dateFormatter.dateFormat = "MM.dd EEE"
         let result = dateFormatter.string(from: date ?? Date())
         self.dateLabel.text = result
+    }
+    
+    private func setMyTaminText(date: String) {
+        let replace = date.components(separatedBy: ".")
         
+        if replace.count > 2 {
+            mytaminLabel.text = "\(replace[1])월 \(replace[2])일의 마이타민"
+        }
     }
     
 }
@@ -165,10 +173,9 @@ extension WeeklyCalendarViewController: CalendarDelegate {
         let replace = date.components(separatedBy: ".")
         self.viewModel.selectWeeklyDate = replace.last ?? ""
         setCurrentDay(date: date)
-        
-        if let _ = viewModel.calendarWeekList.firstIndex(where: { Int($0.day) == Int(self.viewModel.selectWeeklyDate) }) {
-            //print(historyViewModel.calendarWeekList[index])
-            //historyViewModel.weeklyCalendarData = historyViewModel.calendarWeekList[index]
+        setMyTaminText(date: date)
+        if let index = viewModel.calendarWeekList.firstIndex(where: { Int($0.day) == Int(self.viewModel.selectWeeklyDate) }) {
+            viewModel.weeklyCalendarData = viewModel.calendarWeekList[index]
         } else {
             viewModel.weeklyCalendarData = nil
             viewModel.getCalendarWeekly(date: date)
