@@ -61,12 +61,13 @@ struct CalendarView: View {
                         ForEach(calendarMonthList, id:\.self) { item in
                             calendarCell(day: String(item.day), type: .week)
                                 .onTapGesture {
-                                    if item.day < 10 {
-                                        delegate?.calendarTap(date: Date.dateToString(date: viewModel.currentDate)+".0\(item.day)")
-                                    } else {
-                                        delegate?.calendarTap(date: Date.dateToString(date: viewModel.currentDate)+".\(item.day)")
+                                    if viewModel.dataIsReady {
+                                        if item.day < 10 {
+                                            delegate?.calendarTap(date: Date.dateToString(date: viewModel.currentDate)+".0\(item.day)")
+                                        } else {
+                                            delegate?.calendarTap(date: Date.dateToString(date: viewModel.currentDate)+".\(item.day)")
+                                        }
                                     }
-                                    
                                 }
                                 .id(item.day)
                         }

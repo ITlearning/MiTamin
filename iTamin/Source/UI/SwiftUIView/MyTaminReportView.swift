@@ -89,14 +89,18 @@ struct MyTaminReportView: View {
                 Spacer()
                 
                 Button(action: {
-                    viewModel.buttonClick.send(2)
+                    if type == .home {
+                        viewModel.buttonClick.send(2)
+                    } else {
+                        historyViewModel.buttonClick.send(2)
+                    }
                 }, label: {
                     Image("EditButton")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 88, height: 24)
                 })
-                .padding(.trailing, 20)
+                .opacity(type == .home ? 1 : historyViewModel.weeklyCalendarData?.data?.report?.canEdit ?? false ? 1 : 0)
             }
             
             
@@ -109,7 +113,7 @@ struct MyTaminReportView: View {
                     .font(.SDGothicRegular(size: 14))
                     .foregroundColor(.init(uiColor: .grayColor3))
                     .lineSpacing(6)
-                    .frame(width: UIScreen.main.bounds.width - 70)
+                    .frame(width: UIScreen.main.bounds.width - 70, alignment: .leading)
                     .padding(.horizontal, 16)
                     .padding(.vertical, 16)
             }
@@ -128,15 +132,18 @@ struct MyTaminReportView: View {
                 Spacer()
                 
                 Button(action: {
-                    viewModel.buttonClick.send(5)
+                    if type == .home {
+                        viewModel.buttonClick.send(5)
+                    } else {
+                        historyViewModel.buttonClick.send(5)
+                    }
                 }, label: {
                     Image("EditButton")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 88, height: 24)
                 })
-                .padding(.trailing, 20)
-                    
+                .opacity(type == .home ? 1 : historyViewModel.weeklyCalendarData?.data?.care?.canEdit ?? false ? 1 : 0)
             }
             
             
@@ -148,10 +155,9 @@ struct MyTaminReportView: View {
                         .font(.SDGothicRegular(size: 14))
                         .foregroundColor(.init(uiColor: .grayColor3))
                         .lineSpacing(6)
-                        .frame(width: UIScreen.main.bounds.width - 70)
+                        .frame(width: UIScreen.main.bounds.width - 70, alignment: .leading)
                         .padding(.horizontal, 16)
                         .padding(.vertical, 16)
-                        .frame(alignment: .leading)
                 }
             }
             .fixedSize()
@@ -210,7 +216,6 @@ struct MyTaminReportView: View {
                 loadingView.opacity(type == .home ? ((viewModel.reportData == nil && viewModel.careData == nil) && !viewModel.dataIsReady ? 1 : 0) : !historyViewModel.dataIsReady ? 1 : 0)
             }
             .onReceive(historyViewModel.$selectWeeklyDate, perform: { value in
-                print("뷰 안에서 작동",value)
                 if let index = historyViewModel.calendarWeekList.firstIndex(where: { $0.day == value }) {
                     print(historyViewModel.calendarWeekList[index])
                     historyViewModel.weeklyCalendarData = historyViewModel.calendarWeekList[index]

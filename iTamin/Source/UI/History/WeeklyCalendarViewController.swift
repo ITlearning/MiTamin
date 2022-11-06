@@ -77,6 +77,13 @@ class WeeklyCalendarViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        if UserDefaults.standard.bool(forKey: "updateData") {
+            viewModel.weeklyCalendarData = nil
+            viewModel.getCalendarWeekly(date: viewModel.selectDate)
+            UserDefaults.standard.set(false, forKey: "updateData")
+        }
+        
         navigationConfigure(title: "진단기록")
     }
    
@@ -97,9 +104,28 @@ class WeeklyCalendarViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         //viewModel.getCalendarMonthly(date: Date.dateToString(date: Date()))
+        viewModel.weeklyCalendarData = nil
         self.setCurrentDay(date: viewModel.selectDate)
         setMyTaminText(date: viewModel.selectDate)
         configureLayout()
+        bindCombine()
+    }
+    
+    func bindCombine() {
+        
+        viewModel.buttonClick
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { idx in
+                
+                UserDefaults.standard.set(self.viewModel.weeklyCalendarData?.data?.report?.reportId, forKey: .reportId)
+                UserDefaults.standard.set(self.viewModel.weeklyCalendarData?.data?.care?.careId, forKey: .careId)
+                
+                let myTaminVC = MyTaminViewController(index: idx)
+                myTaminVC.modalPresentationStyle = .fullScreen
+                self.present(myTaminVC, animated: true)
+            })
+            .cancel(with: cancelBag)
+        
     }
     
     func configureLayout() {
@@ -143,7 +169,7 @@ class WeeklyCalendarViewController: UIViewController {
         
         mytamin.view.snp.makeConstraints {
             $0.top.equalTo(stackViewTwo.snp.bottom).offset(20)
-            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
         }
     }
@@ -172,6 +198,7 @@ extension WeeklyCalendarViewController: CalendarDelegate {
         print("탭 했을때 ",date)
         let replace = date.components(separatedBy: ".")
         self.viewModel.selectWeeklyDate = replace.last ?? ""
+        viewModel.selectDate = date
         setCurrentDay(date: date)
         setMyTaminText(date: date)
         if let index = viewModel.calendarWeekList.firstIndex(where: { Int($0.day) == Int(self.viewModel.selectWeeklyDate) }) {

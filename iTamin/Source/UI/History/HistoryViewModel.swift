@@ -20,6 +20,7 @@ extension HistoryViewController {
         @Published var selectWeeklyDate: String = ""
         @Published var selectDate: String = ""
         @Published var dataIsReady: Bool = false
+        var buttonClick = PassthroughSubject<Int, Never>()
         @Published var weeklyCalendarData: WeeklyCalendarModel? = nil
         var cancelBag = CancelBag()
         
@@ -29,6 +30,7 @@ extension HistoryViewController {
             withAnimation {
                 dataIsReady = false
             }
+            calendarWeekList.removeAll()
             
             networkManager.getCalendarWeekly(date: date)
                 .receive(on: DispatchQueue.main)
