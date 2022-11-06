@@ -91,6 +91,7 @@ class WeeklyCalendarViewController: UIViewController {
         
         if UserDefaults.standard.bool(forKey: "updateData") {
             viewModel.weeklyCalendarData = nil
+            UserDefaults.standard.set(true, forKey: "updateCalendar")
             viewModel.getCalendarWeekly(date: viewModel.selectDate)
             UserDefaults.standard.set(false, forKey: "updateData")
         }
