@@ -288,7 +288,6 @@ class MyPageViewController: UIViewController {
     func configureLayout() {
         
         view.addSubview(scrollView)
-        //scrollView.addSubview(containerView)
         view.addSubview(mainLogo)
         view.addSubview(helpButton)
         view.addSubview(settingButton)
@@ -457,6 +456,14 @@ extension MyPageViewController: AppInfoDelegate {
 //        case .Version:
 //            
 //        }
+        
+        switch type {
+        case .LogOut:
+            UserDefaults.standard.set(false, forKey: "isLogined")
+            moveToLogin()
+        default:
+            print(type)
+        }
         
     }
 }
