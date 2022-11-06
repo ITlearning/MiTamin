@@ -205,3 +205,9 @@ struct CalendarWeeklyServerModel: Codable {
     var report: DailyNewModel?
     var care: CareDailyModel?
 }
+
+
+struct EmailModel: Codable {
+    var email: String
+    var authCode: String
+}

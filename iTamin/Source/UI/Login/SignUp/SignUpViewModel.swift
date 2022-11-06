@@ -18,7 +18,7 @@ class SignUpViewModel: ObservableObject {
     @Published var myTaminMin: String = ""
     var descriptionArray: [String] = []
     @Published var currentIndex: Int = 0
-    
+    var index = CurrentValueSubject<Int, Never>(0)
     @Published var emailText: String = ""
     @Published var passwordText: String = ""
     @Published var passwordCheckText: String = ""

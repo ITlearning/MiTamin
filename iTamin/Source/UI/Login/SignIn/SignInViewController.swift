@@ -37,9 +37,9 @@ class SignInViewController: UIViewController {
         let button = UIButton()
         button.setTitle("자동 로그인", for: .normal)
         button.setTitle("자동 로그인", for: .selected)
-        button.setImage(UIImage(named: "check-circle"), for: .selected)
-        button.setImage(UIImage(named: "UnSelectButton"), for: .normal)
-        button.setTitleColor(UIColor.black, for: .normal)
+        button.setImage(UIImage(named: "CheckFrameBox"), for: .selected)
+        button.setImage(UIImage(named: "FrameBox"), for: .normal)
+        button.setTitleColor(UIColor.grayColor2, for: .normal)
         button.setTitleColor(UIColor.black, for: .selected)
         button.titleLabel?.font = UIFont.notoRegular(size: 15)
         button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
@@ -49,20 +49,20 @@ class SignInViewController: UIViewController {
     
     let loginButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.loginButtonGray
+        button.backgroundColor = UIColor.primaryColor
         button.layer.cornerRadius = 8
         button.setTitle("로그인", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
-        button.titleLabel?.font = UIFont.notoMedium(size: 18)
+        button.titleLabel?.font = UIFont.SDGothicBold(size: 16)
         button.clipsToBounds = true
         return button
     }()
     
     let resetAccountButton: UIButton = {
         let button = UIButton()
-        button.setTitle("아이디/비밀번호 찾기", for: .normal)
-        button.setTitleColor(UIColor.nextTimeGray, for: .normal)
-        button.titleLabel?.font = UIFont.notoRegular(size: 15)
+        button.setTitle("비밀번호를 잊어버리셨나요?", for: .normal)
+        button.setTitleColor(UIColor.grayColor2, for: .normal)
+        button.titleLabel?.font = UIFont.SDGothicRegular(size: 14)
         
         return button
     }()
@@ -146,7 +146,7 @@ class SignInViewController: UIViewController {
             .tapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { _ in
-                print("찾기 버튼")
+                self.moveResetPassword()
             })
             .cancel(with: cancelBag)
         
@@ -158,12 +158,17 @@ class SignInViewController: UIViewController {
             .cancel(with: cancelBag)
     }
     
+    func moveResetPassword() {
+        let vc = ResetPasswordViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     func buttonNotDone() {
         loginButton.backgroundColor = UIColor.loginButtonGray
     }
     
     func buttonDone() {
-        loginButton.backgroundColor = UIColor.buttonDone
+        loginButton.backgroundColor = UIColor.primaryColor
     }
     
     func configureLayout() {
@@ -180,7 +185,7 @@ class SignInViewController: UIViewController {
         
         emailTextField.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(30)
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(80)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
         }
@@ -193,7 +198,7 @@ class SignInViewController: UIViewController {
         }
         
         autoLoginButton.snp.makeConstraints {
-            $0.top.equalTo(passwordTextField.snp.bottom).offset(14)
+            $0.top.equalTo(passwordTextField.snp.bottom).offset(24)
             $0.leading.equalTo(passwordTextField.snp.leading)
         }
         

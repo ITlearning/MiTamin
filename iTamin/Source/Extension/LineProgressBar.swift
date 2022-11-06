@@ -16,7 +16,7 @@ struct LineProgressBar: View {
         HStack {
             Rectangle()
                 .frame(width: UIScreen.main.bounds.width * progress, height: 5)
-                .foregroundColor(Color(uiColor: UIColor.grayColor3))
+                .foregroundColor(Color(uiColor: UIColor.primaryColor))
             Spacer()
         }
         .onAppear {

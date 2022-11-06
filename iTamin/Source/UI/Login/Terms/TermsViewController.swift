@@ -20,8 +20,8 @@ class TermsViewController: UIViewController {
     let termsMainTitle: UILabel = {
         let label = UILabel()
         label.text = "마이타민 서비스 이용약관에\n동의해 주세요."
-        label.font = UIFont.notoRegular(size: 18)
-        label.textColor = UIColor.black
+        label.font = UIFont.SDGothicBold(size: 24)
+        label.textColor = UIColor.grayColor4
         label.numberOfLines = 0
         return label
     }()
@@ -30,29 +30,24 @@ class TermsViewController: UIViewController {
         let button = UIButton()
         button.setTitle("전체 동의하기", for: .normal)
         button.setTitle("전체 동의하기", for: .selected)
-        button.setTitleColor(UIColor.black, for: .normal)
-        button.setTitleColor(UIColor.black, for: .selected)
+        button.setTitleColor(UIColor.grayColor4, for: .normal)
+        button.setTitleColor(UIColor.grayColor4, for: .selected)
         button.setImage(UIImage(named: "UnSelectButton"), for: .normal)
         button.setImage(UIImage(named: "check-circle"), for: .selected)
         
         return button
     }()
     
-    let separateLine: UIView = {
-        let customView = UIView()
-        customView.backgroundColor = UIColor.underLineGray
-        return customView
-    }()
     
     let termsOneButton: UIButton = {
         let button = UIButton()
         button.setTitle("(필수) 이용약관에 동의합니다.", for: .normal)
         button.setTitle("(필수) 이용약관에 동의합니다.", for: .selected)
-        button.setTitleColor(UIColor.black, for: .normal)
-        button.setTitleColor(UIColor.black, for: .selected)
+        button.setTitleColor(UIColor.grayColor2, for: .normal)
+        button.setTitleColor(UIColor.grayColor2, for: .selected)
         button.setImage(UIImage(named: "UnSelectButton"), for: .normal)
         button.setImage(UIImage(named: "check-circle"), for: .selected)
-        
+        button.titleLabel?.font = UIFont.SDGothicRegular(size: 14)
         return button
     }()
     
@@ -60,25 +55,27 @@ class TermsViewController: UIViewController {
         let button = UIButton()
         button.setTitle("(필수) 개인정보 처리방침에 동의합니다.", for: .normal)
         button.setTitle("(필수) 개인정보 처리방침에 동의합니다.", for: .selected)
-        button.setTitleColor(UIColor.black, for: .normal)
-        button.setTitleColor(UIColor.black, for: .selected)
+        button.setTitleColor(UIColor.grayColor2, for: .normal)
+        button.setTitleColor(UIColor.grayColor2, for: .selected)
         button.setImage(UIImage(named: "UnSelectButton"), for: .normal)
         button.setImage(UIImage(named: "check-circle"), for: .selected)
-        
+        button.titleLabel?.font = UIFont.SDGothicRegular(size: 14)
         return button
     }()
     
     let termsViewOneButton: UIButton = {
         let button = UIButton()
         button.setTitle("보기", for: .normal)
-        button.setTitleColor(UIColor.black, for: .normal)
+        button.setTitleColor(UIColor.grayColor4, for: .normal)
+        button.titleLabel?.font = UIFont.SDGothicRegular(size: 14)
         return button
     }()
     
     let termsViewTwoButton: UIButton = {
         let button = UIButton()
         button.setTitle("보기", for: .normal)
-        button.setTitleColor(UIColor.black, for: .normal)
+        button.setTitleColor(UIColor.grayColor4, for: .normal)
+        button.titleLabel?.font = UIFont.SDGothicRegular(size: 14)
         return button
     }()
     
@@ -88,7 +85,7 @@ class TermsViewController: UIViewController {
         button.setTitle("다음", for: .normal)
         button.layer.cornerRadius = 8
         button.setTitleColor(UIColor.white, for: .normal)
-        button.titleLabel?.font = UIFont.notoMedium(size: 18)
+        button.titleLabel?.font = UIFont.SDGothicBold(size: 16)
         button.clipsToBounds = true
         
         return button
@@ -192,7 +189,7 @@ class TermsViewController: UIViewController {
     
     func setButtonAble() {
         if nextButton.isEnabled {
-            nextButton.backgroundColor = UIColor.buttonDone
+            nextButton.backgroundColor = UIColor.primaryColor
         } else {
             nextButton.backgroundColor = UIColor.loginButtonGray
         }
@@ -202,7 +199,6 @@ class TermsViewController: UIViewController {
         view.backgroundColor = .white
         view.addSubview(termsMainTitle)
         view.addSubview(allSelectButton)
-        view.addSubview(separateLine)
         view.addSubview(termsOneButton)
         view.addSubview(termsViewOneButton)
         view.addSubview(termsTwoButton)
@@ -216,7 +212,7 @@ class TermsViewController: UIViewController {
         }
         
         termsMainTitle.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(25)
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(40)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
         }
         
@@ -225,21 +221,14 @@ class TermsViewController: UIViewController {
             $0.leading.equalTo(termsMainTitle.snp.leading)
         }
         
-        separateLine.snp.makeConstraints {
-            $0.top.equalTo(allSelectButton.snp.bottom).offset(10)
-            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
-            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
-            $0.height.equalTo(1)
-        }
-        
         termsOneButton.snp.makeConstraints {
-            $0.top.equalTo(separateLine.snp.bottom).offset(21)
-            $0.leading.equalTo(separateLine.snp.leading)
+            $0.top.equalTo(allSelectButton.snp.bottom).offset(21)
+            $0.leading.equalTo(allSelectButton.snp.leading)
         }
         
         termsViewOneButton.snp.makeConstraints {
             $0.centerY.equalTo(termsOneButton)
-            $0.trailing.equalTo(separateLine.snp.trailing)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
         }
         
         termsTwoButton.snp.makeConstraints {
@@ -249,7 +238,7 @@ class TermsViewController: UIViewController {
         
         termsViewTwoButton.snp.makeConstraints {
             $0.centerY.equalTo(termsTwoButton)
-            $0.trailing.equalTo(separateLine.snp.trailing)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
         }
         
         nextButton.snp.makeConstraints {

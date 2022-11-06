@@ -126,6 +126,11 @@
 		F5E15AC22916882D007179A2 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15AC12916882D007179A2 /* CalendarView.swift */; };
 		F5E15AC429174A35007179A2 /* WeeklyCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15AC329174A35007179A2 /* WeeklyCalendarViewController.swift */; };
 		F5E15AC629176766007179A2 /* WeeklyMyTaminView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15AC529176766007179A2 /* WeeklyMyTaminView.swift */; };
+		F5E15AC92917A15D007179A2 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15AC82917A15C007179A2 /* ResetPasswordViewController.swift */; };
+		F5E15ACB2917A619007179A2 /* ResetPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15ACA2917A619007179A2 /* ResetPasswordViewModel.swift */; };
+		F5E15ACD2917B4BB007179A2 /* EmailCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15ACC2917B4BB007179A2 /* EmailCheckViewController.swift */; };
+		F5E15AD02917B990007179A2 /* EmailCheckViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15ACF2917B990007179A2 /* EmailCheckViewModel.swift */; };
+		F5E15AD22917D9F8007179A2 /* OnBoardingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E15AD12917D9F8007179A2 /* OnBoardingIndicator.swift */; };
 		F5F3F15C28FA7B48006C9B6A /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F3F15B28FA7B48006C9B6A /* CoreDataManager.swift */; };
 		F5F3F16028FA85D5006C9B6A /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F3F15F28FA85D5006C9B6A /* String.swift */; };
 		F5F3F16328FA8A10006C9B6A /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = F5F3F16228FA8A10006C9B6A /* SkeletonView */; };
@@ -264,6 +269,11 @@
 		F5E15AC12916882D007179A2 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		F5E15AC329174A35007179A2 /* WeeklyCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCalendarViewController.swift; sourceTree = "<group>"; };
 		F5E15AC529176766007179A2 /* WeeklyMyTaminView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyMyTaminView.swift; sourceTree = "<group>"; };
+		F5E15AC82917A15C007179A2 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
+		F5E15ACA2917A619007179A2 /* ResetPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewModel.swift; sourceTree = "<group>"; };
+		F5E15ACC2917B4BB007179A2 /* EmailCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailCheckViewController.swift; sourceTree = "<group>"; };
+		F5E15ACF2917B990007179A2 /* EmailCheckViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailCheckViewModel.swift; sourceTree = "<group>"; };
+		F5E15AD12917D9F8007179A2 /* OnBoardingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingIndicator.swift; sourceTree = "<group>"; };
 		F5F3F15B28FA7B48006C9B6A /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		F5F3F15F28FA85D5006C9B6A /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		F5F3F16428FA9589006C9B6A /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
@@ -558,6 +568,8 @@
 		F5A2EB5228DCB3DC00536E9B /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				F5E15ACE2917B980007179A2 /* EmailCheck */,
+				F5E15AC72917A131007179A2 /* PasswordReset */,
 				F5A2EB5328DCB73800536E9B /* LoginMainViewController.swift */,
 				F5A2EB7228DF0F0400536E9B /* NickName */,
 				F5A2EB6D28DF008400536E9B /* Terms */,
@@ -680,6 +692,7 @@
 				F5E15ABC29167739007179A2 /* ConditionChartView.swift */,
 				F5E15AC12916882D007179A2 /* CalendarView.swift */,
 				F5E15AC529176766007179A2 /* WeeklyMyTaminView.swift */,
+				F5E15AD12917D9F8007179A2 /* OnBoardingIndicator.swift */,
 			);
 			path = SwiftUIView;
 			sourceTree = "<group>";
@@ -691,6 +704,24 @@
 				F5E15AB329165880007179A2 /* CareHistotyHeaderViewCell.swift */,
 			);
 			path = TableViewCell;
+			sourceTree = "<group>";
+		};
+		F5E15AC72917A131007179A2 /* PasswordReset */ = {
+			isa = PBXGroup;
+			children = (
+				F5E15AC82917A15C007179A2 /* ResetPasswordViewController.swift */,
+				F5E15ACA2917A619007179A2 /* ResetPasswordViewModel.swift */,
+			);
+			path = PasswordReset;
+			sourceTree = "<group>";
+		};
+		F5E15ACE2917B980007179A2 /* EmailCheck */ = {
+			isa = PBXGroup;
+			children = (
+				F5E15ACC2917B4BB007179A2 /* EmailCheckViewController.swift */,
+				F5E15ACF2917B990007179A2 /* EmailCheckViewModel.swift */,
+			);
+			path = EmailCheck;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -862,6 +893,7 @@
 			files = (
 				F5F3F16828FC52C9006C9B6A /* ProfileBGView.swift in Sources */,
 				F5E15AB429165880007179A2 /* CareHistotyHeaderViewCell.swift in Sources */,
+				F5E15ACD2917B4BB007179A2 /* EmailCheckViewController.swift in Sources */,
 				F546AE7F290CFD2300CE6C4D /* DayNoteCollectionViewCell.swift in Sources */,
 				F5A2EB7428DF0F1000536E9B /* NickNameViewController.swift in Sources */,
 				F546AE6E2906E42700CE6C4D /* AddWishListViewController.swift in Sources */,
@@ -891,6 +923,7 @@
 				F546AE662906D5C600CE6C4D /* MenuBar.swift in Sources */,
 				F5A2EB9228E1FDBF00536E9B /* HomeViewModel.swift in Sources */,
 				F5A2EB6028DCC17600536E9B /* CustomTextField.swift in Sources */,
+				F5E15AD22917D9F8007179A2 /* OnBoardingIndicator.swift in Sources */,
 				F5A2EBC228F176FE00536E9B /* TagCollectionViewCell.swift in Sources */,
 				F546AE7B290BD5AD00CE6C4D /* EditWishListViewController.swift in Sources */,
 				F5A2EBAA28E5AEA900536E9B /* IndicatorView.swift in Sources */,
@@ -925,6 +958,7 @@
 				F5170A9F29056B2F00AE4FD5 /* EditProfileViewModel.swift in Sources */,
 				F5A2EBBE28F1760800536E9B /* LeftCell.swift in Sources */,
 				F5A2EB6F28DF009500536E9B /* TermsViewController.swift in Sources */,
+				F5E15AD02917B990007179A2 /* EmailCheckViewModel.swift in Sources */,
 				F5A2EBB428E9BF1000536E9B /* LineProgressBar.swift in Sources */,
 				F5A2EB5728DCBAA900536E9B /* CancelBag.swift in Sources */,
 				F546AE93290D4FAB00CE6C4D /* PhotoCollectionViewCell.swift in Sources */,
@@ -932,6 +966,7 @@
 				F5A2EB8128DF1E5E00536E9B /* CustomDatePicker.swift in Sources */,
 				F5A2EB7F28DF1C5500536E9B /* OnboardingCollectionViewCell.swift in Sources */,
 				F5A2EB3F28DB231600536E9B /* CustomTabItem.swift in Sources */,
+				F5E15ACB2917A619007179A2 /* ResetPasswordViewModel.swift in Sources */,
 				F5E15AA12912CCFE007179A2 /* UINavigationController.swift in Sources */,
 				F5A2EAF328D3644800536E9B /* AppDelegate.swift in Sources */,
 				F5A2EAF528D3644800536E9B /* SceneDelegate.swift in Sources */,
@@ -957,6 +992,7 @@
 				F5A2EB9E28E46F8100536E9B /* MainCollectionView.swift in Sources */,
 				F5E15A8E290E3B01007179A2 /* DayNoteListCollectionViewCell.swift in Sources */,
 				F546AE85290D08BF00CE6C4D /* CustomDatePickerView.swift in Sources */,
+				F5E15AC92917A15D007179A2 /* ResetPasswordViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

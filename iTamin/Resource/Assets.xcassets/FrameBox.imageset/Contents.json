@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "UnSelectButton.png",
+      "filename" : "FrameBox.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "UnSelectButton@2x.png",
+      "filename" : "FrameBox@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "UnSelectButton@3x.png",
+      "filename" : "FrameBox@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

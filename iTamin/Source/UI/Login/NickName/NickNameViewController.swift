@@ -18,8 +18,8 @@ class NickNameViewController: UIViewController {
     let nickNameMainTitle: UILabel = {
         let label = UILabel()
         label.text = "마이타민에서 사용할\n닉네임을 입력해주세요."
-        label.font = UIFont.notoRegular(size: 18)
-        label.textColor = UIColor.black
+        label.font = UIFont.SDGothicBold(size: 24)
+        label.textColor = UIColor.grayColor4
         label.numberOfLines = 0
         return label
     }()
@@ -27,8 +27,8 @@ class NickNameViewController: UIViewController {
     let nickNameLabel: UILabel = {
         let label = UILabel()
         label.text = "닉네임"
-        label.font = UIFont.notoRegular(size: 15)
-        label.textColor = UIColor.black
+        label.font = UIFont.SDGothicRegular(size: 12)
+        label.textColor = UIColor.grayColor2
         
         return label
     }()
@@ -36,7 +36,8 @@ class NickNameViewController: UIViewController {
     let nickNameTextField: CustomTextField = {
         let textField = CustomTextField()
         textField.setFont()
-        textField.placeholder = "공백없이 9자 이내로 입력해주세요."
+        textField.clearButtonMode = .always
+        textField.placeholder = "내용입력"
         return textField
     }()
     
@@ -64,7 +65,7 @@ class NickNameViewController: UIViewController {
     let goodNickNameDescription: UILabel = {
         let label = UILabel()
         label.text = "멋진 닉네임이네요 :)"
-        label.font = UIFont.notoRegular(size: 13)
+        label.font = UIFont.SDGothicRegular(size: 14)
         label.textColor = UIColor.goodNickGray
         label.isHidden = true
         return label
@@ -154,23 +155,21 @@ class NickNameViewController: UIViewController {
     
     func checkNickNameDescription(isCheck: Bool) {
         if !isCheck {
-            goodNickNameDescription.text = "멋진 닉네임이네요 :)"
-            checkImageView.isHidden = false
+            goodNickNameDescription.text = "사용 가능한 닉네임이에요!"
+            goodNickNameDescription.textColor = .primaryColor
         } else {
-            goodNickNameDescription.text = "이미 사용중인 닉네임입니다."
-            checkImageView.isHidden = true
+            goodNickNameDescription.text = "사용할 수 없는 닉네임이에요!"
+            goodNickNameDescription.textColor = .deleteRed
         }
         
     }
     
     func nextButtonConfigure() {
         if nextButton.isEnabled {
-            nextButton.backgroundColor = UIColor.buttonDone
+            nextButton.backgroundColor = UIColor.primaryColor
             goodNickNameDescription.isHidden = false
-            checkImageView.isHidden = false
         } else {
             nextButton.backgroundColor = UIColor.loginButtonGray
-            checkImageView.isHidden = true
         }
     }
     
@@ -189,7 +188,7 @@ class NickNameViewController: UIViewController {
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
         nickNameMainTitle.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(25)
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(40)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
         }
         

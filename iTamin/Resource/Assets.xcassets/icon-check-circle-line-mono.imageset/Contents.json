@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "UnSelectButton.png",
+      "filename" : "icon-check-circle-line-mono.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "UnSelectButton@2x.png",
+      "filename" : "icon-check-circle-line-mono@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "UnSelectButton@3x.png",
+      "filename" : "icon-check-circle-line-mono@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

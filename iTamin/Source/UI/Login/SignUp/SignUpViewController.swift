@@ -18,8 +18,8 @@ class SignUpViewController: UIViewController {
     private let mainTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "나를 위한 마음 비타민,\n오늘부터 섭취해 보시겠어요?"
-        label.font = UIFont.notoRegular(size: 18)
-        label.textColor = UIColor.black
+        label.font = UIFont.SDGothicBold(size: 24)
+        label.textColor = UIColor.grayColor4
         label.numberOfLines = 0
         return label
     }()
@@ -27,8 +27,8 @@ class SignUpViewController: UIViewController {
     private let emailTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "이메일"
-        label.font = UIFont.notoRegular(size: 15)
-        label.textColor = UIColor.black
+        label.font = UIFont.SDGothicRegular(size: 12)
+        label.textColor = UIColor.grayColor2
         
         return label
     }()
@@ -36,8 +36,8 @@ class SignUpViewController: UIViewController {
     private let passwordTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "비밀번호"
-        label.font = UIFont.notoRegular(size: 15)
-        label.textColor = UIColor.black
+        label.font = UIFont.SDGothicRegular(size: 12)
+        label.textColor = UIColor.grayColor2
         
         return label
     }()
@@ -45,8 +45,8 @@ class SignUpViewController: UIViewController {
     private let passwordCheckTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "비밀번호 확인"
-        label.font = UIFont.notoRegular(size: 15)
-        label.textColor = UIColor.black
+        label.font = UIFont.SDGothicRegular(size: 12)
+        label.textColor = UIColor.grayColor2
         
         return label
     }()
@@ -63,7 +63,7 @@ class SignUpViewController: UIViewController {
     private let emailSubDescription: UILabel = {
         let label = UILabel()
         label.font = UIFont.notoRegular(size: 13)
-        label.textColor = UIColor.onboadingSubTitleGray
+        label.textColor = UIColor.primaryColor
         
         return label
     }()
@@ -71,7 +71,7 @@ class SignUpViewController: UIViewController {
     private let passwordSubDescription: UILabel = {
         let label = UILabel()
         label.font = UIFont.notoRegular(size: 13)
-        label.textColor = UIColor.onboadingSubTitleGray
+        label.textColor = UIColor.deleteRed
         
         return label
     }()
@@ -79,14 +79,14 @@ class SignUpViewController: UIViewController {
     private let passwordCheckSubDescription: UILabel = {
         let label = UILabel()
         label.font = UIFont.notoRegular(size: 13)
-        label.textColor = UIColor.onboadingSubTitleGray
+        label.textColor = UIColor.deleteRed
         
         return label
     }()
     
     let checkImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "check")
+        imageView.image = UIImage(named: "icon-check-circle-line-mono")
         imageView.contentMode = .scaleAspectFit
         imageView.isHidden = true
         return imageView
@@ -113,7 +113,7 @@ class SignUpViewController: UIViewController {
         textField.setFont()
         textField.isSecureTextEntry = true
         textField.autocapitalizationType = .none
-        textField.placeholder = "영문,숫자를 포함한 8~30자리 조합으로 설정해주세요."
+        textField.placeholder = "영문,숫자를 포함한 8~30자리 조합으로 설정"
         
         return textField
     }()
@@ -123,7 +123,7 @@ class SignUpViewController: UIViewController {
         textField.setFont()
         textField.isSecureTextEntry = true
         textField.autocapitalizationType = .none
-        textField.placeholder = "비밀번호 확인을 위해 다시 한번 비밀번호를 입력해주세요."
+        textField.placeholder = "비밀번호 확인을 위한 재입력을 해주세요."
         
         return textField
     }()
@@ -139,6 +139,16 @@ class SignUpViewController: UIViewController {
         button.isEnabled = false
         return button
     }()
+    
+    init(email: String) {
+        self.viewModel.emailText = email
+        self.emailTextField.text = email
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -259,24 +269,28 @@ class SignUpViewController: UIViewController {
             emailSubDescription.text = "이미 사용 중인 이메일입니다."
             checkImageView.isHidden = true
         } else {
-            emailSubDescription.text = "사용 가능한 이메일입니다."
+            emailSubDescription.text = "인증이 완료되었어요!"
             checkImageView.isHidden = false
         }
     }
     
     func checkPasswordValidStatue(_ value: Bool) {
         if value {
-            passwordSubDescription.text = "사용 가능한 비밀번호입니다."
+            passwordSubDescription.text = "사용 가능한 비밀번호에요!"
+            passwordSubDescription.textColor = .primaryColor
         } else {
-            passwordSubDescription.text = "영문, 숫자를 포함한 8~30자리 조합으로 설정해주세요."
+            passwordSubDescription.text = "사용할 수 없는 비밀번호에요!"
+            passwordSubDescription.textColor = .deleteRed
         }
     }
     
     func checkBetweenPassword(_ value: Bool) {
         if value {
-            passwordCheckSubDescription.text = "비밀번호가 일치합니다."
+            passwordCheckSubDescription.text = "비밀번호가 일치해요!"
+            passwordCheckSubDescription.textColor = UIColor.primaryColor
         } else {
-            passwordCheckSubDescription.text = "비밀번호가 일치하지 않습니다."
+            passwordCheckSubDescription.text = "비밀번호가 일치하지 않아요!"
+            passwordCheckSubDescription.textColor = UIColor.deleteRed
         }
     }
     
@@ -284,7 +298,7 @@ class SignUpViewController: UIViewController {
     
     func setButton() {
         if nextButton.isEnabled {
-            nextButton.backgroundColor = UIColor.buttonDone
+            nextButton.backgroundColor = UIColor.primaryColor
         } else {
             nextButton.backgroundColor = UIColor.loginButtonGray
         }
@@ -310,7 +324,7 @@ class SignUpViewController: UIViewController {
         let lineProgressView = UIHostingController(rootView: LineProgressBar(progress: 0.3))
         view.addSubview(lineProgressView.view)
         mainTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(25)
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(40)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
         }
         
@@ -392,15 +406,5 @@ class SignUpViewController: UIViewController {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
-    }
-}
-
-
-struct SignUpViewController_Preview: PreviewProvider {
-    static var previews: some View {
-        ViewControllerPreview {
-            SignUpViewController()
-        }
-        .previewDevice("iPhone 13")
     }
 }

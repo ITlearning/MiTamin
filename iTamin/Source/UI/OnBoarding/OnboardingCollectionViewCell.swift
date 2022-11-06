@@ -20,8 +20,8 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         
-        label.font = UIFont.notoMedium(size: 24)
-        label.textColor = UIColor.black
+        label.font = UIFont.SDGothicBold(size: 24)
+        label.textColor = UIColor.grayColor4
         label.numberOfLines = 0
         
         return label
@@ -37,8 +37,8 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
     let subDescriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "마이타민 섭취 알림을 보내드릴게요!"
-        label.font = UIFont.notoRegular(size: 15)
-        label.textColor = UIColor.onboadingSubTitleGray
+        label.font = UIFont.SDGothicRegular(size: 16)
+        label.textColor = UIColor.grayColor2
         label.isHidden = true
         return label
     }()
@@ -87,7 +87,7 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
     private func configureLayout() {
         self.addSubview(baseView)
         baseView.addSubview(descriptionLabel)
-        baseView.addSubview(illustrationImageView)
+        //baseView.addSubview(illustrationImageView)
         baseView.addSubview(subDescriptionLabel)
         baseView.addSubview(datePicker)
         
@@ -98,13 +98,6 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
         descriptionLabel.snp.makeConstraints {
             $0.top.equalTo(self.snp.top).offset(5)
             $0.leading.equalTo(self.snp.leading).offset(37)
-        }
-        
-        illustrationImageView.snp.makeConstraints {
-            $0.bottom.equalTo(self.snp.bottom).inset(5)
-            $0.trailing.equalTo(self.snp.trailing).inset(33)
-            $0.width.equalTo(174)
-            $0.height.equalTo(164)
         }
         
         subDescriptionLabel.snp.makeConstraints {

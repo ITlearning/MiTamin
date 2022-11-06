@@ -97,8 +97,8 @@ class LoginMainViewController: UIViewController {
         signUpButton.tapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: {
-                let signUpVC = SignUpViewController()
-                self.navigationController?.pushViewController(signUpVC, animated: true)
+                let vc = EmailCheckViewController()
+                self.navigationController?.pushViewController(vc, animated: true)
             })
             .cancel(with: cancelBag)
         

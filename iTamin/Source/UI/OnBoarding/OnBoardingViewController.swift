@@ -26,11 +26,11 @@ class OnBoardingViewController: UIViewController {
     
     let nextButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.buttonDone
+        button.backgroundColor = UIColor.primaryColor
         button.setTitle("다음", for: .normal)
         button.layer.cornerRadius = 8
         button.setTitleColor(UIColor.white, for: .normal)
-        button.titleLabel?.font = UIFont.notoMedium(size: 18)
+        button.titleLabel?.font = UIFont.SDGothicRegular(size: 16)
         button.clipsToBounds = true
         
         return button
@@ -41,8 +41,11 @@ class OnBoardingViewController: UIViewController {
         button.setTitle("나중에 할게요.", for: .normal)
         button.setTitleColor(UIColor.nextTimeGray, for: .normal)
         button.titleLabel?.font = UIFont.notoRegular(size: 16)
+        button.isHidden = true
         return button
     }()
+    
+    private lazy var indicatorView = OnBoardingIndicator(viewModel: self.viewModel)
     
     init(viewModel: SignUpViewModel) {
         self.viewModel = viewModel
@@ -74,6 +77,9 @@ class OnBoardingViewController: UIViewController {
                     self.viewModel.currentIndex += 1
                     
                     self.collectionView.scrollToItem(at: IndexPath(item: self.viewModel.currentIndex, section: 0), at: .centeredVertically, animated: true)
+                    withAnimation {
+                        self.viewModel.index.send(self.viewModel.currentIndex)
+                    }
                     self.setButtonText(index: self.viewModel.currentIndex)
                 } else {
                     self.viewModel.signUpToServer(skip: false)
@@ -120,6 +126,8 @@ class OnBoardingViewController: UIViewController {
         view.addSubview(collectionView)
         view.addSubview(nextButton)
         view.addSubview(nextTimeButton)
+        let vc = UIHostingController(rootView: indicatorView)
+        view.addSubview(vc.view)
         
         collectionView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(155)
@@ -139,12 +147,19 @@ class OnBoardingViewController: UIViewController {
             $0.top.equalTo(collectionView.snp.bottom).offset(30)
             $0.centerX.equalToSuperview()
         }
+        
+        vc.view.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(64)
+            $0.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
+        }
     }
     
     func setButtonText(index: Int) {
         if index == 3 {
+            nextTimeButton.isHidden = false
             nextButton.setTitle("시작하기", for: .normal)
         } else {
+            nextTimeButton.isHidden = true
             nextButton.setTitle("다음", for: .normal)
         }
     }
@@ -197,7 +212,12 @@ extension OnBoardingViewController: UICollectionViewDelegate, UICollectionViewDa
         
         guard let indexPath = collectionView.indexPathForItem(at: visiblePoint) else { return }
         
-        viewModel.currentIndex = indexPath.row
+        
+        
+        withAnimation {
+            viewModel.currentIndex = indexPath.row
+            self.viewModel.index.send(self.viewModel.currentIndex)
+        }
         setButtonText(index: indexPath.row)
     }
 }
