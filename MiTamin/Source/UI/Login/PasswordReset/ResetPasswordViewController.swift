@@ -56,7 +56,7 @@ class ResetPasswordViewController: UIViewController {
         return button
     }()
     
-    private let timer = Timer()
+    private var timer = Timer()
     
     private let timerLabel: UILabel = {
         let label = UILabel()
@@ -94,9 +94,41 @@ class ResetPasswordViewController: UIViewController {
         return label
     }()
     
+    private var timerNum: Int = 300
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         navigationConfigure(title: "비밀번호 찾기")
+    }
+    
+    func startTimer() {
+        if timer.isValid {
+            timer.invalidate()
+        }
+        
+        self.timerNum = 300
+        
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimerLabel), userInfo: nil, repeats: true)
+    }
+    
+    func stopTimer() {
+        timer.invalidate()
+    }
+    
+    @objc
+    func updateTimerLabel() {
+        if timerNum > 0 {
+            timerNum -= 1
+            
+            let min = self.timerNum / 60
+            let sec = self.timerNum % 60
+            
+            timerLabel.text = String(format: "%02d:%02d", min, sec)
+        } else {
+            timerLabel.text = "05:00"
+            timer.invalidate()
+        }
+        
     }
     
     override func viewDidLoad() {
@@ -214,11 +246,29 @@ class ResetPasswordViewController: UIViewController {
                 }
             })
             .cancel(with: cancelBag)
+        
+        nextButton.tapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { _ in
+                let vc = PasswordViewController(email: self.viewModel.emailText)
+                self.navigationController?.pushViewController(vc, animated: true)
+            })
+            .cancel(with: cancelBag)
     }
     
     @objc
     func doneTap() {
         view.endEditing(true)
+    }
+    
+    func setAccept(isOpen: Bool) {
+        if isOpen {
+            acceptCodeButton.setImage(UIImage(named: "AcceptOn"), for: .normal)
+            acceptCodeButton.isEnabled = true
+        } else {
+            acceptCodeButton.setImage(UIImage(named: "Accept"), for: .normal)
+            acceptCodeButton.isEnabled = false
+        }
     }
     
     private func configureLayout() {

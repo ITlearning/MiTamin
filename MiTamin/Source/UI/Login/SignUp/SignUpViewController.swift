@@ -208,18 +208,20 @@ class SignUpViewController: UIViewController {
             }
             .cancel(with: cancelBag)
         
-        passwordTextField.textPublisher
-            .receive(on: DispatchQueue.main)
-            .map({ $0 ?? "" })
-            .assign(to: \.passwordText, on: viewModel)
-            .cancel(with: cancelBag)
-        
         viewModel.passwordBetweenCheck
             .receive(on: DispatchQueue.main)
             .sink { [weak self] value in
                 self?.checkBetweenPassword(value)
             }
             .cancel(with: cancelBag)
+        
+        passwordTextField.textPublisher
+            .receive(on: DispatchQueue.main)
+            .map({ $0 ?? "" })
+            .assign(to: \.passwordText, on: viewModel)
+            .cancel(with: cancelBag)
+        
+        
         
         passwordCheckTextField.textPublisher
             .receive(on: DispatchQueue.main)
