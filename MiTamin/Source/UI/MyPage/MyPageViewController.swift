@@ -471,6 +471,9 @@ extension MyPageViewController: AppInfoDelegate {
         case .LogOut:
             UserDefaults.standard.set(false, forKey: "isLogined")
             moveToLogin()
+        case .ResetData:
+            let vc = ResetViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
         default:
             print(type)
         }

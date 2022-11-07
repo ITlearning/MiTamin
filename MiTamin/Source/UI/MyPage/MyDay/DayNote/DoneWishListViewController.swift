@@ -127,6 +127,21 @@ class DoneWishListViewController: UIViewController {
                 self.navigationController?.popViewController(animated: true)
             })
             .cancel(with: cancelBag)
+        
+        viewModel.$loading
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }, receiveValue: { value in
+                if value {
+                    self.loadingText.text = "작고 소중한 서버에서\n열심히 불러오는 중..."
+                } else {
+                    if self.viewModel.wishList.count == 0 {
+                        UIView.animate(withDuration: 0.4, animations: {
+                            self.loadingText.text = "작성한 위시리스트가 없어요,,🥺"
+                        })
+                    }
+                }
+            })
+            .cancel(with: cancelBag)
     }
 
     
