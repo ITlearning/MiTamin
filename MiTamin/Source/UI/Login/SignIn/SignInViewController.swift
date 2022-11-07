@@ -80,6 +80,8 @@ class SignInViewController: UIViewController {
         self.navigationConfigure(title: "이메일로 로그인")
     }
     
+    private let demmedView = DemmedView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureLayout()
@@ -138,6 +140,7 @@ class SignInViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] _ in
                 guard let self = self else { return }
+                
                 self.viewModel.tryToLogin(isAuto: self.autoLoginButton.isSelected)
             })
             .cancel(with: cancelBag)
@@ -154,6 +157,18 @@ class SignInViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { _ in
                 self.autoLoginButton.isSelected.toggle()
+            })
+            .cancel(with: cancelBag)
+        
+        viewModel.$loading
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] value in
+                guard let self = self else { return }
+                if value {
+                    self.demmedView.showDemmedPopup(text: "로그인 시도 중이에요..!")
+                } else {
+                    self.demmedView.hide()
+                }
             })
             .cancel(with: cancelBag)
     }

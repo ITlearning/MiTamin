@@ -15,6 +15,8 @@ class ResetPasswordViewController: UIViewController {
     var viewModel = ViewModel()
     var cancelBag = CancelBag()
     
+    private let scrollView = UIScrollView()
+    
     private let passwordMainTitle: UILabel = {
         let label = UILabel()
         label.text = "가입할 때 사용한\n이메일을 입력해주세요."
@@ -84,6 +86,14 @@ class ResetPasswordViewController: UIViewController {
         return button
     }()
     
+    private let emailErrorLabel: UILabel = {
+        let label = UILabel()
+        label.text = ""
+        label.textColor = UIColor(rgb: 0xF04452)
+        label.font = UIFont.SDGothicRegular(size: 14)
+        return label
+    }()
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         navigationConfigure(title: "비밀번호 찾기")
@@ -94,6 +104,26 @@ class ResetPasswordViewController: UIViewController {
         view.backgroundColor = .white
         configureLayout()
         bindCombine()
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+    }
+    
+    @objc
+    func keyboardWillShow(notification: NSNotification) {
+        guard let userInfo = notification.userInfo else { return }
+            var keyboardFrame:CGRect = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+            keyboardFrame = self.view.convert(keyboardFrame, from: nil)
+
+            var contentInset:UIEdgeInsets = self.scrollView.contentInset
+            contentInset.bottom = keyboardFrame.size.height + 20
+            scrollView.contentInset = contentInset
+    }
+    
+    @objc
+    func keyboardWillHide(notification: NSNotification) {
+        let contentInset:UIEdgeInsets = UIEdgeInsets.zero
+        scrollView.contentInset = contentInset
     }
     
     func setNextButton(isOpen: Bool) {
@@ -120,7 +150,6 @@ class ResetPasswordViewController: UIViewController {
             .map({ $0 ?? "" })
             .assign(to: \.emailText, on: viewModel)
             .cancel(with: cancelBag)
-        
         
         successCodeTextField.textPublisher
             .receive(on: DispatchQueue.main)
@@ -155,19 +184,73 @@ class ResetPasswordViewController: UIViewController {
                 self.setNextButton(isOpen: value)
             })
             .cancel(with: cancelBag)
+        
+        viewModel.$emailText
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] value in
+                if value != "" && self?.viewModel.isValidEmail(testStr: value) ?? false {
+                    self?.emailComfirmButton.isHidden = false
+                    self?.viewModel.emailCheck()
+                } else {
+                    self?.emailComfirmButton.isHidden = true
+                }
+            })
+            .cancel(with: cancelBag)
+        
+        viewModel.$emailAvailable
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] value in
+                guard let self = self else { return }
+                if self.viewModel.emailText != "" {
+                    if value {
+                        self.emailErrorLabel.text = "사용할 수 없는 이메일 주소에요!"
+                        self.emailErrorLabel.textColor = UIColor(rgb: 0xF04452)
+                    } else {
+                        self.emailErrorLabel.text = "사용 가능한 이메일 주소에요!"
+                        self.emailErrorLabel.textColor = UIColor.primaryColor
+                    }
+                } else {
+                    self.emailErrorLabel.text = ""
+                }
+            })
+            .cancel(with: cancelBag)
+    }
+    
+    @objc
+    func doneTap() {
+        view.endEditing(true)
     }
     
     private func configureLayout() {
-        view.addSubview(passwordMainTitle)
-        view.addSubview(emailTextLabel)
-        view.addSubview(emailTextField)
-        view.addSubview(successCodeTextField)
-        view.addSubview(emailComfirmButton)
-        view.addSubview(timerLabel)
-        view.addSubview(acceptCodeButton)
+        
+        view.addSubview(scrollView)
+        
+        scrollView.addSubview(passwordMainTitle)
+        scrollView.addSubview(emailTextLabel)
+        scrollView.addSubview(emailTextField)
+        scrollView.addSubview(successCodeTextField)
+        scrollView.addSubview(emailComfirmButton)
+        scrollView.addSubview(timerLabel)
+        scrollView.addSubview(acceptCodeButton)
+        
+        let bar = UIToolbar()
+        let reset = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(doneTap))
+        bar.items = [reset]
+        bar.sizeToFit()
+        emailTextField.inputAccessoryView = bar
+        successCodeTextField.inputAccessoryView = bar
+        
+        view.addSubview(nextButton)
+        
+        scrollView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        }
         
         passwordMainTitle.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(44)
+            $0.top.equalTo(scrollView.snp.top).offset(44)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
         }
         
@@ -195,6 +278,7 @@ class ResetPasswordViewController: UIViewController {
             $0.leading.equalTo(emailTextField.snp.leading)
             $0.trailing.equalTo(emailTextField.snp.trailing)
             $0.height.equalTo(40)
+            $0.bottom.equalTo(scrollView.snp.bottom)
         }
         
         acceptCodeButton.snp.makeConstraints {
@@ -207,6 +291,13 @@ class ResetPasswordViewController: UIViewController {
         timerLabel.snp.makeConstraints {
             $0.top.equalTo(acceptCodeButton.snp.top).offset(5)
             $0.trailing.equalTo(successCodeTextField.snp.trailing).inset(78)
+        }
+        
+        nextButton.snp.makeConstraints {
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
+            $0.height.equalTo(56)
         }
         
     }

@@ -15,6 +15,8 @@ extension SignInViewController {
         @Published var emailPublisher: String = ""
         @Published var passwordPublisher: String = ""
         
+        @Published var loading: Bool = false
+        
         private var networkManager = NetworkManager()
         private var cancelBag = CancelBag()
         var loginErrorText = CurrentValueSubject<String, Never>("")
@@ -29,6 +31,7 @@ extension SignInViewController {
         }
         
         func tryToLogin(isAuto: Bool) {
+            loading = true
             networkManager.loginToServer(email: emailPublisher, password: passwordPublisher)
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { error in
@@ -38,14 +41,18 @@ extension SignInViewController {
                         switch error {
                         case .http(let data):
                             self.loginErrorText.send(data.message ?? "")
+                            self.loading = false
                         case .unknown:
                             self.loginErrorText.send("로그인이 완료되지 않았습니다.")
+                            self.loading = false
                         }
                     }
                 }, receiveValue: { [weak self] result in
                     guard let self = self else { return }
+                    self.loading = false
                     
                     if isAuto {
+                        
                         UserDefaults.standard.set(true, forKey: "isLogined")
                         
                     }
