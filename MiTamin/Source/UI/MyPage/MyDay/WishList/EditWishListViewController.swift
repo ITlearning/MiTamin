@@ -180,9 +180,9 @@ class EditWishListViewController: UIViewController {
         
         currentWishList = wishList
         deleteWishListToServer = deleteWishList
-        
+        print(deleteWishList, wishList)
         deleteWishList.forEach { idx in
-            if let index = deleteWishList.firstIndex(where: { $0 == idx }) {
+            if let index = wishList.firstIndex(where:  { $0.wishId == isEditIndex }) {
                 wishList.remove(at: index)
             }
         }
@@ -319,6 +319,7 @@ extension EditWishListViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if deleteMode {
+            
             if deleteWishList.contains(wishList[indexPath.row].wishId) {
                 if let index = deleteWishList.firstIndex(where: { $0 == wishList[indexPath.row].wishId }) {
                     deleteWishList.remove(at: index)
@@ -333,10 +334,15 @@ extension EditWishListViewController: UITableViewDelegate, UITableViewDataSource
                 activeDoneButton()
             }
             
+            print(deleteWishList)
+            
             tableView.reloadData()
         } else {
             if indexPath.row < wishList.count {
                 isEditIndex = indexPath.row
+                deleteWishList = [wishList[indexPath.row].wishId]
+                
+                print(deleteWishList)
                 self.tableView.reloadData()
             } else {
                 isEditIndex = -1

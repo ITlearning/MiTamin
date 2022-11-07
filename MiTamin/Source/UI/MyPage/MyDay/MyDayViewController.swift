@@ -44,6 +44,7 @@ class MyDayViewController: UIViewController, MenuBarDelegate {
     }()
     
     var menuBar = MenuBar()
+
     
     let demmedView = UIView()
     
@@ -82,6 +83,8 @@ class MyDayViewController: UIViewController, MenuBarDelegate {
         
         self.navigationController?.isNavigationBarHidden = false
     }
+    
+    let superDemmedView = DemmedView()
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -157,6 +160,17 @@ class MyDayViewController: UIViewController, MenuBarDelegate {
                 guard let cell = cell as? WishListCollectionViewCell else { return }
                 
                 cell.deleteAction()
+            })
+            .cancel(with: cancelBag)
+        
+        viewModel.$loading
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }, receiveValue: { value in
+                if value {
+                    self.superDemmedView.showDemmedPopup(text: "위시리스트를 등록중이에요!")
+                } else {
+                    self.superDemmedView.hide()
+                }
             })
             .cancel(with: cancelBag)
     }

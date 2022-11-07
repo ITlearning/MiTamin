@@ -15,6 +15,7 @@ extension MyDayViewController {
         var networkManager = NetworkManager()
         var cancelBag = CancelBag()
         var selectIdx: Int = 0
+        @Published var loading: Bool = false
         func getDayNoteList() {
             networkManager.getDayNoteList()
                 .receive(on: DispatchQueue.main)
@@ -28,6 +29,7 @@ extension MyDayViewController {
         }
         
         func getWishList() {
+            
             self.wishList.removeAll()
             networkManager.getWishList()
                 .receive(on: DispatchQueue.main)
@@ -38,10 +40,13 @@ extension MyDayViewController {
         }
         
         func addWishList(text: String) {
+            loading = true
             networkManager.addWishList(text: text)
                 .receive(on: DispatchQueue.main)
-                .sink(receiveCompletion: { _ in }, receiveValue: { value in
-                    
+                .sink(receiveCompletion: { _ in
+                    self.loading = false
+                }, receiveValue: { value in
+                    self.loading = false
                     self.wishList.append(value.data)
                     
                     print(value.message)
@@ -67,6 +72,7 @@ extension MyDayViewController {
         }
         
         func deleteWishList(idx: Int) {
+            loading = true
             networkManager.deleteWishList(wishId: idx)
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { error in
@@ -76,7 +82,9 @@ extension MyDayViewController {
                     case .finished:
                         print("완료")
                     }
+                    self.loading = false
                 }, receiveValue: { value in
+                    self.loading = false
                     print(value.message)
                 })
                 .cancel(with: cancelBag)

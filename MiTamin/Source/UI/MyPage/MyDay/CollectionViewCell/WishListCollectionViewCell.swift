@@ -184,7 +184,7 @@ class WishListCollectionViewCell: UICollectionViewCell {
         deleteWishListToServer = deleteWishList
         
         deleteWishList.forEach { idx in
-            if let index = deleteWishList.firstIndex(where: { $0 == idx }) {
+            if let index = wishList.firstIndex(where: { $0.wishId == idx }) {
                 wishList.remove(at: index)
             }
         }
@@ -318,6 +318,7 @@ extension WishListCollectionViewCell: UITableViewDelegate, UITableViewDataSource
             currentWishList = wishList
             deleteWishList = [wishList[indexPath.row].wishId]
             deleteIndex = indexPath.row
+            print(deleteWishList)
             self.delegate?.selectIndex(text: wishList[indexPath.row].wishText, idx: indexPath.row)
         }
     }

@@ -122,7 +122,7 @@ class SettingViewController: UIViewController {
         lockToggle.isOnPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { value in
-                self.checkLock.execute()
+                //self.checkLock.execute()
             })
             .cancel(with: cancelBag)
     }
