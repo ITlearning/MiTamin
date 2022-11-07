@@ -207,7 +207,7 @@ struct CalendarWeeklyServerModel: Codable {
 }
 
 
-struct EmailModel: Codable {
+struct EmailModel {
     var email: String
     var authCode: String
 }

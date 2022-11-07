@@ -129,6 +129,12 @@ class EmailCheckViewController: UIViewController {
             .assign(to: \.emailText, on: viewModel)
             .cancel(with: cancelBag)
         
+        authCodeTextField.textPublisher
+            .receive(on: DispatchQueue.main)
+            .map({ $0 ??  "" })
+            .assign(to: \.authCodeText, on: viewModel)
+            .cancel(with: cancelBag)
+        
         viewModel.$emailText
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] value in
@@ -137,6 +143,7 @@ class EmailCheckViewController: UIViewController {
                 }
             })
             .cancel(with: cancelBag)
+        
         
         viewModel.$emailAvailable
             .receive(on: DispatchQueue.main)
@@ -201,7 +208,7 @@ class EmailCheckViewController: UIViewController {
             nextButton.isEnabled = true
         } else {
             nextButton.backgroundColor = .grayColor7
-            nextButton.isEnabled = true
+            nextButton.isEnabled = false
         }
     }
     
