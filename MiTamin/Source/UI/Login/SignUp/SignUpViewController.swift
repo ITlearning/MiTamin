@@ -286,8 +286,12 @@ class SignUpViewController: UIViewController {
     
     func checkBetweenPassword(_ value: Bool) {
         if value {
-            passwordCheckSubDescription.text = "비밀번호가 일치해요!"
-            passwordCheckSubDescription.textColor = UIColor.primaryColor
+            if viewModel.passwordCheckText != "" {
+                passwordCheckSubDescription.text = "비밀번호가 일치해요!"
+                passwordCheckSubDescription.textColor = UIColor.primaryColor
+            } else {
+                passwordCheckSubDescription.text = ""
+            }
         } else {
             passwordCheckSubDescription.text = "비밀번호가 일치하지 않아요!"
             passwordCheckSubDescription.textColor = UIColor.deleteRed

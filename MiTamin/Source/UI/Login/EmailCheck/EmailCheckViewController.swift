@@ -53,7 +53,7 @@ class EmailCheckViewController: UIViewController {
         return textField
     }()
     
-    private let timer = Timer()
+    private var timer = Timer()
     
     private let timerLabel: UILabel = {
         let label = UILabel()
@@ -98,6 +98,10 @@ class EmailCheckViewController: UIViewController {
         return button
     }()
     
+    private var timerNum: Int = 300
+    
+    private let alertView = AlertToastView()
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         navigationConfigure(title: "회원가입")
@@ -111,6 +115,36 @@ class EmailCheckViewController: UIViewController {
         bindCombine()
     }
     
+    
+    func startTimer() {
+        if timer.isValid {
+            timer.invalidate()
+        }
+        
+        self.timerNum = 300
+        
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimerLabel), userInfo: nil, repeats: true)
+    }
+    
+    func stopTimer() {
+        timer.invalidate()
+    }
+    
+    @objc
+    func updateTimerLabel() {
+        if timerNum > 0 {
+            timerNum -= 1
+            
+            let min = self.timerNum / 60
+            let sec = self.timerNum % 60
+            
+            timerLabel.text = String(format: "%02d:%02d", min, sec)
+        } else {
+            timerLabel.text = "05:00"
+            timer.invalidate()
+        }
+        
+    }
     
     private func bindCombine() {
         
@@ -138,8 +172,11 @@ class EmailCheckViewController: UIViewController {
         viewModel.$emailText
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] value in
-                if value != "" {
+                if value != "" && self?.viewModel.isValidEmail(testStr: value) ?? false {
+                    self?.emailComfirmButton.isHidden = false
                     self?.viewModel.emailCheck()
+                } else {
+                    self?.emailComfirmButton.isHidden = true
                 }
             })
             .cancel(with: cancelBag)
@@ -167,7 +204,10 @@ class EmailCheckViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] _ in
                 guard let self = self else { return }
-                self.viewModel.checkEmailSignup()
+                if self.viewModel.emailText != "" && self.viewModel.isValidEmail(testStr: self.viewModel.emailText) {
+                    self.viewModel.checkEmailSignup()
+                    self.startTimer()
+                }
             })
             .cancel(with: cancelBag)
         
@@ -204,6 +244,7 @@ class EmailCheckViewController: UIViewController {
     
     func setNextButton(isOpen: Bool) {
         if isOpen {
+            stopTimer()
             nextButton.backgroundColor = .primaryColor
             nextButton.isEnabled = true
         } else {
