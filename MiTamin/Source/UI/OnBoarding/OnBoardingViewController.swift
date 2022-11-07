@@ -30,7 +30,7 @@ class OnBoardingViewController: UIViewController {
         button.setTitle("다음", for: .normal)
         button.layer.cornerRadius = 8
         button.setTitleColor(UIColor.white, for: .normal)
-        button.titleLabel?.font = UIFont.SDGothicRegular(size: 16)
+        button.titleLabel?.font = UIFont.SDGothicBold(size: 16)
         button.clipsToBounds = true
         
         return button
@@ -39,8 +39,8 @@ class OnBoardingViewController: UIViewController {
     let nextTimeButton: UIButton = {
         let button = UIButton()
         button.setTitle("나중에 할게요.", for: .normal)
-        button.setTitleColor(UIColor.nextTimeGray, for: .normal)
-        button.titleLabel?.font = UIFont.notoRegular(size: 16)
+        button.setTitleColor(UIColor.grayColor4, for: .normal)
+        button.titleLabel?.font = UIFont.SDGothicRegular(size: 16)
         button.isHidden = true
         return button
     }()
@@ -133,7 +133,7 @@ class OnBoardingViewController: UIViewController {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(155)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(150)
+            $0.bottom.equalTo(nextButton.snp.top)
         }
         
         nextButton.snp.makeConstraints {
@@ -144,7 +144,7 @@ class OnBoardingViewController: UIViewController {
         }
         
         nextTimeButton.snp.makeConstraints {
-            $0.top.equalTo(collectionView.snp.bottom).offset(30)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(80)
             $0.centerX.equalToSuperview()
         }
         
@@ -178,7 +178,7 @@ extension OnBoardingViewController: UICollectionViewDelegate, UICollectionViewDa
         if indexPath.row == 0 {
             let replace = text.replacingOccurrences(of: "|", with: viewModel.showUserName())
             viewModel.descriptionArray[indexPath.row] = replace
-            cell.setCell(mainTitle: replace, image: "Mainillustration")
+            cell.setCell(mainTitle: replace, image: viewModel.cellImages[indexPath.row])
         }
         
         if indexPath.row == 3 {
@@ -187,7 +187,7 @@ extension OnBoardingViewController: UICollectionViewDelegate, UICollectionViewDa
             cell.setHidden(hidden: true)
         }
         
-        cell.setCell(mainTitle: text, image: "Mainillustration")
+        cell.setCell(mainTitle: text, image: viewModel.cellImages[indexPath.row])
         
         cell.pickDate = { result in
             if self.viewModel.currentIndex == 3 {

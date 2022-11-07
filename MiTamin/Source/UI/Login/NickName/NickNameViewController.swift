@@ -55,7 +55,7 @@ class NickNameViewController: UIViewController {
         button.setTitle("다음", for: .normal)
         button.layer.cornerRadius = 8
         button.setTitleColor(UIColor.white, for: .normal)
-        button.titleLabel?.font = UIFont.notoMedium(size: 18)
+        button.titleLabel?.font = UIFont.SDGothicBold(size: 16)
         button.clipsToBounds = true
         button.isEnabled = false
         
@@ -173,7 +173,20 @@ class NickNameViewController: UIViewController {
         }
     }
     
+    @objc
+    func doneTap() {
+        view.endEditing(true)
+    }
+    
     func configureLayout() {
+        
+        
+        let bar = UIToolbar()
+        let reset = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(doneTap))
+        bar.items = [reset]
+        bar.sizeToFit()
+        nickNameTextField.inputAccessoryView = bar
+        
         view.backgroundColor = .white
         view.addSubview(nickNameMainTitle)
         view.addSubview(nickNameLabel)

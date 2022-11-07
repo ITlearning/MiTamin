@@ -13,6 +13,8 @@ import SnapKit
 
 class SignUpViewController: UIViewController {
 
+    private let scrollView = UIScrollView()
+    
     private var cancelBag = CancelBag()
     private var viewModel: SignUpViewModel = SignUpViewModel()
     private let mainTitleLabel: UILabel = {
@@ -134,7 +136,7 @@ class SignUpViewController: UIViewController {
         button.setTitle("다음", for: .normal)
         button.layer.cornerRadius = 8
         button.setTitleColor(UIColor.white, for: .normal)
-        button.titleLabel?.font = UIFont.notoMedium(size: 18)
+        button.titleLabel?.font = UIFont.SDGothicBold(size: 16)
         button.clipsToBounds = true
         button.isEnabled = false
         return button
@@ -162,9 +164,27 @@ class SignUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         configureLayout()
         bindCombine()
+    }
+    
+    @objc
+    func keyboardWillShow(notification: NSNotification) {
+        guard let userInfo = notification.userInfo else { return }
+            var keyboardFrame:CGRect = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+            keyboardFrame = self.view.convert(keyboardFrame, from: nil)
+
+            var contentInset:UIEdgeInsets = self.scrollView.contentInset
+            contentInset.bottom = keyboardFrame.size.height + 20
+            scrollView.contentInset = contentInset
+    }
+    
+    @objc
+    func keyboardWillHide(notification: NSNotification) {
+        let contentInset:UIEdgeInsets = UIEdgeInsets.zero
+        scrollView.contentInset = contentInset
     }
     
     func bindCombine() {
@@ -185,7 +205,7 @@ class SignUpViewController: UIViewController {
             .cancel(with: cancelBag)
         
         viewModel.$emailText
-            .throttle(for: 1.5, scheduler: RunLoop.main, latest: true)
+            .throttle(for: 1, scheduler: RunLoop.main, latest: true)
             .sink(receiveValue: { [weak self] text in
                 if !text.isEmpty && self?.viewModel.isValidEmail(testStr: text) ?? false {
                     self?.viewModel.checkEmail(text: text)
@@ -311,26 +331,48 @@ class SignUpViewController: UIViewController {
         
     }
     
+    @objc
+    func doneTap() {
+        view.endEditing(true)
+    }
+    
     func configureLayout() {
         view.backgroundColor = .white
-        view.addSubview(mainTitleLabel)
-        view.addSubview(emailTitleLabel)
-        view.addSubview(emailTextField)
-        view.addSubview(passwordTitleLabel)
-        view.addSubview(passwordTextField)
-        view.addSubview(passwordCheckTitleLabel)
-        view.addSubview(passwordCheckTextField)
+        view.addSubview(scrollView)
+        
+        let bar = UIToolbar()
+        let reset = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(doneTap))
+        bar.items = [reset]
+        bar.sizeToFit()
+        emailTextField.inputAccessoryView = bar
+        passwordTextField.inputAccessoryView = bar
+        
+        scrollView.addSubview(mainTitleLabel)
+        scrollView.addSubview(emailTitleLabel)
+        scrollView.addSubview(emailTextField)
+        scrollView.addSubview(passwordTitleLabel)
+        scrollView.addSubview(passwordTextField)
+        scrollView.addSubview(passwordCheckTitleLabel)
+        scrollView.addSubview(passwordCheckTextField)
         view.addSubview(nextButton)
-        view.addSubview(emailSubDescription)
-        view.addSubview(passwordSubDescription)
-        view.addSubview(passwordCheckSubDescription)
-        view.addSubview(checkImageView)
-        view.addSubview(passwordHiddenButton)
-        view.addSubview(passwordCheckHiddenButton)
+        scrollView.addSubview(emailSubDescription)
+        scrollView.addSubview(passwordSubDescription)
+        scrollView.addSubview(passwordCheckSubDescription)
+        scrollView.addSubview(checkImageView)
+        scrollView.addSubview(passwordHiddenButton)
+        scrollView.addSubview(passwordCheckHiddenButton)
         let lineProgressView = UIHostingController(rootView: LineProgressBar(progress: 0.3))
         view.addSubview(lineProgressView.view)
+        
+        scrollView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        }
+        
         mainTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(40)
+            $0.top.equalTo(scrollView.snp.top).offset(40)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
         }
         
@@ -392,6 +434,7 @@ class SignUpViewController: UIViewController {
         passwordCheckSubDescription.snp.makeConstraints {
             $0.top.equalTo(passwordCheckTextField.snp.bottom).offset(2)
             $0.leading.equalTo(passwordCheckTextField)
+            $0.bottom.equalTo(scrollView.snp.bottom)
         }
         
         passwordCheckHiddenButton.snp.makeConstraints {

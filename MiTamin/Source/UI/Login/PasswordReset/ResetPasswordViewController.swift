@@ -80,6 +80,7 @@ class ResetPasswordViewController: UIViewController {
         button.setTitle("다음", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.backgroundColor = UIColor.grayColor7
+        button.titleLabel?.font = UIFont.SDGothicBold(size: 16)
         button.layer.cornerRadius = 8
         button.layer.masksToBounds = true
         

@@ -87,7 +87,7 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
     private func configureLayout() {
         self.addSubview(baseView)
         baseView.addSubview(descriptionLabel)
-        //baseView.addSubview(illustrationImageView)
+        baseView.addSubview(illustrationImageView)
         baseView.addSubview(subDescriptionLabel)
         baseView.addSubview(datePicker)
         
@@ -109,6 +109,14 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
             $0.top.equalTo(subDescriptionLabel.snp.bottom).offset(55)
             $0.leading.equalTo(self.snp.leading).offset(20)
             $0.trailing.equalTo(self.snp.trailing).inset(20)
+        }
+        
+        illustrationImageView.snp.makeConstraints {
+            $0.top.equalTo(descriptionLabel.snp.bottom).offset(134)
+            $0.leading.equalTo(self.snp.leading).offset(20)
+            $0.trailing.equalTo(self.snp.trailing).inset(20)
+            $0.width.equalTo(300)
+            $0.height.equalTo(300)
         }
         
     }

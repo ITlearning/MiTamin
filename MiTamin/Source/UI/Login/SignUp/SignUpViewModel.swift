@@ -17,6 +17,7 @@ class SignUpViewModel: ObservableObject {
     @Published var myTaminHour: String = ""
     @Published var myTaminMin: String = ""
     var descriptionArray: [String] = []
+    var cellImages: [String] = ["Cell1", "Cell2", "Cell3", ""]
     @Published var currentIndex: Int = 0
     var index = CurrentValueSubject<Int, Never>(0)
     @Published var emailText: String = ""
@@ -31,6 +32,7 @@ class SignUpViewModel: ObservableObject {
     var networkManager = NetworkManager()
     var cancelBag = CancelBag()
     func checkEmail(text: String) {
+        emailCheck.send(false)
         networkManager.emailCheckToServer(string: text)
             .sink(receiveCompletion: { _ in }, receiveValue: { data in
                 self.emailCheck.send(data.data)

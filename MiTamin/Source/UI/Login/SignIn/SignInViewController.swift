@@ -186,9 +186,21 @@ class SignInViewController: UIViewController {
         loginButton.backgroundColor = UIColor.primaryColor
     }
     
+    @objc
+    func doneTap() {
+        view.endEditing(true)
+    }
+    
     func configureLayout() {
         
         navigationConfigure()
+        
+        let bar = UIToolbar()
+        let reset = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(doneTap))
+        bar.items = [reset]
+        bar.sizeToFit()
+        emailTextField.inputAccessoryView = bar
+        passwordTextField.inputAccessoryView = bar
         
         view.backgroundColor = .white
         view.addSubview(emailTextField)

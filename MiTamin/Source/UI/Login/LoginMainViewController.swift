@@ -131,7 +131,8 @@ class LoginMainViewController: UIViewController {
         view.addSubview(signInButton)
         view.addSubview(orLabel)
         view.addSubview(socialLoginImageView)
-        
+        orLabel.isHidden = true
+        socialLoginImageView.isHidden = true
         mainLogoImageView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(156)

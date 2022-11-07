@@ -91,6 +91,7 @@ class EmailCheckViewController: UIViewController {
         let button = UIButton()
         button.setTitle("다음", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
+        button.titleLabel?.font = UIFont.SDGothicBold(size: 16)
         button.backgroundColor = UIColor.grayColor7
         button.layer.cornerRadius = 8
         button.layer.masksToBounds = true
@@ -158,7 +159,7 @@ class EmailCheckViewController: UIViewController {
         
         emailTextField.textPublisher
             .receive(on: DispatchQueue.main)
-            .throttle(for: 1.5, scheduler: RunLoop.main, latest: true)
+            .throttle(for: 1, scheduler: RunLoop.main, latest: true)
             .map({ $0 ?? "" })
             .assign(to: \.emailText, on: viewModel)
             .cancel(with: cancelBag)
@@ -173,7 +174,6 @@ class EmailCheckViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] value in
                 if value != "" && self?.viewModel.isValidEmail(testStr: value) ?? false {
-                    self?.emailComfirmButton.isHidden = false
                     self?.viewModel.emailCheck()
                 } else {
                     self?.emailComfirmButton.isHidden = true
@@ -190,9 +190,11 @@ class EmailCheckViewController: UIViewController {
                     if value {
                         self.emailErrorLabel.text = "사용할 수 없는 이메일 주소에요!"
                         self.emailErrorLabel.textColor = UIColor(rgb: 0xF04452)
+                        self.emailComfirmButton.isHidden = true
                     } else {
                         self.emailErrorLabel.text = "사용 가능한 이메일 주소에요!"
                         self.emailErrorLabel.textColor = UIColor.primaryColor
+                        self.emailComfirmButton.isHidden = false
                     }
                 } else {
                     self.emailErrorLabel.text = ""
@@ -242,6 +244,11 @@ class EmailCheckViewController: UIViewController {
         
     }
     
+    @objc
+    func doneTap() {
+        view.endEditing(true)
+    }
+    
     func setNextButton(isOpen: Bool) {
         if isOpen {
             stopTimer()
@@ -275,6 +282,13 @@ class EmailCheckViewController: UIViewController {
         scrollView.addSubview(authCodeTextField)
         scrollView.addSubview(timerLabel)
         scrollView.addSubview(acceptCodeButton)
+        
+        let bar = UIToolbar()
+        let reset = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(doneTap))
+        bar.items = [reset]
+        bar.sizeToFit()
+        emailTextField.inputAccessoryView = bar
+        authCodeTextField.inputAccessoryView = bar
         
         view.addSubview(nextButton)
         
