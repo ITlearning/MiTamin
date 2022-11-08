@@ -219,7 +219,34 @@ class MyTaminViewController: UIViewController {
         
         cancelButton.tapPublisher
             .sink(receiveValue: { _ in
-                self.dismiss(animated: true)
+                switch self.viewModel.currentIndex {
+                case 0,1:
+                    guard let cell = self.collectionView.cellForItem(at: IndexPath(row: self.viewModel.currentIndex, section: 0)) else {
+                        return
+                    }
+                    guard let cell = cell as? MyTaminCollectionViewCell else { return }
+                    //cell.startOtpTimer()
+                    print(cell.timerStatus)
+                    if cell.timerStatus == .start {
+                        self.dismissAlert()
+                    } else {
+                        self.dismiss(animated: true)
+                    }
+                case 2:
+                    if self.nextButton.isEnabled == true {
+                        self.dismissAlert()
+                    } else {
+                        self.dismiss(animated: true)
+                    }
+                case 5:
+                    if self.categoryViewModel.text != "카테고리를 골라주세요." {
+                        self.dismissAlert()
+                    } else {
+                        self.dismiss(animated: true)
+                    }
+                default:
+                    self.dismiss(animated: true)
+                }
             })
             .cancel(with: cancelBag)
         
@@ -335,6 +362,35 @@ class MyTaminViewController: UIViewController {
                 self.mindSelectViewModel.index = value
             })
             .cancel(with: cancelBag)
+        
+    }
+    
+    func dismissAlert() {
+        var description: String = ""
+        switch self.viewModel.currentIndex {
+        case 0:
+            description = "숨고르기를 그만하고 나가시겠어요?\n진행시간은 저장되지 않습니다."
+        case 1:
+            description = "감각 깨우기를 그만하고 나가시겠어요?\n진행시간은 저장되지 않습니다."
+        case 2:
+            description = "하루 진단하기를 그만하고 나가시겠어요?\n진단 중이었던 내용은 저장되지 않습니다."
+        case 5:
+            description = "칭찬 처방하기를 그만하고 나가시겠어요?\n칭찬 중이었던 내용은 저장되지 않습니다."
+        default:
+            break
+        }
+        
+        let alertView = UIAlertController(title: "나가기", message: description, preferredStyle: .alert)
+        
+        let done = UIAlertAction(title: "취소", style: .cancel)
+        
+        let exit = UIAlertAction(title: "나가기", style: .destructive)
+        
+        alertView.addAction(done)
+        alertView.addAction(exit)
+        
+        self.present(alertView, animated: true)
+        
         
     }
     
