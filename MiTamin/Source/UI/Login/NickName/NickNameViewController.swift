@@ -92,6 +92,7 @@ class NickNameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        hideKeyboardWhenTappedAround()
         configureLayout()
         bindCombine()
     }

@@ -123,7 +123,7 @@ class EditProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        hideKeyboardWhenTappedAround()
         view.backgroundColor = .white
         configureLayout()
         setUI()

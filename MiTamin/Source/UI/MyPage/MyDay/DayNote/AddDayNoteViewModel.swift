@@ -61,6 +61,9 @@ extension AddDayNoteViewController {
         }
         
         func writeDayNote() {
+            
+            print(selectWishList?.wishId ?? 0, note, currentDay, selectImages)
+            
             networkManager.writeDayNote(wishIdx: selectWishList?.wishId ?? 0, note: note, date: currentDay, images: selectImages)
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] value in

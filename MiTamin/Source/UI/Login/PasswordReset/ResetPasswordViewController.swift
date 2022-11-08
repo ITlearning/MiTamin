@@ -135,6 +135,7 @@ class ResetPasswordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        hideKeyboardWhenTappedAround()
         configureLayout()
         bindCombine()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)

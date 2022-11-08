@@ -122,6 +122,7 @@ class EditWishListViewController: UIViewController {
         super.viewDidLoad()
         self.navigationItem.rightBarButtonItem = deleteButton
         view.backgroundColor = .white
+        hideKeyboardWhenTappedAround()
         configureLayout()
         configureTableView()
         bindCombine()

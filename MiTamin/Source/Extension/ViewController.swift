@@ -9,6 +9,18 @@ import UIKit
 
 extension UIViewController {
     
+    func hideKeyboardWhenTappedAround() {
+        let tapGesture = UITapGestureRecognizer(target: self,
+                                                action: #selector(hideKeyboard))
+        view.addGestureRecognizer(tapGesture)
+        
+        tapGesture.cancelsTouchesInView = false
+    }
+    
+    @objc func hideKeyboard() {
+        view.endEditing(true)
+    }
+    
     func navigationConfigure(title: String = "") {
         let backButton = UIImage(named: "icon-arrow-left-small-mono")
         self.navigationController?.isNavigationBarHidden = false
@@ -27,15 +39,5 @@ extension UIViewController {
     func moveToLogin() {
         let loginVC = UINavigationController(rootViewController: LoginMainViewController())
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(loginVC, animated: true)
-    }
-    
-    @objc func hideKeyboardWhenTappedAround() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action:    #selector(UIViewController.dismissKeyboard))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
-    }
-
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
     }
 }

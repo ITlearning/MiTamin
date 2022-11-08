@@ -111,6 +111,7 @@ class EmailCheckViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        hideKeyboardWhenTappedAround()
         navigationConfigure(title: "회원가입")
         configureLayout()
         bindCombine()

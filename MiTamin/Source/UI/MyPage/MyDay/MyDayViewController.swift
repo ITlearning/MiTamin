@@ -314,7 +314,7 @@ class MyDayViewController: UIViewController, MenuBarDelegate {
         } else {
             contentMode = .WishList
         }
-        
+        view.endEditing(true)
         self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
     }
     
@@ -424,7 +424,7 @@ extension MyDayViewController: UICollectionViewDelegate, UICollectionViewDataSou
         } else {
             contentMode = .WishList
         }
-        
+        view.endEditing(true)
         menuBar.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
     }
 }

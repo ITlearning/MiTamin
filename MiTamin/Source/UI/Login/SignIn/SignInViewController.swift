@@ -86,6 +86,7 @@ class SignInViewController: UIViewController {
         super.viewDidLoad()
         configureLayout()
         bindCombine()
+        hideKeyboardWhenTappedAround()
     }
     
     func bindCombine() {

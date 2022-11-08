@@ -67,6 +67,7 @@ class ResetSuccessViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        hideKeyboardWhenTappedAround()
         configureLayout()
         bindCombine()
     }

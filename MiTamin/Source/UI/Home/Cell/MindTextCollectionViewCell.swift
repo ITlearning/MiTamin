@@ -42,6 +42,8 @@ class MindTextCollectionViewCell: UICollectionViewCell {
         configureCollectionView()
     }
     
+    
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

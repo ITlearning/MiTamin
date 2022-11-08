@@ -63,6 +63,7 @@ class OnBoardingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        hideKeyboardWhenTappedAround()
         configureLayout()
         configureCollectionView()
         bindCombine()

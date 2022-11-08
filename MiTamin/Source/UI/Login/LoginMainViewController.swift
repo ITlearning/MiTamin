@@ -85,6 +85,7 @@ class LoginMainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        hideKeyboardWhenTappedAround()
         configureLayout()
         buttonSetting()
         bindButtons()

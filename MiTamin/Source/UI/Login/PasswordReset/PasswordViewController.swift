@@ -124,6 +124,7 @@ class PasswordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        hideKeyboardWhenTappedAround()
         navigationConfigure(title: "비밀번호 재설정")
         bindCombine()
         configureLayout()
