@@ -47,15 +47,19 @@ class MyTaminViewController: UIViewController {
     var isDone: Bool = false
     
     init(index: Int) {
-        self.index = index
-        self.viewModel.currentIndex = index
         
         if index == 2 {
             self.viewModel.myTaminStatus.send(3)
-        } else if index == 5 {
+            self.index = index
+            self.viewModel.currentIndex = index
+        } else if index == 3 {
+            self.index = 5
+            self.viewModel.currentIndex = 5
             self.viewModel.myTaminStatus.send(4)
         } else {
             self.viewModel.myTaminStatus.send(index+1)
+            self.index = index
+            self.viewModel.currentIndex = index
         }
         super.init(nibName: nil, bundle: nil)
         //self.isDone = self.getIsDoneStatus(idx: self.viewModel.myTaminStatus.value)
@@ -190,19 +194,15 @@ class MyTaminViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-    
+
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0 {
-                self.view.frame.origin.y -= keyboardSize.height
-            }
+            self.collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
         }
     }
 
     @objc func keyboardWillHide(notification: NSNotification) {
-        if self.view.frame.origin.y != 0 {
-            self.view.frame.origin.y = 0
-        }
+        self.collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
     func bindCombine() {
@@ -384,7 +384,9 @@ class MyTaminViewController: UIViewController {
         
         let done = UIAlertAction(title: "취소", style: .cancel)
         
-        let exit = UIAlertAction(title: "나가기", style: .destructive)
+        let exit = UIAlertAction(title: "나가기", style: .destructive, handler: { _ in
+            self.dismiss(animated: true)
+        })
         
         alertView.addAction(done)
         alertView.addAction(exit)

@@ -180,6 +180,7 @@ class HomeViewController: UIViewController {
         viewModel.buttonClick
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { idx in
+                
                 let myTaminVC = MyTaminViewController(index: idx)
                 myTaminVC.modalPresentationStyle = .fullScreen
                 self.present(myTaminVC, animated: true)
