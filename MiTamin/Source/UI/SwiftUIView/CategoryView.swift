@@ -7,15 +7,19 @@
 
 import SwiftUI
 
+
 struct CategoryView: View {
+    
+    
+    @StateObject var viewModel: CareHistoryViewController.ViewModel
     
     @State var category: [String] = ["이루어낸 일", "잘한 일이나..."]
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false, content: {
             HStack(spacing: 0) {
-                ForEach(category, id: \.self) { item in
-                    roundView(text: item)
+                ForEach(viewModel.selectIndex, id: \.self) { item in
+                    roundView(text: returnString(item: item))
                 }
             }
         })
@@ -28,7 +32,6 @@ struct CategoryView: View {
             .padding()
             .padding(.horizontal, 5)
             .overlay(
-                
                 ZStack {
                     RoundedRectangle(cornerRadius: 12)
                         .stroke(Color(uiColor: .primaryColor), lineWidth: 1)
@@ -71,11 +74,5 @@ struct CategoryView: View {
         default:
             return ""
         }
-    }
-}
-
-struct CategoryView_Previews: PreviewProvider {
-    static var previews: some View {
-        CategoryView()
     }
 }

@@ -16,7 +16,7 @@ class CareHistoryViewController: UIViewController {
     var viewModel = ViewModel()
     var cancelBag = CancelBag()
     
-    lazy var categoryView = CategoryView()
+    lazy var categoryView = CategoryView(viewModel: self.viewModel)
     
     private let tableView = UITableView()
     
@@ -31,7 +31,7 @@ class CareHistoryViewController: UIViewController {
         presentModal()
     }
     
-    
+    private let demmedView = DemmedView()
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -53,6 +53,26 @@ class CareHistoryViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] value in
                 self?.tableView.reloadData()
+            })
+            .cancel(with: cancelBag)
+        
+        viewModel.$selectIndex
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] value in
+                guard let self = self else { return }
+                self.viewModel.getCategoryCareData(category: value)
+            })
+            .cancel(with: cancelBag)
+        
+        viewModel.$loading
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] value in
+                guard let self = self else { return }
+                if value {
+                    self.demmedView.showDemmedPopup(text: "처방 기록을 불러오고 있어요..!")
+                } else {
+                    self.demmedView.hide()
+                }
             })
             .cancel(with: cancelBag)
     }
@@ -88,12 +108,12 @@ class CareHistoryViewController: UIViewController {
     }
     
     func presentModal() {
-        let categoryBottomSheetView = UIHostingController(rootView: CategoryBottomSheetView(type: .history))
-        
+        let categoryBottomSheetView = UIHostingController(rootView: CategoryBottomSheetView(type: .history, index: viewModel.selectIndex))
         let nav = UINavigationController(rootViewController: categoryBottomSheetView)
         nav.navigationController?.isNavigationBarHidden = true
         nav.modalPresentationStyle = .pageSheet
         nav.isNavigationBarHidden = true
+        
         if let sheet = nav.sheetPresentationController {
             sheet.detents = [.medium()]
         }
@@ -109,7 +129,8 @@ class CareHistoryViewController: UIViewController {
             }
         }
         
-        categoryBottomSheetView.rootView.doneAction = {
+        categoryBottomSheetView.rootView.doneAction = { array in
+            self.viewModel.selectIndex = array
             nav.dismiss(animated: true)
         }
         

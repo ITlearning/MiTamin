@@ -14,9 +14,10 @@ import Kingfisher
 
 class AddDayNoteViewController: UIViewController {
 
+    var scrollView = UIScrollView()
+    let containerView = UIView()
     var viewModel = ViewModel()
     var cancelBag = CancelBag()
-    var scrollView = UIScrollView()
     var datePickerView = CustomDatePickerView()
     var blackDemmedView = UIView()
     var alretView = AlertToastView()
@@ -162,6 +163,31 @@ class AddDayNoteViewController: UIViewController {
         configureLayout()
         configureCollectionView()
         viewModel.isDemmed.send(false)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc
+    func keyboardWillShow(notification: NSNotification) {
+        guard let userInfo = notification.userInfo,
+                let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+                    return
+            }
+            
+            let contentInset = UIEdgeInsets(
+                top: 0.0,
+                left: 0.0,
+                bottom: keyboardFrame.size.height,
+                right: 0.0)
+            scrollView.contentInset = contentInset
+            scrollView.scrollIndicatorInsets = contentInset
+    }
+    
+    @objc
+    func keyboardWillHide(notification: NSNotification) {
+        let contentInset:UIEdgeInsets = UIEdgeInsets.zero
+        scrollView.contentInset = contentInset
     }
     
     func startSkeleton() {
@@ -382,6 +408,11 @@ class AddDayNoteViewController: UIViewController {
 
     }
     
+    @objc
+    func doneTap() {
+        view.endEditing(true)
+    }
+    
     func openWishList() {
         let wishListVC = DoneWishListViewController(selectWishList: viewModel.selectWishList)
         
@@ -403,25 +434,34 @@ class AddDayNoteViewController: UIViewController {
     }
     
     func configureLayout() {
+        
+        let bar = UIToolbar()
+        let reset = UIBarButtonItem(title: "닫기", style: .plain, target: self, action: #selector(doneTap))
+        bar.items = [reset]
+        bar.sizeToFit()
+        textView.inputAccessoryView = bar
+        
         view.isSkeletonable = true
         blackDemmedView.backgroundColor = .black
         blackDemmedView.alpha = 0.0
         let tapGesutre = UITapGestureRecognizer(target: self, action: #selector(dismissAction))
         blackDemmedView.addGestureRecognizer(tapGesutre)
         view.addSubview(scrollView)
+        scrollView.addSubview(containerView)
+        
         datePickerView.alpha = 0.0
-        scrollView.addSubview(stackView)
-        view.addSubview(collectionView)
+        containerView.addSubview(stackView)
+        containerView.addSubview(collectionView)
         let borderTap = UITapGestureRecognizer(target: self, action: #selector(wishListOpen))
         borderView.addGestureRecognizer(borderTap)
-        view.addSubview(borderView)
+        containerView.addSubview(borderView)
         borderView.addSubview(selectWishList)
         borderView.addSubview(rightArrowView)
-        view.addSubview(textView)
-        view.addSubview(doneButton)
+        containerView.addSubview(textView)
+        containerView.addSubview(doneButton)
         
         view.addSubview(blackDemmedView)
-        view.addSubview(datePickerView)
+        containerView.addSubview(datePickerView)
         
         view.addSubview(demmedView)
         demmedView.addSubview(progressText)
@@ -453,6 +493,10 @@ class AddDayNoteViewController: UIViewController {
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
         
+        containerView.snp.makeConstraints {
+            $0.top.leading.trailing.bottom.equalToSuperview()
+        }
+        
         dateLabel.snp.makeConstraints {
             $0.width.equalTo(180)
             $0.height.equalTo(20)
@@ -464,8 +508,8 @@ class AddDayNoteViewController: UIViewController {
         }
         
         stackView.snp.makeConstraints {
-            $0.top.equalTo(scrollView.snp.top).offset(24)
-            $0.leading.equalTo(scrollView.snp.leading).offset(20)
+            $0.top.equalTo(containerView.snp.top).offset(24)
+            $0.leading.equalTo(containerView.snp.leading).offset(20)
         }
         
         datePickerView.snp.makeConstraints {
@@ -476,8 +520,8 @@ class AddDayNoteViewController: UIViewController {
         
         collectionView.snp.makeConstraints {
             $0.top.equalTo(stackView.snp.bottom).offset(20)
-            $0.leading.equalToSuperview()
-            $0.trailing.equalToSuperview()
+            $0.leading.equalTo(containerView.snp.leading)
+            $0.trailing.equalTo(containerView.snp.trailing).offset(40)
             $0.height.equalTo(130)
         }
         
@@ -504,8 +548,8 @@ class AddDayNoteViewController: UIViewController {
             $0.top.equalTo(borderView.snp.bottom).offset(16)
             $0.leading.trailing.equalTo(borderView)
             $0.height.equalTo(100)
+            $0.bottom.equalTo(containerView.snp.bottom)
         }
-        
         
         doneButton.snp.makeConstraints {
             $0.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
