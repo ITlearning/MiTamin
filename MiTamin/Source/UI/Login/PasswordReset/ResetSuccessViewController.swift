@@ -14,7 +14,7 @@ import CombineCocoa
 class ResetSuccessViewController: UIViewController {
 
     var cancelBag = CancelBag()
-    
+    var type: ViewType = .signIn
     var viewModel: PasswordViewController.ViewModel
     
     private let imageView: UIImageView = {
@@ -55,8 +55,9 @@ class ResetSuccessViewController: UIViewController {
         return button
     }()
     
-    init(viewModel: PasswordViewController.ViewModel) {
+    init(viewModel: PasswordViewController.ViewModel, type: ViewType = .signIn) {
         self.viewModel = viewModel
+        self.type = type
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -67,6 +68,13 @@ class ResetSuccessViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        
+        if type != .signIn {
+            nextButton.setTitle("마이페이지로 가기", for: .normal)
+        } else {
+            nextButton.setTitle("로그인하러 가기", for: .normal)
+        }
+        
         hideKeyboardWhenTappedAround()
         configureLayout()
         bindCombine()

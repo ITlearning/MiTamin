@@ -110,8 +110,9 @@ class PasswordViewController: UIViewController {
     
     private let demmedView = DemmedView()
     
-    init(email: String) {
+    init(email: String, type: ViewType = .signIn) {
         viewModel.email = email
+        viewModel.type = type
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -119,6 +120,16 @@ class PasswordViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = false
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationController?.isNavigationBarHidden = false
+    }
     
     
     override func viewDidLoad() {
@@ -197,7 +208,7 @@ class PasswordViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { value in
                 if value {
-                    let vc = ResetSuccessViewController(viewModel: self.viewModel)
+                    let vc = ResetSuccessViewController(viewModel: self.viewModel, type: self.viewModel.type)
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true)
                 }

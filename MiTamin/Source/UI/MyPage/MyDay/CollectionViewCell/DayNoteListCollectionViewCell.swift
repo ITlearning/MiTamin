@@ -58,6 +58,15 @@ class DayNoteListCollectionViewCell: UICollectionViewCell {
     }
     
     func configureLayout() {
+        
+        let gradient: CAGradientLayer = CAGradientLayer()
+        gradient.colors = [UIColor.grayColor4.withAlphaComponent(0.6).cgColor,UIColor.clear.cgColor]
+        gradient.locations = [0.0 , 1.0]
+        gradient.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradient.endPoint = CGPoint(x: 0.0, y: 1.0)
+        gradient.frame = bounds
+        imageView.layer.addSublayer(gradient)
+        
         self.addSubview(imageView)
         self.addSubview(label)
         self.addSubview(gradientView)

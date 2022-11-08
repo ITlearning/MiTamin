@@ -14,6 +14,7 @@ extension PasswordViewController {
         var cancelBag = CancelBag()
         var networkManager = NetworkManager()
         var email: String = ""
+        var type: ViewType = .signIn
         @Published var passwordText: String = ""
         @Published var passwordCheckText: String = ""
         @Published var passwordChangeSuccess: Bool = false
@@ -54,15 +55,28 @@ extension PasswordViewController {
         
         func resetPassword() {
             loading = true
-            networkManager.resetPassword(email: email, password: passwordCheckText)
-                .receive(on: DispatchQueue.main)
-                .sink(receiveCompletion: { _ in
-                    self.loading = false
-                }, receiveValue: { value in
-                    self.passwordChangeSuccess = true
-                    self.loading = false
-                })
-                .cancel(with: cancelBag)
+            if type == .signIn {
+                networkManager.resetPassword(email: email, password: passwordCheckText)
+                    .receive(on: DispatchQueue.main)
+                    .sink(receiveCompletion: { _ in
+                        self.loading = false
+                    }, receiveValue: { value in
+                        self.passwordChangeSuccess = true
+                        self.loading = false
+                    })
+                    .cancel(with: cancelBag)
+            } else {
+                networkManager.changePassword(password: passwordCheckText)
+                    .receive(on: DispatchQueue.main)
+                    .sink(receiveCompletion: { _ in
+                        self.loading = false
+                    }, receiveValue: { _ in
+                        self.passwordChangeSuccess = true
+                        self.loading = false
+                    })
+                    .cancel(with: cancelBag)
+            }
+            
         }
     }
 }

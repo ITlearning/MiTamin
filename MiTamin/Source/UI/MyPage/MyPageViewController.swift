@@ -11,6 +11,7 @@ import Combine
 import CombineCocoa
 import SnapKit
 import Kingfisher
+import SwiftKeychainWrapper
 
 class MyPageViewController: UIViewController {
     
@@ -473,6 +474,9 @@ extension MyPageViewController: AppInfoDelegate {
             moveToLogin()
         case .ResetData:
             let vc = ResetViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
+        case .PasswordChange:
+            let vc = PasswordViewController(email: KeychainWrapper.standard.string(forKey: "userEmail") ?? "", type: .myTamin)
             self.navigationController?.pushViewController(vc, animated: true)
         default:
             print(type)
