@@ -84,6 +84,8 @@ class EditProfileViewController: UIViewController {
         return button
     }()
     
+    private let demmedView = DemmedView()
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
@@ -213,6 +215,17 @@ class EditProfileViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in}, receiveValue: { _ in
                 self.navigationController?.popViewController(animated: true)
+            })
+            .cancel(with: cancelBag)
+        
+        viewModel.$loading
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }, receiveValue: { value in
+                if value {
+                    self.demmedView.showDemmedPopup(text: "프로필을 변경하는 중이에요..!")
+                } else {
+                    self.demmedView.hide()
+                }  
             })
             .cancel(with: cancelBag)
     }

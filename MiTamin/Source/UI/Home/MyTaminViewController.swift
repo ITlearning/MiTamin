@@ -119,14 +119,6 @@ class MyTaminViewController: UIViewController {
         return collectionView
     }()
     
-    let backgroundImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "myTaminTimerBG")
-        imageView.contentMode = .scaleAspectFit
-        
-        return imageView
-    }()
-    
     let passButton: UIButton = {
         let button = UIButton()
         button.setTitle("패스하기", for: .normal)
@@ -288,7 +280,9 @@ class MyTaminViewController: UIViewController {
         
         viewModel.selectCategoryIdx.receive(on: DispatchQueue.main)
             .sink(receiveValue: { value in
-                self.categoryViewModel.text = self.viewModel.selectMindArray[value]
+                if value != -1 {
+                    self.categoryViewModel.text = self.viewModel.selectMindArray[value]
+                }
             })
             .cancel(with: cancelBag)
         
@@ -333,7 +327,16 @@ class MyTaminViewController: UIViewController {
         viewModel.selectMindIndex
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { value in
-                self.checkIsDone(bool: true)
+                if value != -1 {
+                    self.checkIsDone(bool: true)
+                }
+                
+                if value == -1 {
+                    self.mindSelectViewModel.index = 0
+                } else {
+                    self.mindSelectViewModel.index = value
+                }
+                
             })
             .cancel(with: cancelBag)
         
@@ -354,15 +357,10 @@ class MyTaminViewController: UIViewController {
         viewModel.selectMindTexts
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { value in
-                self.setMindTextData()
-                self.checkIsDone(bool: true)
-            })
-            .cancel(with: cancelBag)
-        
-        viewModel.selectMindIndex
-            .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { value in
-                self.mindSelectViewModel.index = value
+                if !value.isEmpty {
+                    self.setMindTextData()
+                    self.checkIsDone(bool: true)
+                }
             })
             .cancel(with: cancelBag)
         
@@ -433,7 +431,6 @@ class MyTaminViewController: UIViewController {
             UIView.animate(withDuration: 0.2, animations: {
                 self.autoTextLabel.alpha = 1.0
                 self.toggleSwitch.alpha = 1.0
-                self.backgroundImage.alpha = 1.0
                 self.passButton.alpha = 1.0
                 
                 self.collectionView.snp.makeConstraints {
@@ -472,7 +469,6 @@ class MyTaminViewController: UIViewController {
             UIView.animate(withDuration: 0.2, animations: {
                 self.autoTextLabel.alpha = 0.0
                 self.toggleSwitch.alpha = 0.0
-                self.backgroundImage.alpha = 0.0
                 self.passButton.alpha = 0.0
                 
                 self.collectionView.snp.remakeConstraints {
@@ -557,7 +553,6 @@ class MyTaminViewController: UIViewController {
     }
     
     func configureLayout() {
-        view.addSubview(backgroundImage)
         view.addSubview(backButton)
         view.addSubview(midNavTitle)
         view.addSubview(cancelButton)
@@ -592,13 +587,6 @@ class MyTaminViewController: UIViewController {
         
         self.alertView.rootView.cancelButtonAction = {
             self.dismiss(animated: true)
-        }
-        
-        backgroundImage.snp.makeConstraints {
-            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(15)
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(77)
-            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(160)
-            $0.height.equalTo(432)
         }
         
         backButton.snp.makeConstraints {
@@ -768,6 +756,7 @@ class MyTaminViewController: UIViewController {
     }
     
     func checkIsDone(bool: Bool) {
+        print("Check Is BOol", bool)
         viewModel.myTaminModel[viewModel.currentIndex].isDone = bool
     }
     

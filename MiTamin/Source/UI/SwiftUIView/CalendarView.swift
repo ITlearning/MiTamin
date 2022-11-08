@@ -54,6 +54,16 @@ struct CalendarView: View {
                     self.calendarMonthList = value
                 }
             })
+            .overlay(
+                ZStack {
+                    RoundedRectangle(cornerRadius: 8)
+                        .foregroundColor(Color.black.opacity(0.6))
+                    Text("달력을 불러오는중..")
+                        .foregroundColor(.white)
+                        .font(.SDGothicMedium(size: 14))
+                }
+                    .opacity(viewModel.calendarLoading ? 1 : 0)
+            )
         } else {
             ScrollViewReader { reader in
                 ScrollView(.horizontal, showsIndicators: false, content: {

@@ -20,6 +20,7 @@ extension HistoryViewController {
         @Published var selectWeeklyDate: String = ""
         @Published var selectDate: String = ""
         @Published var dataIsReady: Bool = false
+        @Published var calendarLoading: Bool = false
         var buttonClick = PassthroughSubject<Int, Never>()
         @Published var weeklyCalendarData: WeeklyCalendarModel? = nil
         var cancelBag = CancelBag()
@@ -71,12 +72,23 @@ extension HistoryViewController {
         }
         
         func getCalendarMonthly(date: String) {
+            withAnimation {
+                self.calendarLoading = true
+            }
             self.calendarMonthList.removeAll()
             networkManager.getCalendarMonthly(day: date)
                 .receive(on: DispatchQueue.main)
-                .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] value in
+                .sink(receiveCompletion: { _ in
+                    withAnimation {
+                        self.calendarLoading = false
+                    }
+                }, receiveValue: { [weak self] value in
                     guard let self = self else { return }
                     self.calendarMonthList = value.data
+                    
+                    withAnimation {
+                        self.calendarLoading = false
+                    }
                 })
                 .cancel(with: cancelBag)
         }
