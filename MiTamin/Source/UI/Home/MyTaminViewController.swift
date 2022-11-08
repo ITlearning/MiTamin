@@ -26,6 +26,7 @@ enum CellType: CaseIterable {
 
 extension MyTaminViewController {
     func getIsDoneStatus(idx: Int) -> Bool {
+        print("Done Status",idx)
         switch idx {
         case 3:
             return UserDefaults.standard.bool(forKey: .reportIsDone)
@@ -106,6 +107,8 @@ class MyTaminViewController: UIViewController {
     let toggleSwitch: UISwitch = {
         let toggle = UISwitch()
         toggle.tintColor = UIColor.subYellowColor
+        toggle.tintColor = UIColor(rgb: 0xFFEB85)
+        toggle.onTintColor = UIColor(rgb: 0xFFEB85)
         return toggle
     }()
     

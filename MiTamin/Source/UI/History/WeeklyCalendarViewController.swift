@@ -225,7 +225,6 @@ class WeeklyCalendarViewController: UIViewController {
 
 extension WeeklyCalendarViewController: CalendarDelegate {
     func calendarTap(date: String) {
-        print("탭 했을때 ",date)
         let replace = date.components(separatedBy: ".")
         self.viewModel.selectWeeklyDate = replace.last ?? ""
         viewModel.selectDate = date

@@ -133,9 +133,9 @@ struct MyTaminReportView: View {
                 
                 Button(action: {
                     if type == .home {
-                        viewModel.buttonClick.send(5)
+                        viewModel.buttonClick.send(3)
                     } else {
-                        historyViewModel.buttonClick.send(5)
+                        historyViewModel.buttonClick.send(3)
                     }
                 }, label: {
                     Image("EditButton")

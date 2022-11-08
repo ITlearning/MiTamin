@@ -54,7 +54,7 @@ class MyTaminCollectionViewCell: UICollectionViewCell {
     var timerLabel: UILabel = {
         let label = UILabel()
         label.text = "00:00"
-        label.font = UIFont.SDGothicBold(size: 40)
+        label.font = UIFont.SDGothicBold(size: 35)
         label.textColor = UIColor.grayColor4
         
         return label
@@ -140,7 +140,7 @@ class MyTaminCollectionViewCell: UICollectionViewCell {
         }
      
         timerLabel.snp.makeConstraints {
-            $0.top.equalTo(timerImageView.snp.top).offset(40)
+            $0.top.equalTo(timerImageView.snp.top).offset(30)
             $0.centerX.equalTo(containerView.snp.centerX)
         }
         
