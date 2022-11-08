@@ -13,9 +13,23 @@ extension MyPageViewController {
         
         var profileData = CurrentValueSubject<ProfileModel?, Error>(nil)
         @Published var myDayInfo: MyDayModel? = nil
-        
+        @Published var loading: Bool = false
         var networkManager = NetworkManager()
         var cancelBag = CancelBag()
+        @Published var userWithDrawal: Bool = false
+        
+        func withDrawal() {
+            loading = true
+            networkManager.userWithdrawal()
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: { _ in
+                    self.loading = false
+                }, receiveValue: { value in
+                    self.loading = false
+                    self.userWithDrawal = true
+                })
+                .cancel(with: cancelBag)
+        }
         
         func getMyDayInfo() {
             networkManager.getMyDayInformation()

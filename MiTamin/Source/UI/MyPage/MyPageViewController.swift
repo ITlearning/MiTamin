@@ -222,6 +222,8 @@ class MyPageViewController: UIViewController {
     }()
     
     
+    private let demmedView = DemmedView()
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationConfigure()
@@ -272,7 +274,6 @@ class MyPageViewController: UIViewController {
             })
             .cancel(with: cancelBag)
         
-        
         viewModel.$myDayInfo
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in }, receiveValue: { value in
@@ -286,6 +287,28 @@ class MyPageViewController: UIViewController {
             .sink(receiveValue: { _ in
                 let vc = SettingViewController()
                 self.navigationController?.pushViewController(vc, animated: true)
+            })
+            .cancel(with: cancelBag)
+        
+        
+        viewModel.$loading
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }, receiveValue: { value in
+                if value {
+                    self.demmedView.showDemmedPopup(text: "회원탈퇴 중..")
+                } else {
+                    self.demmedView.hide()
+                }
+            })
+            .cancel(with: cancelBag)
+        
+        viewModel.$userWithDrawal
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }, receiveValue: { value in
+                if value {
+                    UserDefaults.standard.set(false, forKey: "isLogined")
+                    self.moveToLogin()
+                }
             })
             .cancel(with: cancelBag)
     }
@@ -453,6 +476,39 @@ class MyPageViewController: UIViewController {
         }
         
     }
+    
+    func presentWithDrawalPopup() {
+        let alertView = UIAlertController(title: "회원 탈퇴", message: "\(viewModel.profileData.value?.nickname ?? "")님, 정말 계정을 삭제하실 건가요?\n회원탈퇴 시 모든 정보가 사라지며 복구할 수 없습니다.", preferredStyle: .alert)
+        
+        let done = UIAlertAction(title: "탈퇴", style: .destructive) { _ in
+            self.viewModel.withDrawal()
+        }
+        
+        let cancel = UIAlertAction(title: "취소", style: .cancel)
+        
+        alertView.addAction(done)
+        alertView.addAction(cancel)
+        
+        self.present(alertView, animated: true)
+    }
+    
+    func presentLogoutPopup() {
+        
+        let alertView = UIAlertController(title: "로그아웃", message: "정말 로그아웃 하시겠습니까?", preferredStyle: .alert)
+        
+        let done = UIAlertAction(title: "확인", style: .destructive) { [weak self ] _ in
+            guard let self = self else { return }
+            UserDefaults.standard.set(false, forKey: "isLogined")
+            self.moveToLogin()
+        }
+        
+        let cancel = UIAlertAction(title: "취소", style: .cancel)
+        
+        alertView.addAction(done)
+        alertView.addAction(cancel)
+        self.present(alertView, animated: true)
+    }
+    
 }
 
 extension MyPageViewController: AppInfoDelegate {
@@ -470,14 +526,15 @@ extension MyPageViewController: AppInfoDelegate {
         
         switch type {
         case .LogOut:
-            UserDefaults.standard.set(false, forKey: "isLogined")
-            moveToLogin()
+            presentLogoutPopup()
         case .ResetData:
             let vc = ResetViewController()
             self.navigationController?.pushViewController(vc, animated: true)
         case .PasswordChange:
             let vc = PasswordViewController(email: KeychainWrapper.standard.string(forKey: "userEmail") ?? "", type: .myTamin)
             self.navigationController?.pushViewController(vc, animated: true)
+        case .UserOut:
+            presentWithDrawalPopup()
         default:
             print(type)
         }

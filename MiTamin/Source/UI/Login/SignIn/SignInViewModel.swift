@@ -52,10 +52,10 @@ extension SignInViewController {
                     self.loading = false
                     
                     if isAuto {
-                        KeychainWrapper.standard.set(self.emailPublisher, forKey: "userEmail")
                         UserDefaults.standard.set(true, forKey: "isLogined")
-                        
                     }
+                    
+                    KeychainWrapper.standard.set(self.emailPublisher, forKey: "userEmail")
                     
                     self.saveToken(accessToken: result.data.accessToken, refreshToken: result.data.refreshToken)
                     
