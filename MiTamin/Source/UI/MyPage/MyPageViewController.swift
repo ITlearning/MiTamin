@@ -12,6 +12,7 @@ import CombineCocoa
 import SnapKit
 import Kingfisher
 import SwiftKeychainWrapper
+import SkeletonView
 
 class MyPageViewController: UIViewController {
     
@@ -81,6 +82,7 @@ class MyPageViewController: UIViewController {
         label.numberOfLines = 0
         label.textAlignment = .left
         label.textColor = .primaryColor
+        label.isSkeletonable = true
         return label
     }()
     
@@ -90,6 +92,7 @@ class MyPageViewController: UIViewController {
         label.font = UIFont.SDGothicBold(size: 18)
         label.numberOfLines = 0
         label.textAlignment = .left
+        label.isSkeletonable = true
         return label
     }()
     
@@ -228,7 +231,17 @@ class MyPageViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationConfigure()
         self.navigationController?.isNavigationBarHidden = true
-        viewModel.getProfile()
+
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print(UserDefaults.standard.bool(forKey: "profileEdit"))
+        if UserDefaults.standard.bool(forKey: "profileEdit") {
+            viewModel.getProfile()
+            setSkeleton()
+            UserDefaults.standard.set(false, forKey: "profileEdit")
+        }
     }
     
     override func viewDidLoad() {
@@ -236,17 +249,33 @@ class MyPageViewController: UIViewController {
         view.backgroundColor = .white
         tabBarItem = UITabBarItem(title: "마이페이지", image: UIImage(named: "icon-user-mono"), selectedImage: UIImage(named: "icon-user-mono"))
         configureLayout()
+        setSkeleton()
+        viewModel.getProfile()
         viewModel.getMyDayInfo()
         bindCombine()
     }
     
+    func setSkeleton() {
+        profileMainLabel.startSkeletonAnimation()
+        profileMainLabel.showGradientSkeleton()
+        profileSubLabel.startSkeletonAnimation()
+        profileSubLabel.showGradientSkeleton()
+    }
+    
     func setText() {
+        
+        
         profileMainLabel.text = viewModel.profileData.value?.beMyMessage ?? ""
         profileSubLabel.text = "내가 될 \(viewModel.profileData.value?.nickname ?? "")"
         if let url = viewModel.profileData.value?.profileImgUrl {
             profileImageView.kf.indicatorType = .activity
             profileImageView.kf.setImage(with: URL(string: url)!)
         }
+        
+        profileMainLabel.stopSkeletonAnimation()
+        profileMainLabel.hideSkeleton()
+        profileSubLabel.stopSkeletonAnimation()
+        profileSubLabel.hideSkeleton()
     }
     
     func bindCombine() {

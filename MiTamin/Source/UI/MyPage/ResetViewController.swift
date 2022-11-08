@@ -30,6 +30,7 @@ class ResetViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
+        navigationConfigure(title: "기록 초기화")
     }
     
     override func viewDidLoad() {

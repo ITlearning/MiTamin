@@ -214,6 +214,9 @@ class EditProfileViewController: UIViewController {
         viewModel.profileEditSuccess
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in}, receiveValue: { _ in
+                
+                UserDefaults.standard.set(true, forKey: "profileEdit")
+                
                 self.navigationController?.popViewController(animated: true)
             })
             .cancel(with: cancelBag)
