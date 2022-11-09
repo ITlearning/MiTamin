@@ -14,6 +14,7 @@ extension ResetPasswordViewController {
         @Published var successCodeText: String = ""
         @Published var emailAuthSuccess: Bool = false
         @Published var emailAvailable: Bool = false
+        var sendRetry: Bool = false
         var emailSendState = PassthroughSubject<Bool, Never>()
         
         var networkManager = NetworkManager()
