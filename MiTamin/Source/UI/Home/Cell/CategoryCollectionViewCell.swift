@@ -94,7 +94,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     
     func configureCellLayout() {
         
-        let categoryView = UIHostingController(rootView: CategoryPickerView(viewModel: self.viewModel!))
+        let categoryView = UIHostingController(rootView: CategoryPickerView(viewModel: self.viewModel ?? CategoryCollectionViewModel()))
         let mainSubTitleView = UIHostingController(rootView: MainSubTitleView(mainTitle: "4. 칭찬 처방하기",
                                                                               subTitle: "어떤 부분을 칭찬해볼까요?"))
         

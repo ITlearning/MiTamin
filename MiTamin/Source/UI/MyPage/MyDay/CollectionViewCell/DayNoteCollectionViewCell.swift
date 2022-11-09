@@ -189,7 +189,7 @@ extension DayNoteCollectionViewCell: UICollectionViewDelegate, UICollectionViewD
         var reusebleView: UICollectionReusableView? = nil
         
         if kind == UICollectionView.elementKindSectionHeader {
-            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: DayNoteHeaderCollectionReusableView.cellId, for: indexPath) as! DayNoteHeaderCollectionReusableView
+            guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: DayNoteHeaderCollectionReusableView.cellId, for: indexPath) as? DayNoteHeaderCollectionReusableView else { return UICollectionReusableView() }
             
             headerView.setHeader(title: dayNotes[indexPath.section].year+"년")
             headerView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: 40)

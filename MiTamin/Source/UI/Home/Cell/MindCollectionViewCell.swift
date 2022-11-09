@@ -40,7 +40,7 @@ class MindCollectionViewCell: UICollectionViewCell {
     
     private func configureCell() {
         
-        let mindView = UIHostingController(rootView: MindSelectView(viewModel: self.viewModel!))
+        let mindView = UIHostingController(rootView: MindSelectView(viewModel: self.viewModel ?? MindSelectViewModel()))
         
         let mainSubTitleView = UIHostingController(rootView: MainSubTitleView(mainTitle: "3. 하루 진단하기",
                                                                               subTitle: "오늘의 마음 컨디션은 어떤가요?"))

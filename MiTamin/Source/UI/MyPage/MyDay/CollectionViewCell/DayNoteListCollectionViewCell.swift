@@ -54,7 +54,10 @@ class DayNoteListCollectionViewCell: UICollectionViewCell {
     func setItem(month: String, image: String) {
         label.text = month
         imageView.kf.indicatorType = .activity
-        imageView.kf.setImage(with: URL(string: image)!)
+        guard let url = URL(string: image) else { return }
+        
+        imageView.kf.setImage(with: url)
+        
     }
     
     func configureLayout() {

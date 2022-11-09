@@ -22,8 +22,8 @@ struct ConditionChartView: View {
                 ZStack {
                     Image("graph")
                         .resizable()
-                    LineChart(chartData: data!)
-                        .pointMarkers(chartData: data!)
+                    LineChart(chartData: data ?? LineChartData(dataSets: LineDataSet(dataPoints: [LineChartDataPoint(value: 0.0)])))
+                        .pointMarkers(chartData: data ?? LineChartData(dataSets: LineDataSet(dataPoints: [LineChartDataPoint(value: 0.0)])))
                         .padding()
                         .frame(height: 140)
                 }

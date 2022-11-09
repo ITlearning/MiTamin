@@ -139,6 +139,7 @@ extension MyTaminViewController {
         }
         
         func sendCareDailyReport() {
+            print(selectCategoryIdx.value ,mainTextViewData.value,subTextViewData.value)
             networkManager.careDaily(category: selectCategoryIdx.value+1, careMsg1: mainTextViewData.value, careMsg2: subTextViewData.value)
                 .receive(on: DispatchQueue.global())
                 .sink(receiveCompletion: { _ in }, receiveValue: { result in

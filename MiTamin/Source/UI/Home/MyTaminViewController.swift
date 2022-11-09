@@ -271,6 +271,7 @@ class MyTaminViewController: UIViewController {
                         self.viewModel.editCareReport()
                         UserDefaults.standard.set(true, forKey: "updateData")
                     } else {
+                        UserDefaults.standard.set(true, forKey: "updateData")
                         self.viewModel.sendCareDailyReport()
                     }
                     self.dismiss(animated: true)
@@ -331,7 +332,7 @@ class MyTaminViewController: UIViewController {
                     self.checkIsDone(bool: true)
                 }
                 
-                if value == -1 {
+                if value < 0 {
                     self.mindSelectViewModel.index = 0
                 } else {
                     self.mindSelectViewModel.index = value
@@ -786,6 +787,7 @@ class MyTaminViewController: UIViewController {
         categoryBottomSheetView.rootView.buttonTouch = { text, idx in
             self.categoryViewModel.text = text
             self.viewModel.selectMindIndex.send(idx)
+            self.viewModel.selectCategoryIdx.send(idx)
             self.checkIsDone(bool: true)
             self.nextButtonAction(index: self.viewModel.currentIndex)
             nav.dismiss(animated: true)
