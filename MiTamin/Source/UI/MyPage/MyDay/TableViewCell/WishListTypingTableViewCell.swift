@@ -59,6 +59,7 @@ class WishListTypingTableViewCell: UITableViewCell {
             .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] _ in
                 self?.delegate?.textFieldDone(text: self?.wishListTextField.text ?? "")
                 self?.wishListTextField.text = ""
+                self?.endEditing(true)
             })
             .cancel(with: cancelBag)
     }
