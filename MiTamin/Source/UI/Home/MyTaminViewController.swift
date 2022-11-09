@@ -179,7 +179,6 @@ class MyTaminViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         hideKeyboardWhenTappedAround()
-        //navigationConfigure(title: "오늘의 마이타민")
         view.backgroundColor = .white
         
         bindCombine()
