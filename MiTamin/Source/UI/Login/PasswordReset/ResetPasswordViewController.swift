@@ -162,6 +162,7 @@ class ResetPasswordViewController: UIViewController {
     
     func setNextButton(isOpen: Bool) {
         if isOpen {
+            stopTimer()
             nextButton.backgroundColor = UIColor.primaryColor
         } else {
             nextButton.backgroundColor = UIColor.grayColor7
@@ -201,6 +202,12 @@ class ResetPasswordViewController: UIViewController {
         emailComfirmButton.tapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in }, receiveValue: { value in
+                if !self.viewModel.sendRetry {
+                    self.emailComfirmButton.setImage(UIImage(named: "ReSend"), for: .normal)
+                    self.viewModel.sendRetry = true
+                    
+                }
+                self.startTimer()
                 self.viewModel.getEmailReset()
             })
             .cancel(with: cancelBag)
