@@ -629,7 +629,7 @@ class MyTaminViewController: UIViewController {
             $0.top.equalTo(toggleSwitch.snp.bottom).offset(20)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(142)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(70)
         }
         
         bottomBarImage.snp.makeConstraints {

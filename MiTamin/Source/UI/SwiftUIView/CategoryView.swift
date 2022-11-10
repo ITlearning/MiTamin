@@ -19,13 +19,13 @@ struct CategoryView: View {
         ScrollView(.horizontal, showsIndicators: false, content: {
             HStack(spacing: 0) {
                 ForEach(viewModel.selectIndex, id: \.self) { item in
-                    roundView(text: returnString(item: item))
+                    roundView(text: returnString(item: item), item: item)
                 }
             }
         })
     }
     
-    func roundView(text: String) -> some View {
+    func roundView(text: String, item: Int) -> some View {
         Text(text)
             .font(.SDGothicMedium(size: 12))
             .foregroundColor(Color(uiColor: .primaryColor))
@@ -43,7 +43,9 @@ struct CategoryView: View {
                     HStack {
                         Spacer()
                         Button(action: {
-                            
+                            if let index = viewModel.selectIndex.firstIndex(where: { $0 == item }) {
+                                viewModel.selectIndex.remove(at: index)
+                            }
                         }, label: {
                             Image("icon-x-mono")
                                 .resizable()
