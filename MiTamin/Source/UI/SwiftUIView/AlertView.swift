@@ -22,7 +22,7 @@ struct AlertView: View {
                 .foregroundColor(Color.white)
                 .overlay(
                     VStack(spacing: 0) {
-                        Image("Mainillustration")
+                        Image("MyDayImage")
                             .resizable()
                             .frame(width: 62.29, height: 62.29)
                             .padding(.top, 40)
