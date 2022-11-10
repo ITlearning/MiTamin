@@ -68,7 +68,7 @@ class MyPageViewController: UIViewController {
     
     private let profileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "Mainillustration")
+        imageView.image = UIImage(named: "DefaultImage")
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 34
         imageView.layer.masksToBounds = true
@@ -103,6 +103,15 @@ class MyPageViewController: UIViewController {
         roundView.layer.borderWidth = 1
         roundView.backgroundColor = .clear
         return roundView
+    }()
+    
+    private let accountTypeLabel: UILabel = {
+        let label = UILabel()
+        label.text = "일반 회원"
+        label.textColor = UIColor.grayColor3
+        label.font = UIFont.SDGothicRegular(size: 12)
+        label.isSkeletonable = true
+        return label
     }()
     
     private let myDayLabel: UILabel = {
@@ -260,6 +269,8 @@ class MyPageViewController: UIViewController {
         profileMainLabel.showGradientSkeleton()
         profileSubLabel.startSkeletonAnimation()
         profileSubLabel.showGradientSkeleton()
+        accountTypeLabel.startSkeletonAnimation()
+        accountTypeLabel.showGradientSkeleton()
     }
     
     func setText() {
@@ -267,6 +278,7 @@ class MyPageViewController: UIViewController {
         
         profileMainLabel.text = viewModel.profileData.value?.beMyMessage ?? ""
         profileSubLabel.text = "내가 될 \(viewModel.profileData.value?.nickname ?? "")"
+        accountTypeLabel.text = viewModel.profileData.value?.provider ?? ""
         if let url = viewModel.profileData.value?.profileImgUrl {
             profileImageView.kf.indicatorType = .activity
             profileImageView.kf.setImage(with: URL(string: url)!)
@@ -276,6 +288,8 @@ class MyPageViewController: UIViewController {
         profileMainLabel.hideSkeleton()
         profileSubLabel.stopSkeletonAnimation()
         profileSubLabel.hideSkeleton()
+        accountTypeLabel.stopSkeletonAnimation()
+        accountTypeLabel.hideSkeleton()
     }
     
     func bindCombine() {
@@ -360,6 +374,7 @@ class MyPageViewController: UIViewController {
         scrollView.addSubview(profileEditButton)
         scrollView.addSubview(profileMainLabel)
         scrollView.addSubview(profileSubLabel)
+        scrollView.addSubview(accountTypeLabel)
         scrollView.addSubview(roundedRectangleView)
         roundedRectangleView.addSubview(myDayLabel)
         roundedRectangleView.addSubview(myDayLabelSub)
@@ -435,6 +450,11 @@ class MyPageViewController: UIViewController {
         
         profileSubLabel.snp.makeConstraints {
             $0.top.equalTo(profileMainLabel.snp.bottom).offset(5)
+            $0.centerX.equalToSuperview()
+        }
+        
+        accountTypeLabel.snp.makeConstraints {
+            $0.top.equalTo(profileSubLabel.snp.bottom).offset(6)
             $0.centerX.equalToSuperview()
         }
         

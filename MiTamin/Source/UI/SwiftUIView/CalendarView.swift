@@ -121,7 +121,7 @@ struct CalendarView: View {
             } else {
                 Text(day)
                     .font(selectDate == day ? .SDGothicBold(size: 14) : .SDGothicMedium(size: 14))
-                    .foregroundColor( getConditionNum(date: day) != 0 ? selectDate == day ? Color.white : Color.black : Color(uiColor: .grayColor7 ))
+                    .foregroundColor( (getConditionNum(date: day) != 0) ? selectDate == day ? Color.white : Color.black : Color(uiColor: .grayColor7 ))
                     .padding()
                     .background(
                         Circle()

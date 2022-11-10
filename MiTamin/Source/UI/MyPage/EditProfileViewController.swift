@@ -198,9 +198,9 @@ class EditProfileViewController: UIViewController {
         defaultImageButton.tapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { _ in
-                self.profileImageView.image = UIImage(systemName: "person.fill")
+                self.profileImageView.image = UIImage(named: "DefaultImage")
                 self.viewModel.imageEdit = true
-                self.viewModel.editImage = UIImage(systemName: "person.fill")
+                self.viewModel.editImage = UIImage(named: "DefaultImage")
             })
             .cancel(with: cancelBag)
         
