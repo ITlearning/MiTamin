@@ -123,6 +123,36 @@ class TermsViewController: UIViewController {
             })
             .cancel(with: cancelBag)
         
+        termsViewOneButton.tapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }, receiveValue: {
+                guard let url = URL(string: "https://mitamin.notion.site/db7bcaab097344e8a8c8ce38bfd7c100") else {
+                  return //be safe
+                }
+
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                } else {
+                    UIApplication.shared.openURL(url)
+                }
+            })
+            .cancel(with: cancelBag)
+        
+        termsViewTwoButton.tapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }, receiveValue: {
+                guard let url = URL(string: "https://mitamin.notion.site/836c999489f64ce5a88aca635127aa01") else {
+                  return //be safe
+                }
+
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                } else {
+                    UIApplication.shared.openURL(url)
+                }
+            })
+            .cancel(with: cancelBag)
+        
         termsOneButton.tapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] _ in

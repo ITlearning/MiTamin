@@ -42,7 +42,7 @@ class DayNoteCollectionViewCell: UICollectionViewCell {
     
     private let mainillustrationImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "Mainillustration")
+        imageView.image = UIImage(named: "MyDayImage")
         imageView.isSkeletonable = true
         return imageView
     }()

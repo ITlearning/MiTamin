@@ -354,6 +354,21 @@ class MyPageViewController: UIViewController {
                 }
             })
             .cancel(with: cancelBag)
+        
+        helpButton.tapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] _ in
+                guard let self = self else { return }
+                
+                guard let url = URL(string: "https://mitamin.notion.site/44cd80e96a314911b79650ee55944017") else { return }
+                
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                } else {
+                    UIApplication.shared.openURL(url)
+                }
+            })
+            .cancel(with: cancelBag)
     }
     
     func setMyDayInfo(item: MyDayModel) {
@@ -367,7 +382,7 @@ class MyPageViewController: UIViewController {
         view.addSubview(scrollView)
         view.addSubview(mainLogo)
         view.addSubview(helpButton)
-        view.addSubview(settingButton)
+        //view.addSubview(settingButton)
         
         scrollView.addSubview(profileBackGroundView)
         scrollView.addSubview(profileImageView)
@@ -401,22 +416,15 @@ class MyPageViewController: UIViewController {
             $0.height.equalTo(16)
         }
         
-        settingButton.snp.makeConstraints {
-            $0.top.equalTo(mainLogo)
-            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
-            $0.width.equalTo(24)
-            $0.height.equalTo(24)
-        }
-        
         helpButton.snp.makeConstraints {
             $0.top.equalTo(mainLogo)
-            $0.trailing.equalTo(settingButton.snp.leading).inset(-10)
+            $0.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing).inset(20)
             $0.width.equalTo(24)
             $0.height.equalTo(24)
         }
         
         scrollView.snp.makeConstraints {
-            $0.top.equalTo(settingButton.snp.bottom).offset(8)
+            $0.top.equalTo(helpButton.snp.bottom).offset(8)
             $0.leading.equalTo(view.snp.leading)
             $0.trailing.equalTo(view.snp.trailing)
             $0.bottom.equalToSuperview()
@@ -574,6 +582,22 @@ extension MyPageViewController: AppInfoDelegate {
 //        }
         
         switch type {
+        case .Service:
+            guard let url = URL(string: "https://mitamin.notion.site/db7bcaab097344e8a8c8ce38bfd7c100") else { return }
+            
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        case .Privacy:
+            guard let url = URL(string: "https://mitamin.notion.site/836c999489f64ce5a88aca635127aa01") else { return }
+            
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
         case .LogOut:
             presentLogoutPopup()
         case .ResetData:

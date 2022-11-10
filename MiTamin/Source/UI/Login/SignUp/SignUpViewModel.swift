@@ -77,8 +77,8 @@ class SignUpViewModel: ObservableObject {
         let model = SignUpModel(email: emailText,
                                 password: passwordText,
                                 nickname: nickNameText,
-                                mytaminHour: myTaminHour,
-                                mytaminMin: myTaminMin)
+                                mytaminHour: myTaminHour == "" ? nil : myTaminHour,
+                                mytaminMin: myTaminMin == "" ? nil : myTaminMin)
         networkManager.signUpToServer(model: model, skip: skip)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in }, receiveValue: { value in
