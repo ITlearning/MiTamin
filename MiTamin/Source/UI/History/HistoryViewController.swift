@@ -27,7 +27,7 @@ class HistoryViewController: UIViewController {
     private let bellButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "Bell"), for: .normal)
-        
+        button.isHidden = true
         return button
     }()
     

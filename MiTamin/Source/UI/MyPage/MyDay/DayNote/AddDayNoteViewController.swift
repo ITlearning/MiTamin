@@ -101,6 +101,7 @@ class AddDayNoteViewController: UIViewController {
     private let doneButton: UIButton = {
         let button = UIButton()
         button.setTitle("완료", for: .normal)
+        button.setTitle("완료", for: .disabled)
         button.backgroundColor = UIColor.primaryColor
         button.layer.cornerRadius = 8
         button.titleLabel?.font = UIFont.SDGothicBold(size: 16)
@@ -323,6 +324,15 @@ class AddDayNoteViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] value in
                 self?.demmed(bool: value)
+            })
+            .cancel(with: cancelBag)
+        
+        viewModel.userDataIsValid
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] value in
+                guard let self = self else { return }
+                self.doneButton.isEnabled = value
+                self.doneButton.backgroundColor = value ? UIColor.primaryColor : UIColor.grayColor7
             })
             .cancel(with: cancelBag)
     }

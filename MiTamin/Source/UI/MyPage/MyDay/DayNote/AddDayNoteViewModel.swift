@@ -24,19 +24,31 @@ extension AddDayNoteViewController {
         var isReady: Bool = false
         var selectYear: Int = 0
         var selectMonth: Int = 0
-        var selectImages: [UIImage] = []
+        @Published var selectImages: [UIImage] = []
         var isWrite = CurrentValueSubject<Bool, Never>(false)
-        var selectWishList: WishListModel? = nil
+        @Published var selectWishList: WishListModel? = nil
         var networkManager = NetworkManager()
         var cancelBag = CancelBag()
+        
+        var userDataIsValid: AnyPublisher<Bool, Never> {
+            return Publishers.CombineLatest3($selectWishList, $note, $selectImages)
+                .map { wishList, note, selectImages in
+                    return wishList != nil && note.count > 0 && selectImages.count > 0
+                }
+                .eraseToAnyPublisher()
+        }
         
         func loadWishList(idx: Int) {
             networkManager.getWishList()
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] value in
                     guard let self = self else { return }
+                    print("위시리스트 불러오기")
                     if let idx = value.data.firstIndex(where: { $0.wishId == idx }) {
                         self.selectWishList = value.data[idx]
+                        print(self.selectWishList)
+                    } else {
+                        print("아쉽게도 idx를 못찾음")
                     }
                 })
                 .cancel(with: cancelBag)
@@ -44,7 +56,6 @@ extension AddDayNoteViewController {
         
         func editDayNote() {
             if editModel != nil {
-                
                 networkManager.editDayNote(daynoteId: editModel?.daynoteId ?? 0, wishIdx: selectWishList?.wishId ?? 0, note: note, images: selectImages)
                     .receive(on: DispatchQueue.main)
                     .sink(receiveCompletion: { _

@@ -116,7 +116,6 @@ class WeeklyCalendarViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         //viewModel.getCalendarMonthly(date: Date.dateToString(date: Date()))
-        navigationItem.rightBarButtonItem = deleteButton
         viewModel.weeklyCalendarData = nil
         self.setCurrentDay(date: viewModel.selectDate)
         setMyTaminText(date: viewModel.selectDate)
@@ -153,6 +152,17 @@ class WeeklyCalendarViewController: UIViewController {
                 let myTaminVC = MyTaminViewController(index: idx)
                 myTaminVC.modalPresentationStyle = .fullScreen
                 self.present(myTaminVC, animated: true)
+            })
+            .cancel(with: cancelBag)
+        
+        viewModel.$weeklyCalendarData
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }, receiveValue: { value in
+                if value?.data == nil {
+                    self.navigationItem.rightBarButtonItem = nil
+                } else {
+                    self.navigationItem.rightBarButtonItem = self.deleteButton
+                }
             })
             .cancel(with: cancelBag)
         

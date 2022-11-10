@@ -138,6 +138,7 @@ class HomeViewController: UIViewController {
         let button = UIButton()
         button.setImage(UIImage(named: "Bell"), for: .normal)
         button.backgroundColor = .clear
+        button.isHidden = true
         return button
     }()
     

@@ -629,7 +629,7 @@ class MyTaminViewController: UIViewController {
             $0.top.equalTo(toggleSwitch.snp.bottom).offset(20)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(70)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(90)
         }
         
         bottomBarImage.snp.makeConstraints {
@@ -894,7 +894,15 @@ extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataS
             
             cell.textView.delegate = self
             cell.textView.text = self.viewModel.dailyReportData.value
-            cell.textView.textColor = self.viewModel.dailyReportData.value.isEmpty ? UIColor.grayColor5 : .black
+            
+            self.viewModel.dailyReportData
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] value in
+                    guard let self = self else { return }
+                    cell.textView.textColor = self.viewModel.dailyReportData.value.isEmpty ? UIColor.grayColor5 : .black
+                })
+                .cancel(with: cancelBag)
+            
             
             cell.textView.textPublisher
                 .receive(on: RunLoop.main)
