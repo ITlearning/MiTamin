@@ -175,7 +175,7 @@ class MyTaminViewController: UIViewController {
     }()
     
     lazy var alertView = UIHostingController(rootView: AlertView(viewModel: self.viewModel))
-    
+    lazy var indicatorView = UIHostingController(rootView: IndicatorView(viewModel: self.viewModel))
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         cancelBag.cancel()
@@ -455,31 +455,12 @@ class MyTaminViewController: UIViewController {
                 }
                 self.collectionView.superview?.layoutIfNeeded()
                 
-                self.passButton.snp.remakeConstraints {
-                    $0.top.equalTo(self.bottomBarImage.snp.top).offset(12)
-                    $0.leading.equalTo(self.bottomBarImage.snp.leading).offset(25)
-                    $0.width.equalTo(162)
-                    $0.height.equalTo(56)
-                }
-                
-                self.passButton.superview?.layoutIfNeeded()
-                
-                self.nextButton.snp.remakeConstraints {
-                    $0.top.equalTo(self.bottomBarImage.snp.top).offset(12)
-                    $0.trailing.equalTo(self.bottomBarImage.snp.trailing).inset(25)
-                    $0.width.equalTo(162)
-                    $0.height.equalTo(56)
-                }
-                
-                self.nextButton.superview?.layoutIfNeeded()
-                
             }, completion: { _ in
                 self.autoTextLabel.isHidden = false
                 self.toggleSwitch.isHidden = false
             })
             
         case .myTaminThreeOne,.myTaminThreeTwo,.myTaminThreeThree,.myTaminFour:
-            
             UIView.animate(withDuration: 0.2, animations: {
                 self.autoTextLabel.alpha = 0.0
                 self.toggleSwitch.alpha = 0.0
@@ -494,23 +475,6 @@ class MyTaminViewController: UIViewController {
                 
                 self.collectionView.superview?.layoutIfNeeded()
                 
-                self.passButton.snp.remakeConstraints {
-                    $0.top.equalTo(self.bottomBarImage.snp.top).offset(12)
-                    $0.leading.equalTo(self.bottomBarImage.snp.leading).offset(25)
-                    $0.width.equalTo(0)
-                    $0.height.equalTo(56)
-                }
-                
-                self.passButton.superview?.layoutIfNeeded()
-                
-                self.nextButton.snp.remakeConstraints {
-                    $0.top.equalTo(self.bottomBarImage.snp.top).offset(12)
-                    $0.trailing.equalTo(self.bottomBarImage.snp.trailing).inset(25)
-                    $0.width.equalTo(162 + 162 + 20)
-                    $0.height.equalTo(56)
-                }
-                
-                self.nextButton.superview?.layoutIfNeeded()
                 
             }, completion: { _ in
                 self.autoTextLabel.isHidden = true
@@ -582,7 +546,7 @@ class MyTaminViewController: UIViewController {
         view.addSubview(blackView)
         view.addSubview(loadingLabel)
         view.addSubview(self.alertView.view)
-        
+        bottomBarImage.alpha = 0.0
         self.loadingLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.centerY.equalToSuperview()
@@ -654,14 +618,14 @@ class MyTaminViewController: UIViewController {
         
         passButton.snp.makeConstraints {
             $0.top.equalTo(bottomBarImage.snp.top).offset(12)
-            $0.leading.equalTo(bottomBarImage.snp.leading).offset(25)
-            $0.width.equalTo(162)
+            $0.leading.equalTo(bottomBarImage.snp.leading).offset(20)
+            $0.trailing.equalTo(bottomBarImage.snp.trailing).inset(20)
             $0.height.equalTo(56)
         }
         nextButton.snp.makeConstraints {
             $0.top.equalTo(bottomBarImage.snp.top).offset(12)
-            $0.trailing.equalTo(bottomBarImage.snp.trailing).inset(25)
-            $0.width.equalTo(162)
+            $0.leading.equalTo(bottomBarImage.snp.leading).offset(20)
+            $0.trailing.equalTo(bottomBarImage.snp.trailing).inset(20)
             $0.height.equalTo(56)
         }
     }
@@ -744,9 +708,11 @@ class MyTaminViewController: UIViewController {
             let isDone = viewModel.myTaminModel[index].isDone
             print("isDOne?", isDone)
             if isDone {
+                self.passButton.isHidden = true
                 self.nextButton.isEnabled = true
                 self.nextButton.backgroundColor = UIColor.primaryColor
             } else {
+                self.passButton.isHidden = false
                 self.nextButton.isEnabled = false
                 self.nextButton.backgroundColor = UIColor.grayColor1
             }
