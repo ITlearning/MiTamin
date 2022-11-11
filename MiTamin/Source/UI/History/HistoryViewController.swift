@@ -369,6 +369,7 @@ class HistoryViewController: UIViewController {
             $0.top.equalTo(mindCalLabel.snp.bottom).offset(16)
             $0.leading.equalTo(view.snp.leading)
             $0.trailing.equalTo(view.snp.trailing)
+            $0.height.equalTo(210)
         }
         
         collectMyTaminLabel.snp.makeConstraints {
