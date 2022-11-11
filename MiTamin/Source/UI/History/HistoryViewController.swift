@@ -322,6 +322,8 @@ class HistoryViewController: UIViewController {
         complimentHistoryLabel.snp.makeConstraints {
             $0.top.equalTo(complimentHistoryView.snp.top).offset(24)
             $0.leading.equalTo(complimentHistoryView.snp.leading).offset(16)
+            $0.trailing.equalTo(complimentHistoryView.snp.trailing).inset(40)
+            $0.height.equalTo(50)
         }
         
         complimentResetButton.snp.makeConstraints {
