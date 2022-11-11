@@ -546,6 +546,7 @@ class MyTaminViewController: UIViewController {
         view.addSubview(blackView)
         view.addSubview(loadingLabel)
         view.addSubview(self.alertView.view)
+        self.alertView.view.layer.cornerRadius = 20
         bottomBarImage.alpha = 0.0
         self.loadingLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
@@ -555,8 +556,8 @@ class MyTaminViewController: UIViewController {
         self.alertView.view.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.centerY.equalToSuperview()
-            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(36)
-            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(36)
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
         }
         
         blackView.snp.makeConstraints {
