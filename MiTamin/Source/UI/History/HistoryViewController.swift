@@ -179,7 +179,6 @@ class HistoryViewController: UIViewController {
         viewModel.getCareRandomData()
         viewModel.getFeelingRank()
         viewModel.getWeeklyMental()
-        //viewModel.getCalendarMonthly(date: Date.dateToString(date: Date))
         bindCombine()
     }
     
@@ -220,7 +219,7 @@ class HistoryViewController: UIViewController {
                 
                 self.viewModel.currentDate = Calendar.current.date(byAdding: .month, value: -1, to: date) ?? Date()
                 self.setCalendarText(date: self.viewModel.currentDate)
-                
+
             })
             .cancel(with: cancelBag)
         
@@ -275,6 +274,7 @@ class HistoryViewController: UIViewController {
         
         
         let graphView = UIHostingController(rootView: conditionGraphView)
+        
         
         scrollView.addSubview(graphView.view)
         scrollView.addSubview(mindCalLabel)

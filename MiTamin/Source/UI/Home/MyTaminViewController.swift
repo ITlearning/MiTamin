@@ -176,6 +176,11 @@ class MyTaminViewController: UIViewController {
     
     lazy var alertView = UIHostingController(rootView: AlertView(viewModel: self.viewModel))
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        cancelBag.cancel()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         hideKeyboardWhenTappedAround()
@@ -201,7 +206,8 @@ class MyTaminViewController: UIViewController {
     
     func bindCombine() {
         backButton.tapPublisher
-            .sink(receiveValue: { _ in
+            .sink(receiveValue: {[weak self] _ in
+                guard let self = self else { return }
                 if self.viewModel.currentIndex - 1 > -1 {
                     self.controlIndex(back: true)
                     self.scrollToIndex(index: self.viewModel.currentIndex)
@@ -212,7 +218,8 @@ class MyTaminViewController: UIViewController {
             .cancel(with: cancelBag)
         
         cancelButton.tapPublisher
-            .sink(receiveValue: { _ in
+            .sink(receiveValue: { [weak self] _ in
+                guard let self = self else { return }
                 switch self.viewModel.currentIndex {
                 case 0,1:
                     guard let cell = self.collectionView.cellForItem(at: IndexPath(row: self.viewModel.currentIndex, section: 0)) else {
@@ -246,7 +253,8 @@ class MyTaminViewController: UIViewController {
         
         passButton.tapPublisher
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { _ in
+            .sink(receiveValue: { [weak self]_ in
+                guard let self = self else { return }
                 if self.viewModel.currentIndex+1 < self.viewModel.myTaminModel.count {
                     self.controlIndex()
                     self.scrollToIndex(index: self.viewModel.currentIndex)
@@ -279,7 +287,8 @@ class MyTaminViewController: UIViewController {
             .cancel(with: cancelBag)
         
         viewModel.selectCategoryIdx.receive(on: DispatchQueue.main)
-            .sink(receiveValue: { value in
+            .sink(receiveValue: { [weak self] value in
+                guard let self = self else { return }
                 if value != -1 {
                     self.categoryViewModel.text = self.viewModel.selectMindArray[value]
                 }
@@ -298,7 +307,8 @@ class MyTaminViewController: UIViewController {
         
         viewModel.myTaminStatus
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { value in
+            .sink(receiveValue: {[weak self] value in
+                guard let self = self else { return }
                 self.isDone = self.getIsDoneStatus(idx: value)
                 if self.getIsDoneStatus(idx: value) && (self.viewModel.currentIndex == 2 || self.viewModel.currentIndex == 5) {
                     self.viewModel.isEditStatus.send(true)
@@ -317,7 +327,8 @@ class MyTaminViewController: UIViewController {
         
         viewModel.isEditStatus
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { value in
+            .sink(receiveValue: { [weak self] value in
+                guard let self = self else { return }
                 DispatchQueue.main.async {
                     self.alertView.view.alpha = value ? 1.0 : 0.0
                 }
@@ -326,7 +337,8 @@ class MyTaminViewController: UIViewController {
         
         viewModel.selectMindIndex
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { value in
+            .sink(receiveValue: { [weak self] value in
+                guard let self = self else { return }
                 if value != -1 {
                     self.checkIsDone(bool: true)
                 }
@@ -342,7 +354,8 @@ class MyTaminViewController: UIViewController {
         
         viewModel.dataIsReady
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { value in
+            .sink(receiveValue: { [weak self] value in
+                guard let self = self else { return }
                 if value {
                     if self.viewModel.currentIndex == 5 {
                         self.setCareReportData()
@@ -356,7 +369,8 @@ class MyTaminViewController: UIViewController {
         
         viewModel.selectMindTexts
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { value in
+            .sink(receiveValue: { [weak self] value in
+                guard let self = self else { return }
                 if !value.isEmpty {
                     self.setMindTextData()
                     self.checkIsDone(bool: true)
@@ -783,7 +797,8 @@ class MyTaminViewController: UIViewController {
             sheet.detents = [.medium()]
         }
         
-        categoryBottomSheetView.rootView.buttonTouch = { text, idx in
+        categoryBottomSheetView.rootView.buttonTouch = {[weak self] text, idx in
+            guard let self = self else { return }
             self.categoryViewModel.text = text
             self.viewModel.selectMindIndex.send(idx)
             self.viewModel.selectCategoryIdx.send(idx)
@@ -834,6 +849,24 @@ extension MyTaminViewController: MyTaminCollectionViewDelegate {
             }
         }
     }
+    
+    func setTextView() {
+        guard let cell = self.collectionView.cellForItem(at: IndexPath(row: 3, section: 0)) else {
+            return
+        }
+        
+        guard let cell = cell as? TextViewCollectionViewCell else { return }
+        
+        self.viewModel.dailyReportData
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] value in
+                guard let self = self else { return }
+                cell.textView.textColor = self.viewModel.dailyReportData.value.isEmpty ? UIColor.grayColor5 : .black
+            })
+            .cancel(with: cancelBag)
+        
+        cell.textView.text = self.viewModel.dailyReportData.value
+    }
 }
 
 extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -873,7 +906,8 @@ extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataS
             
             cell.cellData = viewModel.showMindSet(idx: viewModel.selectMindIndex.value)
             cell.selectCellTexts = viewModel.selectMindTexts.value
-            cell.addAction = { value in
+            cell.addAction = { [weak self] value in
+                guard let self = self else { return }
                 self.viewModel.appendMindSet(idx: self.viewModel.selectMindIndex.value, value: value)
             }
             
@@ -894,19 +928,11 @@ extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataS
             
             cell.textView.delegate = self
             cell.textView.text = self.viewModel.dailyReportData.value
-            
-            self.viewModel.dailyReportData
-                .receive(on: DispatchQueue.main)
-                .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] value in
-                    guard let self = self else { return }
-                    cell.textView.textColor = self.viewModel.dailyReportData.value.isEmpty ? UIColor.grayColor5 : .black
-                })
-                .cancel(with: cancelBag)
-            
-            
+            setTextView()
             cell.textView.textPublisher
-                .receive(on: RunLoop.main)
-                .sink(receiveValue: { text in
+                .receive(on: DispatchQueue.main)
+                .sink(receiveValue: { [weak self] text in
+                    guard let self = self else { return }
                     if text?.isEmpty ?? true {
                         self.checkIsDone(bool: false)
                     } else {
@@ -938,7 +964,8 @@ extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataS
             
             cell.textView.textPublisher
                 .receive(on: DispatchQueue.main)
-                .sink(receiveValue: { text in
+                .sink(receiveValue: {[weak self] text in
+                    guard let self = self else { return }
                     if self.viewModel.placeHolder.contains(where: { $0 != text ?? "" }) {
                         self.checkIsDone(bool: true)
                         self.viewModel.mainTextViewData.send(text ?? "")
@@ -950,7 +977,8 @@ extension MyTaminViewController: UICollectionViewDelegate, UICollectionViewDataS
             
             cell.subTextView.textPublisher
                 .receive(on: DispatchQueue.main)
-                .sink(receiveValue: { text in
+                .sink(receiveValue: { [weak self ] text in
+                    guard let self = self else { return }
                     
                     if self.viewModel.placeHolder.contains(where: { $0 != text ?? "" }) {
                         self.checkIsDone(bool: true)

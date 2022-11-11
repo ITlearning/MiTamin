@@ -12,7 +12,7 @@ import UIKit
 struct ConditionChartView: View {
     
     @StateObject var viewModel: HistoryViewController.ViewModel
-    
+    @State var isOpen: Bool = false
     @State var data: LineChartData? = nil
     @State var week: [String] = ["일", "월", "화", "수", "목", "금", "토", "일"]
     @State var day: String = getDayOfWeek()
@@ -22,10 +22,12 @@ struct ConditionChartView: View {
                 ZStack {
                     Image("graph")
                         .resizable()
-                    LineChart(chartData: data ?? LineChartData(dataSets: LineDataSet(dataPoints: [LineChartDataPoint(value: 0.0)])))
-                        .pointMarkers(chartData: data ?? LineChartData(dataSets: LineDataSet(dataPoints: [LineChartDataPoint(value: 0.0)])))
-                        .padding()
-                        .frame(height: 140)
+                    if isOpen {
+                        LineChart(chartData: data ?? LineChartData(dataSets: LineDataSet(dataPoints: [LineChartDataPoint(value: 0.0)])))
+                            .pointMarkers(chartData: data ?? LineChartData(dataSets: LineDataSet(dataPoints: [LineChartDataPoint(value: 0.0)])))
+                            .padding()
+                            .frame(height: 140)
+                    }
                 }
                 .frame(height: 140)
                 .padding(.horizontal, 20)
@@ -76,6 +78,8 @@ struct ConditionChartView: View {
                                                  startPoint: .top,
                                                  endPoint: .bottom),
                          lineType: .line))
+        
+        isOpen = data.dataPoints.contains(where: { $0.value != 0 })
         return LineChartData(dataSets: data,
                              metadata: ChartMetadata(title: "Some Data", subtitle: "A Week"),
                              xAxisLabels: ["일", "월", "화", "수", "목", "금", "토", "일"],
