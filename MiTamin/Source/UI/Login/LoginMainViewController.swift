@@ -37,7 +37,7 @@ class LoginMainViewController: UIViewController {
     }()
     private let mainillustrationImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "LoginLogo")
+        imageView.image = UIImage(named: "Frame-4")
         imageView.contentMode = .scaleAspectFill
         
         return imageView
