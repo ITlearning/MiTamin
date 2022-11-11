@@ -534,7 +534,7 @@ class MyTaminViewController: UIViewController {
         view.addSubview(backButton)
         view.addSubview(midNavTitle)
         view.addSubview(cancelButton)
-        let indicatorView = UIHostingController(rootView: IndicatorView(viewModel: self.viewModel))
+        let indicatorView = UIHostingController(rootView: IndicatorView(viewModel: self.viewModel,type: .myTamin))
         
         view.addSubview(indicatorView.view)
         view.addSubview(autoTextLabel)
@@ -588,7 +588,7 @@ class MyTaminViewController: UIViewController {
         
         indicatorView.view.snp.makeConstraints {
             $0.top.equalTo(midNavTitle.snp.bottom).offset(34)
-            $0.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
+            $0.leading.trailing.equalToSuperview()
         }
         
         autoTextLabel.snp.makeConstraints {

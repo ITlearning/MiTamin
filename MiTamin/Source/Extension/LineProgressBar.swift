@@ -18,7 +18,7 @@ struct LineProgressBar: View {
                 .frame(width: UIScreen.main.bounds.width * progress, height: 5)
                 .foregroundColor(Color(uiColor: UIColor.primaryColor))
             Spacer()
-        }
+        } 
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: {
                 if nextProgress != 0.0 {

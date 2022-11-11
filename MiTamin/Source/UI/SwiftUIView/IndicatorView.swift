@@ -7,23 +7,54 @@
 
 import SwiftUI
 
+enum IndicatorType {
+    case signUp
+    case myTamin
+}
+
 struct IndicatorView: View {
     
     @StateObject var viewModel: MyTaminViewController.ViewModel
+    var type: IndicatorType = .signUp
     @State var indicators: Int = 1
-    
+    @State var indicatorsDouble: Double = 0.0
     
     var body: some View {
-        HStack(spacing: 8) {
-            ForEach(1...4, id:\.self) { idx in
-                circleView(idx: idx)
+        
+        if type == .signUp {
+            HStack(spacing: 8) {
+                ForEach(1...4, id:\.self) { idx in
+                    circleView(idx: idx)
+                }
             }
+            .onReceive(viewModel.myTaminStatus, perform: { value in
+                withAnimation {
+                    indicators = value
+                }
+            })
+        } else {
+            HStack {
+                Rectangle()
+                    .frame(width: UIScreen.main.bounds.width * indicatorsDouble, height: 5)
+                    .foregroundColor(Color(uiColor: UIColor.primaryColor))
+                Spacer()
+            }
+            .onReceive(viewModel.myTaminStatus, perform: { value in
+                withAnimation {
+                    if value == 1 {
+                        indicatorsDouble = 0.25
+                    } else if value == 2 {
+                        indicatorsDouble = 0.5
+                    } else if value == 3 {
+                        indicatorsDouble = 0.75
+                    } else {
+                        indicatorsDouble = 1
+                    }
+                }
+            })
         }
-        .onReceive(viewModel.myTaminStatus, perform: { value in
-            withAnimation {
-                indicators = value
-            }
-        })
+        
+        
     }
     
     func circleView(idx: Int) -> some View {
