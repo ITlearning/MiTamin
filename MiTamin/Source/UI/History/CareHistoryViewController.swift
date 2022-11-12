@@ -17,6 +17,8 @@ class CareHistoryViewController: UIViewController {
     var cancelBag = CancelBag()
     
     lazy var categoryView = CategoryView(viewModel: self.viewModel)
+    lazy var categoryBottomSheetView = UIHostingController(rootView: CategoryBottomSheetView(type: .history, index: viewModel.selectIndex))
+    lazy var hostingView = UIHostingController(rootView: categoryView)
     
     private let tableView = UITableView()
     
@@ -60,6 +62,7 @@ class CareHistoryViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] value in
                 guard let self = self else { return }
+                self.setCategoryView(isOpen: value.count != 0)
                 self.viewModel.getCategoryCareData(category: value)
             })
             .cancel(with: cancelBag)
@@ -77,9 +80,35 @@ class CareHistoryViewController: UIViewController {
             .cancel(with: cancelBag)
     }
     
+    private func setCategoryView(isOpen: Bool) {
+        if isOpen {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.hostingView.view.snp.remakeConstraints {
+                    $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(20)
+                    $0.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading)
+                    $0.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing)
+                    $0.height.equalTo(30)
+                }
+                
+                self.hostingView.view.superview?.layoutSubviews()
+            })
+        } else {
+            UIView.animate(withDuration: 0.3,  animations: {
+                self.hostingView.view.snp.remakeConstraints {
+                    $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(0)
+                    $0.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading)
+                    $0.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing)
+                    $0.height.equalTo(0)
+                }
+                self.hostingView.view.superview?.layoutSubviews()
+            })
+        }
+
+    }
+    
     private func configureLayout() {
         view.addSubview(tableView)
-        let hostingView = UIHostingController(rootView: categoryView)
+        
         view.addSubview(hostingView.view)
         
         hostingView.view.snp.makeConstraints {
