@@ -81,13 +81,23 @@ class WishListTypingTableViewCell: UITableViewCell {
             $0.width.equalTo(UIScreen.main.bounds.width - minusValue)
         }
         
-        borderView.snp.makeConstraints {
-            $0.top.equalTo(self.snp.top)
-            $0.leading.equalTo(self.snp.leading)
-            $0.width.equalTo(UIScreen.main.bounds.width - minusValue)
-            $0.height.equalTo(48)
+        if editModel {
+            borderView.snp.remakeConstraints {
+                $0.top.equalTo(self.snp.top)
+                $0.leading.equalTo(self.snp.leading)
+                $0.trailing.equalTo(self.snp.trailing)
+                $0.width.equalTo(UIScreen.main.bounds.width - minusValue)
+                $0.height.equalTo(48)
+            }
+        } else {
+            borderView.snp.remakeConstraints {
+                $0.top.equalTo(self.snp.top)
+                $0.leading.equalTo(self.snp.leading)
+                $0.width.equalTo(UIScreen.main.bounds.width - minusValue)
+                $0.height.equalTo(48)
+            }
         }
-        
+ 
     }
     
     func configureCell() {
