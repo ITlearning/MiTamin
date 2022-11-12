@@ -164,14 +164,11 @@ class HistoryViewController: UIViewController {
         super.viewWillAppear(animated)
         viewModel.getFeelingRank()
         viewModel.getWeeklyMental()
-        if UserDefaults.standard.bool(forKey: "updateCalendarData") || UserDefaults.standard.bool(forKey: "AllResetMind") || UserDefaults.standard.bool(forKey: "AllResetCare") || UserDefaults.standard.bool(forKey: "NeedUpdateHistory") {
+        if UserDefaults.standard.bool(forKey: "tabChange") || UserDefaults.standard.bool(forKey: "DeleteData") {
+            viewModel.currentDate = Date()
             viewModel.getCalendarMonthly(date: Date.dateToString(date: viewModel.currentDate))
-            UserDefaults.standard.set(false, forKey: "AllResetMind")
-            UserDefaults.standard.set(false, forKey: "AllResetCare")
-            UserDefaults.standard.set(false, forKey: "NeedUpdateHistory")
-            UserDefaults.standard.set(true, forKey: "updateCalendar")
+            UserDefaults.standard.set(false, forKey: "tabChange")
         }
-        
         navigationController?.isNavigationBarHidden = true
     }
     

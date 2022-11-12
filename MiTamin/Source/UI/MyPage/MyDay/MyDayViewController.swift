@@ -75,7 +75,7 @@ class MyDayViewController: UIViewController, MenuBarDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        UserDefaults.standard.set(true, forKey: "tabChange")
         if UserDefaults.standard.bool(forKey: "MyDayUpdate") {
             viewModel.getDayNoteList()
             UserDefaults.standard.set(false, forKey: "MyDayUpdate")

@@ -144,7 +144,7 @@ class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        UserDefaults.standard.set(true, forKey: "tabChange")
     }
     
     override func viewDidAppear(_ animated: Bool) {
