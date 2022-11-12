@@ -248,7 +248,6 @@ class MyPageViewController: UIViewController {
         print(UserDefaults.standard.bool(forKey: "profileEdit"))
         if UserDefaults.standard.bool(forKey: "profileEdit") {
             viewModel.getProfile()
-            setSkeleton()
             UserDefaults.standard.set(false, forKey: "profileEdit")
         }
     }
@@ -258,23 +257,12 @@ class MyPageViewController: UIViewController {
         view.backgroundColor = .white
         tabBarItem = UITabBarItem(title: "마이페이지", image: UIImage(named: "icon-user-mono"), selectedImage: UIImage(named: "icon-user-mono"))
         configureLayout()
-        setSkeleton()
         viewModel.getProfile()
         viewModel.getMyDayInfo()
         bindCombine()
     }
     
-    func setSkeleton() {
-        profileMainLabel.startSkeletonAnimation()
-        profileMainLabel.showGradientSkeleton()
-        profileSubLabel.startSkeletonAnimation()
-        profileSubLabel.showGradientSkeleton()
-        accountTypeLabel.startSkeletonAnimation()
-        accountTypeLabel.showGradientSkeleton()
-    }
-    
     func setText() {
-        
         
         profileMainLabel.text = viewModel.profileData.value?.beMyMessage ?? ""
         profileSubLabel.text = "내가 될 \(viewModel.profileData.value?.nickname ?? "")"
@@ -284,12 +272,6 @@ class MyPageViewController: UIViewController {
             profileImageView.kf.setImage(with: URL(string: url)!)
         }
         
-        profileMainLabel.stopSkeletonAnimation()
-        profileMainLabel.hideSkeleton()
-        profileSubLabel.stopSkeletonAnimation()
-        profileSubLabel.hideSkeleton()
-        accountTypeLabel.stopSkeletonAnimation()
-        accountTypeLabel.hideSkeleton()
     }
     
     func bindCombine() {
