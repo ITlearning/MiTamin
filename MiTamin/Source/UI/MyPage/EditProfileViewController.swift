@@ -249,7 +249,7 @@ class EditProfileViewController: UIViewController {
         config.wordings.cameraTitle = "카메라"
         config.wordings.next = "확인"
         
-        let picker = YPImagePicker()
+        let picker = YPImagePicker(configuration: config)
         
         picker.didFinishPicking { items, cancelled in
             if let photo = items.singlePhoto {
