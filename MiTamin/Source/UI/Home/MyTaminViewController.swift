@@ -46,9 +46,9 @@ class MyTaminViewController: UIViewController {
     
     let index: Int
     var isDone: Bool = false
-    
-    init(index: Int) {
-        
+    var isEdit: Bool = false
+    init(index: Int, isEdit: Bool = false) {
+        self.isEdit = isEdit
         if index == 2 {
             self.viewModel.myTaminStatus.send(3)
             self.index = index
@@ -274,7 +274,7 @@ class MyTaminViewController: UIViewController {
                     self.scrollToIndex(index: self.viewModel.currentIndex)
                     self.nextButtonAction(index: self.viewModel.currentIndex)
                 } else {
-                    if UserDefaults.standard.bool(forKey: .careIsDone) {
+                    if UserDefaults.standard.bool(forKey: .careIsDone) || self.isEdit {
                         self.viewModel.editCareReport()
                         UserDefaults.standard.set(true, forKey: "updateData")
                     } else {

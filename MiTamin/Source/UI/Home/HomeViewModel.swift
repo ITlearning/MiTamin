@@ -67,7 +67,7 @@ extension HomeViewController {
                         UserDefaults.standard.set(1, forKey: .mindSelectIndex)
                     }
                     
-                    if result.data.reportIsDone && result.data.careIsDone {
+                    if result.data.reportIsDone || result.data.careIsDone {
                         self.getLatestData.send(true)
                     } else {
                         self.getLatestData.send(false)
@@ -136,8 +136,10 @@ extension HomeViewController {
                 .sink(receiveCompletion: { _ in
                     print(self.careData)
                     self.careData = nil
+                    print("dasdsasd",self.careData)
                 }, receiveValue: { value in
                     self.careData = value.data
+                    print("dasdsasd",self.careData)
                     print(self.careData)
                     UserDefaults.standard.set(value.data.careId, forKey: .careId)
                     withAnimation {
@@ -160,12 +162,13 @@ extension HomeViewController {
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { _ in
                 }, receiveValue: { result in
-                    
+                    print("Data", result.data.care)
+                    print("Data", result.data.report)
                     self.careData = result.data.care
                     self.reportData = result.data.report
                     
-                    UserDefaults.standard.set(result.data.report.reportId, forKey: .reportId)
-                    UserDefaults.standard.set(result.data.care.careId, forKey: .careId)
+                    UserDefaults.standard.set(result.data.report?.reportId ?? 0, forKey: .reportId)
+                    UserDefaults.standard.set(result.data.care?.careId ?? 0, forKey: .careId)
                     
                     withAnimation {
                         self.dataIsReady = true

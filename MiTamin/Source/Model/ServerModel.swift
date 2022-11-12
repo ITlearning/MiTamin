@@ -100,8 +100,8 @@ struct CareDailyModel: Codable {
 
 struct LatestMyTaminModel: Codable {
     var takeAt: String
-    var report: ReportModel
-    var care: CareModel
+    var report: ReportModel?
+    var care: CareModel?
 }
 
 struct RandomCareModel: Codable {

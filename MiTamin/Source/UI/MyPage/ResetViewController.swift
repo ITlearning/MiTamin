@@ -26,7 +26,6 @@ class ResetViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = false
     }
     
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.navigationController?.isNavigationBarHidden = false

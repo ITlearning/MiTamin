@@ -145,10 +145,9 @@ class WeeklyCalendarViewController: UIViewController {
         viewModel.buttonClick
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { idx in
-                
+                print("버튼 누르면 나오는 데이터",self.viewModel.weeklyCalendarData?.data)
                 UserDefaults.standard.set(self.viewModel.weeklyCalendarData?.data?.report?.reportId, forKey: .reportId)
                 UserDefaults.standard.set(self.viewModel.weeklyCalendarData?.data?.care?.careId, forKey: .careId)
-                
                 let myTaminVC = MyTaminViewController(index: idx)
                 myTaminVC.modalPresentationStyle = .fullScreen
                 self.present(myTaminVC, animated: true)

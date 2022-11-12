@@ -153,8 +153,11 @@ class HomeViewController: UIViewController {
         navigationController?.isNavigationBarHidden = true  
         self.view.showAnimatedGradientSkeleton()
         
-        if UserDefaults.standard.bool(forKey: "updateData") {
+        if UserDefaults.standard.bool(forKey: "updateData") || UserDefaults.standard.bool(forKey: "AllResetMind") || UserDefaults.standard.bool(forKey: "AllResetCare") || UserDefaults.standard.bool(forKey: "NeedUpdateHistory") {
             viewModel.checkStatus()
+            UserDefaults.standard.set(false, forKey: "AllResetMind")
+            UserDefaults.standard.set(false, forKey: "AllResetCare")
+            UserDefaults.standard.set(false, forKey: "NeedUpdateHistory")
             UserDefaults.standard.set(false, forKey: "updateData")
         }
         
@@ -217,7 +220,6 @@ class HomeViewController: UIViewController {
                 if value {
                     self.viewModel.loadLatestData()
                 } else {
-                    
                     if UserDefaults.standard.bool(forKey: .reportIsDone) {
                         self.viewModel.loadDailyReport()
                     } else if UserDefaults.standard.bool(forKey: .careIsDone) {

@@ -20,6 +20,11 @@ extension ResetViewController {
         func resetData() {
             loading = true
             self.done = false
+            UserDefaults.standard.set(selectIndex[0] == 1 ? true : false, forKey: "AllResetMind")
+            UserDefaults.standard.set(selectIndex[1] == 1 ? true : false, forKey: "AllResetCare")
+            UserDefaults.standard.set(selectIndex[2] == 1 ? true : false, forKey: "AllResetMyDay")
+            UserDefaults.standard.set(true, forKey: "NeedUpdateHistory")
+            UserDefaults.standard.set(true, forKey: "NeedUpdateMain")
             networkManager.resetData(array: selectIndex)
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { _ in
