@@ -153,12 +153,13 @@ class HomeViewController: UIViewController {
         navigationController?.isNavigationBarHidden = true  
         self.view.showAnimatedGradientSkeleton()
         
-        if UserDefaults.standard.bool(forKey: "updateData") || UserDefaults.standard.bool(forKey: "AllResetMind") || UserDefaults.standard.bool(forKey: "AllResetCare") || UserDefaults.standard.bool(forKey: "NeedUpdateHistory") {
+        if UserDefaults.standard.bool(forKey: "updateData") || UserDefaults.standard.bool(forKey: "AllResetMind") || UserDefaults.standard.bool(forKey: "AllResetCare") || UserDefaults.standard.bool(forKey: "NeedUpdateHistory") || UserDefaults.standard.bool(forKey: "DeleteData") {
             viewModel.checkStatus()
             UserDefaults.standard.set(false, forKey: "AllResetMind")
             UserDefaults.standard.set(false, forKey: "AllResetCare")
             UserDefaults.standard.set(false, forKey: "NeedUpdateHistory")
             UserDefaults.standard.set(false, forKey: "updateData")
+            UserDefaults.standard.set(false, forKey: "DeleteData")
         }
         
     }
@@ -220,13 +221,8 @@ class HomeViewController: UIViewController {
                 if value {
                     self.viewModel.loadLatestData()
                 } else {
-                    if UserDefaults.standard.bool(forKey: .reportIsDone) {
-                        self.viewModel.loadDailyReport()
-                    } else if UserDefaults.standard.bool(forKey: .careIsDone) {
-                        self.viewModel.loadCareReport()
-                    } else {
-                        self.viewModel.sendNil()
-                    }
+                    self.viewModel.loadDailyReport()
+                    self.viewModel.loadCareReport()
                 }
             })
             .cancel(with: cancelBag)

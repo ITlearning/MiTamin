@@ -101,11 +101,13 @@ extension HomeViewController {
             }
             
             self.reportData = nil
-            
             networkManager.loadDailyReportData()
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { _ in
                     self.reportData = nil
+                    withAnimation {
+                        self.dataIsReady = true
+                    }
                 }, receiveValue: { value in
                     let data = value.data
                     self.reportData = data
@@ -136,7 +138,10 @@ extension HomeViewController {
                 .sink(receiveCompletion: { _ in
                     print(self.careData)
                     self.careData = nil
-                    print("dasdsasd",self.careData)
+                    withAnimation {
+                        self.dataIsReady = true
+                    }
+                    
                 }, receiveValue: { value in
                     self.careData = value.data
                     print("dasdsasd",self.careData)
@@ -147,6 +152,11 @@ extension HomeViewController {
                     }
                 })
                 .cancel(with: cancelBag)
+        }
+        
+        func resetData() {
+            self.careData = nil
+            self.reportData = nil
         }
         
         func loadLatestData() {

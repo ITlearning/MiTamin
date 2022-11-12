@@ -130,6 +130,7 @@ class WeeklyCalendarViewController: UIViewController {
         }
         let doneButton = UIAlertAction(title: "네", style: .destructive) { _ in
             if let index = self.viewModel.calendarWeekList.firstIndex(where: { Int($0.day) == Int(self.viewModel.selectWeeklyDate) }) {
+                UserDefaults.standard.set(true, forKey: "DeleteData")
                 self.viewModel.deleteMyTamin(id: self.viewModel.calendarWeekList[index].data?.mytaminId ?? 0)
             }
         }
@@ -145,7 +146,6 @@ class WeeklyCalendarViewController: UIViewController {
         viewModel.buttonClick
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { idx in
-                print("버튼 누르면 나오는 데이터",self.viewModel.weeklyCalendarData?.data)
                 UserDefaults.standard.set(self.viewModel.weeklyCalendarData?.data?.report?.reportId, forKey: .reportId)
                 UserDefaults.standard.set(self.viewModel.weeklyCalendarData?.data?.care?.careId, forKey: .careId)
                 let myTaminVC = MyTaminViewController(index: idx)
