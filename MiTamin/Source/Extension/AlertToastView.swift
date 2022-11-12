@@ -71,12 +71,18 @@ class AlertToastView: UIView {
                 $0.trailing.equalToSuperview().inset(40)
             }
             
+            self.label.snp.makeConstraints {
+                $0.centerX.equalToSuperview()
+                $0.centerY.equalToSuperview()
+            }
+            
             self.view.snp.makeConstraints {
                 $0.top.leading.trailing.bottom.equalToSuperview()
             }
             
             UIView.animate(withDuration: 0.5, delay: 0, animations: {
                 self.view.alpha = 1.0
+                self.alpha = 1.0
             }, completion: nil)
         }
         

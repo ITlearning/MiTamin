@@ -58,8 +58,7 @@ extension AddDayNoteViewController {
             if editModel != nil {
                 networkManager.editDayNote(daynoteId: editModel?.daynoteId ?? 0, wishIdx: selectWishList?.wishId ?? 0, note: note, images: selectImages)
                     .receive(on: DispatchQueue.main)
-                    .sink(receiveCompletion: { _
-                        in
+                    .sink(receiveCompletion: { _ in
                     }, receiveValue: { [weak self] value in
                         guard let self = self else { return }
                         self.isDemmed.send(false)

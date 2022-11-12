@@ -276,6 +276,8 @@ class AddDayNoteViewController: UIViewController {
                         if self.viewModel.isEdit {
                             self.viewModel.editDayNote()
                         } else {
+                            print("여기로 안들어옴?")
+                            self.viewModel.isDemmed.send(false)
                             self.alretView.showToastPopup(text: "이미 작성된 데이노트가 있어요!\n다른 날을 선택해주세요.")
                         }
                     }
