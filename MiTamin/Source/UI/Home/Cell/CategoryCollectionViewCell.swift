@@ -136,7 +136,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         }
         
         subLabel.snp.makeConstraints {
-            $0.top.equalTo(textView.snp.bottom).offset(40)
+            $0.top.equalTo(textView.snp.bottom).offset(20)
             $0.leading.equalToSuperview()
         }
         

@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchImage" translatesAutoresizingMaskIntoConstraints="NO" id="vxN-Ug-aHc">
-                                <rect key="frame" x="138" y="389" width="138" height="118"/>
+                                <rect key="frame" x="138" y="394" width="138" height="118"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="118" id="7LK-YS-ZG8"/>
                                     <constraint firstAttribute="width" constant="138" id="ndH-pS-C3I"/>
@@ -26,8 +26,8 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="1" green="0.49803921569999998" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="vxN-Ug-aHc" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="345" id="lBz-8T-rNc"/>
-                            <constraint firstItem="vxN-Ug-aHc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="138" id="w7k-Pz-dtO"/>
+                            <constraint firstItem="vxN-Ug-aHc" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="KRx-2t-OqW"/>
+                            <constraint firstItem="vxN-Ug-aHc" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="met-zr-8bL"/>
                         </constraints>
                     </view>
                 </viewController>

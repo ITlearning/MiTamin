@@ -97,6 +97,7 @@ struct HistoryResetView: View {
                             .foregroundColor(Color(uiColor: .primaryColor))
                     )
             })
+            .padding(.bottom, 20)
         }
         
         

@@ -80,6 +80,7 @@ struct CategoryBottomSheetView: View {
                 .padding(.top, 24)
                 .navigationBarHidden(true)
                 .offset(x: -10)
+                .padding(.bottom, 20)
             
             if type == .history {
                 Button(action: {
@@ -98,6 +99,7 @@ struct CategoryBottomSheetView: View {
                                 .frame(width: UIScreen.main.bounds.width - 40, height: 56)
                         )
                 })
+                .padding(.bottom, 20)
             }
         }
         .onAppear {

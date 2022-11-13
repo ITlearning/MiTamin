@@ -448,13 +448,13 @@ class MyTaminViewController: UIViewController {
                 self.passButton.alpha = 1.0
                 
                 self.collectionView.snp.makeConstraints {
-                    $0.top.equalTo(self.toggleSwitch.snp.bottom).offset(20)
+                    $0.top.equalTo(self.toggleSwitch.snp.bottom).offset(10)
                     $0.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(20)
                     $0.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing).inset(20)
-                    $0.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).inset(142)
+                    $0.bottom.equalTo(self.passButton.snp.bottom)
                 }
-                self.collectionView.superview?.layoutIfNeeded()
                 
+                self.collectionView.superview?.layoutSubviews()
             }, completion: { _ in
                 self.autoTextLabel.isHidden = false
                 self.toggleSwitch.isHidden = false
@@ -466,16 +466,14 @@ class MyTaminViewController: UIViewController {
                 self.toggleSwitch.alpha = 0.0
                 self.passButton.alpha = 0.0
                 
-                self.collectionView.snp.remakeConstraints {
-                    $0.top.equalTo(self.toggleSwitch.snp.bottom).offset(-28)
+                self.collectionView.snp.makeConstraints {
+                    $0.top.equalTo(self.toggleSwitch.snp.bottom).inset(-50)
                     $0.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(20)
                     $0.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing).inset(20)
-                    $0.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).inset(142)
+                    $0.bottom.equalTo(self.passButton.snp.bottom)
                 }
                 
-                self.collectionView.superview?.layoutIfNeeded()
-                
-                
+                self.collectionView.superview?.layoutSubviews()
             }, completion: { _ in
                 self.autoTextLabel.isHidden = true
                 self.toggleSwitch.isHidden = true
@@ -605,10 +603,10 @@ class MyTaminViewController: UIViewController {
         }
         
         collectionView.snp.makeConstraints {
-            $0.top.equalTo(toggleSwitch.snp.bottom).offset(20)
+            $0.top.equalTo(toggleSwitch.snp.bottom).offset(10)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(90)
+            $0.bottom.equalTo(passButton.snp.bottom)
         }
         
         bottomBarImage.snp.makeConstraints {
@@ -618,13 +616,13 @@ class MyTaminViewController: UIViewController {
         }
         
         passButton.snp.makeConstraints {
-            $0.top.equalTo(bottomBarImage.snp.top).offset(12)
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(66)
             $0.leading.equalTo(bottomBarImage.snp.leading).offset(20)
             $0.trailing.equalTo(bottomBarImage.snp.trailing).inset(20)
             $0.height.equalTo(56)
         }
         nextButton.snp.makeConstraints {
-            $0.top.equalTo(bottomBarImage.snp.top).offset(12)
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(66)
             $0.leading.equalTo(bottomBarImage.snp.leading).offset(20)
             $0.trailing.equalTo(bottomBarImage.snp.trailing).inset(20)
             $0.height.equalTo(56)

@@ -133,7 +133,7 @@ class MyTaminCollectionViewCell: UICollectionViewCell {
         }
         
         timerImageView.snp.makeConstraints {
-            $0.top.equalTo(containerView.snp.top).offset(30)
+            $0.top.equalTo(containerView.snp.top)
             $0.centerX.equalTo(containerView.snp.centerX)
             $0.width.equalTo(218)
             $0.height.equalTo(218)
@@ -152,12 +152,12 @@ class MyTaminCollectionViewCell: UICollectionViewCell {
         }
         
         mainTitle.snp.makeConstraints {
-            $0.top.equalTo(playButton.snp.bottom).offset(40)
+            $0.top.equalTo(playButton.snp.bottom).offset(30)
             $0.centerX.equalTo(containerView.snp.centerX)
         }
 
         subTitle.snp.makeConstraints {
-            $0.top.equalTo(mainTitle.snp.bottom).offset(20)
+            $0.top.equalTo(mainTitle.snp.bottom).offset(10)
             $0.leading.equalTo(self.snp.leading).offset(20)
             $0.trailing.equalTo(self.snp.trailing).inset(21)
         }

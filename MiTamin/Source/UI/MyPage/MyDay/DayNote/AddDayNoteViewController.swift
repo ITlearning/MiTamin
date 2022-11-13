@@ -560,7 +560,7 @@ class AddDayNoteViewController: UIViewController {
         }
         
         doneButton.snp.makeConstraints {
-            $0.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
+            $0.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).inset(20)
             $0.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(20)
             $0.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing).inset(20)
             $0.height.equalTo(56)

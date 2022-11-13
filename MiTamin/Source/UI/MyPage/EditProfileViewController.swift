@@ -68,6 +68,8 @@ class EditProfileViewController: UIViewController {
     private let subMessageLastLabel: UILabel = {
         let label = UILabel()
         label.text = "내가 될"
+        label.numberOfLines = 0
+        label.lineBreakMode = .byClipping
         label.font = UIFont.SDGothicMedium(size: 16)
         label.textColor = UIColor.grayColor4
         
@@ -330,13 +332,12 @@ class EditProfileViewController: UIViewController {
         subMessageTextField.snp.makeConstraints {
             $0.top.equalTo(subMessageLabel.snp.bottom).offset(8)
             $0.leading.equalTo(subMessageLabel)
-            $0.trailing.equalTo(subMessageLastLabel.snp.leading).offset(-20)
             $0.height.equalTo(48)
             $0.width.equalTo(277)
         }
         
         doneButton.snp.makeConstraints {
-            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(20)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
             $0.height.equalTo(56)
