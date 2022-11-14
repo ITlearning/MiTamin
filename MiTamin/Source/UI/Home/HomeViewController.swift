@@ -142,6 +142,8 @@ class HomeViewController: UIViewController {
         return button
     }()
     
+    lazy var myTaminReportView = UIHostingController(rootView: MyTaminReportView(viewModel: self.viewModel, historyViewModel: HistoryViewController.ViewModel()))
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         UserDefaults.standard.set(true, forKey: "tabChange")
@@ -245,6 +247,33 @@ class HomeViewController: UIViewController {
                 
             })
             .cancel(with: cancelBag)
+        
+        viewModel.$reportData
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { value in
+                if value != nil {
+                    self.setSize()
+                }
+            })
+            .cancel(with: cancelBag)
+        
+        viewModel.$careData
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { value in
+                if value != nil {
+                    self.setSize()
+                }
+            })
+            .cancel(with: cancelBag)
+    }
+    
+    func setSize() {
+        myTaminReportView.view.snp.remakeConstraints {
+            $0.top.equalTo(toDayMyTaminLabel.snp.bottom).offset(24)
+            $0.leading.trailing.equalToSuperview()
+        }
+        myTaminReportView.view.layoutSubviews()
+        myTaminReportView.view.invalidateIntrinsicContentSize()
     }
     
     func showLodingScreen() {
@@ -275,7 +304,9 @@ class HomeViewController: UIViewController {
     
     private func configureLayout() {
         let mainScrollView = UIHostingController(rootView: MainCollectionView(viewModel: self.viewModel))
-        let myTaminReportView = UIHostingController(rootView: MyTaminReportView(viewModel: self.viewModel, historyViewModel: HistoryViewController.ViewModel()))
+        
+        
+        myTaminReportView.view.invalidateIntrinsicContentSize()
         mainScrollView.view.isSkeletonable = true
         mainLogoImageView.isSkeletonable = true
         scrollView.backgroundColor = .white

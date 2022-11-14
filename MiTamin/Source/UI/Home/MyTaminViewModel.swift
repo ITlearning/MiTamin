@@ -119,7 +119,7 @@ extension MyTaminViewController {
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { _ in }, receiveValue: { value in
                     if let index = self.selectMindArray.firstIndex(where: { $0 == value.data.careCategory }) {
-                        self.selectCategoryIdx.send(index+1)
+                        self.selectCategoryIdx.send(index)
                     }
                     self.mainTextViewData.send(value.data.careMsg1)
                     self.subTextViewData.send(value.data.careMsg2)

@@ -18,6 +18,10 @@ class WeeklyCalendarViewController: UIViewController {
     
     private lazy var calendarView = CalendarView(viewModel: self.viewModel, type: .week)
     private lazy var mytaminReportView = MyTaminReportView(viewModel: HomeViewController.ViewModel(), historyViewModel: self.viewModel, type: .history)
+    lazy var mytamin = UIHostingController(rootView: mytaminReportView)
+    
+    let scrollView = UIScrollView()
+    
     private let calendarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "calendar")
@@ -161,25 +165,41 @@ class WeeklyCalendarViewController: UIViewController {
                     self.navigationItem.rightBarButtonItem = nil
                 } else {
                     self.navigationItem.rightBarButtonItem = self.deleteButton
+                    self.setSize()
                 }
             })
             .cancel(with: cancelBag)
         
     }
     
+    func setSize() {
+        mytamin.view.snp.remakeConstraints {
+            $0.top.equalTo(stackViewTwo.snp.bottom).offset(20)
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
+        }
+        mytamin.view.layoutSubviews()
+        mytamin.view.invalidateIntrinsicContentSize()
+    }
+    
     func configureLayout() {
         let calendar = UIHostingController(rootView: calendarView)
-        view.addSubview(calendar.view)
-        view.addSubview(stackView)
-        view.addSubview(sepView)
-        view.addSubview(stackViewTwo)
-        let mytamin = UIHostingController(rootView: mytaminReportView)
-        view.addSubview(mytamin.view)
+        view.addSubview(scrollView)
+        scrollView.addSubview(calendar.view)
+        scrollView.addSubview(stackView)
+        scrollView.addSubview(sepView)
+        scrollView.addSubview(stackViewTwo)
+        
+        scrollView.addSubview(mytamin.view)
         
         calendar.rootView.delegate = self
         
+        scrollView.snp.makeConstraints {
+            $0.top.leading.trailing.bottom.equalToSuperview()
+        }
+        
         stackView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(25)
+            $0.top.equalTo(scrollView.snp.top).offset(25)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
         }
         
@@ -197,7 +217,8 @@ class WeeklyCalendarViewController: UIViewController {
         
         sepView.snp.makeConstraints {
             $0.top.equalTo(calendar.view.snp.bottom).offset(17)
-            $0.leading.trailing.equalToSuperview()
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
             $0.height.equalTo(8)
         }
         
@@ -211,6 +232,25 @@ class WeeklyCalendarViewController: UIViewController {
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
         }
+        
+        
+        mytamin.view.layoutSubviews()
+        mytamin.view.invalidateIntrinsicContentSize()
+        
+        let sep2View = UIView()
+        
+        sep2View.backgroundColor = .white
+        
+        scrollView.addSubview(sep2View)
+        
+        sep2View.snp.makeConstraints {
+            $0.top.equalTo(mytamin.view.snp.bottom)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(100)
+            $0.bottom.equalTo(scrollView.snp.bottom)
+        }
+
+        
     }
 
     private func setCurrentDay(date: String) {
