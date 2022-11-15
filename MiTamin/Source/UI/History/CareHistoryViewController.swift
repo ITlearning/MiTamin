@@ -166,6 +166,18 @@ class CareHistoryViewController: UIViewController {
         present(nav, animated: true)
     }
 
+    //Function to calculate height for label based on text
+    func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat {
+        let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
+        label.numberOfLines = 0
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
+        label.font = font
+        label.text = text
+
+        label.sizeToFit()
+        return label.frame.height
+    }
+    
 }
 
 
@@ -183,7 +195,10 @@ extension CareHistoryViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 96
+        
+        let item = viewModel.careList[indexPath.section].data[indexPath.row]
+        
+        return 96 + heightForView(text: item.careMsg1+"\n\(item.careMsg2)", font: .SDGothicMedium(size: 14), width: UIScreen.main.bounds.width-40)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

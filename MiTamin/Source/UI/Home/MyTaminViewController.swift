@@ -173,7 +173,7 @@ class MyTaminViewController: UIViewController {
         label.textColor = UIColor.white
         return label
     }()
-    
+    let toastView = AlertToastView()
     lazy var alertView = UIHostingController(rootView: AlertView(viewModel: self.viewModel))
     lazy var indicatorView = UIHostingController(rootView: IndicatorView(viewModel: self.viewModel))
     override func viewDidDisappear(_ animated: Bool) {
@@ -281,7 +281,7 @@ class MyTaminViewController: UIViewController {
                         UserDefaults.standard.set(true, forKey: "updateData")
                         self.viewModel.sendCareDailyReport()
                     }
-                    self.dismiss(animated: true)
+                    
                 }
             })
             .cancel(with: cancelBag)
@@ -378,6 +378,16 @@ class MyTaminViewController: UIViewController {
             })
             .cancel(with: cancelBag)
         
+        viewModel.alertOpen
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { value in
+                if value {
+                    self.toastView.showToastPopup(text: "칭찬할 부분을 골라주세요!")
+                } else {
+                    self.dismiss(animated: true)
+                }
+            })
+            .cancel(with: cancelBag)
     }
     
     func dismissAlert() {

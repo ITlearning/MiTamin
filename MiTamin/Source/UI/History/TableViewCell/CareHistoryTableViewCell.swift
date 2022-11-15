@@ -12,12 +12,19 @@ class CareHistoryTableViewCell: UITableViewCell {
 
     static let cellId = "careHistoryTableViewCell"
     
+    let containerView: UIView = {
+        let v = UIView()
+        v.backgroundColor = UIColor.white
+        
+        return v
+    }()
+    
     let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.SDGothicRegular(size: 14)
         label.textAlignment = .left
         label.textColor = UIColor.black
-        
+        label.numberOfLines = 0
         return label
     }()
     
@@ -54,14 +61,20 @@ class CareHistoryTableViewCell: UITableViewCell {
     }
     
     private func configureCell() {
-        self.addSubview(backGroundView)
-        self.addSubview(titleLabel)
-        self.addSubview(dateLabel)
-        self.addSubview(spacerView)
+        self.addSubview(containerView)
+        
+        containerView.addSubview(backGroundView)
+        containerView.addSubview(titleLabel)
+        containerView.addSubview(dateLabel)
+        containerView.addSubview(spacerView)
         spacerView.backgroundColor = .clear
         
+        containerView.snp.makeConstraints {
+            $0.top.leading.trailing.bottom.equalToSuperview()
+        }
+        
         backGroundView.snp.makeConstraints {
-            $0.top.equalToSuperview()
+            $0.top.equalTo(containerView.snp.top)
             $0.leading.equalTo(self.snp.leading).offset(20)
             $0.trailing.equalTo(self.snp.trailing).inset(20)
             $0.bottom.equalTo(spacerView.snp.top)
@@ -75,14 +88,14 @@ class CareHistoryTableViewCell: UITableViewCell {
         }
         
         dateLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.top).offset(16)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(16)
             $0.leading.equalTo(titleLabel.snp.leading)
         }
         
         spacerView.snp.makeConstraints {
             $0.top.equalTo(backGroundView.snp.bottom)
             $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalToSuperview()
+            $0.bottom.equalTo(containerView.snp.bottom)
             $0.height.equalTo(12)
         }
     }

@@ -31,6 +31,7 @@ extension MyTaminViewController {
         var selectedDataString = CurrentValueSubject<String, Never>("")
         var isEditStatus = PassthroughSubject<Bool, Never>()
         var dataIsReady = PassthroughSubject<Bool, Never>()
+        var alertOpen = PassthroughSubject<Bool, Never>()
         var networkManager = NetworkManager()
         var cancelBag = CancelBag()
         
@@ -140,14 +141,21 @@ extension MyTaminViewController {
         
         func sendCareDailyReport() {
             print(selectCategoryIdx.value ,mainTextViewData.value,subTextViewData.value)
-            networkManager.careDaily(category: selectCategoryIdx.value+1, careMsg1: mainTextViewData.value, careMsg2: subTextViewData.value)
-                .receive(on: DispatchQueue.global())
-                .sink(receiveCompletion: { _ in }, receiveValue: { result in
-                    print(result.data)
-                    UserDefaults.standard.set(true, forKey: "updateData")
-                    UserDefaults.standard.set(result.data.careId, forKey: .careId)
-                })
-                .cancel(with: cancelBag)
+            
+            if selectCategoryIdx.value == -1 {
+                alertOpen.send(true)
+            } else {
+                networkManager.careDaily(category: selectCategoryIdx.value+1, careMsg1: mainTextViewData.value, careMsg2: subTextViewData.value)
+                    .receive(on: DispatchQueue.global())
+                    .sink(receiveCompletion: { _ in }, receiveValue: { result in
+                        print(result.data)
+                        self.alertOpen.send(false)
+                        UserDefaults.standard.set(true, forKey: "updateData")
+                        UserDefaults.standard.set(result.data.careId, forKey: .careId)
+                    })
+                    .cancel(with: cancelBag)
+            }
+            
         }
         
         func sendDailyReport() {
