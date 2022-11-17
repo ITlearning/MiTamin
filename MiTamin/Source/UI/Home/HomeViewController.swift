@@ -221,10 +221,10 @@ class HomeViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in }, receiveValue: { value in
                 if value {
-                    self.viewModel.loadLatestData()
-                } else {
                     self.viewModel.loadDailyReport()
                     self.viewModel.loadCareReport()
+                } else {
+                    self.viewModel.loadLatestData()
                 }
             })
             .cancel(with: cancelBag)

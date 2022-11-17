@@ -42,6 +42,7 @@ extension HomeViewController {
             loadingMainScreen.send(false)
             
             networkManager.checkMyTaminStatus()
+                .print()
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { result in
                     switch result {
@@ -50,6 +51,7 @@ extension HomeViewController {
                         print(error.localizedDescription)
                     case .finished:
                         print("에러발생")
+                        
                     }
                 }, receiveValue: { result in
                     self.mainCellItems.send([
@@ -103,15 +105,23 @@ extension HomeViewController {
             self.reportData = nil
             networkManager.loadDailyReportData()
                 .receive(on: DispatchQueue.main)
-                .sink(receiveCompletion: { _ in
-                    self.reportData = nil
+                .sink(receiveCompletion: { result in
+                    //self.reportData = nil
                     withAnimation {
                         self.dataIsReady = true
                     }
+                
+                    switch result {
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                    case .finished:
+                        print("Done")
+                    }
+                    
                 }, receiveValue: { value in
                     let data = value.data
                     self.reportData = data
-                    print(self.reportData)
+                    print("dsadasdsadssad",self.reportData)
                     UserDefaults.standard.set(value.data.reportId, forKey: .reportId)
                     withAnimation {
                         self.dataIsReady = true
@@ -136,16 +146,11 @@ extension HomeViewController {
             networkManager.loadCareReportData()
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { _ in
-                    print(self.careData)
-                    self.careData = nil
                     withAnimation {
                         self.dataIsReady = true
                     }
-                    
                 }, receiveValue: { value in
                     self.careData = value.data
-                    print("dasdsasd",self.careData)
-                    print(self.careData)
                     UserDefaults.standard.set(value.data.careId, forKey: .careId)
                     withAnimation {
                         self.dataIsReady = true
