@@ -85,6 +85,7 @@ class CareHistoryTableViewCell: UITableViewCell {
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(backGroundView.snp.top).offset(16)
             $0.leading.equalTo(backGroundView.snp.leading).offset(16)
+            $0.trailing.equalTo(backGroundView.snp.trailing).inset(16)
         }
         
         dateLabel.snp.makeConstraints {
