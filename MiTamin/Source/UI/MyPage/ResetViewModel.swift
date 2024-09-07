@@ -25,6 +25,10 @@ extension ResetViewController {
             UserDefaults.standard.set(selectIndex[2] == 1 ? true : false, forKey: "AllResetMyDay")
             UserDefaults.standard.set(true, forKey: "NeedUpdateHistory")
             UserDefaults.standard.set(true, forKey: "NeedUpdateMain")
+            self.loading = false
+            self.done = true
+            // 코드 수정 필요합니다.
+            /*
             networkManager.resetData(array: selectIndex)
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { _ in
@@ -34,6 +38,7 @@ extension ResetViewController {
                     self.done = true
                 })
                 .cancel(with: cancelBag)
+             */
         }
     }
 }

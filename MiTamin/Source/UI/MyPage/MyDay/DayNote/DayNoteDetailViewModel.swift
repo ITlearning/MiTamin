@@ -35,7 +35,7 @@ extension DayNoteDetailViewController {
             downloadedImage.removeAll()
             DispatchQueue.global(qos: .utility).async {
                 self.dayNoteModel?.imgList.forEach({ url in
-                    let resource = ImageResource(downloadURL: URL(string: url)!)
+                    let resource = Kingfisher.ImageResource(downloadURL: URL(string: url)!)
                     KingfisherManager.shared.retrieveImage(with: resource, options: nil, progressBlock: nil)  { result in
                         switch result {
                         case .success(let value):

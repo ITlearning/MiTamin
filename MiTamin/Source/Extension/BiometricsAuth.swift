@@ -50,6 +50,10 @@ public class BiometricsAuth {
                 }
             case .none:
                 print("미지원")
+            case .opticID:
+                print("미지원")
+            @unknown default:
+                print("미지원")
             }
             
             

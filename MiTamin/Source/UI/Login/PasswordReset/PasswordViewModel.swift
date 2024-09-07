@@ -54,8 +54,12 @@ extension PasswordViewController {
         }
         
         func resetPassword() {
-            loading = true
+            loading = false
+            
+            // 코드 수정 필요합니다.
+            /*
             if type == .signIn {
+                
                 networkManager.resetPassword(email: email, password: passwordCheckText)
                     .receive(on: DispatchQueue.main)
                     .sink(receiveCompletion: { _ in
@@ -76,7 +80,8 @@ extension PasswordViewController {
                     })
                     .cancel(with: cancelBag)
             }
-            
+             */
         }
+           
     }
 }

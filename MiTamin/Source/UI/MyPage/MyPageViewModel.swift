@@ -19,7 +19,11 @@ extension MyPageViewController {
         @Published var userWithDrawal: Bool = false
         
         func withDrawal() {
-            loading = true
+            //loading = true
+            self.loading = false
+            self.userWithDrawal = true
+            // 코드 수정 필요합니다.
+            /*
             networkManager.userWithdrawal()
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { _ in
@@ -29,6 +33,7 @@ extension MyPageViewController {
                     self.userWithDrawal = true
                 })
                 .cancel(with: cancelBag)
+             */
         }
         
         func getMyDayInfo() {

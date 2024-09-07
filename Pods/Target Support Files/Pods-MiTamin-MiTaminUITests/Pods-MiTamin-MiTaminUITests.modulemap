@@ -1,6 +1,0 @@
-framework module Pods_MiTamin_MiTaminUITests {
-  umbrella header "Pods-MiTamin-MiTaminUITests-umbrella.h"
-
-  export *
-  module * { export * }
-}
